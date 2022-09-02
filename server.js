@@ -8,7 +8,7 @@ const app = express();
 app.use(express.static('public'));
 
 // API Routes
-app.use('/api/' + API_VERSION, [require('./server/routes/genre_route')]);
+app.use('/api/' + API_VERSION, [require('./server/routes/genre_route'), require('./server/routes/certification_route')]);
 
 // Server Port
 const port = 3000;

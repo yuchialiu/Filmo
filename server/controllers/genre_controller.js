@@ -1,7 +1,7 @@
 require('dotenv').config();
 const axios = require('axios');
-const Genre = require('../models/genre_model');
 const { TMDB_Key } = process.env;
+const Genre = require('../models/genre_model');
 
 let locale;
 
@@ -13,7 +13,7 @@ const insertGenreEn = async (req, res) => {
   if (result == 'failed') {
     res.status(500).send({ error: 'insert error' });
   } else {
-    res.status(200).send('inserted');
+    res.status(200).send({ response: 'inserted' });
   }
 };
 
@@ -25,7 +25,7 @@ const insertGenreZh = async (req, res) => {
   if (result == 'failed') {
     res.status(500).send({ error: 'insert error' });
   } else {
-    res.status(200).send('inserted');
+    res.status(200).send({ response: 'inserted' });
   }
 };
 
@@ -37,7 +37,7 @@ const insertGenreFr = async (req, res) => {
   if (result == 'failed') {
     res.status(500).send({ error: 'insert error' });
   } else {
-    res.status(200).send('inserted');
+    res.status(200).send({ response: 'inserted' });
   }
 };
 

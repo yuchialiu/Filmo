@@ -46,7 +46,7 @@ const insertGenreFr = async (genres, locale) => {
   try {
     const query = await pool.execute('SELECT * FROM genre');
     let data = query[0];
-    console.log('data', data);
+
     for (let i in genres) {
       for (let j in data) {
         if (genres[i].id == data[j].ref_id) {
