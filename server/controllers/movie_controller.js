@@ -4,7 +4,7 @@ const { TMDB_Key } = process.env;
 const Movie = require('../models/movie_model');
 
 let locale;
-let page = 1;
+let page = 5;
 
 const insertMovie = async (req, res) => {
   locale = 'en-US';

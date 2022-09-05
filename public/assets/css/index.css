@@ -1,0 +1,23 @@
+.body {
+  padding: 0;
+  margin: 0;
+}
+
+.Parent {
+  display: flex;
+  flex-direction: row;
+}
+
+.child1 {
+  width: 50%;
+  height: 100vh;
+  background-color: green;
+  text-align: right;
+  color: white;
+}
+
+.child2 {
+  width: 50%;
+  color: green;
+  height: 100vh;
+}

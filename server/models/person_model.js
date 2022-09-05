@@ -36,13 +36,17 @@ const insertPerson = async (data) => {
     for (let i = 0; i < castIndex; i++) {
       const personDb = await pool.execute('SELECT * FROM person WHERE ref_id = ?', [cast[i].id]);
       if (personDb[0].length == 0) {
-        const url = `https://image.tmdb.org/t/p/h632${cast[i].profile_path}`;
-        const path = `./public/people/${cast[i].id}.jpg`;
-        myFileName = `${cast[i].id}.jpg`;
+        if (cast[i].profile_path === null) {
+          myFileName = null;
+        } else {
+          const url = `https://image.tmdb.org/t/p/h632${cast[i].profile_path}`;
+          const path = `./public/assets/images/people/${cast[i].id}.jpg`;
+          myFileName = `${cast[i].id}.jpg`;
 
-        download(url, path, () => {
-          console.log(`✅ cast image ${i} Done!`);
-        });
+          download(url, path, () => {
+            console.log(`✅ cast image ${i} Done!`);
+          });
+        }
 
         let insertId = await savePerson(cast[i].id, myFileName);
         // let sqlPerson = 'INSERT INTO person (ref_id, profile_image) VALUES (?, ?)';
@@ -71,13 +75,17 @@ const insertPerson = async (data) => {
       const personDb = await pool.execute('SELECT * FROM person WHERE ref_id = ?', [crew[i].id]);
 
       if (personDb[0].length == 0) {
-        const url = `https://image.tmdb.org/t/p/h632${crew[i].profile_path}`;
-        const path = `./public/people/${crew[i]}.jpg`;
-        myFileName = `${crew[i].id}.jpg`;
+        if (crew[i].profile_path === null) {
+          myFileName = null;
+        } else {
+          const url = `https://image.tmdb.org/t/p/h632${crew[i].profile_path}`;
+          const path = `./public/assets/images/people/${crew[i]}.jpg`;
+          myFileName = `${crew[i].id}.jpg`;
 
-        download(url, path, () => {
-          console.log(`✅ crew image ${i} Done!`);
-        });
+          download(url, path, () => {
+            console.log(`✅ crew image ${i} Done!`);
+          });
+        }
 
         let insertId = await savePerson(crew[i].id, myFileName);
         // let sqlPerson = 'INSERT INTO person (ref_id, profile_image) VALUES (?, ?)';

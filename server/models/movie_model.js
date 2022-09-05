@@ -30,18 +30,19 @@ const insertMovie = async (movies) => {
             genre_id = genre[0][j].id;
           }
 
-        const url = `https://image.tmdb.org/t/p/w500${movies[i].poster_path}`;
-        const path = `./public/posters/${movies[i].id}.jpg`;
-        myFileName = `${movies[i].id}.jpg`;
+        if (movies[i].poster_path === null) {
+          myFileName = null;
+        } else {
+          const url = `https://image.tmdb.org/t/p/w500${movies[i].poster_path}`;
+          const path = `./public/assets/images/posters/${movies[i].id}.jpg`;
+          myFileName = `${movies[i].id}.jpg`;
 
-        download(url, path, () => {
-          console.log(`✅ image ${i} Done!`);
-        });
+          download(url, path, () => {
+            console.log(`✅ image ${i} Done!`);
+          });
+        }
 
         let sql = 'INSERT INTO movie (ref_id, original_title, release_date, genre_id, poster_image) VALUES (?, ?, ?, ?, ?)';
-        // sql += '(?, ?, ?, ?, ?), ';
-        // sql = sql.slice(0, -2);
-
         const resultMovie = await pool.execute(sql, [movies[i].id, movies[i].original_title, movies[i].release_date, genre_id, myFileName]);
 
         saveMovieTranslation(movies[i].id, resultMovie[0].insertId);
@@ -59,6 +60,7 @@ module.exports = { insertMovie };
 
 async function saveMovieTranslation(apiId, movieId) {
   let locales = ['en-US', 'fr-FR', 'zh-TW'];
+  let lanArr = [];
 
   for (let i in locales) {
     const details = await axios.get(`https://api.themoviedb.org/3/movie/${apiId}?api_key=${TMDB_Key}&language=${locales[i]}&append_to_response=videos,releases`);
@@ -71,11 +73,17 @@ async function saveMovieTranslation(apiId, movieId) {
 
     let sqlDetails = 'INSERT INTO movie_translation (movie_id, locale, title, overview, spoken_languages) VALUES (?, ?, ?, ?, ?)';
 
-    let resultMovieDetails = await pool.execute(sqlDetails, [movieId, locales[i], dataDetails.title, dataDetails.overview, dataDetails.spoken_languages[0].english_name]);
+    if (dataDetails.spoken_languages.length === 0) {
+      lanArr.push(null);
+    } else {
+      lanArr.push(dataDetails.spoken_languages[0].english_name);
+    }
+
+    let resultMovieDetails = await pool.execute(sqlDetails, [movieId, locales[i], dataDetails.title, dataDetails.overview, lanArr[0]]);
 
     if (dataDetails.videos.results.length !== 0) {
       await pool.execute(`UPDATE movie_translation SET trailer = (?) WHERE id = ${resultMovieDetails[0].insertId} AND locale = \'${locales[i]}\'`, [
-        `https://www.youtube.com/watch?v=${dataDetails.videos.results[0].key}`,
+        dataDetails.videos.results[0].key,
       ]);
     }
 

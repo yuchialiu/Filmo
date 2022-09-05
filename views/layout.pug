@@ -1,0 +1,100 @@
+doctype html
+head
+  meta(charset="UTF-8")
+  meta(http-equiv="X-UA-Compatible", content="IE=edge")
+  meta(name="viewport", content="width=device-width, initial-scale=1.0")
+  title Filmo
+  link(rel="stylesheet", href="stylesheet/layout.css")
+body 
+header#header
+  // Bootstrap core CSS
+  link(href='vendor/bootstrap/css/bootstrap.min.css' rel='stylesheet')
+  // Additional CSS Files
+  link(rel='stylesheet' href='assets/css/fontawesome.css')
+  link(rel='stylesheet' href='assets/css/templatemo-cyborg-gaming.css')
+  link(rel='stylesheet' href='assets/css/owl.css')
+  link(rel='stylesheet' href='assets/css/animate.css')
+  link(rel='stylesheet' href='https://unpkg.com/swiper@7/swiper-bundle.min.css')
+  //
+    TemplateMo 579 Cyborg Gaming
+    https://templatemo.com/tm-579-cyborg-gaming
+// ***** Preloader Start *****
+#js-preloader.js-preloader
+  .preloader-inner
+    span.dot
+    .dots
+      span
+      span
+      span
+// ***** Preloader End *****
+// ***** Header Area Start *****
+header.header-area.header-sticky
+  .container
+    .row
+      .col-12
+        nav.main-nav 
+          // ***** Logo Start *****
+          a.logo(href='index.html')
+            img(src='assets/images/filmo_logo_2.png' alt='')
+          // ***** Logo End *****
+          // ***** Search End *****
+          .search-input
+            form#search(action='#')
+              input#searchText(type='text' placeholder='Search' name='searchKeyword' onkeypress='handle')
+              i.fa.fa-search
+          // ***** Search End *****
+          // ***** Menu Start *****
+          ul.nav
+            li
+              a.active(href='index.html') Home
+            li
+              a(href='browse.html') Browse
+            li
+              a(href='details.html') Details
+            li
+              a(href='streams.html') Streams
+            li
+              a(href='profile.html')
+                | Profile 
+                img(src='assets/images/profile-header.jpg' alt='')
+            li.dropdown
+              a.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false')
+                | EN
+                span.caret
+              ul.dropdown-menu
+                li
+                  a(href='#') Action
+                li
+                  a(href='#') Another action
+                li
+                  a(href='#') Something else here
+                li.divider(role='separator')
+                li
+                  a(href='#') Separated link
+                li.divider(role='separator')
+                li
+                  a(href='#') One more separated link
+          a.menu-trigger
+            span Menu
+          // ***** Menu End *****
+block content
+footer
+  .container-footer
+    .row
+      .col-lg-12
+        p
+          | Copyright &copy; 2022 
+          a(href='#') Filmo
+          | . All rights reserved. 
+          br
+          //- | Design: 
+          //- a(href='https://templatemo.com' target='_blank' title='free CSS templates') TemplateMo
+// Scripts
+// Bootstrap core JavaScript
+script(src='vendor/jquery/jquery.min.js')
+script(src='vendor/bootstrap/js/bootstrap.min.js')
+script(src='assets/js/isotope.min.js')
+script(src='assets/js/owl-carousel.js')
+script(src='assets/js/tabs.js')
+script(src='assets/js/popup.js')
+script(src='assets/js/custom.js')

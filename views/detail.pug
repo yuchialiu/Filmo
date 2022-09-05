@@ -1,0 +1,14 @@
+extends layout.pug 
+//- link(rel='stylesheet', href='./public/css/index.css')
+
+block content 
+  .detail
+  h1(style='text-align: center; padding-top: 100px; margin-top: 20px;') #{data[0].title}
+  p(style='display: flex; justify-content: center;') #{data[0].original_title}
+  div.media(style='display: flex;')
+    img(src=`http://localhost:3000/public/assets/images/posters/${data[0].poster_image}`, style='width:350px; ')
+    
+    //- h6(style='display: flex; justify-content: center;') #{data[0].release_date}
+    div.media-middle(style='display: flex; flex-direction: column')
+      h6(style='display: flex; margin: 50px ; width: 500px; ') #{data[0].overview}
+      iframe(src = `https://www.youtube.com/embed/${data[0].trailer}?rel=0` , width='540' height='290', frameborder = '0', allowfullscreen = '',)

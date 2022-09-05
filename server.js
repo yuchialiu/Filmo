@@ -5,11 +5,19 @@ const { API_VERSION } = process.env;
 const express = require('express');
 const app = express();
 
+app.set('view engine', 'pug');
+
 app.use(express.static('public'));
 app.use('/public', express.static('public'));
 
+// app.get('/', (req, res) => {
+//   res.render('index');
+// });
+
+app.use('/', [require('./server/routes/index_route')]);
+
 // API Routes
-app.use('/api/' + API_VERSION, [require('./server/routes/genre_route'), require('./server/routes/movie_route'), require('./server/routes/person_route')]);
+app.use('/api/' + API_VERSION, [require('./server/routes/admin_route')]);
 
 // Server Port
 const port = 3000;
