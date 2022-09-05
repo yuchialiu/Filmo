@@ -86,7 +86,6 @@ const insertPerson = async (data) => {
 
         savePersonDetail(crew[i].id, insertId);
       } else {
-        console.log('personDb[0]', personDb[0]);
         personId = personDb[0][0].id;
       }
 
@@ -116,15 +115,15 @@ async function savePerson(personId, myFileName) {
 async function savePersonDetail(apiId, dbPersonId) {
   let locales = ['en-US', 'fr-FR', 'zh-TW'];
 
-  for (i in locales) {
+  for (let i in locales) {
     const personDetail = await axios.get(`https://api.themoviedb.org/3/person/${apiId}?api_key=${TMDB_Key}&language=${locales[i]}`);
     if (i == 0) {
       const sqlPersonUpdate = `UPDATE person SET birthday = (?), deathday = (?) , place_of_birth = (?) WHERE ref_id = ${apiId}`;
       await pool.execute(sqlPersonUpdate, [personDetail.data.birthday, personDetail.data.deathday, personDetail.data.place_of_birth]);
     }
 
-    const sqlPersonUS = 'INSERT INTO person_translation (person_id, locale, `name`, biography) VALUES (?, ?, ?, ?)';
-    await pool.execute(sqlPersonUS, [dbPersonId, locales[i], personDetail.data.name, personDetail.data.biography]);
+    const sqlPerson = 'INSERT INTO person_translation (person_id, locale, `name`, biography) VALUES (?, ?, ?, ?)';
+    await pool.execute(sqlPerson, [dbPersonId, locales[i], personDetail.data.name, personDetail.data.biography]);
   }
 }
 

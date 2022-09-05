@@ -20,28 +20,32 @@ const download = (url, path, callback) => {
 const insertMovie = async (movies) => {
   try {
     for (let i in movies) {
-      // validate genre
-      const genre = await pool.execute('SELECT * FROM genre');
-      for (let j in genre[0])
-        if (movies[i].genre_ids[0] == genre[0][j].ref_id) {
-          genre_id = genre[0][j].id;
-        }
+      // Validate movie
+      const movieDb = await pool.execute('SELECT * FROM movie WHERE ref_id = (?)', [movies[i].id]);
+      if (movieDb[0].length == 0) {
+        // validate genre
+        const genre = await pool.execute('SELECT * FROM genre');
+        for (let j in genre[0])
+          if (movies[i].genre_ids[0] == genre[0][j].ref_id) {
+            genre_id = genre[0][j].id;
+          }
 
-      const url = `https://image.tmdb.org/t/p/w500${movies[i].poster_path}`;
-      const path = `./public/posters/${movies[i].id}.jpg`;
-      myFileName = `${movies[i].id}.jpg`;
+        const url = `https://image.tmdb.org/t/p/w500${movies[i].poster_path}`;
+        const path = `./public/posters/${movies[i].id}.jpg`;
+        myFileName = `${movies[i].id}.jpg`;
 
-      download(url, path, () => {
-        console.log(`✅ image ${i} Done!`);
-      });
+        download(url, path, () => {
+          console.log(`✅ image ${i} Done!`);
+        });
 
-      let sql = 'INSERT INTO movie (ref_id, original_title, release_date, genre_id, poster_image) VALUES (?, ?, ?, ?, ?)';
-      // sql += '(?, ?, ?, ?, ?), ';
-      // sql = sql.slice(0, -2);
+        let sql = 'INSERT INTO movie (ref_id, original_title, release_date, genre_id, poster_image) VALUES (?, ?, ?, ?, ?)';
+        // sql += '(?, ?, ?, ?, ?), ';
+        // sql = sql.slice(0, -2);
 
-      const resultMovie = await pool.execute(sql, [movies[i].id, movies[i].original_title, movies[i].release_date, genre_id, myFileName]);
+        const resultMovie = await pool.execute(sql, [movies[i].id, movies[i].original_title, movies[i].release_date, genre_id, myFileName]);
 
-      saveMovieTranslation(movies[i].id, resultMovie[0].insertId);
+        saveMovieTranslation(movies[i].id, resultMovie[0].insertId);
+      }
     }
 
     return;
@@ -56,26 +60,28 @@ module.exports = { insertMovie };
 async function saveMovieTranslation(apiId, movieId) {
   let locales = ['en-US', 'fr-FR', 'zh-TW'];
 
-  for (i in locales) {
+  for (let i in locales) {
     const details = await axios.get(`https://api.themoviedb.org/3/movie/${apiId}?api_key=${TMDB_Key}&language=${locales[i]}&append_to_response=videos,releases`);
     const dataDetails = details.data;
 
-    let sqlRuntime = `UPDATE movie SET runtime = (?) WHERE ref_id = ${apiId}`;
-    await pool.execute(sqlRuntime, [dataDetails.runtime]);
+    if (i == 0) {
+      let sqlRuntime = `UPDATE movie SET runtime = (?) WHERE ref_id = ${apiId}`;
+      await pool.execute(sqlRuntime, [dataDetails.runtime]);
+    }
 
     let sqlDetails = 'INSERT INTO movie_translation (movie_id, locale, title, overview, spoken_languages) VALUES (?, ?, ?, ?, ?)';
 
     let resultMovieDetails = await pool.execute(sqlDetails, [movieId, locales[i], dataDetails.title, dataDetails.overview, dataDetails.spoken_languages[0].english_name]);
-    //pending
-    if (dataDetails.videos.results[0]) {
-      await pool.execute(`UPDATE movie_translation SET trailer = (?) WHERE id = ${resultMovieDetails[0].insertId}`, [
+
+    if (dataDetails.videos.results.length !== 0) {
+      await pool.execute(`UPDATE movie_translation SET trailer = (?) WHERE id = ${resultMovieDetails[0].insertId} AND locale = \'${locales[i]}\'`, [
         `https://www.youtube.com/watch?v=${dataDetails.videos.results[0].key}`,
       ]);
     }
-    //pending
+
     for (let j in dataDetails.releases.countries) {
-      if (dataDetails.releases.countries[j].iso_3166_1 === 'US') {
-        let sqlCertification = `UPDATE movie_translation SET certification = (?) WHERE id = ${resultMovieDetails[0].insertId}`;
+      if (dataDetails.releases.countries[j].iso_3166_1 === locales[i].slice(-2)) {
+        let sqlCertification = `UPDATE movie_translation SET certification = (?) WHERE id = ${resultMovieDetails[0].insertId} AND locale = \'${locales[i]}\'`;
         await pool.execute(sqlCertification, [dataDetails.releases.countries[j].certification]);
       }
     }
