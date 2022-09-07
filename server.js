@@ -17,7 +17,7 @@ app.use('/public', express.static('public'));
 app.use('/', [require('./server/routes/index_route')]);
 
 // API Routes
-app.use('/api/' + API_VERSION, [require('./server/routes/admin_route')]);
+app.use('/api/' + API_VERSION, [require('./server/routes/crawler_route')]);
 
 // Server Port
 const port = 3000;
