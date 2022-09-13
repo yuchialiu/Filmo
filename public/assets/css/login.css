@@ -1,0 +1,106 @@
+/* * {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 550;
+  letter-spacing: 1px;
+} */
+
+#main {
+  margin-top: 100px;
+  margin-left: 100px;
+  padding: 100px 0 0 100px;
+}
+
+.login_page {
+  height: 300px;
+  display: flex;
+  margin-top: 0;
+  margin-bottom: 200px;
+  justify-content: center;
+  /* padding: 80px auto; */
+}
+
+.signin,
+.signup {
+  max-width: 380px;
+  width: 380px;
+  height: 350px;
+  padding: 15px 35px 45px;
+  margin: 0 50px;
+  background-color: #fff;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  /* text-align: center; */
+}
+
+.sign_in_control,
+.sign_up_control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  width: 272px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 2.5px solid #aaaaaa;
+}
+
+input[type='text'] {
+  /* margin-bottom: -1px; */
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+input[type='password'] {
+  margin-bottom: 20px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+#login {
+  background: #09223b;
+  color: rgb(255, 255, 255, 0.7);
+}
+
+.button_control {
+  background-color: transparent;
+  border: 2px solid #a8b8d0;
+  box-sizing: border-box;
+  color: #00132c;
+  font-family: 'Avenir Next LT W01 Bold', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  padding: 16px 23px;
+  position: relative;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-top: 15px;
+}
+
+.button_control:hover,
+.button_control:active {
+  outline: 0;
+}
+
+.button_control:hover {
+  background-color: #d4dfee;
+  cursor: pointer;
+}
+
+/* .button_control:before {
+  background-color: #D5EDF6;
+  content: "";
+  height: calc(100% + 3px);
+  position: absolute;
+  right: -7px;
+  top: -9px;
+  transition: background-color 300ms ease-in;
+  width: 100%;
+  z-index: -1;
+} */
+
+/* .button_control:hover:before {
+  background-color: #6DCFF6;
+} */

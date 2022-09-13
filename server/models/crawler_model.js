@@ -1,5 +1,6 @@
 const { pool } = require('./mysqlcon');
 require('dotenv').config();
+
 const { TMDB_Key } = process.env;
 const axios = require('axios');
 
@@ -21,18 +22,18 @@ const insertGenreCrawler = async (genres, locale) => {
   try {
     // Save genre main table
     if (locale === 'en-US') {
-      for (let i in genres) {
-        let sql = 'INSERT INTO genre (ref_id) VALUES (?)';
+      for (const i in genres) {
+        const sql = 'INSERT INTO genre (ref_id) VALUES (?)';
         await pool.execute(sql, [genres[i].id]);
       }
     }
 
     // Save genre locales
-    for (let i in genres) {
+    for (const i in genres) {
       const query = await pool.execute(`SELECT * FROM genre WHERE ref_id = ${genres[i].id}`);
 
       if (query[0].length !== 0) {
-        let sqlLocale = 'INSERT INTO genre_translation (genre_id, locale, title) VALUES (?, ?, ?)';
+        const sqlLocale = 'INSERT INTO genre_translation (genre_id, locale, title) VALUES (?, ?, ?)';
         await pool.execute(sqlLocale, [query[0][0].id, locale, genres[i].name]);
       }
     }
@@ -44,16 +45,17 @@ const insertGenreCrawler = async (genres, locale) => {
 
 const insertMovieCrawler = async (movies) => {
   try {
-    for (let i in movies) {
+    for (const i in movies) {
       // Validate movie
       const movieDb = await pool.execute('SELECT * FROM movie WHERE ref_id = (?)', [movies[i].id]);
       if (movieDb[0].length == 0) {
         // Validate genre
         const genre = await pool.execute('SELECT * FROM genre');
-        for (let j in genre[0])
+        for (const j in genre[0]) {
           if (movies[i].genre_ids[0] == genre[0][j].ref_id) {
             genre_id = genre[0][j].id;
           }
+        }
 
         if (movies[i].poster_path === null) {
           myFileName = null;
@@ -67,7 +69,7 @@ const insertMovieCrawler = async (movies) => {
           });
         }
 
-        let sql = 'INSERT INTO movie (ref_id, original_title, release_date, genre_id, poster_image) VALUES (?, ?, ?, ?, ?)';
+        const sql = 'INSERT INTO movie (ref_id, original_title, release_date, genre_id, poster_image) VALUES (?, ?, ?, ?, ?)';
         const resultMovie = await pool.execute(sql, [movies[i].id, movies[i].original_title, movies[i].release_date, genre_id, myFileName]);
 
         saveMovieTranslation(movies[i].id, resultMovie[0].insertId);
@@ -84,8 +86,8 @@ const insertMovieCrawler = async (movies) => {
 const insertPersonCrawler = async () => {
   try {
     locale = 'en-US';
-    const movieDb = await pool.execute(`SELECT * FROM movie`);
-    for (let i in movieDb[0]) {
+    const movieDb = await pool.execute('SELECT * FROM movie');
+    for (const i in movieDb[0]) {
       const { data } = await axios.get(`https://api.themoviedb.org/3/movie/${movieDb[0][i].ref_id}/credits?api_key=${TMDB_Key}&language=${locale}`);
 
       let movie_id;
@@ -99,7 +101,7 @@ const insertPersonCrawler = async () => {
       let personId;
 
       // Handling Cast
-      let cast = data.cast;
+      const { cast } = data;
       castIndex = 10;
       castLen = cast.length;
       if (castLen < castIndex) {
@@ -120,7 +122,7 @@ const insertPersonCrawler = async () => {
             });
           }
 
-          let insertId = await savePerson(cast[i].id, myFileName);
+          const insertId = await savePerson(cast[i].id, myFileName);
           personId = insertId;
 
           savePersonDetail(cast[i].id, insertId);
@@ -128,7 +130,7 @@ const insertPersonCrawler = async () => {
           personId = personDb[0][0].id;
         }
 
-        let sqlCast = 'INSERT INTO `cast` (movie_id, person_id) VALUES (?, ?)';
+        const sqlCast = 'INSERT INTO `cast` (movie_id, person_id) VALUES (?, ?)';
         const resultCast = await pool.execute(sqlCast, [movie_id, personId]);
 
         const sqlCastUS = 'INSERT INTO cast_translation (cast_id, locale, `character`) VALUES (?, ?, ?)';
@@ -136,7 +138,7 @@ const insertPersonCrawler = async () => {
       }
 
       // Handling Crew
-      let crew = data.crew;
+      const { crew } = data;
       crewIndex = 5;
       crewLen = crew.length;
       if (crewLen < crewIndex) {
@@ -158,7 +160,7 @@ const insertPersonCrawler = async () => {
             });
           }
 
-          let insertId = await savePerson(crew[i].id, myFileName);
+          const insertId = await savePerson(crew[i].id, myFileName);
           personId = insertId;
 
           savePersonDetail(crew[i].id, insertId);
@@ -166,7 +168,7 @@ const insertPersonCrawler = async () => {
           personId = personDb[0][0].id;
         }
 
-        let sqlCrew = 'INSERT INTO crew (movie_id, person_id) VALUES (?, ?)';
+        const sqlCrew = 'INSERT INTO crew (movie_id, person_id) VALUES (?, ?)';
         const resultCrew = await pool.execute(sqlCrew, [movie_id, personId]);
 
         const sqlCrewUS = 'INSERT INTO crew_translation (crew_id, locale, job) VALUES (?, ?, ?)';
@@ -187,19 +189,19 @@ module.exports = {
 };
 
 async function saveMovieTranslation(apiId, movieId) {
-  let locales = ['en-US', 'fr-FR', 'zh-TW'];
-  let lanArr = [];
+  const locales = ['en-US', 'fr-FR', 'zh-TW'];
+  const lanArr = [];
 
-  for (let i in locales) {
+  for (const i in locales) {
     const details = await axios.get(`https://api.themoviedb.org/3/movie/${apiId}?api_key=${TMDB_Key}&language=${locales[i]}&append_to_response=videos,releases`);
     const dataDetails = details.data;
 
     if (i == 0) {
-      let sqlRuntime = `UPDATE movie SET runtime = (?) WHERE ref_id = ${apiId}`;
+      const sqlRuntime = `UPDATE movie SET runtime = (?) WHERE ref_id = ${apiId}`;
       await pool.execute(sqlRuntime, [dataDetails.runtime]);
     }
 
-    let sqlDetails = 'INSERT INTO movie_translation (movie_id, locale, title, overview, spoken_languages) VALUES (?, ?, ?, ?, ?)';
+    const sqlDetails = 'INSERT INTO movie_translation (movie_id, locale, title, overview, spoken_languages) VALUES (?, ?, ?, ?, ?)';
 
     if (dataDetails.spoken_languages.length === 0) {
       lanArr.push(null);
@@ -207,7 +209,7 @@ async function saveMovieTranslation(apiId, movieId) {
       lanArr.push(dataDetails.spoken_languages[0].english_name);
     }
 
-    let resultMovieDetails = await pool.execute(sqlDetails, [movieId, locales[i], dataDetails.title, dataDetails.overview, lanArr[0]]);
+    const resultMovieDetails = await pool.execute(sqlDetails, [movieId, locales[i], dataDetails.title, dataDetails.overview, lanArr[0]]);
 
     if (dataDetails.videos.results.length !== 0) {
       await pool.execute(`UPDATE movie_translation SET trailer = (?) WHERE id = ${resultMovieDetails[0].insertId} AND locale = \'${locales[i]}\'`, [
@@ -215,9 +217,9 @@ async function saveMovieTranslation(apiId, movieId) {
       ]);
     }
 
-    for (let j in dataDetails.releases.countries) {
+    for (const j in dataDetails.releases.countries) {
       if (dataDetails.releases.countries[j].iso_3166_1 === locales[i].slice(-2)) {
-        let sqlCertification = `UPDATE movie_translation SET certification = (?) WHERE id = ${resultMovieDetails[0].insertId} AND locale = \'${locales[i]}\'`;
+        const sqlCertification = `UPDATE movie_translation SET certification = (?) WHERE id = ${resultMovieDetails[0].insertId} AND locale = \'${locales[i]}\'`;
         await pool.execute(sqlCertification, [dataDetails.releases.countries[j].certification]);
       }
     }
@@ -225,15 +227,15 @@ async function saveMovieTranslation(apiId, movieId) {
 }
 
 async function savePerson(personId, myFileName) {
-  let sqlPerson = 'INSERT INTO person (ref_id, profile_image) VALUES (?, ?)';
+  const sqlPerson = 'INSERT INTO person (ref_id, profile_image) VALUES (?, ?)';
   const resultPerson = await pool.execute(sqlPerson, [personId, myFileName]);
   return resultPerson[0].insertId;
 }
 
 async function savePersonDetail(apiId, dbPersonId) {
-  let locales = ['en-US', 'fr-FR', 'zh-TW'];
+  const locales = ['en-US', 'fr-FR', 'zh-TW'];
 
-  for (let i in locales) {
+  for (const i in locales) {
     const personDetail = await axios.get(`https://api.themoviedb.org/3/person/${apiId}?api_key=${TMDB_Key}&language=${locales[i]}`);
     if (i == 0) {
       const sqlPersonUpdate = `UPDATE person SET birthday = (?), deathday = (?) , place_of_birth = (?) WHERE ref_id = ${apiId}`;

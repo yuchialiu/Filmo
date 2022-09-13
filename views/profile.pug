@@ -1,0 +1,69 @@
+extends layout.pug 
+
+block content 
+  body 
+  script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js')
+  script(src='https://unpkg.com/axios/dist/axios.min.js')
+
+  div.profile_info
+    div#picture_outline
+      | profile picture
+      img#picture
+    div#name
+    div#email
+    button#logout_btn(onclick='logout()') Log out
+
+  script.
+    let token = localStorage.getItem('Authorization');
+  
+    //main page products
+    window.addEventListener('load', async (event) => { 
+      try {        
+        if (!token) {
+          alert("please sign in or sign up first");
+          console.log("no token, please sign in or sign up first");
+          window.location.href = "login";
+          return;
+        }
+        await auth_member();
+        showProfile(auth_result);
+        console.log("auth_result", auth_result)
+      } catch(err) {
+        console.log(err);
+      }
+    });
+
+      //authorize member
+      let auth_result;
+
+      async function auth_member() {
+      try {
+        auth_result = await axios({
+        method: 'GET',
+          url: '/api/1.0/user/profile',
+          responseType: 'json',
+          headers: {
+            Authorization: `${localStorage.getItem('Authorization')}`,
+          },
+          });
+        return auth_result;
+      } catch(err) { 
+        console.log(err);
+      }
+    }
+
+      //profile 
+    function showProfile (auth_result) {
+      let info = auth_result.data.data;
+      $('#name').html(`username: ${info.name}`) ;
+      $('#email').html(`email: ${info.email}`) ;
+      console.log("info", info)
+      $('#picture').style.backgroundImage = `"url('${info.picture}')"`;
+
+    }
+
+    // logout
+    function logout(){
+      localStorage.removeItem('Authorization');
+      window.location.href = "/index";
+    }   

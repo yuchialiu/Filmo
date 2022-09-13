@@ -5,6 +5,7 @@ head
   meta(name="viewport", content="width=device-width, initial-scale=1.0")
   title Filmo
   link(rel="stylesheet", href="stylesheet/layout.css")
+block head  
 body 
 header#header
   // Bootstrap core CSS
@@ -34,7 +35,7 @@ header.header-area.header-sticky
       .col-12
         nav.main-nav 
           // ***** Logo Start *****
-          a.logo(href='index.html')
+          a.logo(href='/')
             img(src='assets/images/filmo_logo_2.png' alt='')
           // ***** Logo End *****
           // ***** Search End *****
@@ -46,15 +47,11 @@ header.header-area.header-sticky
           // ***** Menu Start *****
           ul.nav
             li
-              a.active(href='index.html') Home
+              a.active(href='/') Home
             li
-              a(href='browse.html') Browse
+              a(href='review') Review
             li
-              a(href='details.html') Details
-            li
-              a(href='streams.html') Streams
-            li
-              a(href='profile.html')
+              a(href='profile')
                 | Profile 
                 img(src='assets/images/profile-header.jpg' alt='')
             li.dropdown

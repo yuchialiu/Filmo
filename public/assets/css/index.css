@@ -21,3 +21,43 @@
   color: green;
   height: 100vh;
 }
+
+.title {
+  text-align: center;
+  padding: 100px;
+  margin-top: 20px;
+}
+
+.banner_title {
+  display: flex;
+  justify-content: center;
+}
+
+.banner_media {
+  height: 100%;
+  display: flex;
+  float: center;
+}
+
+.banner_img {
+  width: 350px;
+}
+
+.second_title {
+  text-align: center;
+  padding: 100px;
+  margin-top: 20px;
+}
+
+.list_img {
+  width: 150px;
+  margin: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.list_title {
+  display: flex;
+  justify-content: center;
+  justify-content: center;
+}

@@ -1,62 +1,55 @@
 require('dotenv').config();
 const { pool } = require('./mysqlcon');
 const bcrypt = require('bcrypt');
+
 const salt = parseInt(process.env.BCRYPT_SALT);
 const { TOKEN_EXPIRE, TOKEN_SECRET } = process.env; // 30 days by seconds
 const jwt = require('jsonwebtoken');
 
 const USER_ROLE = {
-  SUPER: 0,
   ADMIN: 1,
   USER: 2,
 };
 
-const CreateUser = async (name, roleId, email, password) => {
-  const poolCon = await pool.getConnection();
+const CreateUser = async (username, role, email, password) => {
   try {
-    await poolCon.query('START TRANSACTION');
     const user = {
-      name: name,
-      role_id: roleId,
+      username,
+      role,
       email: email.toLowerCase(),
       password: bcrypt.hashSync(password, salt),
       picture: null,
       access_expired: TOKEN_EXPIRE,
     };
 
+    const sql = 'INSERT INTO `user` (username, email, password, profile_image, role) VALUES (?, ?, ?, ?, ?)';
+    const [result] = await pool.execute(sql, [user.username, user.email, user.password, user.picture, user.role]);
+    user.id = result.insertId;
+
     const accessToken = jwt.sign(
       {
-        name: user.name,
+        username: user.username,
         email: user.email,
-        picture: user.picture,
+        role: user.role,
       },
       TOKEN_SECRET
     );
+
     user.access_token = accessToken;
-
-    const sql = 'INSERT INTO user (username, email, password, profile_image, role) VALUES (?, ?, ?, ?, ?)';
-    const [result] = await conn.query(sql, user);
-    user.id = result.insertId;
-
-    await poolCon.query('COMMIT');
 
     return { user };
   } catch (err) {
-    await poolCon.query('ROLLBACK');
     console.log(err);
     return {
       error: 'Email Already Exists',
       status: 403,
     };
-  } finally {
-    await poolCon.release();
   }
 };
 
 const GetUser = async (email) => {
-  const poolCon = await pool.getConnection();
   try {
-    const [users] = await pool.execute('SELECT * FROM user WHERE email = ?', [email]);
+    const [users] = await pool.execute('SELECT * FROM `user` WHERE email = ?', [email]);
     if (!users[0]) {
       return { error: 'email has not registered' };
     }
@@ -68,19 +61,222 @@ const GetUser = async (email) => {
   }
 };
 
-const getUserDetail = async (email, roleId) => {
+const getUserDetail = async (email, role) => {
   try {
-    if (roleId) {
+    if (role) {
       const [users] = await pool.execute('SELECT * FROM user WHERE email = ? AND role_id = ?', [email, roleId]);
       return users[0];
-    } else {
-      const [users] = await pool.execute('SELECT * FROM user WHERE email = ?', [email]);
-      return users[0];
     }
+    const [users] = await pool.execute('SELECT * FROM user WHERE email = ?', [email]);
+    return users[0];
   } catch (err) {
     console.log(err);
-    return null;
+    return { err };
   }
 };
 
-module.exports = { USER_ROLE, CreateUser, GetUser, getUserDetail };
+// const updateUserImage = async () => {
+//   await pool.execute('UPDATE `user` SET profile_image = ? WHERE id = ?', [path, id]);
+//     return ;
+// };
+
+// Reviews CRUD
+const createUserReview = async (userId, movieId, content, image) => {
+  try {
+    const result = await pool.execute('INSERT INTO review (user_id, movie_id, content, image) VALUES (?, ?, ?, ?)', [userId, movieId, content, image]);
+    return result[0].insertId;
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+const getUserReview = async (userId) => {
+  try {
+    const result = await pool.execute('SELECT * FROM review WHERE user_id = (?)', [userId]);
+    return result[0];
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+const updateUserReview = async (userId, reviewId, content) => {
+  try {
+    const validation = await validateUserReview(reviewId);
+    if (validation.user_id !== userId) {
+      const err = new Error('review belongs to other user');
+      throw err;
+    } else {
+      const result = await pool.execute('UPDATE review SET content = (?) WHERE id = (?)', [content, reviewId]);
+      return result[0].insertId;
+    }
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+const deleteUserReview = async (userId, reviewId) => {
+  try {
+    const validation = await validateUserReview(reviewId);
+    if (validation.user_id !== userId) {
+      const err = new Error('review belongs to other user');
+      throw err;
+    } else {
+      const result = await pool.execute('DELETE FROM review WHERE id = (?)', [reviewId]);
+      return result[0].insertId;
+    }
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+// Comment CRUD
+
+const createUserComment = async (userId, reviewId, content) => {
+  try {
+    const result = await pool.execute('INSERT INTO comment (user_id, review_id, content) VALUES (?, ?, ?)', [userId, reviewId, content]);
+    return result[0].insertId;
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+const getUserComment = async (userId) => {
+  try {
+    const result = await pool.execute('SELECT * FROM comment WHERE user_id = (?)', [userId]);
+    return result[0];
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+const updateUserComment = async (userId, commentId, content) => {
+  try {
+    const validation = await validateUserComment(commentId);
+    if (validation.user_id !== userId) {
+      const err = new Error('comment belongs to other user');
+      throw err;
+    } else {
+      const result = await pool.execute('UPDATE comment SET content = (?) WHERE id = (?)', [content, commentId]);
+      return result[0].insertId;
+    }
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+const deleteUserComment = async (userId, commentId) => {
+  try {
+    const validation = await validateUserComment(commentId);
+    if (validation.user_id !== userId) {
+      const err = new Error('comment belongs to other user');
+      throw err;
+    } else {
+      const result = await pool.execute('DELETE FROM comment WHERE id = (?)', [commentId]);
+      return result[0].insertId;
+    }
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+// Saved Reviews CRD
+const saveUserReview = async (userId, reviewId) => {
+  try {
+    await pool.execute('INSERT INTO saved_review (user_id, review_id) VALUES (?, ?)', [userId, reviewId]);
+    return { userId, reviewId };
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+const getUserSavedReview = async (userId) => {
+  try {
+    const result = await pool.execute('SELECT * FROM saved_review WHERE user_id = (?)', [userId]);
+    // TODO: await getMovieByReview()
+    // return result[0];
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+const deleteUserSavedReview = async (userId, reviewId) => {
+  try {
+    const result = await pool.execute('DELETE FROM saved_review WHERE user_id = (?) AND review_id = (?)', [userId, reviewId]);
+    return result[0];
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+// Saved Movies CRD
+const saveUserMovie = async (userId, movieId) => {
+  try {
+    await pool.execute('INSERT INTO saved_movie (user_id, movie_id) VALUES (?, ?)', [userId, movieId]);
+    return { userId, movieId };
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+const getUserSavedMovie = async (userId) => {
+  try {
+    const result = await pool.execute('SELECT * FROM saved_movie WHERE user_id = (?)', [userId]);
+    return result[0];
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+const deleteUserSavedMovie = async (userId, movieId) => {
+  try {
+    const result = await pool.execute('DELETE FROM saved_movie WHERE user_id = (?) AND movie_id = (?)', [userId, movieId]);
+    return result[0];
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+module.exports = {
+  USER_ROLE,
+  CreateUser,
+  GetUser,
+  getUserDetail,
+  createUserReview,
+  getUserReview,
+  updateUserReview,
+  deleteUserReview,
+  createUserComment,
+  getUserComment,
+  updateUserComment,
+  deleteUserComment,
+  saveUserReview,
+  getUserSavedReview,
+  deleteUserSavedReview,
+  saveUserMovie,
+  getUserSavedMovie,
+  deleteUserSavedMovie,
+};
+
+async function validateUserReview(reviewId) {
+  const result = await pool.execute('SELECT * FROM review WHERE id = (?)', [reviewId]);
+  return result[0][0];
+}
+
+async function validateUserComment(commentId) {
+  const result = await pool.execute('SELECT * FROM comment WHERE id = (?)', [commentId]);
+  return result[0][0];
+}

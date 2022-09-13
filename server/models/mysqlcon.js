@@ -1,8 +1,9 @@
 require('dotenv').config();
 const mysql = require('mysql2/promise');
+
 const env = process.env.NODE_ENV || 'production';
 const multipleStatements = process.env.NODE_ENV === 'test';
-const { DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE } = process.env;
+const { DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE } = process.env;
 
 const mysqlConfig = {
   production: {
@@ -28,7 +29,7 @@ const mysqlConfig = {
   // },
 };
 
-let mysqlEnv = mysqlConfig[env];
+const mysqlEnv = mysqlConfig[env];
 mysqlEnv.waitForConnections = true;
 mysqlEnv.connectionLimit = 20;
 
