@@ -1,0 +1,73 @@
+/* profile page */
+
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 550;
+  letter-spacing: 1px;
+}
+
+.profile_info {
+  height: 600px;
+  margin-top: 100px;
+}
+
+#name,
+#email,
+#picture_outline {
+  border: solid 2px gray;
+  padding: 30px;
+  width: 500px;
+  margin: auto;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  color: white;
+}
+
+#picture {
+  width: 80px;
+  margin-left: 100px;
+}
+
+#logout_btn {
+  background-color: transparent;
+  border: 1px solid #a8b8d0;
+  box-sizing: border-box;
+  color: white;
+  font-family: 'Avenir Next LT W01 Bold', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  padding: 16px 23px;
+  position: relative;
+  text-decoration: none;
+  touch-action: manipulation;
+  margin: 0 800px 0;
+  cursor: pointer;
+}
+
+#logout_btn:hover,
+#logout_btn:active {
+  outline: 0;
+}
+
+#logout_btn:hover {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+#logout_btn:before {
+  background-color: #d5edf6;
+  content: '';
+  height: calc(100% + 3px);
+  position: absolute;
+  right: -7px;
+  top: -9px;
+  transition: background-color 300ms ease-in;
+  width: 100%;
+  z-index: -1;
+}
+
+#logout_btn:hover:before {
+  background-color: #d4dfee;
+}

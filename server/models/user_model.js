@@ -75,10 +75,14 @@ const getUserDetail = async (email, role) => {
   }
 };
 
-// const updateUserImage = async () => {
-//   await pool.execute('UPDATE `user` SET profile_image = ? WHERE id = ?', [path, id]);
-//     return ;
-// };
+const updateUserImage = async (id, image) => {
+  try {
+    const result = await pool.execute('UPDATE `user` SET profile_image = ? WHERE id = ?', [image, id]);
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 // Reviews CRUD
 const createUserReview = async (userId, movieId, content, image) => {
@@ -201,8 +205,17 @@ const saveUserReview = async (userId, reviewId) => {
 const getUserSavedReview = async (userId) => {
   try {
     const result = await pool.execute('SELECT * FROM saved_review WHERE user_id = (?)', [userId]);
-    // TODO: await getMovieByReview()
-    // return result[0];
+    return result[0];
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+const getReviewInfo = async (reviewId) => {
+  try {
+    const result = await pool.execute('SELECT * FROM review WHERE id = (?)', [reviewId]);
+    return result[0];
   } catch (err) {
     console.log(err);
     return { err };
@@ -230,6 +243,16 @@ const saveUserMovie = async (userId, movieId) => {
   }
 };
 
+const getMovieInfo = async (movieId, locale) => {
+  const queryDetails = `SELECT * FROM movie AS m LEFT JOIN movie_translation AS t ON m.id = t.movie_id WHERE t.locale = \'${locale}\' AND m.id = ${movieId}`;
+  try {
+    const DetailResult = await pool.execute(queryDetails);
+    return DetailResult[0];
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const getUserSavedMovie = async (userId) => {
   try {
     const result = await pool.execute('SELECT * FROM saved_movie WHERE user_id = (?)', [userId]);
@@ -250,11 +273,22 @@ const deleteUserSavedMovie = async (userId, movieId) => {
   }
 };
 
+const createMovieRating = async (userId, movieId, score) => {
+  try {
+    const result = await pool.execute('INSERT INTO movie_rating (user_id, movie_id, score) VALUES (?, ?, ?)', [userId, movieId, score]);
+    return result[0];
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
 module.exports = {
   USER_ROLE,
   CreateUser,
   GetUser,
   getUserDetail,
+  updateUserImage,
   createUserReview,
   getUserReview,
   updateUserReview,
@@ -265,10 +299,13 @@ module.exports = {
   deleteUserComment,
   saveUserReview,
   getUserSavedReview,
+  getReviewInfo,
   deleteUserSavedReview,
   saveUserMovie,
+  getMovieInfo,
   getUserSavedMovie,
   deleteUserSavedMovie,
+  createMovieRating,
 };
 
 async function validateUserReview(reviewId) {

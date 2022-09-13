@@ -17,18 +17,16 @@ block content
 
   .blocks
   h1.second_title See More
-  //- div.list_media(style='height:100%; display: flex; ;float: center;  ')
-    //- - for (let i = 3; i <10 ; i++)
   div.list
-    a.list_link
-      img.list_img
-      p.list_title 
+    //- a.list_link
+    //-   img.list_img
+    //-   p.list_title 
 
   script.
 
     var config = {
       method: 'get',
-      url: '/api/1.0/movie/list',
+      url: '/api/1.0/movie/list?locale=en-US',
       headers: { }
     };
 
@@ -41,16 +39,19 @@ block content
       $('.banner_img').attr('src', list[3].poster)
       $('.banner_trailer').attr('src', list[3].trailer)
 
-      d = document.createElement("div") 
-      a = document.createElement("a") 
-      img = document.createElement("img") 
-      p = document.createElement("p") 
-
       for (let i = 4 ; i < 20 ; i++){
-        $(d).addClass('list_div').appendTo('.list')
-        $(a).addClass('list_link').attr('href', list[i].trailer).appendTo('.list_div')
-        $(img).addClass('list_img').attr('src', list[i].poster).appendTo('.list_link')
-        $(p).addClass('list_title').html(list[i].title).appendTo('.list_img')
+        const d = $('<div></div>').addClass('list_div')
+        const a = $('<a></a>').attr('href', list[i].trailer)
+        const img = $('<img>').addClass('list_img').attr('src', list[i].poster)
+        const p = $('<p></p>').addClass('list_title').html(list[i].title)
+
+        let div = a;
+        div = div.append(img); 
+        div = div.append(p)
+
+        $('.list').append(d)
+        $('.list').append(div)
+
       }
     }
 

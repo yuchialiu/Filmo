@@ -4,6 +4,9 @@ const { TOKEN_SECRET, PROTOCOL } = process.env; // 30 days by seconds
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util'); // util from native nodejs library
 const multer = require('multer');
+const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
 
 const authentication = (role) =>
   async function (req, res, next) {
@@ -45,11 +48,11 @@ const authentication = (role) =>
     }
   };
 
-// TODO: multer setting
+// multer setting
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      const imagePath = path.join(__dirname, '../public/assets/upload');
+      const imagePath = path.join(__dirname, '../public/assets/images/uploads');
       if (!fs.existsSync(imagePath)) {
         fs.mkdirSync(imagePath);
       }

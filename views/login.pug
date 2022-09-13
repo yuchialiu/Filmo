@@ -10,31 +10,28 @@ block content
   div#main
     //-  form(action="#")
     div.signin Login
-      div#sign_in_email
-        input(type="text" placeholder="email")
-      div#sign_in_password
-        input(type="password" placeholder="password")
+      div
+        input#sign_in_email(type="text" placeholder="email")
+      div
+        input#sign_in_password(type="password" placeholder="password")
       button#sign_in_button.button_control(type="button" onclick='signin(event)') Sign In
         
     //-  form(action="#")
     div.signup Register
-      div#sign_up_email
-        input(type="text" placeholder="email")
-      div#sign_up_username
-        input(type="text" placeholder="username")
-      div#sign_up_password
-        input(type="password" placeholder="password")
+      div
+        input#sign_up_email(type="text" placeholder="email")
+      div
+        input#sign_up_username(type="text" placeholder="username")
+      div
+        input#sign_up_password(type="password" placeholder="password")
       button#sign_up_button.button_control(type="button" onclick='signup(event)') Sign Up
 
     script.
     
       //Sign in
-      //- $(document).ready(function(e) {
-      //-   alert('test!');
-      //- });
 
       async function signin(event){
-        //- event.preventDefault()
+        event.preventDefault()
 
         if ( $('#sign_in_email').val() == "" || $('#sign_in_password').val() == "" ) {
           alert("please fill in all blank before login");
@@ -54,8 +51,8 @@ block content
                 alert(err_alert);
             });
 
-          //- console.log(signin_response);
-          const token = signin_response.data.data.access_token;
+          console.log(signin_response);
+          const token = signin_response.data.response.access_token;
           localStorage.setItem("Authorization", `Bearer ${token}`);
           alert("sign in success");
           window.location.href = "profile";
@@ -89,10 +86,10 @@ block content
                   alert(err_alert);
           });
             
-          const token = signup_response.data.data.access_token;
+          const token = signup_response.data.response.access_token;
           
           localStorage.setItem("Authorization", `Bearer ${token}`);
-          console.log(signup_response.data.data.access_token);
+          console.log(signup_response);
           if (token) {
             alert("sign up success");
             window.location.href = "profile"

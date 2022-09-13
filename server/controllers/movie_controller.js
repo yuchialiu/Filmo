@@ -3,27 +3,8 @@ require('dotenv').config();
 const { SERVER_IP } = process.env;
 const Movie = require('../models/movie_model');
 
-// const showMain = async (req, res) => {
-//   const result = await Movie.getMovieData();
-
-//   res.render('index', { data: result[0] });
-// };
-
-// const showDetail = async (req, res) => {
-//   const result = await Index.getMovieDetails(7);
-//   res.render('detail', { data: result[0] });
-// };
-
-// const getMovieData = async (req, res) => {
-//   const result = await Index.getMovieData();
-//   const response = {
-//     data: result,
-//   };
-// };
-
 const getMovieListInfo = async (req, res) => {
-  // const locale = req.query.locale;
-  const locale = 'en-US';
+  const { locale } = req.query;
   const limit = 20;
   const movieList = await Movie.getMovieListInfo(locale, limit);
 
@@ -48,12 +29,11 @@ const getMovieListInfo = async (req, res) => {
 const getMovieInfo = async (req, res) => {
   const movieId = req.query.id;
   const { locale } = req.query;
-  // const locale = 'en-US';
 
   const result = await Movie.getMovieInfo(movieId, locale);
   const resultCast = await Movie.getCastInfoByMovieId(movieId, locale);
   const resultCrew = await Movie.getCrewInfoByMovieId(movieId, locale);
-  const resultGenre = await Movie.getGenre(result[0].genre_id, locale);
+  const resultGenre = await Movie.getGenre(result.genre_id, locale);
 
   const castInfo = [];
   for (i in resultCast) {
@@ -75,20 +55,28 @@ const getMovieInfo = async (req, res) => {
     crewInfo.push(crew);
   }
 
-  // TODO:format result
+  let resultOverview;
+
+  if (result.overview.length === 0) {
+    const overviewEn = await Movie.getOverview(movieId);
+    resultOverview = overviewEn.overview;
+  } else {
+    resultOverview = result.overview;
+  }
+
   const response = {
-    id: result[0].id,
-    ref_id: result[0].ref_id,
-    original_title: result[0].original_title,
-    release_date: result[0].release_date,
-    runtime: result[0].runtime,
+    id: result.id,
+    ref_id: result.ref_id,
+    original_title: result.original_title,
+    release_date: result.release_date,
+    runtime: result.runtime,
     genre: resultGenre.title,
-    poster: `${SERVER_IP}/public/assets/images/posters/${result[0].poster_image}`,
-    title: result[0].title,
-    overview: result[0].overview,
-    trailer: result[0].trailer,
-    certification: result[0].certification,
-    spoken_languages: result[0].spoken_languages,
+    poster: `${SERVER_IP}/public/assets/images/posters/${result.poster_image}`,
+    title: result.title,
+    overview: resultOverview,
+    trailer: result.trailer,
+    certification: result.certification,
+    spoken_languages: result.spoken_languages,
     cast: castInfo,
     crew: crewInfo,
   };
@@ -96,18 +84,48 @@ const getMovieInfo = async (req, res) => {
 };
 
 const getPersonDetail = async (req, res) => {
-  const personId = req.params.person_id;
-  const locale = 'en-US';
-  // TODO: req.params
+  const personId = req.query.person_id;
+  const { locale } = req.query;
+
   const result = await Movie.getPersonDetail(personId, locale);
+  let resultBiography;
+
+  if (result.biography.length === 0) {
+    const biographyEn = await Movie.getBiography(personId);
+    resultBiography = biographyEn.biography;
+  } else {
+    resultBiography = result.biography;
+  }
   const response = {
-    data: result,
+    id: result.id,
+    ref_id: result.ref_id,
+    name: result.name,
+    birthday: result.birthday,
+    deathday: result.deathday,
+    place_of_birth: result.place_of_birth,
+    image: `${SERVER_IP}/public/assets/images/posters/${result.profile_image}`,
+    biography: resultBiography,
   };
-  res.status(200).send(response);
+  res.status(200).send({ data: response });
 };
 
 const searchMovie = async (req, res) => {
-  // TODO: Movie.getMovieListByFilter
+  const { title, genreId, locale } = req.query;
+
+  const resultSearch = await Movie.getMovieListByFilter(title, genreId, locale);
+
+  const result = [];
+  for (i in resultSearch) {
+    const info = {
+      movid_id: resultSearch[i].id,
+      title: resultSearch[i].title,
+      poster: `${SERVER_IP}/public/assets/images/posters/${resultSearch[i].poster_image}`,
+    };
+
+    result.push(info);
+  }
+
+  res.status(200).send({ data: result });
 };
 
 module.exports = {

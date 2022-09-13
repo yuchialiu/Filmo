@@ -2,7 +2,7 @@ require('dotenv').config();
 const validator = require('validator');
 const bcrypt = require('bcrypt');
 
-const { TOKEN_EXPIRE, TOKEN_SECRET } = process.env; // 30 days by seconds
+const { TOKEN_EXPIRE, TOKEN_SECRET, SERVER_IP } = process.env; // 30 days by seconds
 const jwt = require('jsonwebtoken');
 const User = require('../models/user_model');
 
@@ -53,16 +53,25 @@ const signIn = async (req, res) => {
   if (!email || !password) {
     return res.status(400).send({ error: 'Request Error: email and password are required.' });
   }
+  const user = await User.GetUser(email);
 
-  try {
-    const result = await validateUser(email, password);
-    res.status(201).send({
-      response: result,
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).send({ err });
+  if (user.error) {
+    return res.status(400).send("This email hasn't been registered");
   }
+  // console.log(user.user.password);
+  if (!bcrypt.compareSync(password, user.user.password)) {
+    console.log({ email, error: 'Password is wrong' });
+    return res.status(400).send('Email or password is wrong');
+  }
+
+  const result = {};
+  const accessToken = await generateJWT(user.user);
+  result.access_token = accessToken;
+  result.user = user.user;
+  res.status(201).send({
+    response: result,
+  });
+  // const result = await validateUser(email, password);
 };
 
 const getUserDetail = async (req, res) => {
@@ -71,28 +80,39 @@ const getUserDetail = async (req, res) => {
       id: req.user.id,
       username: req.user.username,
       email: req.user.email,
-      picture: req.user.picture,
+      picture: `${SERVER_IP}/public/assets/images/uploads/${req.user.picture}`,
     },
   });
 };
 
-// const updateUserImage = async (req, res) => {
-//   const { id } = req.user;
-//   const image = req.files.image[0].filename;
-//   const path = await User.putImage(id, image);
-//   res.status(201).json({
-//     data: {
-//       picture: path,
-//     },
-//   });
-// };
+const updateUserImage = async (req, res) => {
+  const { id } = req.user;
+  const image = req.files.image[0].filename;
+
+  const result = await User.updateUserImage(id, image);
+
+  if (result.err) {
+    console.log(result.err);
+    res.status(500).send({ err: 'cannot update image ' });
+  } else {
+    res.status(200).send({
+      data: 'update success',
+    });
+  }
+};
 
 // Reviews CRUD
 const createUserReview = async (req, res) => {
   const { id } = req.user;
-  const { movie_id, content, image } = req.body;
+  const { movie_id, content } = req.body;
+  let image;
+  if (req.files.image) {
+    image = req.files.image[0].filename;
+  } else {
+    image = null;
+  }
 
-  // TODO: image handler
+  // image handler
   const result = await User.createUserReview(id, movie_id, content, image);
   if (result.err) {
     console.log(result.err);
@@ -242,13 +262,24 @@ const saveUserReview = async (req, res) => {
 
 const getUserSavedReview = async (req, res) => {
   const { id } = req.user;
-  const result = await User.getUserSavedReview(id);
-  // TODO: get review info by review ID
-  // if (result.err) {
-  //   console.log(result.errerr);
-  //   res.status(500).send({ err: result.err });
-  //   return;
-  // }
+
+  const resultSavedReview = await User.getUserSavedReview(id);
+  const result = [];
+
+  for (i in resultSavedReview) {
+    const resultReview = await User.getReviewInfo(resultSavedReview[i].review_id);
+    for (j in resultReview) {
+      const info = {
+        review_id: resultReview[j].id,
+        content: resultReview[j].content,
+        image: `${SERVER_IP}/public/assets/images/uploads/${resultReview[j].image}`,
+        created_dt: resultReview[j].created_dt,
+        updated_dt: resultReview[j].updated_dt,
+      };
+      result.push(info);
+    }
+  }
+
   res.status(200).send({ data: result });
 };
 
@@ -287,12 +318,23 @@ const saveUserMovie = async (req, res) => {
 
 const getUserSavedMovie = async (req, res) => {
   const { id } = req.user;
-  const result = await User.getUserSavedMovie(id);
-  const data = {};
-  data.user_id = id;
-  data.result = result;
-  // TODO: get movie info by movie ID
-  res.status(200).send({ data });
+  const { locale } = req.query;
+  const resultSavedMovie = await User.getUserSavedMovie(id);
+  const result = [];
+
+  for (i in resultSavedMovie) {
+    const resultMovie = await User.getMovieInfo(resultSavedMovie[i].movie_id, locale);
+    for (j in resultMovie) {
+      const info = {
+        movie_id: resultMovie[j].id,
+        title: resultMovie[j].title,
+        poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie[j].poster_image}`,
+      };
+      result.push(info);
+    }
+  }
+
+  res.status(200).send({ data: result });
 };
 
 const deleteUserSavedMovie = async (req, res) => {
@@ -310,6 +352,18 @@ const deleteUserSavedMovie = async (req, res) => {
 };
 
 // Movie rating
+const createMovieRating = async (req, res) => {
+  const { id } = req.user;
+  const { movie_id, score } = req.body;
+
+  const result = await User.createMovieRating(id, movie_id, score);
+  if (result.err) {
+    console.log(result.err);
+    res.status(500).send({ err: 'cannot submit' });
+    return;
+  }
+  res.status(200).send({ result: 'submitted' });
+};
 
 // Review ranking
 
@@ -319,6 +373,7 @@ module.exports = {
   signUp,
   signIn,
   getUserDetail,
+  updateUserImage,
   createUserReview,
   getUserReview,
   updateUserReview,
@@ -333,22 +388,28 @@ module.exports = {
   saveUserMovie,
   getUserSavedMovie,
   deleteUserSavedMovie,
+  createMovieRating,
 };
 
-async function validateUser(email, password) {
-  const user = await User.GetUser(email);
-  // console.log(user.user.password);
-  if (!bcrypt.compareSync(password, user.user.password)) {
-    console.log({ email, error: 'Password is wrong' });
-    return { error: 'Email or password is wrong' };
-  }
+// async function validateUser(email, password) {
+//   const user = await User.GetUser(email);
 
-  const result = {};
-  const accessToken = await generateJWT(user.user);
-  result.access_token = accessToken;
-  result.user = user.user;
-  return result;
-}
+//   if (user.length == 0) {
+//     res.status(400).send("This email hasn't been registered");
+//     return;
+//   }
+//   // console.log(user.user.password);
+//   if (!bcrypt.compareSync(password, user.user.password)) {
+//     console.log({ email, error: 'Password is wrong' });
+//     return { error: 'Email or password is wrong' };
+//   }
+
+//   const result = {};
+//   const accessToken = await generateJWT(user.user);
+//   result.access_token = accessToken;
+//   result.user = user.user;
+//   return result;
+// }
 
 function generateJWT(user) {
   const accessToken = jwt.sign(

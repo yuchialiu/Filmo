@@ -14,7 +14,7 @@ const getMovieInfo = async (movieId, locale) => {
   const queryDetails = `SELECT * FROM movie AS m LEFT JOIN movie_translation AS t ON m.id = t.movie_id WHERE t.locale = \'${locale}\' AND m.id = ${movieId}`;
   try {
     const DetailResult = await pool.execute(queryDetails);
-    return DetailResult[0];
+    return DetailResult[0][0];
   } catch (err) {
     console.log(err);
   }
@@ -40,37 +40,57 @@ const getCrewInfoByMovieId = async (movieId, locale) => {
   }
 };
 
-const getPersonDetail = async (personId, locale) => {
-  const queryDetails = `SELECT * FROM person AS p LEFT JOIN person_translation AS pt ON p.id = pt.person_id WHERE p.id = ${personId} AND locale = ${locale}`;
-  try {
-    const DetailResult = await pool.execute(queryDetails);
-    return DetailResult;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-const getMovieListByFilter = async (title, genre_id, locale) => {
-  let queryDetails = `SELECT * FROM movie AS m LEFT JOIN movie_translation AS t ON m.id = t.movie_id WHERE locale = ${locale}`;
-  if (title !== '') {
-    queryDetails += ` AND title LIKE %${title}%`;
-  }
-  if (genre_id > 0) {
-    queryDetails += ` AND genre_id = ${genre_id}`;
-  }
-
-  try {
-    const DetailResult = await pool.execute(queryDetails);
-    return DetailResult;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 const getGenre = async (genreId, locale) => {
   try {
     const genreResult = await pool.execute('SELECT * FROM genre_translation WHERE genre_id = (?) AND locale = (?)', [genreId, locale]);
     return genreResult[0][0];
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getOverview = async (movieId) => {
+  const queryDetails = `SELECT * FROM movie AS m LEFT JOIN movie_translation AS t ON m.id = t.movie_id WHERE t.locale = 'en-US' AND m.id = ${movieId}`;
+  try {
+    const DetailResult = await pool.execute(queryDetails);
+    return DetailResult[0][0];
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getPersonDetail = async (personId, locale) => {
+  const queryDetails = `SELECT * FROM person AS p LEFT JOIN person_translation AS pt ON p.id = pt.person_id WHERE p.id = ${personId} AND locale = \'${locale}\'`;
+  try {
+    const DetailResult = await pool.execute(queryDetails);
+    return DetailResult[0][0];
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getBiography = async (personId) => {
+  const queryDetails = `SELECT * FROM person AS p LEFT JOIN person_translation AS pt ON p.id = pt.person_id WHERE p.id = ${personId} AND locale = 'en-US'`;
+  try {
+    const DetailResult = await pool.execute(queryDetails);
+    return DetailResult[0][0];
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getMovieListByFilter = async (title, genreId, locale) => {
+  let queryDetails = `SELECT * FROM movie AS m LEFT JOIN movie_translation AS t ON m.id = t.movie_id WHERE locale = \'${locale}\'`;
+  if (title !== '') {
+    queryDetails += " AND title LIKE '%" + `${title}` + "%'";
+  }
+  if (genreId > 0) {
+    queryDetails += ` AND genre_id = ${genreId}`;
+  }
+
+  try {
+    const DetailResult = await pool.execute(queryDetails);
+    return DetailResult[0];
   } catch (err) {
     console.log(err);
   }
@@ -84,4 +104,6 @@ module.exports = {
   getPersonDetail,
   getMovieListByFilter,
   getGenre,
+  getOverview,
+  getBiography,
 };
