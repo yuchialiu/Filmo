@@ -10,16 +10,30 @@ const signUp = async (req, res) => {
   let { username } = req.body;
   const { email, password } = req.body;
   if (!username || !email || !password) {
-    res.status(400).send({ error: 'Request Error: name, email and password are required.' });
+    res.status(400).send('name, email and password are required');
     return;
   }
 
   if (!validator.isEmail(email)) {
-    res.status(400).send({ error: 'Request Error: Invalid email format' });
+    res.status(400).send('Invalid email format');
     return;
   }
 
   username = validator.escape(username);
+
+  const resultEmail = await User.GetUser(email);
+  if (resultEmail.user) {
+    if (resultEmail.user.email === email) {
+      return res.status(400).send('email existed');
+    }
+  }
+
+  const resultUsername = await User.ValidateUsername();
+  for (i in resultUsername) {
+    if (resultUsername[i].username === username) {
+      return res.status(400).send('username existed');
+    }
+  }
 
   const result = await User.CreateUser(username, User.USER_ROLE.USER, email, password);
   if (result.error) {

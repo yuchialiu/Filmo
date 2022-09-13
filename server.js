@@ -16,7 +16,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/public', express.static('public'));
 
 app.get('/', (req, res) => {
-  // const query = await axios.get(`${SERVER_IP}/api/${API_VERSION}/movie/list`);
   res.render('index');
 });
 
@@ -30,6 +29,10 @@ app.get('/login', (req, res) => {
 
 app.get('/review', (req, res) => {
   res.render('review');
+});
+
+app.get('/movie', (req, res) => {
+  res.render('movie', { id: req.query.id, locale: req.query.locale });
 });
 
 // app.use('/', [require('./server/routes/index_route')]);

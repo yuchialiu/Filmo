@@ -29,6 +29,10 @@
   margin-left: 100px;
 }
 
+#form {
+  color: white;
+}
+
 #logout_btn {
   background-color: transparent;
   border: 1px solid #a8b8d0;

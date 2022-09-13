@@ -85,11 +85,11 @@ block content
                   let err_alert = error.response.data;
                   alert(err_alert);
           });
-            
-          const token = signup_response.data.response.access_token;
+          console.log(signup_response);
+          const token = signup_response.data.data.access_token;
           
           localStorage.setItem("Authorization", `Bearer ${token}`);
-          console.log(signup_response);
+
           if (token) {
             alert("sign up success");
             window.location.href = "profile"

@@ -41,10 +41,15 @@ const CreateUser = async (username, role, email, password) => {
   } catch (err) {
     console.log(err);
     return {
-      error: 'Email Already Exists',
+      error: err,
       status: 403,
     };
   }
+};
+
+const ValidateUsername = async () => {
+  const result = await pool.execute('SELECT * FROM `user`');
+  return result[0];
 };
 
 const GetUser = async (email) => {
@@ -286,6 +291,7 @@ const createMovieRating = async (userId, movieId, score) => {
 module.exports = {
   USER_ROLE,
   CreateUser,
+  ValidateUsername,
   GetUser,
   getUserDetail,
   updateUserImage,

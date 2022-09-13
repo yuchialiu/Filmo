@@ -14,6 +14,10 @@ block content
       img#picture
     div#name
     div#email
+    form#form(action='/api/1.0/user/image' method='post' enctype="form-data")
+      | Upload Your Profile Picture
+      input(type='file')
+      input(type='submit' value='Upload') 
     button#logout_btn(onclick='logout()') Log out
 
   script.
@@ -61,6 +65,10 @@ block content
       $('#name').html(`username: ${info.username}`) ;
       $('#email').html(`email: ${info.email}`) ;
       console.log("info", info)
+      //- if(info.picture === `${SERVER_IP}/public/assets/images/uploads/undefined`) {
+      //-   const d = $('<div></div>').addClass('img_note').html('no pic')
+      //-   $('#picture').append(d)
+      //- }
       $('#picture').attr('src', info.picture)
 
     }
@@ -68,5 +76,5 @@ block content
     // logout
     function logout(){
       localStorage.removeItem('Authorization');
-      window.location.href = "index";
+      window.location.href = "/";
     }   
