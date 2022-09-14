@@ -25,24 +25,27 @@ block content
 
   script.
 
+    const locale = document.URL.split("=")[1];
+
     var config = {
       method: 'get',
-      url: '/api/1.0/movie/list?locale=en-US',
+      url: `/api/1.0/movie/list?locale=en-US`,
       headers: { }
     };
 
     axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      //- console.log(JSON.stringify(response.data));
       const list = response.data.data
-      $('.banner_link').attr('href', 'www.google.com')
+      console.log(list)
+      $('.banner_link').attr('href', `/movie?id=${list[3].id}&locale=en-US`)
       $('.banner_title').html(list[3].title);
       $('.banner_img').attr('src', list[3].poster)
       $('.banner_trailer').attr('src', list[3].trailer)
 
-      for (let i = 4 ; i < 20 ; i++){
+      for (let i = 0 ; i < 20 ; i++){
         const d = $('<div></div>').addClass('list_div')
-        const a = $('<a></a>').attr('href', list[i].trailer)
+        const a = $('<a></a>').attr('href', `/movie?id=${list[i].id}&locale=en-US`)
         const img = $('<img>').addClass('list_img').attr('src', list[i].poster)
         const p = $('<p></p>').addClass('list_title').html(list[i].title)
 

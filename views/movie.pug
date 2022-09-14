@@ -8,9 +8,13 @@ block head
 block content 
   body
   //- link(rel='stylesheet', href='./public/css/index.css')
-  div.detail test
-    h1#title
+  div.detail 
+    h1#title 
     p#original_title
+    p#genre
+    p#release_date
+    div Runtime
+      p#runtime 
     div#media
       img#poster
     
@@ -18,6 +22,9 @@ block content
     div#media-middle
       h6#overview
       iframe#trailer( width='540' height='290', frameborder = '0', allowfullscreen = '')
+
+    div#cast Cast
+    div#crew Crew
 
   script.
 
@@ -40,5 +47,49 @@ block content
      function showMovieInfo(movieInfo){
       let info = movieInfo.data.data
       console.log('info',info)
+      $('#title ').html(info.title)
+      $('#original_title').html(info.original_title)
+      $('#genre').html(info.genre)
+      $('#release_date').html((info.release_date).slice(0,10))
+      $('#runtime').html(info.runtime)
+      $('#overview').html(info.overview)
+      $('#poster').attr('src', info.poster)
+      $('#trailer').attr('src', `https://www.youtube.com/embed/${info.trailer}?rel=0`)
+
+      
+      for (let i in info.cast){
+        const d = $('<div></div>').addClass('cast_div')
+        const a = $('<a></a>').attr('href', `/person?person_id=${ info.cast[i].person_id}&locale=${locale}`)
+        const img = $('<img>').addClass('cast_img').attr('src', info.cast[i].image)
+        const p = $('<p></p>').addClass('cast_character').html(info.cast[i].character)
+        const pName = $('<p></p>').addClass('cast_name').html(info.cast[i].name)
+
+        let div = a;
+        div = div.append(img)
+        div = div.append(p)
+        div = div.append(pName)
+
+        $('#cast').append(d)
+        $('#cast').append(div)
+      }
+
+      for (let i in info.crew){
+        const d = $('<div></div>').addClass('crew_div')
+        const a = $('<a></a>').attr('href', `/person?person_id=${ info.crew[i].person_id}&locale=${locale}`)
+        const img = $('<img>').addClass('crew_img').attr('src', info.crew[i].image)
+        const p = $('<p></p>').addClass('crewt_job').html(info.crew[i].job)
+        const pName = $('<p></p>').addClass('crew_name').html(info.crew[i].name)
+
+        let div = a;
+        div = div.append(img)
+        div = div.append(p)
+        div = div.append(pName)
+
+        $('#cast').append(d)
+        $('#cast').append(div)
+
+      }
+
+
     }
     

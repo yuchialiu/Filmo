@@ -63,7 +63,49 @@ const getPersonDetail = async (personId, locale) => {
   const queryDetails = `SELECT * FROM person AS p LEFT JOIN person_translation AS pt ON p.id = pt.person_id WHERE p.id = ${personId} AND locale = \'${locale}\'`;
   try {
     const DetailResult = await pool.execute(queryDetails);
-    return DetailResult[0][0];
+    return DetailResult[0];
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getCastMovieByPersonId = async (personId, locale) => {
+  const queryDetails =
+    'SELECT *, c.id AS cast_id FROM cast AS c LEFT JOIN movie AS m ON c.movie_id = m.id LEFT JOIN movie_translation AS mt ON c.movie_id = mt.movie_id WHERE c.person_id = (?) AND locale = (?)';
+  try {
+    const DetailResult = await pool.execute(queryDetails, [personId, locale]);
+    return DetailResult[0];
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getCrewMovieByPersonId = async (personId, locale) => {
+  const queryDetails =
+    'SELECT *, c.id AS crew_id FROM crew AS c LEFT JOIN movie AS m ON c.movie_id = m.id LEFT JOIN movie_translation AS mt ON c.movie_id = mt.movie_id WHERE c.person_id = (?) AND locale = (?)';
+  try {
+    const DetailResult = await pool.execute(queryDetails, [personId, locale]);
+    return DetailResult[0];
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getCharacterByCastId = async (castId, locale) => {
+  const queryDetails = 'SELECT * FROM cast_translation WHERE cast_id = (?) AND locale = (?)';
+  try {
+    const DetailResult = await pool.execute(queryDetails, [castId, locale]);
+    return DetailResult[0];
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getJobByCrewId = async (crewId, locale) => {
+  const queryDetails = 'SELECT * FROM crew_translation WHERE crew_id = (?) AND locale = (?)';
+  try {
+    const DetailResult = await pool.execute(queryDetails, [crewId, locale]);
+    return DetailResult[0];
   } catch (err) {
     console.log(err);
   }
@@ -102,6 +144,10 @@ module.exports = {
   getCastInfoByMovieId,
   getCrewInfoByMovieId,
   getPersonDetail,
+  getCastMovieByPersonId,
+  getCrewMovieByPersonId,
+  getCharacterByCastId,
+  getJobByCrewId,
   getMovieListByFilter,
   getGenre,
   getOverview,

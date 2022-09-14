@@ -35,6 +35,10 @@ app.get('/movie', (req, res) => {
   res.render('movie', { id: req.query.id, locale: req.query.locale });
 });
 
+app.get('/person', (req, res) => {
+  res.render('person', { person_id: req.query.id, locale: req.query.locale });
+});
+
 // app.use('/', [require('./server/routes/index_route')]);
 
 // API Routes

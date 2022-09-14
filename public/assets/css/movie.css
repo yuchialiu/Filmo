@@ -1,3 +1,8 @@
+.detail {
+  margin-left: 50px;
+  color: grey;
+}
+
 #title {
   text-align: center;
   padding-top: 100px;
@@ -30,4 +35,14 @@
 
 #trailer {
   margin: 50px;
+}
+
+#cast,
+#crew {
+  color: white;
+}
+
+.cast_img,
+.crew_img {
+  width: 80px;
 }

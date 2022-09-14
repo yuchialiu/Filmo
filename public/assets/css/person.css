@@ -1,0 +1,30 @@
+.detail {
+  margin-left: 50px;
+  margin-top: 150px;
+}
+
+#birthday,
+#deathday,
+#place,
+#biography,
+#other_movie {
+  color: grey;
+}
+
+#image {
+  width: 300px;
+}
+
+#birthday,
+#deathday,
+#place,
+#biography,
+#image {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.movie_img {
+  width: 80px;
+}
