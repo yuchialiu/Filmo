@@ -1,0 +1,3864 @@
+[1mdiff --git a/.eslintrc.json b/.eslintrc.json[m
+[1mindex 6817c0a..a79aca3 100644[m
+[1m--- a/.eslintrc.json[m
+[1m+++ b/.eslintrc.json[m
+[36m@@ -1,16 +1,15 @@[m
+ {[m
+[31m-  "env": {[m
+[31m-    "browser": true,[m
+[31m-    "commonjs": true,[m
+[31m-    "es2021": true,[m
+[31m-    "node": true,[m
+[31m-    "jest/globals": true,[m
+[31m-    "jquery": true[m
+[31m-  },[m
+[31m-  "extends": ["eslint:recommended", "plugin:prettier/recommended"],[m
+[31m-  "overrides": [],[m
+[31m-  "parserOptions": {[m
+[31m-    "ecmaVersion": "latest"[m
+[31m-  },[m
+[31m-  "rules": {}[m
+[32m+[m[32m    "env": {[m
+[32m+[m[32m        "browser": true,[m
+[32m+[m[32m        "commonjs": true,[m
+[32m+[m[32m        "es2021": true[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "extends": "airbnb-base",[m
+[32m+[m[32m    "overrides": [[m
+[32m+[m[32m    ],[m
+[32m+[m[32m    "parserOptions": {[m
+[32m+[m[32m        "ecmaVersion": "latest"[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "rules": {[m
+[32m+[m[32m    }[m
+ }[m
+[1mdiff --git a/package-lock.json b/package-lock.json[m
+[1mindex e28d097..c1d4b31 100644[m
+[1m--- a/package-lock.json[m
+[1m+++ b/package-lock.json[m
+[36m@@ -10,11 +10,15 @@[m
+       "license": "ISC",[m
+       "dependencies": {[m
+         "axios": "^0.27.2",[m
+[32m+[m[32m        "bcrypt": "^5.0.1",[m
+         "dotenv": "^16.0.1",[m
+         "express": "^4.15.2",[m
+[32m+[m[32m        "jsonwebtoken": "^8.5.1",[m
+[32m+[m[32m        "multer": "^1.4.5-lts.1",[m
+         "mysql2": "^2.3.3",[m
+         "pug": "^3.0.2",[m
+[31m-        "request": "^2.88.2"[m
+[32m+[m[32m        "request": "^2.88.2",[m
+[32m+[m[32m        "validator": "^13.7.0"[m
+       },[m
+       "devDependencies": {[m
+         "eslint": "^8.23.0",[m
+[36m@@ -129,6 +133,39 @@[m
+       "integrity": "sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==",[m
+       "dev": true[m
+     },[m
+[32m+[m[32m    "node_modules/@mapbox/node-pre-gyp": {[m
+[32m+[m[32m      "version": "1.0.10",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/@mapbox/node-pre-gyp/-/node-pre-gyp-1.0.10.tgz",[m
+[32m+[m[32m      "integrity": "sha512-4ySo4CjzStuprMwk35H5pPbkymjv1SF3jGLj6rAHp/xT/RF7TL7bd9CTm1xDY49K2qF7jmR/g7k+SkLETP6opA==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "detect-libc": "^2.0.0",[m
+[32m+[m[32m        "https-proxy-agent": "^5.0.0",[m
+[32m+[m[32m        "make-dir": "^3.1.0",[m
+[32m+[m[32m        "node-fetch": "^2.6.7",[m
+[32m+[m[32m        "nopt": "^5.0.0",[m
+[32m+[m[32m        "npmlog": "^5.0.1",[m
+[32m+[m[32m        "rimraf": "^3.0.2",[m
+[32m+[m[32m        "semver": "^7.3.5",[m
+[32m+[m[32m        "tar": "^6.1.11"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "bin": {[m
+[32m+[m[32m        "node-pre-gyp": "bin/node-pre-gyp"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/@mapbox/node-pre-gyp/node_modules/semver": {[m
+[32m+[m[32m      "version": "7.3.7",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/semver/-/semver-7.3.7.tgz",[m
+[32m+[m[32m      "integrity": "sha512-QlYTucUYOews+WeEujDoEGziz4K6c47V/Bd+LjSSYcA94p+DmINdf7ncaUinThfvZyu13lN9OY1XDxt8C0Tw0g==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "lru-cache": "^6.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "bin": {[m
+[32m+[m[32m        "semver": "bin/semver.js"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=10"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/@nodelib/fs.scandir": {[m
+       "version": "2.1.5",[m
+       "resolved": "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz",[m
+[36m@@ -170,6 +207,11 @@[m
+       "integrity": "sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==",[m
+       "dev": true[m
+     },[m
+[32m+[m[32m    "node_modules/abbrev": {[m
+[32m+[m[32m      "version": "1.1.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/abbrev/-/abbrev-1.1.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q=="[m
+[32m+[m[32m    },[m
+     "node_modules/accepts": {[m
+       "version": "1.3.8",[m
+       "resolved": "https://registry.npmjs.org/accepts/-/accepts-1.3.8.tgz",[m
+[36m@@ -203,6 +245,17 @@[m
+         "acorn": "^6.0.0 || ^7.0.0 || ^8.0.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/agent-base": {[m
+[32m+[m[32m      "version": "6.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/agent-base/-/agent-base-6.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "debug": "4"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">= 6.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/ajv": {[m
+       "version": "6.12.6",[m
+       "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.12.6.tgz",[m
+[36m@@ -222,7 +275,6 @@[m
+       "version": "5.0.1",[m
+       "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz",[m
+       "integrity": "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==",[m
+[31m-      "dev": true,[m
+       "engines": {[m
+         "node": ">=8"[m
+       }[m
+[36m@@ -242,6 +294,28 @@[m
+         "url": "https://github.com/chalk/ansi-styles?sponsor=1"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/append-field": {[m
+[32m+[m[32m      "version": "1.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/append-field/-/append-field-1.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-klpgFSWLW1ZEs8svjfb7g4qWY0YS5imI82dTg+QahUvJ8YqAY0P10Uk8tTyh9ZGuYEZEMaeJYCF5BFuX552hsw=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/aproba": {[m
+[32m+[m[32m      "version": "2.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/aproba/-/aproba-2.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-lYe4Gx7QT+MKGbDsA+Z+he/Wtef0BiwDOlK/XkBrdfsh9J/jPPXbX0tE9x9cl27Tmu5gg3QUbUrQYa/y+KOHPQ=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/are-we-there-yet": {[m
+[32m+[m[32m      "version": "2.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/are-we-there-yet/-/are-we-there-yet-2.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Ci/qENmwHnsYo9xKIcUJN5LeDKdJ6R1Z1j9V/J5wyq8nh/mYPEpIKJbBZXtZjG04HiK7zV/p6Vs9952MrMeUIw==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "delegates": "^1.0.0",[m
+[32m+[m[32m        "readable-stream": "^3.6.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=10"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/argparse": {[m
+       "version": "2.0.1",[m
+       "resolved": "https://registry.npmjs.org/argparse/-/argparse-2.0.1.tgz",[m
+[36m@@ -366,8 +440,20 @@[m
+     "node_modules/balanced-match": {[m
+       "version": "1.0.2",[m
+       "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz",[m
+[31m-      "integrity": "sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==",[m
+[31m-      "dev": true[m
+[32m+[m[32m      "integrity": "sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/bcrypt": {[m
+[32m+[m[32m      "version": "5.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/bcrypt/-/bcrypt-5.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-9BTgmrhZM2t1bNuDtrtIMVSmmxZBrJ71n8Wg+YgdjHuIWYF7SjjmCPZFB+/5i/o/PIeRpwVJR3P+NrpIItUjqw==",[m
+[32m+[m[32m      "hasInstallScript": true,[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "@mapbox/node-pre-gyp": "^1.0.0",[m
+[32m+[m[32m        "node-addon-api": "^3.1.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">= 10.0.0"[m
+[32m+[m[32m      }[m
+     },[m
+     "node_modules/bcrypt-pbkdf": {[m
+       "version": "1.0.2",[m
+[36m@@ -417,7 +503,6 @@[m
+       "version": "1.1.11",[m
+       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",[m
+       "integrity": "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==",[m
+[31m-      "dev": true,[m
+       "dependencies": {[m
+         "balanced-match": "^1.0.0",[m
+         "concat-map": "0.0.1"[m
+[36m@@ -435,6 +520,27 @@[m
+         "node": ">=8"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/buffer-equal-constant-time": {[m
+[32m+[m[32m      "version": "1.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/buffer-equal-constant-time/-/buffer-equal-constant-time-1.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-zRpUiDwd/xk6ADqPMATG8vc9VPrkck7T07OIx0gnjmJAnHnTVXNQG3vfvWNuiZIkwu9KrKdA1iJKfsfTVxE6NA=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/buffer-from": {[m
+[32m+[m[32m      "version": "1.1.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/buffer-from/-/buffer-from-1.1.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/busboy": {[m
+[32m+[m[32m      "version": "1.6.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/busboy/-/busboy-1.6.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "streamsearch": "^1.1.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=10.16.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/bytes": {[m
+       "version": "3.1.2",[m
+       "resolved": "https://registry.npmjs.org/bytes/-/bytes-3.1.2.tgz",[m
+[36m@@ -493,6 +599,14 @@[m
+         "is-regex": "^1.0.3"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/chownr": {[m
+[32m+[m[32m      "version": "2.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/chownr/-/chownr-2.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==",[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=10"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/color-convert": {[m
+       "version": "2.0.1",[m
+       "resolved": "https://registry.npmjs.org/color-convert/-/color-convert-2.0.1.tgz",[m
+[36m@@ -511,6 +625,14 @@[m
+       "integrity": "sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==",[m
+       "dev": true[m
+     },[m
+[32m+[m[32m    "node_modules/color-support": {[m
+[32m+[m[32m      "version": "1.1.3",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/color-support/-/color-support-1.1.3.tgz",[m
+[32m+[m[32m      "integrity": "sha512-qiBjkpbMLO/HL68y+lh4q0/O1MZFj2RX6X/KmMa3+gJD3z+WwI1ZzDHysvqHGS3mP6mznPckpXmw1nI9cJjyRg==",[m
+[32m+[m[32m      "bin": {[m
+[32m+[m[32m        "color-support": "bin.js"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/combined-stream": {[m
+       "version": "1.0.8",[m
+       "resolved": "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz",[m
+[36m@@ -525,8 +647,48 @@[m
+     "node_modules/concat-map": {[m
+       "version": "0.0.1",[m
+       "resolved": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz",[m
+[31m-      "integrity": "sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==",[m
+[31m-      "dev": true[m
+[32m+[m[32m      "integrity": "sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/concat-stream": {[m
+[32m+[m[32m      "version": "1.6.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/concat-stream/-/concat-stream-1.6.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==",[m
+[32m+[m[32m      "engines": [[m
+[32m+[m[32m        "node >= 0.8"[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "buffer-from": "^1.0.0",[m
+[32m+[m[32m        "inherits": "^2.0.3",[m
+[32m+[m[32m        "readable-stream": "^2.2.2",[m
+[32m+[m[32m        "typedarray": "^0.0.6"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/concat-stream/node_modules/readable-stream": {[m
+[32m+[m[32m      "version": "2.3.7",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.3.7.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Ebho8K4jIbHAxnuxi7o42OrZgF/ZTNcsZj6nRKyUmkhLFq8CHItp/fy6hQZuZmP/n3yZ9VBUbp4zz/mX8hmYPw==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "core-util-is": "~1.0.0",[m
+[32m+[m[32m        "inherits": "~2.0.3",[m
+[32m+[m[32m        "isarray": "~1.0.0",[m
+[32m+[m[32m        "process-nextick-args": "~2.0.0",[m
+[32m+[m[32m        "safe-buffer": "~5.1.1",[m
+[32m+[m[32m        "string_decoder": "~1.1.1",[m
+[32m+[m[32m        "util-deprecate": "~1.0.1"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/concat-stream/node_modules/safe-buffer": {[m
+[32m+[m[32m      "version": "5.1.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.1.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/concat-stream/node_modules/string_decoder": {[m
+[32m+[m[32m      "version": "1.1.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-1.1.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "safe-buffer": "~5.1.0"[m
+[32m+[m[32m      }[m
+     },[m
+     "node_modules/confusing-browser-globals": {[m
+       "version": "1.0.11",[m
+[36m@@ -534,6 +696,11 @@[m
+       "integrity": "sha512-JsPKdmh8ZkmnHxDk55FZ1TqVLvEQTvoByJZRN9jzI0UjxK/QgAmsphz7PGtqgPieQZ/CQcHWXCR7ATDNhGe+YA==",[m
+       "dev": true[m
+     },[m
+[32m+[m[32m    "node_modules/console-control-strings": {[m
+[32m+[m[32m      "version": "1.1.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/console-control-strings/-/console-control-strings-1.1.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-ty/fTekppD2fIwRvnZAVdeOiGd1c7YXEixbgJTNzqcxJWKQnjJ/V1bNEEE6hygpM3WjwHFUVK6HTjWSzV4a8sQ=="[m
+[32m+[m[32m    },[m
+     "node_modules/constantinople": {[m
+       "version": "4.0.1",[m
+       "resolved": "https://registry.npmjs.org/constantinople/-/constantinople-4.0.1.tgz",[m
+[36m@@ -609,7 +776,6 @@[m
+       "version": "4.3.4",[m
+       "resolved": "https://registry.npmjs.org/debug/-/debug-4.3.4.tgz",[m
+       "integrity": "sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==",[m
+[31m-      "dev": true,[m
+       "dependencies": {[m
+         "ms": "2.1.2"[m
+       },[m
+[36m@@ -652,6 +818,11 @@[m
+         "node": ">=0.4.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/delegates": {[m
+[32m+[m[32m      "version": "1.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/delegates/-/delegates-1.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-bd2L678uiWATM6m5Z1VzNCErI3jiGzt6HGY8OVICs40JQq/HALfbyNJmp0UDakEY4pMMaN0Ly5om/B1VI/+xfQ=="[m
+[32m+[m[32m    },[m
+     "node_modules/denque": {[m
+       "version": "2.1.0",[m
+       "resolved": "https://registry.npmjs.org/denque/-/denque-2.1.0.tgz",[m
+[36m@@ -677,6 +848,14 @@[m
+         "npm": "1.2.8000 || >= 1.4.16"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/detect-libc": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/detect-libc/-/detect-libc-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-463v3ZeIrcWtdgIg6vI6XUncguvr2TnGl4SzDXinkt9mSLpBJKXT3mW6xT3VQdDN11+WVs29pgvivTc4Lp8v+w==",[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=8"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/dir-glob": {[m
+       "version": "3.0.1",[m
+       "resolved": "https://registry.npmjs.org/dir-glob/-/dir-glob-3.0.1.tgz",[m
+[36m@@ -723,11 +902,24 @@[m
+         "safer-buffer": "^2.1.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/ecdsa-sig-formatter": {[m
+[32m+[m[32m      "version": "1.0.11",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/ecdsa-sig-formatter/-/ecdsa-sig-formatter-1.0.11.tgz",[m
+[32m+[m[32m      "integrity": "sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "safe-buffer": "^5.0.1"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/ee-first": {[m
+       "version": "1.1.1",[m
+       "resolved": "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz",[m
+       "integrity": "sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow=="[m
+     },[m
+[32m+[m[32m    "node_modules/emoji-regex": {[m
+[32m+[m[32m      "version": "8.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/emoji-regex/-/emoji-regex-8.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A=="[m
+[32m+[m[32m    },[m
+     "node_modules/encodeurl": {[m
+       "version": "1.0.2",[m
+       "resolved": "https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.2.tgz",[m
+[36m@@ -1371,11 +1563,21 @@[m
+         "node": ">= 0.6"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/fs-minipass": {[m
+[32m+[m[32m      "version": "2.1.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/fs-minipass/-/fs-minipass-2.1.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "minipass": "^3.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">= 8"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/fs.realpath": {[m
+       "version": "1.0.0",[m
+       "resolved": "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz",[m
+[31m-      "integrity": "sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==",[m
+[31m-      "dev": true[m
+[32m+[m[32m      "integrity": "sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw=="[m
+     },[m
+     "node_modules/function-bind": {[m
+       "version": "1.1.1",[m
+[36m@@ -1415,6 +1617,25 @@[m
+         "url": "https://github.com/sponsors/ljharb"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/gauge": {[m
+[32m+[m[32m      "version": "3.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/gauge/-/gauge-3.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-+5J6MS/5XksCuXq++uFRsnUd7Ovu1XenbeuIuNRJxYWjgQbPuFhT14lAvsWfqfAmnwluf1OwMjz39HjfLPci0Q==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "aproba": "^1.0.3 || ^2.0.0",[m
+[32m+[m[32m        "color-support": "^1.1.2",[m
+[32m+[m[32m        "console-control-strings": "^1.0.0",[m
+[32m+[m[32m        "has-unicode": "^2.0.1",[m
+[32m+[m[32m        "object-assign": "^4.1.1",[m
+[32m+[m[32m        "signal-exit": "^3.0.0",[m
+[32m+[m[32m        "string-width": "^4.2.3",[m
+[32m+[m[32m        "strip-ansi": "^6.0.1",[m
+[32m+[m[32m        "wide-align": "^1.1.2"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=10"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/generate-function": {[m
+       "version": "2.3.1",[m
+       "resolved": "https://registry.npmjs.org/generate-function/-/generate-function-2.3.1.tgz",[m
+[36m@@ -1464,7 +1685,6 @@[m
+       "version": "7.2.3",[m
+       "resolved": "https://registry.npmjs.org/glob/-/glob-7.2.3.tgz",[m
+       "integrity": "sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==",[m
+[31m-      "dev": true,[m
+       "dependencies": {[m
+         "fs.realpath": "^1.0.0",[m
+         "inflight": "^1.0.4",[m
+[36m@@ -1620,6 +1840,11 @@[m
+         "url": "https://github.com/sponsors/ljharb"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/has-unicode": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/has-unicode/-/has-unicode-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-8Rf9Y83NBReMnx0gFzA8JImQACstCYWUplepDa9xprwwtmgEZUF0h/i5xSA625zB/I37EtrswSST6OXxwaaIJQ=="[m
+[32m+[m[32m    },[m
+     "node_modules/http-errors": {[m
+       "version": "2.0.0",[m
+       "resolved": "https://registry.npmjs.org/http-errors/-/http-errors-2.0.0.tgz",[m
+[36m@@ -1649,6 +1874,18 @@[m
+         "npm": ">=1.3.7"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/https-proxy-agent": {[m
+[32m+[m[32m      "version": "5.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-5.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "agent-base": "6",[m
+[32m+[m[32m        "debug": "4"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">= 6"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/iconv-lite": {[m
+       "version": "0.4.24",[m
+       "resolved": "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.4.24.tgz",[m
+[36m@@ -1698,7 +1935,6 @@[m
+       "version": "1.0.6",[m
+       "resolved": "https://registry.npmjs.org/inflight/-/inflight-1.0.6.tgz",[m
+       "integrity": "sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==",[m
+[31m-      "dev": true,[m
+       "dependencies": {[m
+         "once": "^1.3.0",[m
+         "wrappy": "1"[m
+[36m@@ -1826,6 +2062,14 @@[m
+         "node": ">=0.10.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/is-fullwidth-code-point": {[m
+[32m+[m[32m      "version": "3.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==",[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=8"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/is-glob": {[m
+       "version": "4.0.3",[m
+       "resolved": "https://registry.npmjs.org/is-glob/-/is-glob-4.0.3.tgz",[m
+[36m@@ -1958,6 +2202,11 @@[m
+         "url": "https://github.com/sponsors/ljharb"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/isarray": {[m
+[32m+[m[32m      "version": "1.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-VLghIWNM6ELQzo7zwmcg0NmTVyWKYjvIeM83yjp0wRDTmUnrM678fQbcKBo6n2CJEF0szoG//ytg+TKla89ALQ=="[m
+[32m+[m[32m    },[m
+     "node_modules/isexe": {[m
+       "version": "2.0.0",[m
+       "resolved": "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz",[m
+[36m@@ -2024,6 +2273,35 @@[m
+         "json5": "lib/cli.js"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/jsonwebtoken": {[m
+[32m+[m[32m      "version": "8.5.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-XjwVfRS6jTMsqYs0EsuJ4LGxXV14zQybNd4L2r0UvbVnSF9Af8x7p5MzbJ90Ioz/9TI41/hTCvznF/loiSzn8w==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "jws": "^3.2.2",[m
+[32m+[m[32m        "lodash.includes": "^4.3.0",[m
+[32m+[m[32m        "lodash.isboolean": "^3.0.3",[m
+[32m+[m[32m        "lodash.isinteger": "^4.0.4",[m
+[32m+[m[32m        "lodash.isnumber": "^3.0.3",[m
+[32m+[m[32m        "lodash.isplainobject": "^4.0.6",[m
+[32m+[m[32m        "lodash.isstring": "^4.0.1",[m
+[32m+[m[32m        "lodash.once": "^4.0.0",[m
+[32m+[m[32m        "ms": "^2.1.1",[m
+[32m+[m[32m        "semver": "^5.6.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=4",[m
+[32m+[m[32m        "npm": ">=1.4.28"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/jsonwebtoken/node_modules/semver": {[m
+[32m+[m[32m      "version": "5.7.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/semver/-/semver-5.7.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==",[m
+[32m+[m[32m      "bin": {[m
+[32m+[m[32m        "semver": "bin/semver"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/jsprim": {[m
+       "version": "1.4.2",[m
+       "resolved": "https://registry.npmjs.org/jsprim/-/jsprim-1.4.2.tgz",[m
+[36m@@ -2047,6 +2325,25 @@[m
+         "promise": "^7.0.1"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/jwa": {[m
+[32m+[m[32m      "version": "1.4.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/jwa/-/jwa-1.4.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-qiLX/xhEEFKUAJ6FiBMbes3w9ATzyk5W7Hvzpa/SLYdxNtng+gcurvrI7TbACjIXlsJyr05/S1oUhZrc63evQA==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "buffer-equal-constant-time": "1.0.1",[m
+[32m+[m[32m        "ecdsa-sig-formatter": "1.0.11",[m
+[32m+[m[32m        "safe-buffer": "^5.0.1"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/jws": {[m
+[32m+[m[32m      "version": "3.2.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/jws/-/jws-3.2.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-YHlZCB6lMTllWDtSPHz/ZXTsi8S00usEV6v1tjq8tOUZzw7DpSDWVXjXDre6ed1w/pd495ODpHZYSdkRTsa0HA==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "jwa": "^1.4.1",[m
+[32m+[m[32m        "safe-buffer": "^5.0.1"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/levn": {[m
+       "version": "0.4.1",[m
+       "resolved": "https://registry.npmjs.org/levn/-/levn-0.4.1.tgz",[m
+[36m@@ -2075,12 +2372,47 @@[m
+         "url": "https://github.com/sponsors/sindresorhus"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/lodash.includes": {[m
+[32m+[m[32m      "version": "4.3.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/lodash.includes/-/lodash.includes-4.3.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/lodash.isboolean": {[m
+[32m+[m[32m      "version": "3.0.3",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Bz5mupy2SVbPHURB98VAcw+aHh4vRV5IPNhILUCsOzRmsTmSQ17jIuqopAentWoehktxGd9e/hbIXq980/1QJg=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/lodash.isinteger": {[m
+[32m+[m[32m      "version": "4.0.4",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/lodash.isinteger/-/lodash.isinteger-4.0.4.tgz",[m
+[32m+[m[32m      "integrity": "sha512-DBwtEWN2caHQ9/imiNeEA5ys1JoRtRfY3d7V9wkqtbycnAmTvRRmbHKDV4a0EYc678/dia0jrte4tjYwVBaZUA=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/lodash.isnumber": {[m
+[32m+[m[32m      "version": "3.0.3",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz",[m
+[32m+[m[32m      "integrity": "sha512-QYqzpfwO3/CWf3XP+Z+tkQsfaLL/EnUlXWVkIk5FUPc4sBdTehEqZONuyRt2P67PXAk+NXmTBcc97zw9t1FQrw=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/lodash.isplainobject": {[m
+[32m+[m[32m      "version": "4.0.6",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz",[m
+[32m+[m[32m      "integrity": "sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/lodash.isstring": {[m
+[32m+[m[32m      "version": "4.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/lodash.isstring/-/lodash.isstring-4.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-0wJxfxH1wgO3GrbuP+dTTk7op+6L41QCXbGINEmD+ny/G/eCqGzxyCsh7159S+mgDDcoarnBw6PC1PS5+wUGgw=="[m
+[32m+[m[32m    },[m
+     "node_modules/lodash.merge": {[m
+       "version": "4.6.2",[m
+       "resolved": "https://registry.npmjs.org/lodash.merge/-/lodash.merge-4.6.2.tgz",[m
+       "integrity": "sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==",[m
+       "dev": true[m
+     },[m
+[32m+[m[32m    "node_modules/lodash.once": {[m
+[32m+[m[32m      "version": "4.1.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/lodash.once/-/lodash.once-4.1.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Sb487aTOCr9drQVL8pIxOzVhafOjZN9UU54hiN8PU3uAiSV7lx1yYNpbNmex2PK6dSJoNTSJUUswT651yww3Mg=="[m
+[32m+[m[32m    },[m
+     "node_modules/long": {[m
+       "version": "4.0.0",[m
+       "resolved": "https://registry.npmjs.org/long/-/long-4.0.0.tgz",[m
+[36m@@ -2097,6 +2429,20 @@[m
+         "node": ">=10"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/make-dir": {[m
+[32m+[m[32m      "version": "3.1.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/make-dir/-/make-dir-3.1.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "semver": "^6.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=8"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "url": "https://github.com/sponsors/sindresorhus"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/media-typer": {[m
+       "version": "0.3.0",[m
+       "resolved": "https://registry.npmjs.org/media-typer/-/media-typer-0.3.0.tgz",[m
+[36m@@ -2174,7 +2520,6 @@[m
+       "version": "3.1.2",[m
+       "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.2.tgz",[m
+       "integrity": "sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==",[m
+[31m-      "dev": true,[m
+       "dependencies": {[m
+         "brace-expansion": "^1.1.7"[m
+       },[m
+[36m@@ -2185,14 +2530,74 @@[m
+     "node_modules/minimist": {[m
+       "version": "1.2.6",[m
+       "resolved": "https://registry.npmjs.org/minimist/-/minimist-1.2.6.tgz",[m
+[31m-      "integrity": "sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==",[m
+[31m-      "dev": true[m
+[32m+[m[32m      "integrity": "sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/minipass": {[m
+[32m+[m[32m      "version": "3.3.4",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/minipass/-/minipass-3.3.4.tgz",[m
+[32m+[m[32m      "integrity": "sha512-I9WPbWHCGu8W+6k1ZiGpPu0GkoKBeorkfKNuAFBNS1HNFJvke82sxvI5bzcCNpWPorkOO5QQ+zomzzwRxejXiw==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "yallist": "^4.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=8"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/minizlib": {[m
+[32m+[m[32m      "version": "2.1.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/minizlib/-/minizlib-2.1.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "minipass": "^3.0.0",[m
+[32m+[m[32m        "yallist": "^4.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">= 8"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/mkdirp": {[m
+[32m+[m[32m      "version": "1.0.4",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz",[m
+[32m+[m[32m      "integrity": "sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==",[m
+[32m+[m[32m      "bin": {[m
+[32m+[m[32m        "mkdirp": "bin/cmd.js"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=10"[m
+[32m+[m[32m      }[m
+     },[m
+     "node_modules/ms": {[m
+       "version": "2.1.2",[m
+       "resolved": "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz",[m
+[31m-      "integrity": "sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==",[m
+[31m-      "dev": true[m
+[32m+[m[32m      "integrity": "sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/multer": {[m
+[32m+[m[32m      "version": "1.4.5-lts.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/multer/-/multer-1.4.5-lts.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-ywPWvcDMeH+z9gQq5qYHCCy+ethsk4goepZ45GLD63fOu0YcNecQxi64nDs3qluZB+murG3/D4dJ7+dGctcCQQ==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "append-field": "^1.0.0",[m
+[32m+[m[32m        "busboy": "^1.0.0",[m
+[32m+[m[32m        "concat-stream": "^1.5.2",[m
+[32m+[m[32m        "mkdirp": "^0.5.4",[m
+[32m+[m[32m        "object-assign": "^4.1.1",[m
+[32m+[m[32m        "type-is": "^1.6.4",[m
+[32m+[m[32m        "xtend": "^4.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">= 6.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/multer/node_modules/mkdirp": {[m
+[32m+[m[32m      "version": "0.5.6",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.6.tgz",[m
+[32m+[m[32m      "integrity": "sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "minimist": "^1.2.6"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "bin": {[m
+[32m+[m[32m        "mkdirp": "bin/cmd.js"[m
+[32m+[m[32m      }[m
+     },[m
+     "node_modules/mysql2": {[m
+       "version": "2.3.3",[m
+[36m@@ -2262,6 +2667,55 @@[m
+         "node": ">= 0.6"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/node-addon-api": {[m
+[32m+[m[32m      "version": "3.2.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/node-addon-api/-/node-addon-api-3.2.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/node-fetch": {[m
+[32m+[m[32m      "version": "2.6.7",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.7.tgz",[m
+[32m+[m[32m      "integrity": "sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "whatwg-url": "^5.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": "4.x || >=6.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "peerDependencies": {[m
+[32m+[m[32m        "encoding": "^0.1.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "peerDependenciesMeta": {[m
+[32m+[m[32m        "encoding": {[m
+[32m+[m[32m          "optional": true[m
+[32m+[m[32m        }[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/nopt": {[m
+[32m+[m[32m      "version": "5.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/nopt/-/nopt-5.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Tbj67rffqceeLpcRXrT7vKAN8CwfPeIBgM7E6iBkmKLV7bEMwpGgYLGv0jACUsECaa/vuxP0IjEont6umdMgtQ==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "abbrev": "1"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "bin": {[m
+[32m+[m[32m        "nopt": "bin/nopt.js"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=6"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/npmlog": {[m
+[32m+[m[32m      "version": "5.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/npmlog/-/npmlog-5.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-AqZtDUWOMKs1G/8lwylVjrdYgqA4d9nu8hc+0gzRxlDb1I10+FHBGMXs6aiQHFdCUUlqH99MUMuLfzWDNDtfxw==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "are-we-there-yet": "^2.0.0",[m
+[32m+[m[32m        "console-control-strings": "^1.1.0",[m
+[32m+[m[32m        "gauge": "^3.0.0",[m
+[32m+[m[32m        "set-blocking": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/oauth-sign": {[m
+       "version": "0.9.0",[m
+       "resolved": "https://registry.npmjs.org/oauth-sign/-/oauth-sign-0.9.0.tgz",[m
+[36m@@ -2359,7 +2813,6 @@[m
+       "version": "1.4.0",[m
+       "resolved": "https://registry.npmjs.org/once/-/once-1.4.0.tgz",[m
+       "integrity": "sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==",[m
+[31m-      "dev": true,[m
+       "dependencies": {[m
+         "wrappy": "1"[m
+       }[m
+[36m@@ -2444,7 +2897,6 @@[m
+       "version": "1.0.1",[m
+       "resolved": "https://registry.npmjs.org/path-is-absolute/-/path-is-absolute-1.0.1.tgz",[m
+       "integrity": "sha512-AVbw3UJ2e9bq64vSaS9Am0fje1Pa8pbGqTTsmXfaIiMpnr5DlDhfJOuLj9Sf95ZPVDAUerDfEk88MPmPe7UCQg==",[m
+[31m-      "dev": true,[m
+       "engines": {[m
+         "node": ">=0.10.0"[m
+       }[m
+[36m@@ -2518,6 +2970,11 @@[m
+         "url": "https://github.com/prettier/prettier?sponsor=1"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/process-nextick-args": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag=="[m
+[32m+[m[32m    },[m
+     "node_modules/promise": {[m
+       "version": "7.3.1",[m
+       "resolved": "https://registry.npmjs.org/promise/-/promise-7.3.1.tgz",[m
+[36m@@ -2724,6 +3181,19 @@[m
+         "node": ">= 0.8"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/readable-stream": {[m
+[32m+[m[32m      "version": "3.6.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-3.6.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "inherits": "^2.0.3",[m
+[32m+[m[32m        "string_decoder": "^1.1.1",[m
+[32m+[m[32m        "util-deprecate": "^1.0.1"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">= 6"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/regexp.prototype.flags": {[m
+       "version": "1.4.3",[m
+       "resolved": "https://registry.npmjs.org/regexp.prototype.flags/-/regexp.prototype.flags-1.4.3.tgz",[m
+[36m@@ -2844,7 +3314,6 @@[m
+       "version": "3.0.2",[m
+       "resolved": "https://registry.npmjs.org/rimraf/-/rimraf-3.0.2.tgz",[m
+       "integrity": "sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==",[m
+[31m-      "dev": true,[m
+       "dependencies": {[m
+         "glob": "^7.1.3"[m
+       },[m
+[36m@@ -2906,7 +3375,6 @@[m
+       "version": "6.3.0",[m
+       "resolved": "https://registry.npmjs.org/semver/-/semver-6.3.0.tgz",[m
+       "integrity": "sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==",[m
+[31m-      "dev": true,[m
+       "bin": {[m
+         "semver": "bin/semver.js"[m
+       }[m
+[36m@@ -2971,6 +3439,11 @@[m
+         "node": ">= 0.8.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/set-blocking": {[m
+[32m+[m[32m      "version": "2.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/set-blocking/-/set-blocking-2.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw=="[m
+[32m+[m[32m    },[m
+     "node_modules/setprototypeof": {[m
+       "version": "1.2.0",[m
+       "resolved": "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz",[m
+[36m@@ -3010,6 +3483,11 @@[m
+         "url": "https://github.com/sponsors/ljharb"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/signal-exit": {[m
+[32m+[m[32m      "version": "3.0.7",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.7.tgz",[m
+[32m+[m[32m      "integrity": "sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ=="[m
+[32m+[m[32m    },[m
+     "node_modules/slash": {[m
+       "version": "3.0.0",[m
+       "resolved": "https://registry.npmjs.org/slash/-/slash-3.0.0.tgz",[m
+[36m@@ -3059,6 +3537,35 @@[m
+         "node": ">= 0.8"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/streamsearch": {[m
+[32m+[m[32m      "version": "1.1.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/streamsearch/-/streamsearch-1.1.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==",[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=10.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/string_decoder": {[m
+[32m+[m[32m      "version": "1.3.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-1.3.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "safe-buffer": "~5.2.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/string-width": {[m
+[32m+[m[32m      "version": "4.2.3",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz",[m
+[32m+[m[32m      "integrity": "sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "emoji-regex": "^8.0.0",[m
+[32m+[m[32m        "is-fullwidth-code-point": "^3.0.0",[m
+[32m+[m[32m        "strip-ansi": "^6.0.1"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=8"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/string.prototype.trimend": {[m
+       "version": "1.0.5",[m
+       "resolved": "https://registry.npmjs.org/string.prototype.trimend/-/string.prototype.trimend-1.0.5.tgz",[m
+[36m@@ -3091,7 +3598,6 @@[m
+       "version": "6.0.1",[m
+       "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz",[m
+       "integrity": "sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==",[m
+[31m-      "dev": true,[m
+       "dependencies": {[m
+         "ansi-regex": "^5.0.1"[m
+       },[m
+[36m@@ -3143,6 +3649,22 @@[m
+         "url": "https://github.com/sponsors/ljharb"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/tar": {[m
+[32m+[m[32m      "version": "6.1.11",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/tar/-/tar-6.1.11.tgz",[m
+[32m+[m[32m      "integrity": "sha512-an/KZQzQUkZCkuoAA64hM92X0Urb6VpRhAFllDzz44U2mcD5scmT3zBc4VgVpkugF580+DQn8eAFSyoQt0tznA==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "chownr": "^2.0.0",[m
+[32m+[m[32m        "fs-minipass": "^2.0.0",[m
+[32m+[m[32m        "minipass": "^3.0.0",[m
+[32m+[m[32m        "minizlib": "^2.1.1",[m
+[32m+[m[32m        "mkdirp": "^1.0.3",[m
+[32m+[m[32m        "yallist": "^4.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">= 10"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/text-table": {[m
+       "version": "0.2.0",[m
+       "resolved": "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz",[m
+[36m@@ -3194,6 +3716,11 @@[m
+         "node": ">=0.8"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/tr46": {[m
+[32m+[m[32m      "version": "0.0.3",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/tr46/-/tr46-0.0.3.tgz",[m
+[32m+[m[32m      "integrity": "sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw=="[m
+[32m+[m[32m    },[m
+     "node_modules/tsconfig-paths": {[m
+       "version": "3.14.1",[m
+       "resolved": "https://registry.npmjs.org/tsconfig-paths/-/tsconfig-paths-3.14.1.tgz",[m
+[36m@@ -3258,6 +3785,11 @@[m
+         "node": ">= 0.6"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/typedarray": {[m
+[32m+[m[32m      "version": "0.0.6",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz",[m
+[32m+[m[32m      "integrity": "sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA=="[m
+[32m+[m[32m    },[m
+     "node_modules/unbox-primitive": {[m
+       "version": "1.0.2",[m
+       "resolved": "https://registry.npmjs.org/unbox-primitive/-/unbox-primitive-1.0.2.tgz",[m
+[36m@@ -3289,6 +3821,11 @@[m
+         "punycode": "^2.1.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/util-deprecate": {[m
+[32m+[m[32m      "version": "1.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw=="[m
+[32m+[m[32m    },[m
+     "node_modules/utils-merge": {[m
+       "version": "1.0.1",[m
+       "resolved": "https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.1.tgz",[m
+[36m@@ -3306,6 +3843,14 @@[m
+         "uuid": "bin/uuid"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/validator": {[m
+[32m+[m[32m      "version": "13.7.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/validator/-/validator-13.7.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-nYXQLCBkpJ8X6ltALua9dRrZDHVYxjJ1wgskNt1lH9fzGjs3tgojGSCBjmEPwkWS1y29+DrizMTW19Pr9uB2nw==",[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">= 0.10"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/vary": {[m
+       "version": "1.1.2",[m
+       "resolved": "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz",[m
+[36m@@ -3335,6 +3880,20 @@[m
+         "node": ">=0.10.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/webidl-conversions": {[m
+[32m+[m[32m      "version": "3.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-3.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/whatwg-url": {[m
+[32m+[m[32m      "version": "5.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/whatwg-url/-/whatwg-url-5.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "tr46": "~0.0.3",[m
+[32m+[m[32m        "webidl-conversions": "^3.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/which": {[m
+       "version": "2.0.2",[m
+       "resolved": "https://registry.npmjs.org/which/-/which-2.0.2.tgz",[m
+[36m@@ -3366,6 +3925,14 @@[m
+         "url": "https://github.com/sponsors/ljharb"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/wide-align": {[m
+[32m+[m[32m      "version": "1.1.5",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/wide-align/-/wide-align-1.1.5.tgz",[m
+[32m+[m[32m      "integrity": "sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wxx53S+NgUHaP7y3MGlDmg==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "string-width": "^1.0.2 || 2 || 3 || 4"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/with": {[m
+       "version": "7.0.2",[m
+       "resolved": "https://registry.npmjs.org/with/-/with-7.0.2.tgz",[m
+[36m@@ -3392,8 +3959,15 @@[m
+     "node_modules/wrappy": {[m
+       "version": "1.0.2",[m
+       "resolved": "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz",[m
+[31m-      "integrity": "sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==",[m
+[31m-      "dev": true[m
+[32m+[m[32m      "integrity": "sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/xtend": {[m
+[32m+[m[32m      "version": "4.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/xtend/-/xtend-4.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==",[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=0.4"[m
+[32m+[m[32m      }[m
+     },[m
+     "node_modules/yallist": {[m
+       "version": "4.0.0",[m
+[36m@@ -3485,6 +4059,32 @@[m
+       "integrity": "sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==",[m
+       "dev": true[m
+     },[m
+[32m+[m[32m    "@mapbox/node-pre-gyp": {[m
+[32m+[m[32m      "version": "1.0.10",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/@mapbox/node-pre-gyp/-/node-pre-gyp-1.0.10.tgz",[m
+[32m+[m[32m      "integrity": "sha512-4ySo4CjzStuprMwk35H5pPbkymjv1SF3jGLj6rAHp/xT/RF7TL7bd9CTm1xDY49K2qF7jmR/g7k+SkLETP6opA==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "detect-libc": "^2.0.0",[m
+[32m+[m[32m        "https-proxy-agent": "^5.0.0",[m
+[32m+[m[32m        "make-dir": "^3.1.0",[m
+[32m+[m[32m        "node-fetch": "^2.6.7",[m
+[32m+[m[32m        "nopt": "^5.0.0",[m
+[32m+[m[32m        "npmlog": "^5.0.1",[m
+[32m+[m[32m        "rimraf": "^3.0.2",[m
+[32m+[m[32m        "semver": "^7.3.5",[m
+[32m+[m[32m        "tar": "^6.1.11"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "semver": {[m
+[32m+[m[32m          "version": "7.3.7",[m
+[32m+[m[32m          "resolved": "https://registry.npmjs.org/semver/-/semver-7.3.7.tgz",[m
+[32m+[m[32m          "integrity": "sha512-QlYTucUYOews+WeEujDoEGziz4K6c47V/Bd+LjSSYcA94p+DmINdf7ncaUinThfvZyu13lN9OY1XDxt8C0Tw0g==",[m
+[32m+[m[32m          "requires": {[m
+[32m+[m[32m            "lru-cache": "^6.0.0"[m
+[32m+[m[32m          }[m
+[32m+[m[32m        }[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "@nodelib/fs.scandir": {[m
+       "version": "2.1.5",[m
+       "resolved": "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz",[m
+[36m@@ -3517,6 +4117,11 @@[m
+       "integrity": "sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==",[m
+       "dev": true[m
+     },[m
+[32m+[m[32m    "abbrev": {[m
+[32m+[m[32m      "version": "1.1.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/abbrev/-/abbrev-1.1.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q=="[m
+[32m+[m[32m    },[m
+     "accepts": {[m
+       "version": "1.3.8",[m
+       "resolved": "https://registry.npmjs.org/accepts/-/accepts-1.3.8.tgz",[m
+[36m@@ -3539,6 +4144,14 @@[m
+       "dev": true,[m
+       "requires": {}[m
+     },[m
+[32m+[m[32m    "agent-base": {[m
+[32m+[m[32m      "version": "6.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/agent-base/-/agent-base-6.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "debug": "4"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "ajv": {[m
+       "version": "6.12.6",[m
+       "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.12.6.tgz",[m
+[36m@@ -3553,8 +4166,7 @@[m
+     "ansi-regex": {[m
+       "version": "5.0.1",[m
+       "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz",[m
+[31m-      "integrity": "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==",[m
+[31m-      "dev": true[m
+[32m+[m[32m      "integrity": "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ=="[m
+     },[m
+     "ansi-styles": {[m
+       "version": "4.3.0",[m
+[36m@@ -3565,6 +4177,25 @@[m
+         "color-convert": "^2.0.1"[m
+       }[m
+     },[m
+[32m+[m[32m    "append-field": {[m
+[32m+[m[32m      "version": "1.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/append-field/-/append-field-1.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-klpgFSWLW1ZEs8svjfb7g4qWY0YS5imI82dTg+QahUvJ8YqAY0P10Uk8tTyh9ZGuYEZEMaeJYCF5BFuX552hsw=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "aproba": {[m
+[32m+[m[32m      "version": "2.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/aproba/-/aproba-2.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-lYe4Gx7QT+MKGbDsA+Z+he/Wtef0BiwDOlK/XkBrdfsh9J/jPPXbX0tE9x9cl27Tmu5gg3QUbUrQYa/y+KOHPQ=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "are-we-there-yet": {[m
+[32m+[m[32m      "version": "2.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/are-we-there-yet/-/are-we-there-yet-2.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Ci/qENmwHnsYo9xKIcUJN5LeDKdJ6R1Z1j9V/J5wyq8nh/mYPEpIKJbBZXtZjG04HiK7zV/p6Vs9952MrMeUIw==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "delegates": "^1.0.0",[m
+[32m+[m[32m        "readable-stream": "^3.6.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "argparse": {[m
+       "version": "2.0.1",[m
+       "resolved": "https://registry.npmjs.org/argparse/-/argparse-2.0.1.tgz",[m
+[36m@@ -3665,8 +4296,16 @@[m
+     "balanced-match": {[m
+       "version": "1.0.2",[m
+       "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz",[m
+[31m-      "integrity": "sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==",[m
+[31m-      "dev": true[m
+[32m+[m[32m      "integrity": "sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "bcrypt": {[m
+[32m+[m[32m      "version": "5.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/bcrypt/-/bcrypt-5.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-9BTgmrhZM2t1bNuDtrtIMVSmmxZBrJ71n8Wg+YgdjHuIWYF7SjjmCPZFB+/5i/o/PIeRpwVJR3P+NrpIItUjqw==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "@mapbox/node-pre-gyp": "^1.0.0",[m
+[32m+[m[32m        "node-addon-api": "^3.1.0"[m
+[32m+[m[32m      }[m
+     },[m
+     "bcrypt-pbkdf": {[m
+       "version": "1.0.2",[m
+[36m@@ -3714,7 +4353,6 @@[m
+       "version": "1.1.11",[m
+       "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",[m
+       "integrity": "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==",[m
+[31m-      "dev": true,[m
+       "requires": {[m
+         "balanced-match": "^1.0.0",[m
+         "concat-map": "0.0.1"[m
+[36m@@ -3729,6 +4367,24 @@[m
+         "fill-range": "^7.0.1"[m
+       }[m
+     },[m
+[32m+[m[32m    "buffer-equal-constant-time": {[m
+[32m+[m[32m      "version": "1.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/buffer-equal-constant-time/-/buffer-equal-constant-time-1.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-zRpUiDwd/xk6ADqPMATG8vc9VPrkck7T07OIx0gnjmJAnHnTVXNQG3vfvWNuiZIkwu9KrKdA1iJKfsfTVxE6NA=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "buffer-from": {[m
+[32m+[m[32m      "version": "1.1.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/buffer-from/-/buffer-from-1.1.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "busboy": {[m
+[32m+[m[32m      "version": "1.6.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/busboy/-/busboy-1.6.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "streamsearch": "^1.1.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "bytes": {[m
+       "version": "3.1.2",[m
+       "resolved": "https://registry.npmjs.org/bytes/-/bytes-3.1.2.tgz",[m
+[36m@@ -3772,6 +4428,11 @@[m
+         "is-regex": "^1.0.3"[m
+       }[m
+     },[m
+[32m+[m[32m    "chownr": {[m
+[32m+[m[32m      "version": "2.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/chownr/-/chownr-2.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ=="[m
+[32m+[m[32m    },[m
+     "color-convert": {[m
+       "version": "2.0.1",[m
+       "resolved": "https://registry.npmjs.org/color-convert/-/color-convert-2.0.1.tgz",[m
+[36m@@ -3787,6 +4448,11 @@[m
+       "integrity": "sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==",[m
+       "dev": true[m
+     },[m
+[32m+[m[32m    "color-support": {[m
+[32m+[m[32m      "version": "1.1.3",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/color-support/-/color-support-1.1.3.tgz",[m
+[32m+[m[32m      "integrity": "sha512-qiBjkpbMLO/HL68y+lh4q0/O1MZFj2RX6X/KmMa3+gJD3z+WwI1ZzDHysvqHGS3mP6mznPckpXmw1nI9cJjyRg=="[m
+[32m+[m[32m    },[m
+     "combined-stream": {[m
+       "version": "1.0.8",[m
+       "resolved": "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.8.tgz",[m
+[36m@@ -3798,8 +4464,47 @@[m
+     "concat-map": {[m
+       "version": "0.0.1",[m
+       "resolved": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz",[m
+[31m-      "integrity": "sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==",[m
+[31m-      "dev": true[m
+[32m+[m[32m      "integrity": "sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "concat-stream": {[m
+[32m+[m[32m      "version": "1.6.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/concat-stream/-/concat-stream-1.6.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "buffer-from": "^1.0.0",[m
+[32m+[m[32m        "inherits": "^2.0.3",[m
+[32m+[m[32m        "readable-stream": "^2.2.2",[m
+[32m+[m[32m        "typedarray": "^0.0.6"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "readable-stream": {[m
+[32m+[m[32m          "version": "2.3.7",[m
+[32m+[m[32m          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.3.7.tgz",[m
+[32m+[m[32m          "integrity": "sha512-Ebho8K4jIbHAxnuxi7o42OrZgF/ZTNcsZj6nRKyUmkhLFq8CHItp/fy6hQZuZmP/n3yZ9VBUbp4zz/mX8hmYPw==",[m
+[32m+[m[32m          "requires": {[m
+[32m+[m[32m            "core-util-is": "~1.0.0",[m
+[32m+[m[32m            "inherits": "~2.0.3",[m
+[32m+[m[32m            "isarray": "~1.0.0",[m
+[32m+[m[32m            "process-nextick-args": "~2.0.0",[m
+[32m+[m[32m            "safe-buffer": "~5.1.1",[m
+[32m+[m[32m            "string_decoder": "~1.1.1",[m
+[32m+[m[32m            "util-deprecate": "~1.0.1"[m
+[32m+[m[32m          }[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "safe-buffer": {[m
+[32m+[m[32m          "version": "5.1.2",[m
+[32m+[m[32m          "resolved": "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.1.2.tgz",[m
+[32m+[m[32m          "integrity": "sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g=="[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "string_decoder": {[m
+[32m+[m[32m          "version": "1.1.1",[m
+[32m+[m[32m          "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-1.1.1.tgz",[m
+[32m+[m[32m          "integrity": "sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==",[m
+[32m+[m[32m          "requires": {[m
+[32m+[m[32m            "safe-buffer": "~5.1.0"[m
+[32m+[m[32m          }[m
+[32m+[m[32m        }[m
+[32m+[m[32m      }[m
+     },[m
+     "confusing-browser-globals": {[m
+       "version": "1.0.11",[m
+[36m@@ -3807,6 +4512,11 @@[m
+       "integrity": "sha512-JsPKdmh8ZkmnHxDk55FZ1TqVLvEQTvoByJZRN9jzI0UjxK/QgAmsphz7PGtqgPieQZ/CQcHWXCR7ATDNhGe+YA==",[m
+       "dev": true[m
+     },[m
+[32m+[m[32m    "console-control-strings": {[m
+[32m+[m[32m      "version": "1.1.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/console-control-strings/-/console-control-strings-1.1.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-ty/fTekppD2fIwRvnZAVdeOiGd1c7YXEixbgJTNzqcxJWKQnjJ/V1bNEEE6hygpM3WjwHFUVK6HTjWSzV4a8sQ=="[m
+[32m+[m[32m    },[m
+     "constantinople": {[m
+       "version": "4.0.1",[m
+       "resolved": "https://registry.npmjs.org/constantinople/-/constantinople-4.0.1.tgz",[m
+[36m@@ -3867,7 +4577,6 @@[m
+       "version": "4.3.4",[m
+       "resolved": "https://registry.npmjs.org/debug/-/debug-4.3.4.tgz",[m
+       "integrity": "sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==",[m
+[31m-      "dev": true,[m
+       "requires": {[m
+         "ms": "2.1.2"[m
+       }[m
+[36m@@ -3893,6 +4602,11 @@[m
+       "resolved": "https://registry.npmjs.org/delayed-stream/-/delayed-stream-1.0.0.tgz",[m
+       "integrity": "sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ=="[m
+     },[m
+[32m+[m[32m    "delegates": {[m
+[32m+[m[32m      "version": "1.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/delegates/-/delegates-1.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-bd2L678uiWATM6m5Z1VzNCErI3jiGzt6HGY8OVICs40JQq/HALfbyNJmp0UDakEY4pMMaN0Ly5om/B1VI/+xfQ=="[m
+[32m+[m[32m    },[m
+     "denque": {[m
+       "version": "2.1.0",[m
+       "resolved": "https://registry.npmjs.org/denque/-/denque-2.1.0.tgz",[m
+[36m@@ -3908,6 +4622,11 @@[m
+       "resolved": "https://registry.npmjs.org/destroy/-/destroy-1.2.0.tgz",[m
+       "integrity": "sha512-2sJGJTaXIIaR1w4iJSNoN0hnMY7Gpc/n8D4qSCJw8QqFWXf7cuAgnEHxBpweaVcPevC2l3KpjYCx3NypQQgaJg=="[m
+     },[m
+[32m+[m[32m    "detect-libc": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/detect-libc/-/detect-libc-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-463v3ZeIrcWtdgIg6vI6XUncguvr2TnGl4SzDXinkt9mSLpBJKXT3mW6xT3VQdDN11+WVs29pgvivTc4Lp8v+w=="[m
+[32m+[m[32m    },[m
+     "dir-glob": {[m
+       "version": "3.0.1",[m
+       "resolved": "https://registry.npmjs.org/dir-glob/-/dir-glob-3.0.1.tgz",[m
+[36m@@ -3945,11 +4664,24 @@[m
+         "safer-buffer": "^2.1.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "ecdsa-sig-formatter": {[m
+[32m+[m[32m      "version": "1.0.11",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/ecdsa-sig-formatter/-/ecdsa-sig-formatter-1.0.11.tgz",[m
+[32m+[m[32m      "integrity": "sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "safe-buffer": "^5.0.1"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "ee-first": {[m
+       "version": "1.1.1",[m
+       "resolved": "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz",[m
+       "integrity": "sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow=="[m
+     },[m
+[32m+[m[32m    "emoji-regex": {[m
+[32m+[m[32m      "version": "8.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/emoji-regex/-/emoji-regex-8.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A=="[m
+[32m+[m[32m    },[m
+     "encodeurl": {[m
+       "version": "1.0.2",[m
+       "resolved": "https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.2.tgz",[m
+[36m@@ -4458,11 +5190,18 @@[m
+       "resolved": "https://registry.npmjs.org/fresh/-/fresh-0.5.2.tgz",[m
+       "integrity": "sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q=="[m
+     },[m
+[32m+[m[32m    "fs-minipass": {[m
+[32m+[m[32m      "version": "2.1.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/fs-minipass/-/fs-minipass-2.1.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "minipass": "^3.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "fs.realpath": {[m
+       "version": "1.0.0",[m
+       "resolved": "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz",[m
+[31m-      "integrity": "sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==",[m
+[31m-      "dev": true[m
+[32m+[m[32m      "integrity": "sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw=="[m
+     },[m
+     "function-bind": {[m
+       "version": "1.1.1",[m
+[36m@@ -4493,6 +5232,22 @@[m
+       "integrity": "sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==",[m
+       "dev": true[m
+     },[m
+[32m+[m[32m    "gauge": {[m
+[32m+[m[32m      "version": "3.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/gauge/-/gauge-3.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-+5J6MS/5XksCuXq++uFRsnUd7Ovu1XenbeuIuNRJxYWjgQbPuFhT14lAvsWfqfAmnwluf1OwMjz39HjfLPci0Q==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "aproba": "^1.0.3 || ^2.0.0",[m
+[32m+[m[32m        "color-support": "^1.1.2",[m
+[32m+[m[32m        "console-control-strings": "^1.0.0",[m
+[32m+[m[32m        "has-unicode": "^2.0.1",[m
+[32m+[m[32m        "object-assign": "^4.1.1",[m
+[32m+[m[32m        "signal-exit": "^3.0.0",[m
+[32m+[m[32m        "string-width": "^4.2.3",[m
+[32m+[m[32m        "strip-ansi": "^6.0.1",[m
+[32m+[m[32m        "wide-align": "^1.1.2"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "generate-function": {[m
+       "version": "2.3.1",[m
+       "resolved": "https://registry.npmjs.org/generate-function/-/generate-function-2.3.1.tgz",[m
+[36m@@ -4533,7 +5288,6 @@[m
+       "version": "7.2.3",[m
+       "resolved": "https://registry.npmjs.org/glob/-/glob-7.2.3.tgz",[m
+       "integrity": "sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==",[m
+[31m-      "dev": true,[m
+       "requires": {[m
+         "fs.realpath": "^1.0.0",[m
+         "inflight": "^1.0.4",[m
+[36m@@ -4637,6 +5391,11 @@[m
+         "has-symbols": "^1.0.2"[m
+       }[m
+     },[m
+[32m+[m[32m    "has-unicode": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/has-unicode/-/has-unicode-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-8Rf9Y83NBReMnx0gFzA8JImQACstCYWUplepDa9xprwwtmgEZUF0h/i5xSA625zB/I37EtrswSST6OXxwaaIJQ=="[m
+[32m+[m[32m    },[m
+     "http-errors": {[m
+       "version": "2.0.0",[m
+       "resolved": "https://registry.npmjs.org/http-errors/-/http-errors-2.0.0.tgz",[m
+[36m@@ -4659,6 +5418,15 @@[m
+         "sshpk": "^1.7.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "https-proxy-agent": {[m
+[32m+[m[32m      "version": "5.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-5.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "agent-base": "6",[m
+[32m+[m[32m        "debug": "4"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "iconv-lite": {[m
+       "version": "0.4.24",[m
+       "resolved": "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.4.24.tgz",[m
+[36m@@ -4693,7 +5461,6 @@[m
+       "version": "1.0.6",[m
+       "resolved": "https://registry.npmjs.org/inflight/-/inflight-1.0.6.tgz",[m
+       "integrity": "sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==",[m
+[31m-      "dev": true,[m
+       "requires": {[m
+         "once": "^1.3.0",[m
+         "wrappy": "1"[m
+[36m@@ -4784,6 +5551,11 @@[m
+       "integrity": "sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==",[m
+       "dev": true[m
+     },[m
+[32m+[m[32m    "is-fullwidth-code-point": {[m
+[32m+[m[32m      "version": "3.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg=="[m
+[32m+[m[32m    },[m
+     "is-glob": {[m
+       "version": "4.0.3",[m
+       "resolved": "https://registry.npmjs.org/is-glob/-/is-glob-4.0.3.tgz",[m
+[36m@@ -4874,6 +5646,11 @@[m
+         "call-bind": "^1.0.2"[m
+       }[m
+     },[m
+[32m+[m[32m    "isarray": {[m
+[32m+[m[32m      "version": "1.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-VLghIWNM6ELQzo7zwmcg0NmTVyWKYjvIeM83yjp0wRDTmUnrM678fQbcKBo6n2CJEF0szoG//ytg+TKla89ALQ=="[m
+[32m+[m[32m    },[m
+     "isexe": {[m
+       "version": "2.0.0",[m
+       "resolved": "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz",[m
+[36m@@ -4934,6 +5711,30 @@[m
+         "minimist": "^1.2.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "jsonwebtoken": {[m
+[32m+[m[32m      "version": "8.5.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-XjwVfRS6jTMsqYs0EsuJ4LGxXV14zQybNd4L2r0UvbVnSF9Af8x7p5MzbJ90Ioz/9TI41/hTCvznF/loiSzn8w==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "jws": "^3.2.2",[m
+[32m+[m[32m        "lodash.includes": "^4.3.0",[m
+[32m+[m[32m        "lodash.isboolean": "^3.0.3",[m
+[32m+[m[32m        "lodash.isinteger": "^4.0.4",[m
+[32m+[m[32m        "lodash.isnumber": "^3.0.3",[m
+[32m+[m[32m        "lodash.isplainobject": "^4.0.6",[m
+[32m+[m[32m        "lodash.isstring": "^4.0.1",[m
+[32m+[m[32m        "lodash.once": "^4.0.0",[m
+[32m+[m[32m        "ms": "^2.1.1",[m
+[32m+[m[32m        "semver": "^5.6.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "semver": {[m
+[32m+[m[32m          "version": "5.7.1",[m
+[32m+[m[32m          "resolved": "https://registry.npmjs.org/semver/-/semver-5.7.1.tgz",[m
+[32m+[m[32m          "integrity": "sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ=="[m
+[32m+[m[32m        }[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "jsprim": {[m
+       "version": "1.4.2",[m
+       "resolved": "https://registry.npmjs.org/jsprim/-/jsprim-1.4.2.tgz",[m
+[36m@@ -4954,6 +5755,25 @@[m
+         "promise": "^7.0.1"[m
+       }[m
+     },[m
+[32m+[m[32m    "jwa": {[m
+[32m+[m[32m      "version": "1.4.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/jwa/-/jwa-1.4.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-qiLX/xhEEFKUAJ6FiBMbes3w9ATzyk5W7Hvzpa/SLYdxNtng+gcurvrI7TbACjIXlsJyr05/S1oUhZrc63evQA==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "buffer-equal-constant-time": "1.0.1",[m
+[32m+[m[32m        "ecdsa-sig-formatter": "1.0.11",[m
+[32m+[m[32m        "safe-buffer": "^5.0.1"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "jws": {[m
+[32m+[m[32m      "version": "3.2.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/jws/-/jws-3.2.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-YHlZCB6lMTllWDtSPHz/ZXTsi8S00usEV6v1tjq8tOUZzw7DpSDWVXjXDre6ed1w/pd495ODpHZYSdkRTsa0HA==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "jwa": "^1.4.1",[m
+[32m+[m[32m        "safe-buffer": "^5.0.1"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "levn": {[m
+       "version": "0.4.1",[m
+       "resolved": "https://registry.npmjs.org/levn/-/levn-0.4.1.tgz",[m
+[36m@@ -4973,12 +5793,47 @@[m
+         "p-locate": "^5.0.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "lodash.includes": {[m
+[32m+[m[32m      "version": "4.3.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/lodash.includes/-/lodash.includes-4.3.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "lodash.isboolean": {[m
+[32m+[m[32m      "version": "3.0.3",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Bz5mupy2SVbPHURB98VAcw+aHh4vRV5IPNhILUCsOzRmsTmSQ17jIuqopAentWoehktxGd9e/hbIXq980/1QJg=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "lodash.isinteger": {[m
+[32m+[m[32m      "version": "4.0.4",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/lodash.isinteger/-/lodash.isinteger-4.0.4.tgz",[m
+[32m+[m[32m      "integrity": "sha512-DBwtEWN2caHQ9/imiNeEA5ys1JoRtRfY3d7V9wkqtbycnAmTvRRmbHKDV4a0EYc678/dia0jrte4tjYwVBaZUA=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "lodash.isnumber": {[m
+[32m+[m[32m      "version": "3.0.3",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz",[m
+[32m+[m[32m      "integrity": "sha512-QYqzpfwO3/CWf3XP+Z+tkQsfaLL/EnUlXWVkIk5FUPc4sBdTehEqZONuyRt2P67PXAk+NXmTBcc97zw9t1FQrw=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "lodash.isplainobject": {[m
+[32m+[m[32m      "version": "4.0.6",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz",[m
+[32m+[m[32m      "integrity": "sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "lodash.isstring": {[m
+[32m+[m[32m      "version": "4.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/lodash.isstring/-/lodash.isstring-4.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-0wJxfxH1wgO3GrbuP+dTTk7op+6L41QCXbGINEmD+ny/G/eCqGzxyCsh7159S+mgDDcoarnBw6PC1PS5+wUGgw=="[m
+[32m+[m[32m    },[m
+     "lodash.merge": {[m
+       "version": "4.6.2",[m
+       "resolved": "https://registry.npmjs.org/lodash.merge/-/lodash.merge-4.6.2.tgz",[m
+       "integrity": "sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==",[m
+       "dev": true[m
+     },[m
+[32m+[m[32m    "lodash.once": {[m
+[32m+[m[32m      "version": "4.1.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/lodash.once/-/lodash.once-4.1.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Sb487aTOCr9drQVL8pIxOzVhafOjZN9UU54hiN8PU3uAiSV7lx1yYNpbNmex2PK6dSJoNTSJUUswT651yww3Mg=="[m
+[32m+[m[32m    },[m
+     "long": {[m
+       "version": "4.0.0",[m
+       "resolved": "https://registry.npmjs.org/long/-/long-4.0.0.tgz",[m
+[36m@@ -4992,6 +5847,14 @@[m
+         "yallist": "^4.0.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "make-dir": {[m
+[32m+[m[32m      "version": "3.1.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/make-dir/-/make-dir-3.1.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "semver": "^6.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "media-typer": {[m
+       "version": "0.3.0",[m
+       "resolved": "https://registry.npmjs.org/media-typer/-/media-typer-0.3.0.tgz",[m
+[36m@@ -5045,7 +5908,6 @@[m
+       "version": "3.1.2",[m
+       "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.2.tgz",[m
+       "integrity": "sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==",[m
+[31m-      "dev": true,[m
+       "requires": {[m
+         "brace-expansion": "^1.1.7"[m
+       }[m
+[36m@@ -5053,14 +5915,58 @@[m
+     "minimist": {[m
+       "version": "1.2.6",[m
+       "resolved": "https://registry.npmjs.org/minimist/-/minimist-1.2.6.tgz",[m
+[31m-      "integrity": "sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==",[m
+[31m-      "dev": true[m
+[32m+[m[32m      "integrity": "sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "minipass": {[m
+[32m+[m[32m      "version": "3.3.4",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/minipass/-/minipass-3.3.4.tgz",[m
+[32m+[m[32m      "integrity": "sha512-I9WPbWHCGu8W+6k1ZiGpPu0GkoKBeorkfKNuAFBNS1HNFJvke82sxvI5bzcCNpWPorkOO5QQ+zomzzwRxejXiw==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "yallist": "^4.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "minizlib": {[m
+[32m+[m[32m      "version": "2.1.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/minizlib/-/minizlib-2.1.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "minipass": "^3.0.0",[m
+[32m+[m[32m        "yallist": "^4.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "mkdirp": {[m
+[32m+[m[32m      "version": "1.0.4",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz",[m
+[32m+[m[32m      "integrity": "sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw=="[m
+     },[m
+     "ms": {[m
+       "version": "2.1.2",[m
+       "resolved": "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz",[m
+[31m-      "integrity": "sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==",[m
+[31m-      "dev": true[m
+[32m+[m[32m      "integrity": "sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "multer": {[m
+[32m+[m[32m      "version": "1.4.5-lts.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/multer/-/multer-1.4.5-lts.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-ywPWvcDMeH+z9gQq5qYHCCy+ethsk4goepZ45GLD63fOu0YcNecQxi64nDs3qluZB+murG3/D4dJ7+dGctcCQQ==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "append-field": "^1.0.0",[m
+[32m+[m[32m        "busboy": "^1.0.0",[m
+[32m+[m[32m        "concat-stream": "^1.5.2",[m
+[32m+[m[32m        "mkdirp": "^0.5.4",[m
+[32m+[m[32m        "object-assign": "^4.1.1",[m
+[32m+[m[32m        "type-is": "^1.6.4",[m
+[32m+[m[32m        "xtend": "^4.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "mkdirp": {[m
+[32m+[m[32m          "version": "0.5.6",[m
+[32m+[m[32m          "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.6.tgz",[m
+[32m+[m[32m          "integrity": "sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==",[m
+[32m+[m[32m          "requires": {[m
+[32m+[m[32m            "minimist": "^1.2.6"[m
+[32m+[m[32m          }[m
+[32m+[m[32m        }[m
+[32m+[m[32m      }[m
+     },[m
+     "mysql2": {[m
+       "version": "2.3.3",[m
+[36m@@ -5122,6 +6028,38 @@[m
+       "resolved": "https://registry.npmjs.org/negotiator/-/negotiator-0.6.3.tgz",[m
+       "integrity": "sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg=="[m
+     },[m
+[32m+[m[32m    "node-addon-api": {[m
+[32m+[m[32m      "version": "3.2.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/node-addon-api/-/node-addon-api-3.2.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node-fetch": {[m
+[32m+[m[32m      "version": "2.6.7",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.7.tgz",[m
+[32m+[m[32m      "integrity": "sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "whatwg-url": "^5.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "nopt": {[m
+[32m+[m[32m      "version": "5.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/nopt/-/nopt-5.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Tbj67rffqceeLpcRXrT7vKAN8CwfPeIBgM7E6iBkmKLV7bEMwpGgYLGv0jACUsECaa/vuxP0IjEont6umdMgtQ==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "abbrev": "1"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "npmlog": {[m
+[32m+[m[32m      "version": "5.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/npmlog/-/npmlog-5.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-AqZtDUWOMKs1G/8lwylVjrdYgqA4d9nu8hc+0gzRxlDb1I10+FHBGMXs6aiQHFdCUUlqH99MUMuLfzWDNDtfxw==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "are-we-there-yet": "^2.0.0",[m
+[32m+[m[32m        "console-control-strings": "^1.1.0",[m
+[32m+[m[32m        "gauge": "^3.0.0",[m
+[32m+[m[32m        "set-blocking": "^2.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "oauth-sign": {[m
+       "version": "0.9.0",[m
+       "resolved": "https://registry.npmjs.org/oauth-sign/-/oauth-sign-0.9.0.tgz",[m
+[36m@@ -5189,7 +6127,6 @@[m
+       "version": "1.4.0",[m
+       "resolved": "https://registry.npmjs.org/once/-/once-1.4.0.tgz",[m
+       "integrity": "sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==",[m
+[31m-      "dev": true,[m
+       "requires": {[m
+         "wrappy": "1"[m
+       }[m
+[36m@@ -5249,8 +6186,7 @@[m
+     "path-is-absolute": {[m
+       "version": "1.0.1",[m
+       "resolved": "https://registry.npmjs.org/path-is-absolute/-/path-is-absolute-1.0.1.tgz",[m
+[31m-      "integrity": "sha512-AVbw3UJ2e9bq64vSaS9Am0fje1Pa8pbGqTTsmXfaIiMpnr5DlDhfJOuLj9Sf95ZPVDAUerDfEk88MPmPe7UCQg==",[m
+[31m-      "dev": true[m
+[32m+[m[32m      "integrity": "sha512-AVbw3UJ2e9bq64vSaS9Am0fje1Pa8pbGqTTsmXfaIiMpnr5DlDhfJOuLj9Sf95ZPVDAUerDfEk88MPmPe7UCQg=="[m
+     },[m
+     "path-key": {[m
+       "version": "3.1.1",[m
+[36m@@ -5297,6 +6233,11 @@[m
+       "integrity": "sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==",[m
+       "dev": true[m
+     },[m
+[32m+[m[32m    "process-nextick-args": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag=="[m
+[32m+[m[32m    },[m
+     "promise": {[m
+       "version": "7.3.1",[m
+       "resolved": "https://registry.npmjs.org/promise/-/promise-7.3.1.tgz",[m
+[36m@@ -5471,6 +6412,16 @@[m
+         "unpipe": "1.0.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "readable-stream": {[m
+[32m+[m[32m      "version": "3.6.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-3.6.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "inherits": "^2.0.3",[m
+[32m+[m[32m        "string_decoder": "^1.1.1",[m
+[32m+[m[32m        "util-deprecate": "^1.0.1"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "regexp.prototype.flags": {[m
+       "version": "1.4.3",[m
+       "resolved": "https://registry.npmjs.org/regexp.prototype.flags/-/regexp.prototype.flags-1.4.3.tgz",[m
+[36m@@ -5558,7 +6509,6 @@[m
+       "version": "3.0.2",[m
+       "resolved": "https://registry.npmjs.org/rimraf/-/rimraf-3.0.2.tgz",[m
+       "integrity": "sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==",[m
+[31m-      "dev": true,[m
+       "requires": {[m
+         "glob": "^7.1.3"[m
+       }[m
+[36m@@ -5585,8 +6535,7 @@[m
+     "semver": {[m
+       "version": "6.3.0",[m
+       "resolved": "https://registry.npmjs.org/semver/-/semver-6.3.0.tgz",[m
+[31m-      "integrity": "sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==",[m
+[31m-      "dev": true[m
+[32m+[m[32m      "integrity": "sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw=="[m
+     },[m
+     "send": {[m
+       "version": "0.18.0",[m
+[36m@@ -5646,6 +6595,11 @@[m
+         "send": "0.18.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "set-blocking": {[m
+[32m+[m[32m      "version": "2.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/set-blocking/-/set-blocking-2.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw=="[m
+[32m+[m[32m    },[m
+     "setprototypeof": {[m
+       "version": "1.2.0",[m
+       "resolved": "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz",[m
+[36m@@ -5676,6 +6630,11 @@[m
+         "object-inspect": "^1.9.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "signal-exit": {[m
+[32m+[m[32m      "version": "3.0.7",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.7.tgz",[m
+[32m+[m[32m      "integrity": "sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ=="[m
+[32m+[m[32m    },[m
+     "slash": {[m
+       "version": "3.0.0",[m
+       "resolved": "https://registry.npmjs.org/slash/-/slash-3.0.0.tgz",[m
+[36m@@ -5708,6 +6667,29 @@[m
+       "resolved": "https://registry.npmjs.org/statuses/-/statuses-2.0.1.tgz",[m
+       "integrity": "sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ=="[m
+     },[m
+[32m+[m[32m    "streamsearch": {[m
+[32m+[m[32m      "version": "1.1.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/streamsearch/-/streamsearch-1.1.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "string_decoder": {[m
+[32m+[m[32m      "version": "1.3.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-1.3.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "safe-buffer": "~5.2.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "string-width": {[m
+[32m+[m[32m      "version": "4.2.3",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/string-width/-/string-width-4.2.3.tgz",[m
+[32m+[m[32m      "integrity": "sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "emoji-regex": "^8.0.0",[m
+[32m+[m[32m        "is-fullwidth-code-point": "^3.0.0",[m
+[32m+[m[32m        "strip-ansi": "^6.0.1"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "string.prototype.trimend": {[m
+       "version": "1.0.5",[m
+       "resolved": "https://registry.npmjs.org/string.prototype.trimend/-/string.prototype.trimend-1.0.5.tgz",[m
+[36m@@ -5734,7 +6716,6 @@[m
+       "version": "6.0.1",[m
+       "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-6.0.1.tgz",[m
+       "integrity": "sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==",[m
+[31m-      "dev": true,[m
+       "requires": {[m
+         "ansi-regex": "^5.0.1"[m
+       }[m
+[36m@@ -5765,6 +6746,19 @@[m
+       "resolved": "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz",[m
+       "integrity": "sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w=="[m
+     },[m
+[32m+[m[32m    "tar": {[m
+[32m+[m[32m      "version": "6.1.11",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/tar/-/tar-6.1.11.tgz",[m
+[32m+[m[32m      "integrity": "sha512-an/KZQzQUkZCkuoAA64hM92X0Urb6VpRhAFllDzz44U2mcD5scmT3zBc4VgVpkugF580+DQn8eAFSyoQt0tznA==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "chownr": "^2.0.0",[m
+[32m+[m[32m        "fs-minipass": "^2.0.0",[m
+[32m+[m[32m        "minipass": "^3.0.0",[m
+[32m+[m[32m        "minizlib": "^2.1.1",[m
+[32m+[m[32m        "mkdirp": "^1.0.3",[m
+[32m+[m[32m        "yallist": "^4.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "text-table": {[m
+       "version": "0.2.0",[m
+       "resolved": "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz",[m
+[36m@@ -5804,6 +6798,11 @@[m
+         "punycode": "^2.1.1"[m
+       }[m
+     },[m
+[32m+[m[32m    "tr46": {[m
+[32m+[m[32m      "version": "0.0.3",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/tr46/-/tr46-0.0.3.tgz",[m
+[32m+[m[32m      "integrity": "sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw=="[m
+[32m+[m[32m    },[m
+     "tsconfig-paths": {[m
+       "version": "3.14.1",[m
+       "resolved": "https://registry.npmjs.org/tsconfig-paths/-/tsconfig-paths-3.14.1.tgz",[m
+[36m@@ -5853,6 +6852,11 @@[m
+         "mime-types": "~2.1.24"[m
+       }[m
+     },[m
+[32m+[m[32m    "typedarray": {[m
+[32m+[m[32m      "version": "0.0.6",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz",[m
+[32m+[m[32m      "integrity": "sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA=="[m
+[32m+[m[32m    },[m
+     "unbox-primitive": {[m
+       "version": "1.0.2",[m
+       "resolved": "https://registry.npmjs.org/unbox-primitive/-/unbox-primitive-1.0.2.tgz",[m
+[36m@@ -5878,6 +6882,11 @@[m
+         "punycode": "^2.1.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "util-deprecate": {[m
+[32m+[m[32m      "version": "1.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw=="[m
+[32m+[m[32m    },[m
+     "utils-merge": {[m
+       "version": "1.0.1",[m
+       "resolved": "https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.1.tgz",[m
+[36m@@ -5888,6 +6897,11 @@[m
+       "resolved": "https://registry.npmjs.org/uuid/-/uuid-3.4.0.tgz",[m
+       "integrity": "sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A=="[m
+     },[m
+[32m+[m[32m    "validator": {[m
+[32m+[m[32m      "version": "13.7.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/validator/-/validator-13.7.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-nYXQLCBkpJ8X6ltALua9dRrZDHVYxjJ1wgskNt1lH9fzGjs3tgojGSCBjmEPwkWS1y29+DrizMTW19Pr9uB2nw=="[m
+[32m+[m[32m    },[m
+     "vary": {[m
+       "version": "1.1.2",[m
+       "resolved": "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz",[m
+[36m@@ -5908,6 +6922,20 @@[m
+       "resolved": "https://registry.npmjs.org/void-elements/-/void-elements-3.1.0.tgz",[m
+       "integrity": "sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w=="[m
+     },[m
+[32m+[m[32m    "webidl-conversions": {[m
+[32m+[m[32m      "version": "3.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-3.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "whatwg-url": {[m
+[32m+[m[32m      "version": "5.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/whatwg-url/-/whatwg-url-5.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "tr46": "~0.0.3",[m
+[32m+[m[32m        "webidl-conversions": "^3.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "which": {[m
+       "version": "2.0.2",[m
+       "resolved": "https://registry.npmjs.org/which/-/which-2.0.2.tgz",[m
+[36m@@ -5930,6 +6958,14 @@[m
+         "is-symbol": "^1.0.3"[m
+       }[m
+     },[m
+[32m+[m[32m    "wide-align": {[m
+[32m+[m[32m      "version": "1.1.5",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/wide-align/-/wide-align-1.1.5.tgz",[m
+[32m+[m[32m      "integrity": "sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wxx53S+NgUHaP7y3MGlDmg==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "string-width": "^1.0.2 || 2 || 3 || 4"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "with": {[m
+       "version": "7.0.2",[m
+       "resolved": "https://registry.npmjs.org/with/-/with-7.0.2.tgz",[m
+[36m@@ -5950,8 +6986,12 @@[m
+     "wrappy": {[m
+       "version": "1.0.2",[m
+       "resolved": "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz",[m
+[31m-      "integrity": "sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==",[m
+[31m-      "dev": true[m
+[32m+[m[32m      "integrity": "sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "xtend": {[m
+[32m+[m[32m      "version": "4.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/xtend/-/xtend-4.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ=="[m
+     },[m
+     "yallist": {[m
+       "version": "4.0.0",[m
+[1mdiff --git a/package.json b/package.json[m
+[1mindex 82e5dba..bd89fd4 100644[m
+[1m--- a/package.json[m
+[1m+++ b/package.json[m
+[36m@@ -19,11 +19,15 @@[m
+   "homepage": "https://github.com/yuchialiu/filmo#readme",[m
+   "dependencies": {[m
+     "axios": "^0.27.2",[m
+[32m+[m[32m    "bcrypt": "^5.0.1",[m
+     "dotenv": "^16.0.1",[m
+     "express": "^4.15.2",[m
+[32m+[m[32m    "jsonwebtoken": "^8.5.1",[m
+[32m+[m[32m    "multer": "^1.4.5-lts.1",[m
+     "mysql2": "^2.3.3",[m
+     "pug": "^3.0.2",[m
+[31m-    "request": "^2.88.2"[m
+[32m+[m[32m    "request": "^2.88.2",[m
+[32m+[m[32m    "validator": "^13.7.0"[m
+   },[m
+   "devDependencies": {[m
+     "eslint": "^8.23.0",[m
+[1mdiff --git a/public/assets/css/index.css b/public/assets/css/index.css[m
+[1mindex 01db487..c139a11 100644[m
+[1m--- a/public/assets/css/index.css[m
+[1m+++ b/public/assets/css/index.css[m
+[36m@@ -21,3 +21,43 @@[m
+   color: green;[m
+   height: 100vh;[m
+ }[m
+[32m+[m
+[32m+[m[32m.title {[m
+[32m+[m[32m  text-align: center;[m
+[32m+[m[32m  padding: 100px;[m
+[32m+[m[32m  margin-top: 20px;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.banner_title {[m
+[32m+[m[32m  display: flex;[m
+[32m+[m[32m  justify-content: center;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.banner_media {[m
+[32m+[m[32m  height: 100%;[m
+[32m+[m[32m  display: flex;[m
+[32m+[m[32m  float: center;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.banner_img {[m
+[32m+[m[32m  width: 350px;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.second_title {[m
+[32m+[m[32m  text-align: center;[m
+[32m+[m[32m  padding: 100px;[m
+[32m+[m[32m  margin-top: 20px;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.list_img {[m
+[32m+[m[32m  width: 150px;[m
+[32m+[m[32m  margin: 10px;[m
+[32m+[m[32m  display: flex;[m
+[32m+[m[32m  justify-content: space-around;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.list_title {[m
+[32m+[m[32m  display: flex;[m
+[32m+[m[32m  justify-content: center;[m
+[32m+[m[32m  justify-content: center;[m
+[32m+[m[32m}[m
+[1mdiff --git a/public/assets/css/login.css b/public/assets/css/login.css[m
+[1mnew file mode 100644[m
+[1mindex 0000000..f2a0ac2[m
+[1m--- /dev/null[m
+[1m+++ b/public/assets/css/login.css[m
+[36m@@ -0,0 +1,106 @@[m
+[32m+[m[32m/* * {[m
+[32m+[m[32m  box-sizing: border-box;[m
+[32m+[m[32m  font-family: Arial, Helvetica, sans-serif;[m
+[32m+[m[32m  font-weight: 550;[m
+[32m+[m[32m  letter-spacing: 1px;[m
+[32m+[m[32m} */[m
+[32m+[m
+[32m+[m[32m#main {[m
+[32m+[m[32m  margin-top: 100px;[m
+[32m+[m[32m  margin-left: 100px;[m
+[32m+[m[32m  padding: 100px 0 0 100px;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.login_page {[m
+[32m+[m[32m  height: 300px;[m
+[32m+[m[32m  display: flex;[m
+[32m+[m[32m  margin-top: 0;[m
+[32m+[m[32m  margin-bottom: 200px;[m
+[32m+[m[32m  justify-content: center;[m
+[32m+[m[32m  /* padding: 80px auto; */[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.signin,[m
+[32m+[m[32m.signup {[m
+[32m+[m[32m  max-width: 380px;[m
+[32m+[m[32m  width: 380px;[m
+[32m+[m[32m  height: 350px;[m
+[32m+[m[32m  padding: 15px 35px 45px;[m
+[32m+[m[32m  margin: 0 50px;[m
+[32m+[m[32m  background-color: #fff;[m
+[32m+[m[32m  border: 5px solid rgba(0, 0, 0, 0.1);[m
+[32m+[m[32m  font-size: 18px;[m
+[32m+[m[32m  /* text-align: center; */[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.sign_in_control,[m
+[32m+[m[32m.sign_up_control {[m
+[32m+[m[32m  position: relative;[m
+[32m+[m[32m  font-size: 16px;[m
+[32m+[m[32m  height: auto;[m
+[32m+[m[32m  width: 272px;[m
+[32m+[m[32m  padding: 10px;[m
+[32m+[m[32m  margin-bottom: 15px;[m
+[32m+[m[32m  border: 2.5px solid #aaaaaa;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32minput[type='text'] {[m
+[32m+[m[32m  /* margin-bottom: -1px; */[m
+[32m+[m[32m  border-bottom-left-radius: 0;[m
+[32m+[m[32m  border-bottom-right-radius: 0;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32minput[type='password'] {[m
+[32m+[m[32m  margin-bottom: 20px;[m
+[32m+[m[32m  border-top-left-radius: 0;[m
+[32m+[m[32m  border-top-right-radius: 0;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m#login {[m
+[32m+[m[32m  background: #09223b;[m
+[32m+[m[32m  color: rgb(255, 255, 255, 0.7);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.button_control {[m
+[32m+[m[32m  background-color: transparent;[m
+[32m+[m[32m  border: 2px solid #a8b8d0;[m
+[32m+[m[32m  box-sizing: border-box;[m
+[32m+[m[32m  color: #00132c;[m
+[32m+[m[32m  font-family: 'Avenir Next LT W01 Bold', sans-serif;[m
+[32m+[m[32m  font-size: 16px;[m
+[32m+[m[32m  font-weight: 700;[m
+[32m+[m[32m  line-height: 24px;[m
+[32m+[m[32m  padding: 16px 23px;[m
+[32m+[m[32m  position: relative;[m
+[32m+[m[32m  text-decoration: none;[m
+[32m+[m[32m  user-select: none;[m
+[32m+[m[32m  -webkit-user-select: none;[m
+[32m+[m[32m  touch-action: manipulation;[m
+[32m+[m[32m  margin-top: 15px;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.button_control:hover,[m
+[32m+[m[32m.button_control:active {[m
+[32m+[m[32m  outline: 0;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.button_control:hover {[m
+[32m+[m[32m  background-color: #d4dfee;[m
+[32m+[m[32m  cursor: pointer;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/* .button_control:before {[m
+[32m+[m[32m  background-color: #D5EDF6;[m
+[32m+[m[32m  content: "";[m
+[32m+[m[32m  height: calc(100% + 3px);[m
+[32m+[m[32m  position: absolute;[m
+[32m+[m[32m  right: -7px;[m
+[32m+[m[32m  top: -9px;[m
+[32m+[m[32m  transition: background-color 300ms ease-in;[m
+[32m+[m[32m  width: 100%;[m
+[32m+[m[32m  z-index: -1;[m
+[32m+[m[32m} */[m
+[32m+[m
+[32m+[m[32m/* .button_control:hover:before {[m
+[32m+[m[32m  background-color: #6DCFF6;[m
+[32m+[m[32m} */[m
+[1mdiff --git a/server.js b/server.js[m
+[1mindex 5305148..2534c82 100644[m
+[1m--- a/server.js[m
+[1m+++ b/server.js[m
+[36m@@ -1,23 +1,41 @@[m
+ require('dotenv').config();[m
+[31m-const { API_VERSION } = process.env;[m
+ [m
+[32m+[m[32mconst { API_VERSION, SERVER_IP } = process.env;[m
+[32m+[m
+[32m+[m[32mconst { default: axios } = require('axios');[m
+ // Express Initialization[m
+ const express = require('express');[m
+[32m+[m
+ const app = express();[m
+ [m
+ app.set('view engine', 'pug');[m
+ [m
+ app.use(express.static('public'));[m
+[32m+[m[32mapp.use(express.json());[m
+[32m+[m[32mapp.use(express.urlencoded({ extended: true }));[m
+ app.use('/public', express.static('public'));[m
+ [m
+[31m-// app.get('/', (req, res) => {[m
+[31m-//   res.render('index');[m
+[31m-// });[m
+[32m+[m[32mapp.get('/', (req, res) => {[m
+[32m+[m[32m  // const query = await axios.get(`${SERVER_IP}/api/${API_VERSION}/movie/list`);[m
+[32m+[m[32m  res.render('index');[m
+[32m+[m[32m});[m
+[32m+[m
+[32m+[m[32mapp.get('/profile', (req, res) => {[m
+[32m+[m[32m  res.render('profile');[m
+[32m+[m[32m});[m
+[32m+[m
+[32m+[m[32mapp.get('/login', (req, res) => {[m
+[32m+[m[32m  res.render('login');[m
+[32m+[m[32m});[m
+[32m+[m
+[32m+[m[32mapp.get('/review', (req, res) => {[m
+[32m+[m[32m  res.render('review');[m
+[32m+[m[32m});[m
+ [m
+[31m-app.use('/', [require('./server/routes/index_route')]);[m
+[32m+[m[32m// app.use('/', [require('./server/routes/index_route')]);[m
+ [m
+ // API Routes[m
+[31m-app.use('/api/' + API_VERSION, [require('./server/routes/crawler_route')]);[m
+[32m+[m[32mapp.use(`/api/${API_VERSION}`, [require('./server/routes/crawler_route'), require('./server/routes/user_route'), require('./server/routes/movie_route')]);[m
+ [m
+ // Server Port[m
+ const port = 3000;[m
+[1mdiff --git a/server/controllers/crawler_controller.js b/server/controllers/crawler_controller.js[m
+[1mindex 2bf4f12..8facbb8 100644[m
+[1m--- a/server/controllers/crawler_controller.js[m
+[1m+++ b/server/controllers/crawler_controller.js[m
+[36m@@ -1,15 +1,16 @@[m
+ require('dotenv').config();[m
+ const axios = require('axios');[m
+[32m+[m
+ const { TMDB_Key } = process.env;[m
+ const Crawler = require('../models/crawler_model');[m
+ [m
+[31m-let resArr = [];[m
+[32m+[m[32mconst resArr = [];[m
+ let locale;[m
+[31m-let page = 5; //movie page[m
+[32m+[m[32mconst page = 5; // movie page[m
+ [m
+ const insertGenreCrawler = async (req, res) => {[m
+   const locales = ['en-US', 'zh-TW', 'fr-FR'];[m
+[31m-  for (let i in locales) {[m
+[32m+[m[32m  for (const i in locales) {[m
+     const { data } = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${TMDB_Key}&language=${locales[i]}`);[m
+     const result = await Crawler.insertGenreCrawler(data.genres, locales[i]);[m
+     resArr.push(result);[m
+[36m@@ -29,7 +30,7 @@[m [mconst insertMovieCrawler = async (req, res) => {[m
+   );[m
+   const result = await Crawler.insertMovieCrawler(data.results);[m
+ [m
+[31m-  if (result == 'failed') {[m
+[32m+[m[32m  if (result === 'failed') {[m
+     res.status(500).send({ error: 'insert error' });[m
+   } else {[m
+     res.status(200).send({ response: 'inserted' });[m
+[36m@@ -39,9 +40,9 @@[m [mconst insertMovieCrawler = async (req, res) => {[m
+ const insertPersonCrawler = async (req, res) => {[m
+   const result = await Crawler.insertPersonCrawler();[m
+ [m
+[31m-  if (result == 'failed') {[m
+[32m+[m[32m  if (result === 'failed') {[m
+     res.status(500).send({ error: 'insert error' });[m
+[31m-  } else if (result == 'not existed') {[m
+[32m+[m[32m  } else if (result === 'not existed') {[m
+     res.status(500).send({ error: 'movie not existed' });[m
+   } else {[m
+     res.status(200).send({ response: 'inserted' });[m
+[1mdiff --git a/server/controllers/movie_controller.js b/server/controllers/movie_controller.js[m
+[1mindex 5ee7c6c..d263ed7 100644[m
+[1m--- a/server/controllers/movie_controller.js[m
+[1m+++ b/server/controllers/movie_controller.js[m
+[36m@@ -1,10 +1,13 @@[m
+[32m+[m[32mrequire('dotenv').config();[m
+[32m+[m
+[32m+[m[32mconst { SERVER_IP } = process.env;[m
+ const Movie = require('../models/movie_model');[m
+ [m
+[31m-const showMain = async (req, res) => {[m
+[31m-  const result = await Movie.getMovieData();[m
+[32m+[m[32m// const showMain = async (req, res) => {[m
+[32m+[m[32m//   const result = await Movie.getMovieData();[m
+ [m
+[31m-  res.render('index', { data: result[0] });[m
+[31m-};[m
+[32m+[m[32m//   res.render('index', { data: result[0] });[m
+[32m+[m[32m// };[m
+ [m
+ // const showDetail = async (req, res) => {[m
+ //   const result = await Index.getMovieDetails(7);[m
+[36m@@ -19,18 +22,18 @@[m [mconst showMain = async (req, res) => {[m
+ // };[m
+ [m
+ const getMovieListInfo = async (req, res) => {[m
+[31m-  const movieId = req.query.id;[m
+   // const locale = req.query.locale;[m
+   const locale = 'en-US';[m
+[31m-  const limit = 5;[m
+[32m+[m[32m  const limit = 20;[m
+   const movieList = await Movie.getMovieListInfo(locale, limit);[m
+ [m
+[31m-  // format result[m
+[31m-  let result = [];[m
+[32m+[m[32m  const result = [];[m
+   for (i in movieList) {[m
+[31m-    let info = {[m
+[31m-      name: movieList[i].name,[m
+[31m-      // add field[m
+[32m+[m[32m    const info = {[m
+[32m+[m[32m      id: movieList[i].id,[m
+[32m+[m[32m      title: movieList[i].title,[m
+[32m+[m[32m      poster: `${SERVER_IP}/public/assets/images/posters/${movieList[i].poster_image}`,[m
+[32m+[m[32m      trailer: `https://www.youtube.com/embed/${movieList[i].trailer}?rel=0`,[m
+     };[m
+ [m
+     result.push(info);[m
+[36m@@ -39,26 +42,77 @@[m [mconst getMovieListInfo = async (req, res) => {[m
+   const response = {[m
+     data: result,[m
+   };[m
+[32m+[m[32m  res.status(200).send(response);[m
+ };[m
+ [m
+ const getMovieInfo = async (req, res) => {[m
+   const movieId = req.query.id;[m
+[32m+[m[32m  const { locale } = req.query;[m
+[32m+[m[32m  // const locale = 'en-US';[m
+[32m+[m
+[32m+[m[32m  const result = await Movie.getMovieInfo(movieId, locale);[m
+[32m+[m[32m  const resultCast = await Movie.getCastInfoByMovieId(movieId, locale);[m
+[32m+[m[32m  const resultCrew = await Movie.getCrewInfoByMovieId(movieId, locale);[m
+[32m+[m[32m  const resultGenre = await Movie.getGenre(result[0].genre_id, locale);[m
+ [m
+[31m-  const result = await Movie.getMovieInfo(movieId);[m
+[31m-  // Movie.getCastInfoByMovieId[m
+[31m-  // Movie.getCrewInfoByMovieId[m
+[31m-  // format result[m
+[32m+[m[32m  const castInfo = [];[m
+[32m+[m[32m  for (i in resultCast) {[m
+[32m+[m[32m    const cast = {[m
+[32m+[m[32m      cast_id: resultCast[i].id,[m
+[32m+[m[32m      character: resultCast[i].character,[m
+[32m+[m[32m      name: resultCast[i].name,[m
+[32m+[m[32m    };[m
+[32m+[m[32m    castInfo.push(cast);[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  const crewInfo = [];[m
+[32m+[m[32m  for (i in resultCrew) {[m
+[32m+[m[32m    const crew = {[m
+[32m+[m[32m      crew_id: resultCrew[i].id,[m
+[32m+[m[32m      job: resultCrew[i].job,[m
+[32m+[m[32m      name: resultCrew[i].name,[m
+[32m+[m[32m    };[m
+[32m+[m[32m    crewInfo.push(crew);[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  // TODO:format result[m
+   const response = {[m
+[31m-    data: result,[m
+[32m+[m[32m    id: result[0].id,[m
+[32m+[m[32m    ref_id: result[0].ref_id,[m
+[32m+[m[32m    original_title: result[0].original_title,[m
+[32m+[m[32m    release_date: result[0].release_date,[m
+[32m+[m[32m    runtime: result[0].runtime,[m
+[32m+[m[32m    genre: resultGenre.title,[m
+[32m+[m[32m    poster: `${SERVER_IP}/public/assets/images/posters/${result[0].poster_image}`,[m
+[32m+[m[32m    title: result[0].title,[m
+[32m+[m[32m    overview: result[0].overview,[m
+[32m+[m[32m    trailer: result[0].trailer,[m
+[32m+[m[32m    certification: result[0].certification,[m
+[32m+[m[32m    spoken_languages: result[0].spoken_languages,[m
+[32m+[m[32m    cast: castInfo,[m
+[32m+[m[32m    crew: crewInfo,[m
+   };[m
+[32m+[m[32m  res.status(200).send({ data: response });[m
+ };[m
+ [m
+ const getPersonDetail = async (req, res) => {[m
+[31m-  // Movie.getPersonDetail[m
+[32m+[m[32m  const personId = req.params.person_id;[m
+[32m+[m[32m  const locale = 'en-US';[m
+[32m+[m[32m  // TODO: req.params[m
+[32m+[m[32m  const result = await Movie.getPersonDetail(personId, locale);[m
+[32m+[m[32m  const response = {[m
+[32m+[m[32m    data: result,[m
+[32m+[m[32m  };[m
+[32m+[m[32m  res.status(200).send(response);[m
+ };[m
+ [m
+ const searchMovie = async (req, res) => {[m
+[31m-  // Movie.getMovieListByFilter[m
+[32m+[m[32m  // TODO: Movie.getMovieListByFilter[m
+ };[m
+ [m
+[31m-module.exports = { getMovieListInfo, getMovieInfo, getPersonDetail, searchMovie };[m
+[32m+[m[32mmodule.exports = {[m
+[32m+[m[32m  getMovieListInfo,[m
+[32m+[m[32m  getMovieInfo,[m
+[32m+[m[32m  getPersonDetail,[m
+[32m+[m[32m  searchMovie,[m
+[32m+[m[32m};[m
+[1mdiff --git a/server/controllers/user_controller.js b/server/controllers/user_controller.js[m
+[1mindex 36181ff..eaf2654 100644[m
+[1m--- a/server/controllers/user_controller.js[m
+[1m+++ b/server/controllers/user_controller.js[m
+[36m@@ -1,10 +1,15 @@[m
+ require('dotenv').config();[m
+ const validator = require('validator');[m
+[32m+[m[32mconst bcrypt = require('bcrypt');[m
+[32m+[m
+[32m+[m[32mconst { TOKEN_EXPIRE, TOKEN_SECRET } = process.env; // 30 days by seconds[m
+[32m+[m[32mconst jwt = require('jsonwebtoken');[m
+ const User = require('../models/user_model');[m
+ [m
+ const signUp = async (req, res) => {[m
+[32m+[m[32m  let { username } = req.body;[m
+   const { email, password } = req.body;[m
+[31m-  if (!name || !email || !password) {[m
+[32m+[m[32m  if (!username || !email || !password) {[m
+     res.status(400).send({ error: 'Request Error: name, email and password are required.' });[m
+     return;[m
+   }[m
+[36m@@ -14,15 +19,15 @@[m [mconst signUp = async (req, res) => {[m
+     return;[m
+   }[m
+ [m
+[31m-  name = validator.escape(name);[m
+[32m+[m[32m  username = validator.escape(username);[m
+ [m
+[31m-  const result = await User.CreateUser(name, User.USER_ROLE.USER, email, password);[m
+[32m+[m[32m  const result = await User.CreateUser(username, User.USER_ROLE.USER, email, password);[m
+   if (result.error) {[m
+     res.status(403).send({ error: result.error });[m
+     return;[m
+   }[m
+ [m
+[31m-  const user = result.user;[m
+[32m+[m[32m  const { user } = result;[m
+   if (!user) {[m
+     res.status(500).send({ error: 'Database Query Error' });[m
+     return;[m
+[36m@@ -34,7 +39,7 @@[m [mconst signUp = async (req, res) => {[m
+       access_expired: user.access_expired,[m
+       user: {[m
+         id: user.id,[m
+[31m-        name: user.name,[m
+[32m+[m[32m        username: user.username,[m
+         role: 'user',[m
+         email: user.email,[m
+         picture: user.picture,[m
+[36m@@ -43,53 +48,314 @@[m [mconst signUp = async (req, res) => {[m
+   });[m
+ };[m
+ [m
+[31m-const signIn = async (email, password) => {[m
+[32m+[m[32mconst signIn = async (req, res) => {[m
+[32m+[m[32m  const { email, password } = req.body;[m
+   if (!email || !password) {[m
+[31m-    return { error: 'Request Error: email and password are required.', status: 400 };[m
+[32m+[m[32m    return res.status(400).send({ error: 'Request Error: email and password are required.' });[m
+   }[m
+ [m
+   try {[m
+[31m-    let tokenInfo = validateUser(email, password);[m
+[32m+[m[32m    const result = await validateUser(email, password);[m
+     res.status(201).send({[m
+[31m-      response: tokenInfo,[m
+[32m+[m[32m      response: result,[m
+     });[m
+   } catch (err) {[m
+     console.log(err);[m
+[31m-    return { err };[m
+[32m+[m[32m    res.status(500).send({ err });[m
+   }[m
+ };[m
+ [m
+ const getUserDetail = async (req, res) => {[m
+   res.status(200).send({[m
+     data: {[m
+[31m-      provider: req.user.provider,[m
+[31m-      name: req.user.name,[m
+[32m+[m[32m      id: req.user.id,[m
+[32m+[m[32m      username: req.user.username,[m
+       email: req.user.email,[m
+       picture: req.user.picture,[m
+     },[m
+   });[m
+[31m-  return;[m
+ };[m
+ [m
+[31m-function validateUser(email, password) {[m
+[31m-  let user = User.GetUser(email);[m
+[31m-  if (!bcrypt.compareSync(password, user.password)) {[m
+[32m+[m[32m// const updateUserImage = async (req, res) => {[m
+[32m+[m[32m//   const { id } = req.user;[m
+[32m+[m[32m//   const image = req.files.image[0].filename;[m
+[32m+[m[32m//   const path = await User.putImage(id, image);[m
+[32m+[m[32m//   res.status(201).json({[m
+[32m+[m[32m//     data: {[m
+[32m+[m[32m//       picture: path,[m
+[32m+[m[32m//     },[m
+[32m+[m[32m//   });[m
+[32m+[m[32m// };[m
+[32m+[m
+[32m+[m[32m// Reviews CRUD[m
+[32m+[m[32mconst createUserReview = async (req, res) => {[m
+[32m+[m[32m  const { id } = req.user;[m
+[32m+[m[32m  const { movie_id, content, image } = req.body;[m
+[32m+[m
+[32m+[m[32m  // TODO: image handler[m
+[32m+[m[32m  const result = await User.createUserReview(id, movie_id, content, image);[m
+[32m+[m[32m  if (result.err) {[m
+[32m+[m[32m    console.log(result.err);[m
+[32m+[m[32m    res.status(500).send({ err: 'cannot add comment' });[m
+[32m+[m[32m  } else {[m
+[32m+[m[32m    res.status(200).send({[m
+[32m+[m[32m      data: {[m
+[32m+[m[32m        comment_id: result,[m
+[32m+[m[32m      },[m
+[32m+[m[32m    });[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst getUserReview = async (req, res) => {[m
+[32m+[m[32m  const { id } = req.user;[m
+[32m+[m
+[32m+[m[32m  const result = await User.getUserReview(id);[m
+[32m+[m[32m  if (result.err) {[m
+[32m+[m[32m    console.log(result.err);[m
+[32m+[m[32m    res.status(500).send({ err: 'cannot get review' });[m
+[32m+[m[32m  } else {[m
+[32m+[m[32m    res.status(200).send({[m
+[32m+[m[32m      data: result,[m
+[32m+[m[32m    });[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst updateUserReview = async (req, res) => {[m
+[32m+[m[32m  const { id } = req.user;[m
+[32m+[m[32m  const { review_id, content } = req.body;[m
+[32m+[m
+[32m+[m[32m  const result = await User.updateUserReview(id, review_id, content);[m
+[32m+[m[32m  if (result.err) {[m
+[32m+[m[32m    console.log(result.err);[m
+[32m+[m[32m    res.status(500).send({ err: 'review belongs to other user' });[m
+[32m+[m[32m  } else {[m
+[32m+[m[32m    res.status(200).send({[m
+[32m+[m[32m      data: {[m
+[32m+[m[32m        comment: 'updated',[m
+[32m+[m[32m      },[m
+[32m+[m[32m    });[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst deleteUserReview = async (req, res) => {[m
+[32m+[m[32m  const { id } = req.user;[m
+[32m+[m[32m  const { review_id } = req.body;[m
+[32m+[m
+[32m+[m[32m  const result = await User.deleteUserReview(id, review_id);[m
+[32m+[m[32m  if (result.err) {[m
+[32m+[m[32m    console.log(result.err);[m
+[32m+[m[32m    res.status(500).send({ err: 'review belongs to other user' });[m
+[32m+[m[32m  } else {[m
+[32m+[m[32m    res.status(200).send({[m
+[32m+[m[32m      data: {[m
+[32m+[m[32m        comment: 'deleted',[m
+[32m+[m[32m      },[m
+[32m+[m[32m    });[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32m// Comment CRUD[m
+[32m+[m
+[32m+[m[32mconst createUserComment = async (req, res) => {[m
+[32m+[m[32m  const { id } = req.user;[m
+[32m+[m[32m  const { review_id, content } = req.body;[m
+[32m+[m
+[32m+[m[32m  const result = await User.createUserComment(id, review_id, content);[m
+[32m+[m[32m  if (result.err) {[m
+[32m+[m[32m    console.log(result.err);[m
+[32m+[m[32m    res.status(500).send({ err: 'cannot add comment' });[m
+[32m+[m[32m  } else {[m
+[32m+[m[32m    res.status(200).send({[m
+[32m+[m[32m      data: {[m
+[32m+[m[32m        comment_id: result,[m
+[32m+[m[32m      },[m
+[32m+[m[32m    });[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst getUserComment = async (req, res) => {[m
+[32m+[m[32m  const { id } = req.user;[m
+[32m+[m
+[32m+[m[32m  const result = await User.getUserComment(id);[m
+[32m+[m[32m  if (result.err) {[m
+[32m+[m[32m    console.log(result.err);[m
+[32m+[m[32m    res.status(500).send({ err: 'cannot get comment' });[m
+[32m+[m[32m  } else {[m
+[32m+[m[32m    res.status(200).send({[m
+[32m+[m[32m      data: result,[m
+[32m+[m[32m    });[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst updateUserComment = async (req, res) => {[m
+[32m+[m[32m  const { id } = req.user;[m
+[32m+[m[32m  const { comment_id, content } = req.body;[m
+[32m+[m
+[32m+[m[32m  const result = await User.updateUserComment(id, comment_id, content);[m
+[32m+[m[32m  if (result.err) {[m
+[32m+[m[32m    console.log(result.err);[m
+[32m+[m[32m    res.status(500).send({ err: 'comment belongs to other user' });[m
+[32m+[m[32m  } else {[m
+[32m+[m[32m    res.status(200).send({[m
+[32m+[m[32m      data: {[m
+[32m+[m[32m        comment: 'updated',[m
+[32m+[m[32m      },[m
+[32m+[m[32m    });[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst deleteUserComment = async (req, res) => {[m
+[32m+[m[32m  const { id } = req.user;[m
+[32m+[m[32m  const { comment_id } = req.body;[m
+[32m+[m
+[32m+[m[32m  const result = await User.deleteUserComment(id, comment_id);[m
+[32m+[m[32m  if (result.err) {[m
+[32m+[m[32m    console.log(result.err);[m
+[32m+[m[32m    res.status(500).send({ err: 'comment belongs to other user' });[m
+[32m+[m[32m  } else {[m
+[32m+[m[32m    res.status(200).send({[m
+[32m+[m[32m      data: {[m
+[32m+[m[32m        comment: 'deleted',[m
+[32m+[m[32m      },[m
+[32m+[m[32m    });[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32m// Saved Reviews CRD[m
+[32m+[m[32mconst saveUserReview = async (req, res) => {[m
+[32m+[m[32m  const { id } = req.user;[m
+[32m+[m[32m  const { review_id } = req.body;[m
+[32m+[m
+[32m+[m[32m  const result = await User.saveUserReview(id, review_id);[m
+[32m+[m[32m  if (result.err) {[m
+[32m+[m[32m    console.log(result.err);[m
+[32m+[m[32m    res.status(500).send({ err: 'review saved or review not existed' });[m
+[32m+[m[32m  } else {[m
+[32m+[m[32m    res.status(200).send({[m
+[32m+[m[32m      data: {[m
+[32m+[m[32m        user_id: result.userId,[m
+[32m+[m[32m        review_id: result.reviewId,[m
+[32m+[m[32m      },[m
+[32m+[m[32m    });[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst getUserSavedReview = async (req, res) => {[m
+[32m+[m[32m  const { id } = req.user;[m
+[32m+[m[32m  const result = await User.getUserSavedReview(id);[m
+[32m+[m[32m  // TODO: get review info by review ID[m
+[32m+[m[32m  // if (result.err) {[m
+[32m+[m[32m  //   console.log(result.errerr);[m
+[32m+[m[32m  //   res.status(500).send({ err: result.err });[m
+[32m+[m[32m  //   return;[m
+[32m+[m[32m  // }[m
+[32m+[m[32m  res.status(200).send({ data: result });[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst deleteUserSavedReview = async (req, res) => {[m
+[32m+[m[32m  const { id } = req.user;[m
+[32m+[m[32m  const { review_id } = req.body;[m
+[32m+[m
+[32m+[m[32m  const result = await User.deleteUserSavedReview(id, review_id);[m
+[32m+[m
+[32m+[m[32m  if (result.err) {[m
+[32m+[m[32m    console.log(result.err);[m
+[32m+[m[32m    res.status(500).send({ err: 'cannot delete' });[m
+[32m+[m[32m    return;[m
+[32m+[m[32m  }[m
+[32m+[m[32m  res.status(200).send({ result: 'deleted' });[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32m// Saved Movies CRD[m
+[32m+[m[32mconst saveUserMovie = async (req, res) => {[m
+[32m+[m[32m  const { id } = req.user;[m
+[32m+[m[32m  const { movie_id } = req.body;[m
+[32m+[m
+[32m+[m[32m  const result = await User.saveUserMovie(id, movie_id);[m
+[32m+[m[32m  if (result.err) {[m
+[32m+[m[32m    console.log(result.err);[m
+[32m+[m[32m    res.status(500).send({ err: 'movie saved or review not existed' });[m
+[32m+[m[32m    return;[m
+[32m+[m[32m  }[m
+[32m+[m[32m  res.status(200).send({[m
+[32m+[m[32m    data: {[m
+[32m+[m[32m      user_id: result.userId,[m
+[32m+[m[32m      movie_id: result.movieId,[m
+[32m+[m[32m    },[m
+[32m+[m[32m  });[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst getUserSavedMovie = async (req, res) => {[m
+[32m+[m[32m  const { id } = req.user;[m
+[32m+[m[32m  const result = await User.getUserSavedMovie(id);[m
+[32m+[m[32m  const data = {};[m
+[32m+[m[32m  data.user_id = id;[m
+[32m+[m[32m  data.result = result;[m
+[32m+[m[32m  // TODO: get movie info by movie ID[m
+[32m+[m[32m  res.status(200).send({ data });[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst deleteUserSavedMovie = async (req, res) => {[m
+[32m+[m[32m  const { id } = req.user;[m
+[32m+[m[32m  const { movie_id } = req.body;[m
+[32m+[m
+[32m+[m[32m  const result = await User.deleteUserSavedMovie(id, movie_id);[m
+[32m+[m
+[32m+[m[32m  if (result.err) {[m
+[32m+[m[32m    console.log(result.err);[m
+[32m+[m[32m    res.status(500).send({ err: 'cannot delete' });[m
+[32m+[m[32m    return;[m
+[32m+[m[32m  }[m
+[32m+[m[32m  res.status(200).send({ result: 'deleted' });[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32m// Movie rating[m
+[32m+[m
+[32m+[m[32m// Review ranking[m
+[32m+[m
+[32m+[m[32m// Comment ranking[m
+[32m+[m
+[32m+[m[32mmodule.exports = {[m
+[32m+[m[32m  signUp,[m
+[32m+[m[32m  signIn,[m
+[32m+[m[32m  getUserDetail,[m
+[32m+[m[32m  createUserReview,[m
+[32m+[m[32m  getUserReview,[m
+[32m+[m[32m  updateUserReview,[m
+[32m+[m[32m  deleteUserReview,[m
+[32m+[m[32m  createUserComment,[m
+[32m+[m[32m  getUserComment,[m
+[32m+[m[32m  updateUserComment,[m
+[32m+[m[32m  deleteUserComment,[m
+[32m+[m[32m  saveUserReview,[m
+[32m+[m[32m  getUserSavedReview,[m
+[32m+[m[32m  deleteUserSavedReview,[m
+[32m+[m[32m  saveUserMovie,[m
+[32m+[m[32m  getUserSavedMovie,[m
+[32m+[m[32m  deleteUserSavedMovie,[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32masync function validateUser(email, password) {[m
+[32m+[m[32m  const user = await User.GetUser(email);[m
+[32m+[m[32m  // console.log(user.user.password);[m
+[32m+[m[32m  if (!bcrypt.compareSync(password, user.user.password)) {[m
+     console.log({ email, error: 'Password is wrong' });[m
+     return { error: 'Email or password is wrong' };[m
+   }[m
+ [m
+[31m-  let token = generateJWT(user);[m
+[31m-  let result = {};[m
+[31m-  result.access_token = token;[m
+[32m+[m[32m  const result = {};[m
+[32m+[m[32m  const accessToken = await generateJWT(user.user);[m
+[32m+[m[32m  result.access_token = accessToken;[m
+[32m+[m[32m  result.user = user.user;[m
+   return result;[m
+ }[m
+ [m
+ function generateJWT(user) {[m
+   const accessToken = jwt.sign([m
+     {[m
+[31m-      name: user.name,[m
+[32m+[m[32m      username: user.username,[m
+       id: user.id,[m
+[31m-      role: user.name,[m
+[32m+[m[32m      role: user.role,[m
+       email: user.email,[m
+       picture: user.profile_image,[m
+     },[m
+[36m@@ -99,5 +365,3 @@[m [mfunction generateJWT(user) {[m
+ [m
+   return accessToken;[m
+ }[m
+[31m-[m
+[31m-module.exports = { signUp, signIn, getUserDetail };[m
+[1mdiff --git a/server/models/crawler_model.js b/server/models/crawler_model.js[m
+[1mindex e97eea3..1465d25 100644[m
+[1m--- a/server/models/crawler_model.js[m
+[1m+++ b/server/models/crawler_model.js[m
+[36m@@ -1,5 +1,6 @@[m
+ const { pool } = require('./mysqlcon');[m
+ require('dotenv').config();[m
+[32m+[m
+ const { TMDB_Key } = process.env;[m
+ const axios = require('axios');[m
+ [m
+[36m@@ -21,18 +22,18 @@[m [mconst insertGenreCrawler = async (genres, locale) => {[m
+   try {[m
+     // Save genre main table[m
+     if (locale === 'en-US') {[m
+[31m-      for (let i in genres) {[m
+[31m-        let sql = 'INSERT INTO genre (ref_id) VALUES (?)';[m
+[32m+[m[32m      for (const i in genres) {[m
+[32m+[m[32m        const sql = 'INSERT INTO genre (ref_id) VALUES (?)';[m
+         await pool.execute(sql, [genres[i].id]);[m
+       }[m
+     }[m
+ [m
+     // Save genre locales[m
+[31m-    for (let i in genres) {[m
+[32m+[m[32m    for (const i in genres) {[m
+       const query = await pool.execute(`SELECT * FROM genre WHERE ref_id = ${genres[i].id}`);[m
+ [m
+       if (query[0].length !== 0) {[m
+[31m-        let sqlLocale = 'INSERT INTO genre_translation (genre_id, locale, title) VALUES (?, ?, ?)';[m
+[32m+[m[32m        const sqlLocale = 'INSERT INTO genre_translation (genre_id, locale, title) VALUES (?, ?, ?)';[m
+         await pool.execute(sqlLocale, [query[0][0].id, locale, genres[i].name]);[m
+       }[m
+     }[m
+[36m@@ -44,16 +45,17 @@[m [mconst insertGenreCrawler = async (genres, locale) => {[m
+ [m
+ const insertMovieCrawler = async (movies) => {[m
+   try {[m
+[31m-    for (let i in movies) {[m
+[32m+[m[32m    for (const i in movies) {[m
+       // Validate movie[m
+       const movieDb = await pool.execute('SELECT * FROM movie WHERE ref_id = (?)', [movies[i].id]);[m
+       if (movieDb[0].length == 0) {[m
+         // Validate genre[m
+         const genre = await pool.execute('SELECT * FROM genre');[m
+[31m-        for (let j in genre[0])[m
+[32m+[m[32m        for (const j in genre[0]) {[m
+           if (movies[i].genre_ids[0] == genre[0][j].ref_id) {[m
+             genre_id = genre[0][j].id;[m
+           }[m
+[32m+[m[32m        }[m
+ [m
+         if (movies[i].poster_path === null) {[m
+           myFileName = null;[m
+[36m@@ -67,7 +69,7 @@[m [mconst insertMovieCrawler = async (movies) => {[m
+           });[m
+         }[m
+ [m
+[31m-        let sql = 'INSERT INTO movie (ref_id, original_title, release_date, genre_id, poster_image) VALUES (?, ?, ?, ?, ?)';[m
+[32m+[m[32m        const sql = 'INSERT INTO movie (ref_id, original_title, release_date, genre_id, poster_image) VALUES (?, ?, ?, ?, ?)';[m
+         const resultMovie = await pool.execute(sql, [movies[i].id, movies[i].original_title, movies[i].release_date, genre_id, myFileName]);[m
+ [m
+         saveMovieTranslation(movies[i].id, resultMovie[0].insertId);[m
+[36m@@ -84,8 +86,8 @@[m [mconst insertMovieCrawler = async (movies) => {[m
+ const insertPersonCrawler = async () => {[m
+   try {[m
+     locale = 'en-US';[m
+[31m-    const movieDb = await pool.execute(`SELECT * FROM movie`);[m
+[31m-    for (let i in movieDb[0]) {[m
+[32m+[m[32m    const movieDb = await pool.execute('SELECT * FROM movie');[m
+[32m+[m[32m    for (const i in movieDb[0]) {[m
+       const { data } = await axios.get(`https://api.themoviedb.org/3/movie/${movieDb[0][i].ref_id}/credits?api_key=${TMDB_Key}&language=${locale}`);[m
+ [m
+       let movie_id;[m
+[36m@@ -99,7 +101,7 @@[m [mconst insertPersonCrawler = async () => {[m
+       let personId;[m
+ [m
+       // Handling Cast[m
+[31m-      let cast = data.cast;[m
+[32m+[m[32m      const { cast } = data;[m
+       castIndex = 10;[m
+       castLen = cast.length;[m
+       if (castLen < castIndex) {[m
+[36m@@ -120,7 +122,7 @@[m [mconst insertPersonCrawler = async () => {[m
+             });[m
+           }[m
+ [m
+[31m-          let insertId = await savePerson(cast[i].id, myFileName);[m
+[32m+[m[32m          const insertId = await savePerson(cast[i].id, myFileName);[m
+           personId = insertId;[m
+ [m
+           savePersonDetail(cast[i].id, insertId);[m
+[36m@@ -128,7 +130,7 @@[m [mconst insertPersonCrawler = async () => {[m
+           personId = personDb[0][0].id;[m
+         }[m
+ [m
+[31m-        let sqlCast = 'INSERT INTO `cast` (movie_id, person_id) VALUES (?, ?)';[m
+[32m+[m[32m        const sqlCast = 'INSERT INTO `cast` (movie_id, person_id) VALUES (?, ?)';[m
+         const resultCast = await pool.execute(sqlCast, [movie_id, personId]);[m
+ [m
+         const sqlCastUS = 'INSERT INTO cast_translation (cast_id, locale, `character`) VALUES (?, ?, ?)';[m
+[36m@@ -136,7 +138,7 @@[m [mconst insertPersonCrawler = async () => {[m
+       }[m
+ [m
+       // Handling Crew[m
+[31m-      let crew = data.crew;[m
+[32m+[m[32m      const { crew } = data;[m
+       crewIndex = 5;[m
+       crewLen = crew.length;[m
+       if (crewLen < crewIndex) {[m
+[36m@@ -158,7 +160,7 @@[m [mconst insertPersonCrawler = async () => {[m
+             });[m
+           }[m
+ [m
+[31m-          let insertId = await savePerson(crew[i].id, myFileName);[m
+[32m+[m[32m          const insertId = await savePerson(crew[i].id, myFileName);[m
+           personId = insertId;[m
+ [m
+           savePersonDetail(crew[i].id, insertId);[m
+[36m@@ -166,7 +168,7 @@[m [mconst insertPersonCrawler = async () => {[m
+           personId = personDb[0][0].id;[m
+         }[m
+ [m
+[31m-        let sqlCrew = 'INSERT INTO crew (movie_id, person_id) VALUES (?, ?)';[m
+[32m+[m[32m        const sqlCrew = 'INSERT INTO crew (movie_id, person_id) VALUES (?, ?)';[m
+         const resultCrew = await pool.execute(sqlCrew, [movie_id, personId]);[m
+ [m
+         const sqlCrewUS = 'INSERT INTO crew_translation (crew_id, locale, job) VALUES (?, ?, ?)';[m
+[36m@@ -187,19 +189,19 @@[m [mmodule.exports = {[m
+ };[m
+ [m
+ async function saveMovieTranslation(apiId, movieId) {[m
+[31m-  let locales = ['en-US', 'fr-FR', 'zh-TW'];[m
+[31m-  let lanArr = [];[m
+[32m+[m[32m  const locales = ['en-US', 'fr-FR', 'zh-TW'];[m
+[32m+[m[32m  const lanArr = [];[m
+ [m
+[31m-  for (let i in locales) {[m
+[32m+[m[32m  for (const i in locales) {[m
+     const details = await axios.get(`https://api.themoviedb.org/3/movie/${apiId}?api_key=${TMDB_Key}&language=${locales[i]}&append_to_response=videos,releases`);[m
+     const dataDetails = details.data;[m
+ [m
+     if (i == 0) {[m
+[31m-      let sqlRuntime = `UPDATE movie SET runtime = (?) WHERE ref_id = ${apiId}`;[m
+[32m+[m[32m      const sqlRuntime = `UPDATE movie SET runtime = (?) WHERE ref_id = ${apiId}`;[m
+       await pool.execute(sqlRuntime, [dataDetails.runtime]);[m
+     }[m
+ [m
+[31m-    let sqlDetails = 'INSERT INTO movie_translation (movie_id, locale, title, overview, spoken_languages) VALUES (?, ?, ?, ?, ?)';[m
+[32m+[m[32m    const sqlDetails = 'INSERT INTO movie_translation (movie_id, locale, title, overview, spoken_languages) VALUES (?, ?, ?, ?, ?)';[m
+ [m
+     if (dataDetails.spoken_languages.length === 0) {[m
+       lanArr.push(null);[m
+[36m@@ -207,7 +209,7 @@[m [masync function saveMovieTranslation(apiId, movieId) {[m
+       lanArr.push(dataDetails.spoken_languages[0].english_name);[m
+     }[m
+ [m
+[31m-    let resultMovieDetails = await pool.execute(sqlDetails, [movieId, locales[i], dataDetails.title, dataDetails.overview, lanArr[0]]);[m
+[32m+[m[32m    const resultMovieDetails = await pool.execute(sqlDetails, [movieId, locales[i], dataDetails.title, dataDetails.overview, lanArr[0]]);[m
+ [m
+     if (dataDetails.videos.results.length !== 0) {[m
+       await pool.execute(`UPDATE movie_translation SET trailer = (?) WHERE id = ${resultMovieDetails[0].insertId} AND locale = \'${locales[i]}\'`, [[m
+[36m@@ -215,9 +217,9 @@[m [masync function saveMovieTranslation(apiId, movieId) {[m
+       ]);[m
+     }[m
+ [m
+[31m-    for (let j in dataDetails.releases.countries) {[m
+[32m+[m[32m    for (const j in dataDetails.releases.countries) {[m
+       if (dataDetails.releases.countries[j].iso_3166_1 === locales[i].slice(-2)) {[m
+[31m-        let sqlCertification = `UPDATE movie_translation SET certification = (?) WHERE id = ${resultMovieDetails[0].insertId} AND locale = \'${locales[i]}\'`;[m
+[32m+[m[32m        const sqlCertification = `UPDATE movie_translation SET certification = (?) WHERE id = ${resultMovieDetails[0].insertId} AND locale = \'${locales[i]}\'`;[m
+         await pool.execute(sqlCertification, [dataDetails.releases.countries[j].certification]);[m
+       }[m
+     }[m
+[36m@@ -225,15 +227,15 @@[m [masync function saveMovieTranslation(apiId, movieId) {[m
+ }[m
+ [m
+ async function savePerson(personId, myFileName) {[m
+[31m-  let sqlPerson = 'INSERT INTO person (ref_id, profile_image) VALUES (?, ?)';[m
+[32m+[m[32m  const sqlPerson = 'INSERT INTO person (ref_id, profile_image) VALUES (?, ?)';[m
+   const resultPerson = await pool.execute(sqlPerson, [personId, myFileName]);[m
+   return resultPerson[0].insertId;[m
+ }[m
+ [m
+ async function savePersonDetail(apiId, dbPersonId) {[m
+[31m-  let locales = ['en-US', 'fr-FR', 'zh-TW'];[m
+[32m+[m[32m  const locales = ['en-US', 'fr-FR', 'zh-TW'];[m
+ [m
+[31m-  for (let i in locales) {[m
+[32m+[m[32m  for (const i in locales) {[m
+     const personDetail = await axios.get(`https://api.themoviedb.org/3/person/${apiId}?api_key=${TMDB_Key}&language=${locales[i]}`);[m
+     if (i == 0) {[m
+       const sqlPersonUpdate = `UPDATE person SET birthday = (?), deathday = (?) , place_of_birth = (?) WHERE ref_id = ${apiId}`;[m
+[1mdiff --git a/server/models/movie_model.js b/server/models/movie_model.js[m
+[1mindex d7799f8..a9f1bac 100644[m
+[1m--- a/server/models/movie_model.js[m
+[1m+++ b/server/models/movie_model.js[m
+[36m@@ -1,60 +1,58 @@[m
+ const { pool } = require('./mysqlcon');[m
+ [m
+ const getMovieListInfo = async (locale, limit) => {[m
+[31m-  const queryDetails = `SELECT * FROM movie AS m [m
+[31m-   LEFT JOIN movie_translation AS t [m
+[31m-   ON m.id = t.movie_id [m
+[31m-   WHERE locale = ${locale}[m
+[31m-   LIMIT ${limit}`;[m
+[32m+[m[32m  const queryDetails = `SELECT * FROM movie AS m LEFT JOIN movie_translation AS t ON m.id = t.movie_id WHERE locale = \'${locale}\' LIMIT ${limit}`;[m
+   try {[m
+     const DetailResult = await pool.execute(queryDetails);[m
+[31m-    return DetailResult;[m
+[32m+[m[32m    return DetailResult[0];[m
+   } catch (err) {[m
+     console.log(err);[m
+   }[m
+ };[m
+ [m
+ const getMovieInfo = async (movieId, locale) => {[m
+[31m-  const queryDetails = `SELECT * FROM movie AS m [m
+[31m-   LEFT JOIN movie_translation AS t [m
+[31m-   ON m.id = t.movie_id [m
+[31m-   WHERE locale = ${locale} AND m.id = ${movieId}`;[m
+[32m+[m[32m  const queryDetails = `SELECT * FROM movie AS m LEFT JOIN movie_translation AS t ON m.id = t.movie_id WHERE t.locale = \'${locale}\' AND m.id = ${movieId}`;[m
+   try {[m
+     const DetailResult = await pool.execute(queryDetails);[m
+[31m-    return DetailResult;[m
+[32m+[m[32m    return DetailResult[0];[m
+   } catch (err) {[m
+     console.log(err);[m
+   }[m
+ };[m
+ [m
+[31m-const getCastInfoByMovieId = async (movieId) => {[m
+[31m-  const queryDetails = ``;[m
+[32m+[m[32mconst getCastInfoByMovieId = async (movieId, locale) => {[m
+[32m+[m[32m  const queryDetails = `SELECT * FROM cast AS c LEFT JOIN person_translation AS pt ON c.person_id = pt.person_id LEFT JOIN cast_translation AS ct ON c.id = ct.cast_id WHERE movie_id = ${movieId} AND pt.locale = \'${locale}\'`;[m
+   try {[m
+     const DetailResult = await pool.execute(queryDetails);[m
+[31m-    return DetailResult;[m
+[32m+[m[32m    return DetailResult[0];[m
+   } catch (err) {[m
+     console.log(err);[m
+   }[m
+ };[m
+ [m
+[31m-const getCrewInfoByMovieId = async (movieId) => {[m
+[31m-  const queryDetails = ``;[m
+[32m+[m[32mconst getCrewInfoByMovieId = async (movieId, locale) => {[m
+[32m+[m[32m  const queryDetails = `SELECT * FROM crew AS c LEFT JOIN person_translation AS pt ON c.person_id = pt.person_id LEFT JOIN crew_translation AS ct ON c.id = ct.crew_id WHERE movie_id = ${movieId} AND pt.locale = \'${locale}\'`;[m
+   try {[m
+     const DetailResult = await pool.execute(queryDetails);[m
+[31m-    return DetailResult;[m
+[32m+[m[32m    return DetailResult[0];[m
+   } catch (err) {[m
+     console.log(err);[m
+   }[m
+ };[m
+ [m
+[31m-const getPersonDetail = async (personId, locale) => {};[m
+[32m+[m[32mconst getPersonDetail = async (personId, locale) => {[m
+[32m+[m[32m  const queryDetails = `SELECT * FROM person AS p LEFT JOIN person_translation AS pt ON p.id = pt.person_id WHERE p.id = ${personId} AND locale = ${locale}`;[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    const DetailResult = await pool.execute(queryDetails);[m
+[32m+[m[32m    return DetailResult;[m
+[32m+[m[32m  } catch (err) {[m
+[32m+[m[32m    console.log(err);[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+ [m
+ const getMovieListByFilter = async (title, genre_id, locale) => {[m
+[31m-  let queryDetails = `SELECT * FROM movie AS m [m
+[31m-  LEFT JOIN movie_translation AS t [m
+[31m-  ON m.id = t.movie_id [m
+[31m-  WHERE locale = ${locale}`;[m
+[31m-  if (title != '') {[m
+[32m+[m[32m  let queryDetails = `SELECT * FROM movie AS m LEFT JOIN movie_translation AS t ON m.id = t.movie_id WHERE locale = ${locale}`;[m
+[32m+[m[32m  if (title !== '') {[m
+     queryDetails += ` AND title LIKE %${title}%`;[m
+   }[m
+   if (genre_id > 0) {[m
+[36m@@ -69,4 +67,21 @@[m [mconst getMovieListByFilter = async (title, genre_id, locale) => {[m
+   }[m
+ };[m
+ [m
+[31m-module.exports = { getMovieListInfo, getMovieInfo, getCastInfoByMovieId, getCrewInfoByMovieId, getPersonDetail, getMovieListByFilter };[m
+[32m+[m[32mconst getGenre = async (genreId, locale) => {[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    const genreResult = await pool.execute('SELECT * FROM genre_translation WHERE genre_id = (?) AND locale = (?)', [genreId, locale]);[m
+[32m+[m[32m    return genreResult[0][0];[m
+[32m+[m[32m  } catch (err) {[m
+[32m+[m[32m    console.log(err);[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mmodule.exports = {[m
+[32m+[m[32m  getMovieListInfo,[m
+[32m+[m[32m  getMovieInfo,[m
+[32m+[m[32m  getCastInfoByMovieId,[m
+[32m+[m[32m  getCrewInfoByMovieId,[m
+[32m+[m[32m  getPersonDetail,[m
+[32m+[m[32m  getMovieListByFilter,[m
+[32m+[m[32m  getGenre,[m
+[32m+[m[32m};[m
+[1mdiff --git a/server/models/mysqlcon.js b/server/models/mysqlcon.js[m
+[1mindex 5144d76..498fd23 100644[m
+[1m--- a/server/models/mysqlcon.js[m
+[1m+++ b/server/models/mysqlcon.js[m
+[36m@@ -1,8 +1,9 @@[m
+ require('dotenv').config();[m
+ const mysql = require('mysql2/promise');[m
+[32m+[m
+ const env = process.env.NODE_ENV || 'production';[m
+ const multipleStatements = process.env.NODE_ENV === 'test';[m
+[31m-const { DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE } = process.env;[m
+[32m+[m[32mconst { DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE } = process.env;[m
+ [m
+ const mysqlConfig = {[m
+   production: {[m
+[36m@@ -28,7 +29,7 @@[m [mconst mysqlConfig = {[m
+   // },[m
+ };[m
+ [m
+[31m-let mysqlEnv = mysqlConfig[env];[m
+[32m+[m[32mconst mysqlEnv = mysqlConfig[env];[m
+ mysqlEnv.waitForConnections = true;[m
+ mysqlEnv.connectionLimit = 20;[m
+ [m
+[1mdiff --git a/server/models/user_model.js b/server/models/user_model.js[m
+[1mindex 504857c..e705a3d 100644[m
+[1m--- a/server/models/user_model.js[m
+[1m+++ b/server/models/user_model.js[m
+[36m@@ -1,62 +1,55 @@[m
+ require('dotenv').config();[m
+ const { pool } = require('./mysqlcon');[m
+ const bcrypt = require('bcrypt');[m
+[32m+[m
+ const salt = parseInt(process.env.BCRYPT_SALT);[m
+ const { TOKEN_EXPIRE, TOKEN_SECRET } = process.env; // 30 days by seconds[m
+ const jwt = require('jsonwebtoken');[m
+ [m
+ const USER_ROLE = {[m
+[31m-  SUPER: 0,[m
+   ADMIN: 1,[m
+   USER: 2,[m
+ };[m
+ [m
+[31m-const CreateUser = async (name, roleId, email, password) => {[m
+[31m-  const poolCon = await pool.getConnection();[m
+[32m+[m[32mconst CreateUser = async (username, role, email, password) => {[m
+   try {[m
+[31m-    await poolCon.query('START TRANSACTION');[m
+     const user = {[m
+[31m-      name: name,[m
+[31m-      role_id: roleId,[m
+[32m+[m[32m      username,[m
+[32m+[m[32m      role,[m
+       email: email.toLowerCase(),[m
+       password: bcrypt.hashSync(password, salt),[m
+       picture: null,[m
+       access_expired: TOKEN_EXPIRE,[m
+     };[m
+ [m
+[32m+[m[32m    const sql = 'INSERT INTO `user` (username, email, password, profile_image, role) VALUES (?, ?, ?, ?, ?)';[m
+[32m+[m[32m    const [result] = await pool.execute(sql, [user.username, user.email, user.password, user.picture, user.role]);[m
+[32m+[m[32m    user.id = result.insertId;[m
+[32m+[m
+     const accessToken = jwt.sign([m
+       {[m
+[31m-        name: user.name,[m
+[32m+[m[32m        username: user.username,[m
+         email: user.email,[m
+[31m-        picture: user.picture,[m
+[32m+[m[32m        role: user.role,[m
+       },[m
+       TOKEN_SECRET[m
+     );[m
+[31m-    user.access_token = accessToken;[m
+ [m
+[31m-    const sql = 'INSERT INTO user (username, email, password, profile_image, role) VALUES (?, ?, ?, ?, ?)';[m
+[31m-    const [result] = await conn.query(sql, user);[m
+[31m-    user.id = result.insertId;[m
+[31m-[m
+[31m-    await poolCon.query('COMMIT');[m
+[32m+[m[32m    user.access_token = accessToken;[m
+ [m
+     return { user };[m
+   } catch (err) {[m
+[31m-    await poolCon.query('ROLLBACK');[m
+     console.log(err);[m
+     return {[m
+       error: 'Email Already Exists',[m
+       status: 403,[m
+     };[m
+[31m-  } finally {[m
+[31m-    await poolCon.release();[m
+   }[m
+ };[m
+ [m
+ const GetUser = async (email) => {[m
+[31m-  const poolCon = await pool.getConnection();[m
+   try {[m
+[31m-    const [users] = await pool.execute('SELECT * FROM user WHERE email = ?', [email]);[m
+[32m+[m[32m    const [users] = await pool.execute('SELECT * FROM `user` WHERE email = ?', [email]);[m
+     if (!users[0]) {[m
+       return { error: 'email has not registered' };[m
+     }[m
+[36m@@ -68,19 +61,222 @@[m [mconst GetUser = async (email) => {[m
+   }[m
+ };[m
+ [m
+[31m-const getUserDetail = async (email, roleId) => {[m
+[32m+[m[32mconst getUserDetail = async (email, role) => {[m
+   try {[m
+[31m-    if (roleId) {[m
+[32m+[m[32m    if (role) {[m
+       const [users] = await pool.execute('SELECT * FROM user WHERE email = ? AND role_id = ?', [email, roleId]);[m
+       return users[0];[m
+[32m+[m[32m    }[m
+[32m+[m[32m    const [users] = await pool.execute('SELECT * FROM user WHERE email = ?', [email]);[m
+[32m+[m[32m    return users[0];[m
+[32m+[m[32m  } catch (err) {[m
+[32m+[m[32m    console.log(err);[m
+[32m+[m[32m    return { err };[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32m// const updateUserImage = async () => {[m
+[32m+[m[32m//   await pool.execute('UPDATE `user` SET profile_image = ? WHERE id = ?', [path, id]);[m
+[32m+[m[32m//     return ;[m
+[32m+[m[32m// };[m
+[32m+[m
+[32m+[m[32m// Reviews CRUD[m
+[32m+[m[32mconst createUserReview = async (userId, movieId, content, image) => {[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    const result = await pool.execute('INSERT INTO review (user_id, movie_id, content, image) VALUES (?, ?, ?, ?)', [userId, movieId, content, image]);[m
+[32m+[m[32m    return result[0].insertId;[m
+[32m+[m[32m  } catch (err) {[m
+[32m+[m[32m    console.log(err);[m
+[32m+[m[32m    return { err };[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst getUserReview = async (userId) => {[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    const result = await pool.execute('SELECT * FROM review WHERE user_id = (?)', [userId]);[m
+[32m+[m[32m    return result[0];[m
+[32m+[m[32m  } catch (err) {[m
+[32m+[m[32m    console.log(err);[m
+[32m+[m[32m    return { err };[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst updateUserReview = async (userId, reviewId, content) => {[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    const validation = await validateUserReview(reviewId);[m
+[32m+[m[32m    if (validation.user_id !== userId) {[m
+[32m+[m[32m      const err = new Error('review belongs to other user');[m
+[32m+[m[32m      throw err;[m
+     } else {[m
+[31m-      const [users] = await pool.execute('SELECT * FROM user WHERE email = ?', [email]);[m
+[31m-      return users[0];[m
+[32m+[m[32m      const result = await pool.execute('UPDATE review SET content = (?) WHERE id = (?)', [content, reviewId]);[m
+[32m+[m[32m      return result[0].insertId;[m
+     }[m
+   } catch (err) {[m
+     console.log(err);[m
+[31m-    return null;[m
+[32m+[m[32m    return { err };[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst deleteUserReview = async (userId, reviewId) => {[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    const validation = await validateUserReview(reviewId);[m
+[32m+[m[32m    if (validation.user_id !== userId) {[m
+[32m+[m[32m      const err = new Error('review belongs to other user');[m
+[32m+[m[32m      throw err;[m
+[32m+[m[32m    } else {[m
+[32m+[m[32m      const result = await pool.execute('DELETE FROM review WHERE id = (?)', [reviewId]);[m
+[32m+[m[32m      return result[0].insertId;[m
+[32m+[m[32m    }[m
+[32m+[m[32m  } catch (err) {[m
+[32m+[m[32m    console.log(err);[m
+[32m+[m[32m    return { err };[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32m// Comment CRUD[m
+[32m+[m
+[32m+[m[32mconst createUserComment = async (userId, reviewId, content) => {[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    const result = await pool.execute('INSERT INTO comment (user_id, review_id, content) VALUES (?, ?, ?)', [userId, reviewId, content]);[m
+[32m+[m[32m    return result[0].insertId;[m
+[32m+[m[32m  } catch (err) {[m
+[32m+[m[32m    console.log(err);[m
+[32m+[m[32m    return { err };[m
+   }[m
+ };[m
+ [m
+[31m-module.exports = { USER_ROLE, CreateUser, GetUser, getUserDetail };[m
+[32m+[m[32mconst getUserComment = async (userId) => {[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    const result = await pool.execute('SELECT * FROM comment WHERE user_id = (?)', [userId]);[m
+[32m+[m[32m    return result[0];[m
+[32m+[m[32m  } catch (err) {[m
+[32m+[m[32m    console.log(err);[m
+[32m+[m[32m    return { err };[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst updateUserComment = async (userId, commentId, content) => {[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    const validation = await validateUserComment(commentId);[m
+[32m+[m[32m    if (validation.user_id !== userId) {[m
+[32m+[m[32m      const err = new Error('comment belongs to other user');[m
+[32m+[m[32m      throw err;[m
+[32m+[m[32m    } else {[m
+[32m+[m[32m      const result = await pool.execute('UPDATE comment SET content = (?) WHERE id = (?)', [content, commentId]);[m
+[32m+[m[32m      return result[0].insertId;[m
+[32m+[m[32m    }[m
+[32m+[m[32m  } catch (err) {[m
+[32m+[m[32m    console.log(err);[m
+[32m+[m[32m    return { err };[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst deleteUserComment = async (userId, commentId) => {[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    const validation = await validateUserComment(commentId);[m
+[32m+[m[32m    if (validation.user_id !== userId) {[m
+[32m+[m[32m      const err = new Error('comment belongs to other user');[m
+[32m+[m[32m      throw err;[m
+[32m+[m[32m    } else {[m
+[32m+[m[32m      const result = await pool.execute('DELETE FROM comment WHERE id = (?)', [commentId]);[m
+[32m+[m[32m      return result[0].insertId;[m
+[32m+[m[32m    }[m
+[32m+[m[32m  } catch (err) {[m
+[32m+[m[32m    console.log(err);[m
+[32m+[m[32m    return { err };[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32m// Saved Reviews CRD[m
+[32m+[m[32mconst saveUserReview = async (userId, reviewId) => {[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    await pool.execute('INSERT INTO saved_review (user_id, review_id) VALUES (?, ?)', [userId, reviewId]);[m
+[32m+[m[32m    return { userId, reviewId };[m
+[32m+[m[32m  } catch (err) {[m
+[32m+[m[32m    console.log(err);[m
+[32m+[m[32m    return { err };[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst getUserSavedReview = async (userId) => {[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    const result = await pool.execute('SELECT * FROM saved_review WHERE user_id = (?)', [userId]);[m
+[32m+[m[32m    // TODO: await getMovieByReview()[m
+[32m+[m[32m    // return result[0];[m
+[32m+[m[32m  } catch (err) {[m
+[32m+[m[32m    console.log(err);[m
+[32m+[m[32m    return { err };[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst deleteUserSavedReview = async (userId, reviewId) => {[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    const result = await pool.execute('DELETE FROM saved_review WHERE user_id = (?) AND review_id = (?)', [userId, reviewId]);[m
+[32m+[m[32m    return result[0];[m
+[32m+[m[32m  } catch (err) {[m
+[32m+[m[32m    console.log(err);[m
+[32m+[m[32m    return { err };[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32m// Saved Movies CRD[m
+[32m+[m[32mconst saveUserMovie = async (userId, movieId) => {[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    await pool.execute('INSERT INTO saved_movie (user_id, movie_id) VALUES (?, ?)', [userId, movieId]);[m
+[32m+[m[32m    return { userId, movieId };[m
+[32m+[m[32m  } catch (err) {[m
+[32m+[m[32m    console.log(err);[m
+[32m+[m[32m    return { err };[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst getUserSavedMovie = async (userId) => {[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    const result = await pool.execute('SELECT * FROM saved_movie WHERE user_id = (?)', [userId]);[m
+[32m+[m[32m    return result[0];[m
+[32m+[m[32m  } catch (err) {[m
+[32m+[m[32m    console.log(err);[m
+[32m+[m[32m    return { err };[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst deleteUserSavedMovie = async (userId, movieId) => {[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    const result = await pool.execute('DELETE FROM saved_movie WHERE user_id = (?) AND movie_id = (?)', [userId, movieId]);[m
+[32m+[m[32m    return result[0];[m
+[32m+[m[32m  } catch (err) {[m
+[32m+[m[32m    console.log(err);[m
+[32m+[m[32m    return { err };[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mmodule.exports = {[m
+[32m+[m[32m  USER_ROLE,[m
+[32m+[m[32m  CreateUser,[m
+[32m+[m[32m  GetUser,[m
+[32m+[m[32m  getUserDetail,[m
+[32m+[m[32m  createUserReview,[m
+[32m+[m[32m  getUserReview,[m
+[32m+[m[32m  updateUserReview,[m
+[32m+[m[32m  deleteUserReview,[m
+[32m+[m[32m  createUserComment,[m
+[32m+[m[32m  getUserComment,[m
+[32m+[m[32m  updateUserComment,[m
+[32m+[m[32m  deleteUserComment,[m
+[32m+[m[32m  saveUserReview,[m
+[32m+[m[32m  getUserSavedReview,[m
+[32m+[m[32m  deleteUserSavedReview,[m
+[32m+[m[32m  saveUserMovie,[m
+[32m+[m[32m  getUserSavedMovie,[m
+[32m+[m[32m  deleteUserSavedMovie,[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32masync function validateUserReview(reviewId) {[m
+[32m+[m[32m  const result = await pool.execute('SELECT * FROM review WHERE id = (?)', [reviewId]);[m
+[32m+[m[32m  return result[0][0];[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32masync function validateUserComment(commentId) {[m
+[32m+[m[32m  const result = await pool.execute('SELECT * FROM comment WHERE id = (?)', [commentId]);[m
+[32m+[m[32m  return result[0][0];[m
+[32m+[m[32m}[m
+[1mdiff --git a/server/routes/movie_route.js b/server/routes/movie_route.js[m
+[1mindex a65885d..404f438 100644[m
+[1m--- a/server/routes/movie_route.js[m
+[1m+++ b/server/routes/movie_route.js[m
+[36m@@ -2,7 +2,7 @@[m [mconst router = require('express').Router();[m
+ const { getMovieListInfo, getMovieInfo, getPersonDetail, searchMovie } = require('../controllers/movie_controller');[m
+ [m
+ // router.route('/').get(showMain);[m
+[31m-router.route('/movie/info/list').get(getMovieListInfo);[m
+[32m+[m[32mrouter.route('/movie/list').get(getMovieListInfo);[m
+ router.route('/movie/info').get(getMovieInfo);[m
+ router.route('/movie/person/detail').get(getPersonDetail);[m
+ router.route('/movie/search').get(searchMovie);[m
+[1mdiff --git a/server/routes/user_route.js b/server/routes/user_route.js[m
+[1mindex 9135003..7eb400e 100644[m
+[1m--- a/server/routes/user_route.js[m
+[1m+++ b/server/routes/user_route.js[m
+[36m@@ -1,11 +1,51 @@[m
+ const router = require('express').Router();[m
+ [m
+[31m-const { signUp, signIn, getUserDetail } = require('../controllers/user_controller');[m
+[32m+[m[32mconst { authentication, upload } = require('../../util/util.js');[m
+[32m+[m
+[32m+[m[32mconst {[m
+[32m+[m[32m  signUp,[m
+[32m+[m[32m  signIn,[m
+[32m+[m[32m  getUserDetail,[m
+[32m+[m[32m  createUserReview,[m
+[32m+[m[32m  getUserReview,[m
+[32m+[m[32m  updateUserReview,[m
+[32m+[m[32m  deleteUserReview,[m
+[32m+[m[32m  createUserComment,[m
+[32m+[m[32m  getUserComment,[m
+[32m+[m[32m  updateUserComment,[m
+[32m+[m[32m  deleteUserComment,[m
+[32m+[m[32m  saveUserReview,[m
+[32m+[m[32m  getUserSavedReview,[m
+[32m+[m[32m  deleteUserSavedReview,[m
+[32m+[m[32m  saveUserMovie,[m
+[32m+[m[32m  getUserSavedMovie,[m
+[32m+[m[32m  deleteUserSavedMovie,[m
+[32m+[m[32m} = require('../controllers/user_controller');[m
+ [m
+ router.route('/user/signup').post(signUp);[m
+ [m
+ router.route('/user/signin').post(signIn);[m
+ [m
+[31m-router.route('/user/info').post(authentication(), getUserDetail);[m
+[32m+[m[32mrouter.route('/user/info').get(authentication(), getUserDetail);[m
+[32m+[m
+[32m+[m[32m// router.route('/user/image').post(authentication(), cpUpload, updateUserImage);[m
+[32m+[m
+[32m+[m[32mrouter[m
+[32m+[m[32m  .route('/user/review')[m
+[32m+[m[32m  .post(authentication(), createUserReview)[m
+[32m+[m[32m  .get(authentication(), getUserReview)[m
+[32m+[m[32m  .patch(authentication(), updateUserReview)[m
+[32m+[m[32m  .delete(authentication(), deleteUserReview);[m
+[32m+[m
+[32m+[m[32mrouter[m
+[32m+[m[32m  .route('/user/comment')[m
+[32m+[m[32m  .post(authentication(), createUserComment)[m
+[32m+[m[32m  .get(authentication(), getUserComment)[m
+[32m+[m[32m  .patch(authentication(), updateUserComment)[m
+[32m+[m[32m  .delete(authentication(), deleteUserComment);[m
+[32m+[m
+[32m+[m[32mrouter.route('/user/store/review').post(authentication(), saveUserReview).get(authentication(), getUserSavedReview).delete(authentication(), deleteUserSavedReview);[m
+[32m+[m
+[32m+[m[32mrouter.route('/user/store/movie').post(authentication(), saveUserMovie).get().delete(authentication(), deleteUserSavedMovie);[m
+ [m
+ module.exports = router;[m
+[1mdiff --git a/util/util.js b/util/util.js[m
+[1mindex 29781e4..c84b0d5 100644[m
+[1m--- a/util/util.js[m
+[1m+++ b/util/util.js[m
+[36m@@ -1,9 +1,12 @@[m
+ const User = require('../server/models/user_model');[m
+[32m+[m
+ const { TOKEN_SECRET, PROTOCOL } = process.env; // 30 days by seconds[m
+ const jwt = require('jsonwebtoken');[m
+[32m+[m[32mconst { promisify } = require('util'); // util from native nodejs library[m
+[32m+[m[32mconst multer = require('multer');[m
+ [m
+[31m-const authentication = (roleId) => {[m
+[31m-  return async function (req, res, next) {[m
+[32m+[m[32mconst authentication = (role) =>[m
+[32m+[m[32m  async function (req, res, next) {[m
+     let accessToken = req.get('Authorization');[m
+     if (!accessToken) {[m
+       res.status(401).send({ error: 'Unauthorized' });[m
+[36m@@ -19,31 +22,60 @@[m [mconst authentication = (roleId) => {[m
+     try {[m
+       const user = await promisify(jwt.verify)(accessToken, TOKEN_SECRET);[m
+       req.user = user;[m
+[31m-      if (roleId == null) {[m
+[32m+[m[32m      if (role == null) {[m
+         next();[m
+       } else {[m
+         let userDetail;[m
+[31m-        if (roleId == User.USER_ROLE.ALL) {[m
+[32m+[m[32m        if (role == User.USER_ROLE.USER) {[m
+           userDetail = await User.getUserDetail(user.email);[m
+         } else {[m
+[31m-          userDetail = await User.getUserDetail(user.email, roleId);[m
+[32m+[m[32m          userDetail = await User.getUserDetail(user.email, role);[m
+         }[m
+         if (!userDetail) {[m
+           res.status(403).send({ error: 'Forbidden' });[m
+         } else {[m
+           req.user.id = userDetail.id;[m
+[31m-          req.user.role_id = userDetail.role_id;[m
+[32m+[m[32m          req.user.role = userDetail.role;[m
+           next();[m
+         }[m
+       }[m
+       return;[m
+     } catch (err) {[m
+[31m-      res.status(403).send({ error: 'Forbidden' });[m
+[31m-      return;[m
+[32m+[m[32m      res.status(403).send({ error: 'Forbidden, not existed' });[m
+     }[m
+   };[m
+[31m-};[m
+[32m+[m
+[32m+[m[32m// TODO: multer setting[m
+[32m+[m[32mconst upload = multer({[m
+[32m+[m[32m  storage: multer.diskStorage({[m
+[32m+[m[32m    destination: (req, file, cb) => {[m
+[32m+[m[32m      const imagePath = path.join(__dirname, '../public/assets/upload');[m
+[32m+[m[32m      if (!fs.existsSync(imagePath)) {[m
+[32m+[m[32m        fs.mkdirSync(imagePath);[m
+[32m+[m[32m      }[m
+[32m+[m[32m      cb(null, imagePath);[m
+[32m+[m[32m    },[m
+[32m+[m[32m    filename: (req, file, cb) => {[m
+[32m+[m[32m      const filetypes = /jpeg|jpg|png|gif/;[m
+[32m+[m[32m      const extname = filetypes.test(path.extname(file.originalname).toLowerCase());[m
+[32m+[m[32m      const mimetype = filetypes.test(file.mimetype);[m
+[32m+[m[32m      let customFileName = '';[m
+[32m+[m[32m      if (file.fieldname === 'main_image') {[m
+[32m+[m[32m        customFileName = 'main';[m
+[32m+[m[32m      } else {[m
+[32m+[m[32m        customFileName = crypto.randomBytes(18).toString('hex').substr(0, 8);[m
+[32m+[m[32m      }[m
+[32m+[m[32m      const fileExtension = file.mimetype.split('/')[1]; // get file extension from original file name[m
+[32m+[m[32m      if (mimetype && extname) {[m
+[32m+[m[32m        cb(null, `${customFileName}.${fileExtension}`);[m
+[32m+[m[32m      } else {[m
+[32m+[m[32m        cb(new Error('upload images only'), false);[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m  }),[m
+[32m+[m[32m});[m
+ [m
+ module.exports = {[m
+[32m+[m[32m  upload,[m
+   authentication,[m
+ };[m
+[1mdiff --git a/views/index.pug b/views/index.pug[m
+[1mindex 2acd14d..9de39d3 100644[m
+[1m--- a/views/index.pug[m
+[1m+++ b/views/index.pug[m
+[36m@@ -1,22 +1,63 @@[m
+ extends layout.pug [m
+[31m-//- link(rel='stylesheet', href='./public/css/index.css')[m
+[32m+[m
+ [m
+ block content [m
+[31m-  script(src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous")[m
+[31m-    script[m
+[31m-  [m
+[32m+[m[32m  link(rel='stylesheet', href='./public/assets/css/index.css')[m
+[32m+[m[32m  script(src="https://code.jquery.com/jquery-3.5.1.min.js", type="text/javascript")[m
+[32m+[m[32m  script(src='https://unpkg.com/axios/dist/axios.min.js')[m
+[32m+[m
+   .banner[m
+[31m-  h1(style='text-align: center; padding: 100px; margin-top: 20px;') New Release[m
+[31m-  h3(style='display: flex; justify-content: center') #{data[1].title}[m
+[31m-  div.media(style='height:100%; display: flex; ;float: center;  ')[m
+[31m-    img(src='http://localhost:3000/public/assets/images/posters/' + data[1].poster_image, style='width:350px; ')[m
+[31m-    iframe(src = `https://www.youtube.com/embed/${data[1].trailer}?rel=0` , width='640' height='390', frameborder = '0', allowfullscreen = '',)[m
+[32m+[m[32m  h1.title New Release[m
+[32m+[m[32m  a.banner_link[m
+[32m+[m[32m    h3.banner_title[m
+[32m+[m[32m    div.banner_media[m
+[32m+[m[32m      img.banner_img[m
+[32m+[m[32m      iframe.banner_trailer(width='640' height='390', frameborder = '0', allowfullscreen = '',)[m
+ [m
+ [m
+   .blocks[m
+[31m-  h1(style='text-align: center; padding: 100px; margin-top: 20px;') See More[m
+[31m-  div.media(style='height:100%; display: flex; ;float: center;  ')[m
+[31m-    - for (let i = 3; i <10 ; i++)[m
+[31m-      div [m
+[31m-        img(src='http://localhost:3000/public/assets/images/posters/' + data[i].poster_image, style='width:150px; margin: 10px; display: flex; justify-content: space-around')[m
+[31m-        p(style='display: flex; justify-content: center;justify-content: center') #{data[i].title}[m
+\ No newline at end of file[m
+[32m+[m[32m  h1.second_title See More[m
+[32m+[m[32m  //- div.list_media(style='height:100%; display: flex; ;float: center;  ')[m
+[32m+[m[32m    //- - for (let i = 3; i <10 ; i++)[m
+[32m+[m[32m  div.list[m
+[32m+[m[32m    a.list_link[m
+[32m+[m[32m      img.list_img[m
+[32m+[m[32m      p.list_title[m[41m [m
+[32m+[m
+[32m+[m[32m  script.[m
+[32m+[m
+[32m+[m[32m    var config = {[m
+[32m+[m[32m      method: 'get',[m
+[32m+[m[32m      url: '/api/1.0/movie/list',[m
+[32m+[m[32m      headers: { }[m
+[32m+[m[32m    };[m
+[32m+[m
+[32m+[m[32m    axios(config)[m
+[32m+[m[32m    .then(function (response) {[m
+[32m+[m[32m      console.log(JSON.stringify(response.data));[m
+[32m+[m[32m      const list = response.data.data[m
+[32m+[m[32m      $('.banner_link').attr('href', 'www.google.com')[m
+[32m+[m[32m      $('.banner_title').html(list[3].title);[m
+[32m+[m[32m      $('.banner_img').attr('src', list[3].poster)[m
+[32m+[m[32m      $('.banner_trailer').attr('src', list[3].trailer)[m
+[32m+[m
+[32m+[m[32m      d = document.createElement("div")[m[41m [m
+[32m+[m[32m      a = document.createElement("a")[m[41m [m
+[32m+[m[32m      img = document.createElement("img")[m[41m [m
+[32m+[m[32m      p = document.createElement("p")[m[41m [m
+[32m+[m
+[32m+[m[32m      for (let i = 4 ; i < 20 ; i++){[m
+[32m+[m[32m        $(d).addClass('list_div').appendTo('.list')[m
+[32m+[m[32m        $(a).addClass('list_link').attr('href', list[i].trailer).appendTo('.list_div')[m
+[32m+[m[32m        $(img).addClass('list_img').attr('src', list[i].poster).appendTo('.list_link')[m
+[32m+[m[32m        $(p).addClass('list_title').html(list[i].title).appendTo('.list_img')[m
+[32m+[m[32m      }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    )[m
+[32m+[m[32m    .catch(function (error) {[m
+[32m+[m[32m      console.log(error);[m
+[32m+[m[32m    });[m
+[41m+[m
+[41m+[m
+[41m+[m
+[1mdiff --git a/views/layout.pug b/views/layout.pug[m
+[1mindex 0d44ac8..9d70747 100644[m
+[1m--- a/views/layout.pug[m
+[1m+++ b/views/layout.pug[m
+[36m@@ -5,6 +5,7 @@[m [mhead[m
+   meta(name="viewport", content="width=device-width, initial-scale=1.0")[m
+   title Filmo[m
+   link(rel="stylesheet", href="stylesheet/layout.css")[m
+[32m+[m[32mblock head[m[41m  [m
+ body [m
+ header#header[m
+   // Bootstrap core CSS[m
+[36m@@ -34,7 +35,7 @@[m [mheader.header-area.header-sticky[m
+       .col-12[m
+         nav.main-nav [m
+           // ***** Logo Start *****[m
+[31m-          a.logo(href='index.html')[m
+[32m+[m[32m          a.logo(href='/')[m
+             img(src='assets/images/filmo_logo_2.png' alt='')[m
+           // ***** Logo End *****[m
+           // ***** Search End *****[m
+[36m@@ -46,15 +47,11 @@[m [mheader.header-area.header-sticky[m
+           // ***** Menu Start *****[m
+           ul.nav[m
+             li[m
+[31m-              a.active(href='index.html') Home[m
+[32m+[m[32m              a.active(href='/') Home[m
+             li[m
+[31m-              a(href='browse.html') Browse[m
+[32m+[m[32m              a(href='review') Review[m
+             li[m
+[31m-              a(href='details.html') Details[m
+[31m-            li[m
+[31m-              a(href='streams.html') Streams[m
+[31m-            li[m
+[31m-              a(href='profile.html')[m
+[32m+[m[32m              a(href='profile')[m
+                 | Profile [m
+                 img(src='assets/images/profile-header.jpg' alt='')[m
+             li.dropdown[m
+[1mdiff --git a/views/login.pug b/views/login.pug[m
+[1mnew file mode 100644[m
+[1mindex 0000000..d2372d8[m
+[1m--- /dev/null[m
+[1m+++ b/views/login.pug[m
+[36m@@ -0,0 +1,103 @@[m
+[32m+[m[32mextends layout.pug[m[41m [m
+[32m+[m
+[32m+[m[32mblock head[m
+[32m+[m[32m  link(rel='stylesheet', href='./public/assets/css/login.css', type='text/css')[m
+[32m+[m[32m  script(src='https://code.jquery.com/jquery-3.5.1.min.js', type="text/javascript")[m
+[32m+[m[32m  script(src='https://unpkg.com/axios/dist/axios.min.js')[m
+[32m+[m
+[32m+[m[32mblock content[m[41m [m
+[32m+[m[32m  body[m[41m [m
+[32m+[m[32m  div#main[m
+[32m+[m[32m    //-  form(action="#")[m
+[32m+[m[32m    div.signin Login[m
+[32m+[m[32m      div#sign_in_email[m
+[32m+[m[32m        input(type="text" placeholder="email")[m
+[32m+[m[32m      div#sign_in_password[m
+[32m+[m[32m        input(type="password" placeholder="password")[m
+[32m+[m[32m      button#sign_in_button.button_control(type="button" onclick='signin(event)') Sign In[m
+[32m+[m[41m        [m
+[32m+[m[32m    //-  form(action="#")[m
+[32m+[m[32m    div.signup Register[m
+[32m+[m[32m      div#sign_up_email[m
+[32m+[m[32m        input(type="text" placeholder="email")[m
+[32m+[m[32m      div#sign_up_username[m
+[32m+[m[32m        input(type="text" placeholder="username")[m
+[32m+[m[32m      div#sign_up_password[m
+[32m+[m[32m        input(type="password" placeholder="password")[m
+[32m+[m[32m      button#sign_up_button.button_control(type="button" onclick='signup(event)') Sign Up[m
+[32m+[m
+[32m+[m[32m    script.[m
+[32m+[m[41m    [m
+[32m+[m[32m      //Sign in[m
+[32m+[m[32m      //- $(document).ready(function(e) {[m
+[32m+[m[32m      //-   alert('test!');[m
+[32m+[m[32m      //- });[m
+[32m+[m
+[32m+[m[32m      async function signin(event){[m
+[32m+[m[32m        //- event.preventDefault()[m
+[32m+[m
+[32m+[m[32m        if ( $('#sign_in_email').val() == "" || $('#sign_in_password').val() == "" ) {[m
+[32m+[m[32m          alert("please fill in all blank before login");[m
+[32m+[m[32m          return[m
+[32m+[m[32m        }[m[41m [m
+[32m+[m[32m        try{[m
+[32m+[m[32m          const signin_response = await axios({[m
+[32m+[m[32m            method: 'POST',[m
+[32m+[m[32m            url: '/api/1.0/user/signin',[m
+[32m+[m[32m            responseType: 'json',[m
+[32m+[m[32m            data: {[m
+[32m+[m[32m                email: $('#sign_in_email').val(),[m
+[32m+[m[32m                password: $('#sign_in_password').val()[m
+[32m+[m[32m            }[m
+[32m+[m[32m            }).catch(function (error) {[m
+[32m+[m[32m                let err_alert = error.response.data;[m
+[32m+[m[32m                alert(err_alert);[m
+[32m+[m[32m            });[m
+[32m+[m
+[32m+[m[32m          //- console.log(signin_response);[m
+[32m+[m[32m          const token = signin_response.data.data.access_token;[m
+[32m+[m[32m          localStorage.setItem("Authorization", `Bearer ${token}`);[m
+[32m+[m[32m          alert("sign in success");[m
+[32m+[m[32m          window.location.href = "profile";[m
+[32m+[m[32m        }[m
+[32m+[m[32m        catch(err){[m
+[32m+[m[32m            console.log(err);[m
+[32m+[m[32m        }[m
+[32m+[m[32m      }[m
+[32m+[m
+[32m+[m[32m      //Sign up[m
+[32m+[m
+[32m+[m[32m      async function signup(event){[m
+[32m+[m[32m        event.preventDefault()[m
+[32m+[m
+[32m+[m[32m        if ($('#sign_up_username').val() == "" || $('#sign_up_email').val() == "" ||  $('#sign_up_password').val() == "") {[m
+[32m+[m[32m            alert("please fill in all blank before register");[m
+[32m+[m[32m            return[m
+[32m+[m[32m        }[m
+[32m+[m[32m        try{[m
+[32m+[m[32m          const signup_response = await axios({[m
+[32m+[m[32m              method: 'POST',[m
+[32m+[m[32m              url: '/api/1.0/user/signup',[m
+[32m+[m[32m              responseType: 'json',[m
+[32m+[m[32m              data: {[m
+[32m+[m[32m              username: $('#sign_up_username').val(),[m
+[32m+[m[32m              email: $('#sign_up_email').val(),[m
+[32m+[m[32m              password: $('#sign_up_password').val()[m
+[32m+[m[32m              }[m
+[32m+[m[32m          }).catch(function (error) {[m
+[32m+[m[32m                  let err_alert = error.response.data;[m
+[32m+[m[32m                  alert(err_alert);[m
+[32m+[m[32m          });[m
+[32m+[m[41m            [m
+[32m+[m[32m          const token = signup_response.data.data.access_token;[m
+[32m+[m[41m          [m
+[32m+[m[32m          localStorage.setItem("Authorization", `Bearer ${token}`);[m
+[32m+[m[32m          console.log(signup_response.data.data.access_token);[m
+[32m+[m[32m          if (token) {[m
+[32m+[m[32m            alert("sign up success");[m
+[32m+[m[32m            window.location.href = "profile"[m
+[32m+[m[32m          }[m
+[32m+[m[32m        } catch(err) {[m
+[32m+[m[32m            console.log(err);[m
+[32m+[m[32m        }[m
+[32m+[m[32m      }[m
+[1mdiff --git a/views/detail.pug b/views/movie.pug[m
+[1msimilarity index 88%[m
+[1mrename from views/detail.pug[m
+[1mrename to views/movie.pug[m
+[1mindex 102116b..d0d7484 100644[m
+[1m--- a/views/detail.pug[m
+[1m+++ b/views/movie.pug[m
+[36m@@ -1,7 +1,7 @@[m
+ extends layout.pug [m
+[31m-//- link(rel='stylesheet', href='./public/css/index.css')[m
+ [m
+ block content [m
+[32m+[m[32m  //- link(rel='stylesheet', href='./public/css/index.css')[m
+   .detail[m
+   h1(style='text-align: center; padding-top: 100px; margin-top: 20px;') #{data[0].title}[m
+   p(style='display: flex; justify-content: center;') #{data[0].original_title}[m
+[1mdiff --git a/views/profile.pug b/views/profile.pug[m
+[1mnew file mode 100644[m
+[1mindex 0000000..a6d00df[m
+[1m--- /dev/null[m
+[1m+++ b/views/profile.pug[m
+[36m@@ -0,0 +1,69 @@[m
+[32m+[m[32mextends layout.pug[m[41m [m
+[32m+[m
+[32m+[m[32mblock content[m[41m [m
+[32m+[m[32m  body[m[41m [m
+[32m+[m[32m  script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js')[m
+[32m+[m[32m  script(src='https://unpkg.com/axios/dist/axios.min.js')[m
+[32m+[m
+[32m+[m[32m  div.profile_info[m
+[32m+[m[32m    div#picture_outline[m
+[32m+[m[32m      | profile picture[m
+[32m+[m[32m      img#picture[m
+[32m+[m[32m    div#name[m
+[32m+[m[32m    div#email[m
+[32m+[m[32m    button#logout_btn(onclick='logout()') Log out[m
+[32m+[m
+[32m+[m[32m  script.[m
+[32m+[m[32m    let token = localStorage.getItem('Authorization');[m
+[32m+[m[41m  [m
+[32m+[m[32m    //main page products[m
+[32m+[m[32m    window.addEventListener('load', async (event) => {[m[41m [m
+[32m+[m[32m      try {[m[41m        [m
+[32m+[m[32m        if (!token) {[m
+[32m+[m[32m          alert("please sign in or sign up first");[m
+[32m+[m[32m          console.log("no token, please sign in or sign up first");[m
+[32m+[m[32m          window.location.href = "login";[m
+[32m+[m[32m          return;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        await auth_member();[m
+[32m+[m[32m        showProfile(auth_result);[m
+[32m+[m[32m        console.log("auth_result", auth_result)[m
+[32m+[m[32m      } catch(err) {[m
+[32m+[m[32m        console.log(err);[m
+[32m+[m[32m      }[m
+[32m+[m[32m    });[m
+[32m+[m
+[32m+[m[32m      //authorize member[m
+[32m+[m[32m      let auth_result;[m
+[32m+[m
+[32m+[m[32m      async function auth_member() {[m
+[32m+[m[32m      try {[m
+[32m+[m[32m        auth_result = await axios({[m
+[32m+[m[32m        method: 'GET',[m
+[32m+[m[32m          url: '/api/1.0/user/profile',[m
+[32m+[m[32m          responseType: 'json',[m
+[32m+[m[32m          headers: {[m
+[32m+[m[32m            Authorization: `${localStorage.getItem('Authorization')}`,[m
+[32m+[m[32m          },[m
+[32m+[m[32m          });[m
+[32m+[m[32m        return auth_result;[m
+[32m+[m[32m      } catch(err) {[m[41m [m
+[32m+[m[32m        console.log(err);[m
+[32m+[m[32m      }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m      //profile[m[41m [m
+[32m+[m[32m    function showProfile (auth_result) {[m
+[32m+[m[32m      let info = auth_result.data.data;[m
+[32m+[m[32m      $('#name').html(`username: ${info.name}`) ;[m
+[32m+[m[32m      $('#email').html(`email: ${info.email}`) ;[m
+[32m+[m[32m      console.log("info", info)[m
+[32m+[m[32m      $('#picture').style.backgroundImage = `"url('${info.picture}')"`;[m
+[32m+[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    // logout[m
+[32m+[m[32m    function logout(){[m
+[32m+[m[32m      localStorage.removeItem('Authorization');[m
+[32m+[m[32m      window.location.href = "/index";[m
+[32m+[m[32m    }[m[41m   [m
+\ No newline at end of file[m
+[1mdiff --git a/views/review.pug b/views/review.pug[m
+[1mnew file mode 100644[m
+[1mindex 0000000..bad4310[m
+[1m--- /dev/null[m
+[1m+++ b/views/review.pug[m
+[36m@@ -0,0 +1,12 @@[m
+[32m+[m[32mextends layout.pug[m[41m [m
+[32m+[m
+[32m+[m[32mblock content[m[41m [m
+[32m+[m[32m  body[m[41m [m
+[32m+[m[32m  script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js')[m
+[32m+[m[32m  script(src='https://unpkg.com/axios/dist/axios.min.js')[m
+[32m+[m
+[32m+[m[32m  p.review test[m
+[32m+[m
+[32m+[m
+[32m+[m[32m  script.[m[41m [m
+[32m+[m[41m  [m
+\ No newline at end of file[m
+[1mdiff --git a/views/review_submit.pug b/views/review_submit.pug[m
+[1mnew file mode 100644[m
+[1mindex 0000000..d438407[m
+[1m--- /dev/null[m
+[1m+++ b/views/review_submit.pug[m
+[36m@@ -0,0 +1,12 @@[m
+[32m+[m[32mextends layout.pug[m[41m [m
+[32m+[m
+[32m+[m[32mblock content[m[41m [m
+[32m+[m[32m  body[m[41m [m
+[32m+[m[32m  script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js')[m
+[32m+[m[32m  script(src='https://unpkg.com/axios/dist/axios.min.js')[m
+[32m+[m
+[32m+[m[32m  div.review[m
+[32m+[m
+[32m+[m
+[32m+[m[32m  script.[m[41m [m
+[32m+[m[41m  [m
+\ No newline at end of file[m

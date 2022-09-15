@@ -4,6 +4,8 @@ const { authentication, upload } = require('../../util/util.js');
 
 const cpUpload = upload.fields([{ name: 'image', maxCount: 1 }]);
 
+const { getAllReviews, getReviewById } = require('../controllers/user_controller.js');
+
 const {
   signUp,
   signIn,
@@ -24,6 +26,8 @@ const {
   getUserSavedMovie,
   deleteUserSavedMovie,
   createMovieRating,
+  // getAllReviews,
+  // getReviewById,
 } = require('../controllers/user_controller');
 
 router.route('/user/signup').post(signUp);
@@ -53,5 +57,10 @@ router.route('/user/store/review').post(authentication(), saveUserReview).get(au
 router.route('/user/store/movie').post(authentication(), saveUserMovie).get(authentication(), getUserSavedMovie).delete(authentication(), deleteUserSavedMovie);
 
 router.route('/user/movie/rating').post(authentication(), createMovieRating);
+
+router.route('/review').get(getAllReviews);
+
+// TODO:
+router.route('/review_info').get(getReviewById);
 
 module.exports = router;

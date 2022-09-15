@@ -141,10 +141,10 @@ const getPersonDetail = async (req, res) => {
   for (i in resultCrew) {
     const resultJob = await Movie.getJobByCrewId(resultCrew[i].crew_id, locale);
     const movie = {
-      movie_id: resultJob[i].movie_id,
-      title: resultJob[i].title,
-      poster: `${SERVER_IP}/public/assets/images/posters/${resultJob[i].poster_image}`,
-      character: resultJob[0].job,
+      movie_id: resultCrew[i].movie_id,
+      title: resultCrew[i].title,
+      poster: `${SERVER_IP}/public/assets/images/posters/${resultCrew[i].poster_image}`,
+      job: resultJob[0].job,
     };
 
     crewMovie.push(movie);

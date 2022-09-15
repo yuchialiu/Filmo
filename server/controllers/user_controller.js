@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt');
 const { TOKEN_EXPIRE, TOKEN_SECRET, SERVER_IP } = process.env; // 30 days by seconds
 const jwt = require('jsonwebtoken');
 const User = require('../models/user_model');
+const Movie = require('../models/movie_model');
+const router = require('../routes/crawler_route');
 
 const signUp = async (req, res) => {
   let { username } = req.body;
@@ -142,16 +144,34 @@ const createUserReview = async (req, res) => {
 
 const getUserReview = async (req, res) => {
   const { id } = req.user;
+  const { locale } = req.query;
 
-  const result = await User.getUserReview(id);
-  if (result.err) {
-    console.log(result.err);
-    res.status(500).send({ err: 'cannot get review' });
-  } else {
-    res.status(200).send({
-      data: result,
-    });
+  const resultReview = await User.getUserReview(id);
+
+  const info = [];
+  for (i in resultReview) {
+    const resultMovie = await Movie.getMovieInfo(resultReview[i].movie_id, locale);
+
+    const result = {
+      id: resultReview[i].id,
+      content: resultReview[i].content,
+      image: `${SERVER_IP}/public/assets/images/uploads/${resultReview[i].image}`,
+      image_blurred: resultReview[i].image_blurred,
+      user_id: resultReview[i].user_id,
+      created_dt: resultReview[i].created_dt,
+      updated_dt: resultReview[i].updated_dt,
+      movie_id: resultMovie.id,
+      title: resultMovie.title,
+      poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
+    };
+
+    info.push(result);
   }
+
+  const response = {
+    data: info,
+  };
+  res.status(200).send(response);
 };
 
 const updateUserReview = async (req, res) => {
@@ -383,6 +403,85 @@ const createMovieRating = async (req, res) => {
 
 // Comment ranking
 
+const getAllReviews = async (req, res) => {
+  const { locale } = req.query;
+
+  const resultReview = await User.getAllReviews();
+
+  const info = [];
+  for (i in resultReview) {
+    const resultMovie = await Movie.getMovieInfo(resultReview[i].movie_id, locale);
+    const resultAccount = await User.getUserById(resultReview[i].user_id);
+
+    const result = {
+      user_id: resultAccount.id,
+      username: resultAccount.username,
+      profile_image: resultAccount.profile_image,
+      review_id: resultReview[i].id,
+      content: resultReview[i].content,
+      image: `${SERVER_IP}/public/assets/images/uploads/${resultReview[i].image}`,
+      image_blurred: resultReview[i].image_blurred,
+      user_id: resultReview[i].user_id,
+      created_dt: resultReview[i].created_dt,
+      updated_dt: resultReview[i].updated_dt,
+      movie_id: resultMovie.id,
+      title: resultMovie.title,
+      poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
+    };
+
+    info.push(result);
+  }
+
+  const response = {
+    data: info,
+  };
+  // res.status(200).send(response);
+  res.render('review_all', { data: info });
+};
+
+const getReviewById = async (req, res) => {
+  const { id, locale } = req.query;
+
+  const resultReview = await User.getReviewById(id);
+
+  const info = [];
+  for (i in resultReview) {
+    const resultMovie = await Movie.getMovieInfo(resultReview[i].movie_id, locale);
+    const resultAccount = await User.getUserById(resultReview[i].user_id);
+
+    const result = {
+      user_id: resultAccount.id,
+      username: resultAccount.username,
+      profile_image: resultAccount.profile_image,
+      review_id: resultReview[i].id,
+      content: resultReview[i].content,
+      image: `${SERVER_IP}/public/assets/images/uploads/${resultReview[i].image}`,
+      image_blurred: resultReview[i].image_blurred,
+      user_id: resultReview[i].user_id,
+      created_dt: resultReview[i].created_dt,
+      updated_dt: resultReview[i].updated_dt,
+      movie_id: resultMovie.id,
+      title: resultMovie.title,
+      poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
+    };
+
+    info.push(result);
+  }
+
+  const response = {
+    data: info,
+  };
+  // res.status(200).send(response);
+  res.render('review', { data: info });
+};
+
+// const showReview = async (req, res) => {
+//   const { id } = req.user;
+//   const result = await User.getUserReview(id);
+//   // const result = await Movie.getMovieData();
+//   res.render('review_account', { title: '123', data: result[0] });
+// };
+
 module.exports = {
   signUp,
   signIn,
@@ -403,6 +502,8 @@ module.exports = {
   getUserSavedMovie,
   deleteUserSavedMovie,
   createMovieRating,
+  getAllReviews,
+  getReviewById,
 };
 
 // async function validateUser(email, password) {

@@ -1,0 +1,22 @@
+/* review account */
+
+.tab {
+  margin-top: 100px;
+}
+
+#myReviews,
+.reviews {
+  margin: 100px 0 0 100px;
+}
+
+.profile_img {
+  width: 100px;
+}
+
+.review_img {
+  width: 300px;
+}
+
+.movie_poster {
+  width: 100px;
+}

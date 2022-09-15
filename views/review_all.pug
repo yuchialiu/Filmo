@@ -9,15 +9,15 @@ block content
 
   div.reviews 
     - for (const i in data)
-      //- p #{data[i].user_id}
-      p username: #{data[i].username}
+      p #{data[i].user_id}
+      p #{data[i].username}
       img.profile_img(src= `${data[i].profile_image}`)
-      //- a(href=`/review_info?id=${data[i].review_id}&locale=en-US`)
-      h3 review# #{data[i].review_id}
+      a(href=`/review_info?id=${data[i].review_id}&locale=en-US`)
+        h3 review# #{data[i].review_id}
       img.review_img(src= `${data[i].image}`)
       p #{data[i].content}
-      p created at #{data[i].created_dt}
-      p updated at #{data[i].updated_dt}
+      p #{data[i].created_dt}
+      p #{data[i].updated_dt}
       //- TODO:
       a(href=`/movie?id=${data[i].movie_id}&locale=en-US`)
         img.movie_poster(src= `${data[i].poster}`)

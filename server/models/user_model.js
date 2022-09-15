@@ -288,6 +288,36 @@ const createMovieRating = async (userId, movieId, score) => {
   }
 };
 
+const getAllReviews = async () => {
+  try {
+    const result = await pool.execute('SELECT * FROM review');
+    return result[0];
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+const getReviewById = async (reviewId) => {
+  try {
+    const result = await pool.execute('SELECT * FROM review WHERE id = (?)', [reviewId]);
+    return result[0];
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+const getUserById = async (userId) => {
+  try {
+    const result = await pool.execute('SELECT * FROM user WHERE id = (?)', [userId]);
+    return result[0][0];
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
 module.exports = {
   USER_ROLE,
   CreateUser,
@@ -312,6 +342,9 @@ module.exports = {
   getUserSavedMovie,
   deleteUserSavedMovie,
   createMovieRating,
+  getAllReviews,
+  getReviewById,
+  getUserById,
 };
 
 async function validateUserReview(reviewId) {

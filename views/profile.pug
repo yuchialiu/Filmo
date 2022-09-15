@@ -7,6 +7,15 @@ block head
 
 block content 
   body 
+  .tab
+    a(href='profile')
+      button.tablinks My Account
+    a(href='profile_review?locale=en-US')  
+      button.tablinks My Reviews
+    a(href='user_store_review')
+      button.tablinks Saved Reviews
+    a(href='user_store_movie')
+      button.tablinks Saved Movies
 
   div.profile_info
     div#picture_outline

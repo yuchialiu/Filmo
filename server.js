@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const { API_VERSION, SERVER_IP } = process.env;
 
-const { default: axios } = require('axios');
 // Express Initialization
 const express = require('express');
 
@@ -27,9 +26,9 @@ app.get('/login', (req, res) => {
   res.render('login');
 });
 
-app.get('/review', (req, res) => {
-  res.render('review');
-});
+// app.get('/review', (req, res) => {
+//   res.render('review_all');
+// });
 
 app.get('/movie', (req, res) => {
   res.render('movie', { id: req.query.id, locale: req.query.locale });
@@ -39,7 +38,20 @@ app.get('/person', (req, res) => {
   res.render('person', { person_id: req.query.id, locale: req.query.locale });
 });
 
-// app.use('/', [require('./server/routes/index_route')]);
+// TODO:
+app.get('/profile_review', (req, res) => {
+  res.render('review_account');
+});
+
+app.get('/user_store_review', (req, res) => {
+  res.render('saved_review');
+});
+
+app.get('/user_store_movie', (req, res) => {
+  res.render('saved_movie');
+});
+
+app.use('/', [require('./server/routes/user_route')]);
 
 // API Routes
 app.use(`/api/${API_VERSION}`, [require('./server/routes/crawler_route'), require('./server/routes/user_route'), require('./server/routes/movie_route')]);

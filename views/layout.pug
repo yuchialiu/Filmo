@@ -49,28 +49,34 @@ header.header-area.header-sticky
             li
               a.active(href='/') Home
             li
-              a(href='review') Review
+              //TODO:
+              a(href='review?locale=en-US') Review
             li
               a(href='profile')
                 | Profile 
                 img(src='assets/images/profile-header.jpg' alt='')
-            li.dropdown
-              a.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false')
-                | EN
-                span.caret
-              ul.dropdown-menu
-                li
-                  a(href='#') Action
-                li
-                  a(href='#') Another action
-                li
-                  a(href='#') Something else here
-                li.divider(role='separator')
-                li
-                  a(href='#') Separated link
-                li.divider(role='separator')
-                li
-                  a(href='#') One more separated link
+            div.dropdown
+              select
+                option(value='EN') EN
+                option(value='ZH') ZH
+                option(value='FR') FR
+            //- li.dropdown
+            //-   a.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false')
+            //-     | EN
+            //-     span.caret
+            //-   ul.dropdown-menu
+            //-     li
+            //-       a(href='#') ZH
+            //-     li
+            //-       a(href='#') FR
+            //-     li
+            //-       a(href='#') Something else here
+            //-     li.divider(role='separator')
+            //-     li
+            //-       a(href='#') Separated link
+            //-     li.divider(role='separator')
+            //-     li
+            //-       a(href='#') One more separated link
           a.menu-trigger
             span Menu
           // ***** Menu End *****
