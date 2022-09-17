@@ -7,63 +7,66 @@ block head
 
 block content 
 
+
   div.content
+    p #{data}
     div.banner
     h1.title New Release
-    a.banner_link
-      h3.banner_title
+    //- a.banner_link(src=`/movie?id=${data[3].id}&locale=en-US`)
+      h3.banner_title #{data[3].title}
       div.banner_media
-        img.banner_img
-        iframe.banner_trailer(width='640' height='390', frameborder = '0', allowfullscreen = '',)
+        img.banner_img(src=`${data[3].poster}`)
+        iframe.banner_trailer(width='640' height='390', frameborder = '0', allowfullscreen = '',src=`${data[3].trailer}`)
 
 
     div.blocks
-    h1.second_title See More
-    div.list
-      //- a.list_link
-      //-   img.list_img
-      //-   p.list_title 
+    - for (const i in data)
+      h1.second_title See More
+      div.list_div
+        a.list_link
+          img.list_img
+          p.list_title 
 
-  script.
+  //- script.
 
-    const locale = document.URL.split("=")[1];
+  //-   const locale = document.URL.split("=")[1];
 
-    var config = {
-      method: 'get',
-      url: `/api/1.0/movie/list?locale=en-US`,
-      headers: { }
-    };
+  //-   var config = {
+  //-     method: 'get',
+  //-     url: `/api/1.0/movie/list?locale=en-US`,
+  //-     headers: { }
+  //-   };
 
-    axios(config)
-    .then(function (response) {
-      //- console.log(JSON.stringify(response.data));
-      const list = response.data.data
-      console.log(list)
-      $('.banner_link').attr('href', `/movie?id=${list[3].id}&locale=en-US`)
-      $('.banner_title').html(list[3].title);
-      $('.banner_img').attr('src', list[3].poster)
-      $('.banner_trailer').attr('src', list[3].trailer)
+  //-   axios(config)
+  //-   .then(function (response) {
+  //-     //- console.log(JSON.stringify(response.data));
+  //-     const list = response.data.data
+  //-     console.log(list)
+  //-     $('.banner_link').attr('href', `/movie?id=${list[3].id}&locale=en-US`)
+  //-     $('.banner_title').html(list[3].title);
+  //-     $('.banner_img').attr('src', list[3].poster)
+  //-     $('.banner_trailer').attr('src', list[3].trailer)
 
-      for (let i = 0 ; i < 20 ; i++){
-        const d = $('<div></div>').addClass('list_div')
-        const a = $('<a></a>').attr('href', `/movie?id=${list[i].id}&locale=en-US`)
-        const img = $('<img>').addClass('list_img').attr('src', list[i].poster)
-        const p = $('<p></p>').addClass('list_title').html(list[i].title)
+  //-     for (let i = 0 ; i < 20 ; i++){
+  //-       const d = $('<div></div>').addClass('list_div')
+  //-       const a = $('<a></a>').attr('href', `/movie?id=${list[i].id}&locale=en-US`)
+  //-       const img = $('<img>').addClass('list_img').attr('src', list[i].poster)
+  //-       const p = $('<p></p>').addClass('list_title').html(list[i].title)
 
-        let div = a;
-        div = div.append(img); 
-        div = div.append(p)
+  //-       let div = a;
+  //-       div = div.append(img); 
+  //-       div = div.append(p)
 
-        $('.list').append(d)
-        $('.list').append(div)
+  //-       $('.list').append(d)
+  //-       $('.list').append(div)
 
-      }
-    }
+  //-     }
+  //-   }
 
-    )
-    .catch(function (error) {
-      console.log(error);
-    });
+  //-   )
+  //-   .catch(function (error) {
+  //-     console.log(error);
+  //-   });
 
 
 

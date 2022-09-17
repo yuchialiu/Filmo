@@ -52,10 +52,11 @@ block content
             });
 
           console.log(signin_response);
-          const token = signin_response.data.response.access_token;
-          localStorage.setItem("Authorization", `Bearer ${token}`);
-          alert("sign in success");
-          window.location.href = "profile";
+          //- const token = signin_response.data.response.access_token;
+          //- localStorage.setItem("Authorization", `Bearer ${token}`);
+          //- alert("sign in success");
+          //- window.location.href = "profile";
+          window.location.href = "profile"
         }
         catch(err){
             console.log(err);
@@ -81,20 +82,20 @@ block content
               email: $('#sign_up_email').val(),
               password: $('#sign_up_password').val()
               }
-          }).catch(function (error) {
-                  let err_alert = error.response.data;
-                  alert(err_alert);
-          });
+          })
           console.log(signup_response);
-          const token = signup_response.data.data.access_token;
+          //- const token = signup_response.data.data.access_token;
           
-          localStorage.setItem("Authorization", `Bearer ${token}`);
+          //- localStorage.setItem("Authorization", `Bearer ${token}`);
 
-          if (token) {
-            alert("sign up success");
-            window.location.href = "profile"
-          }
-        } catch(err) {
-            console.log(err);
+          //- if (token) {
+          //-   alert("sign up success");
+          //-   window.location.href = "profile"
+          //- }
+          window.location.href = "profile"
+        } catch(error) {
+            console.log(error);
+            let err_alert = error.response.data;
+            alert(err_alert);
         }
       }

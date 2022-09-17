@@ -4,15 +4,14 @@ const { authentication, upload } = require('../../util/util.js');
 
 const cpUpload = upload.fields([{ name: 'image', maxCount: 1 }]);
 
-const { getAllReviews, getReviewById } = require('../controllers/user_controller.js');
-
 const {
   signUp,
   signIn,
+  logout,
   getUserDetail,
   updateUserImage,
   createUserReview,
-  getUserReview,
+  // getUserReview,
   updateUserReview,
   deleteUserReview,
   createUserComment,
@@ -26,41 +25,36 @@ const {
   getUserSavedMovie,
   deleteUserSavedMovie,
   createMovieRating,
-  // getAllReviews,
-  // getReviewById,
 } = require('../controllers/user_controller');
 
-router.route('/user/signup').post(signUp);
+router.route('/signup').post(signUp);
 
-router.route('/user/signin').post(signIn);
+router.route('/signin').post(signIn);
 
-router.route('/user/info').get(authentication(), getUserDetail);
+router.route('/logout').get(logout);
 
-router.route('/user/image').post(authentication(), cpUpload, updateUserImage);
+router.route('/info').get(authentication, getUserDetail);
 
-router
-  .route('/user/review')
-  .post(authentication(), cpUpload, createUserReview)
-  .get(authentication(), getUserReview)
-  .patch(authentication(), updateUserReview)
-  .delete(authentication(), deleteUserReview);
+router.route('/image').post(authentication, cpUpload, updateUserImage);
 
 router
-  .route('/user/comment')
-  .post(authentication(), createUserComment)
-  .get(authentication(), getUserComment)
-  .patch(authentication(), updateUserComment)
-  .delete(authentication(), deleteUserComment);
+  .route('/review')
+  .post(authentication, cpUpload, createUserReview)
+  // .get(authentication, getUserReview)
+  .patch(authentication, updateUserReview)
+  .delete(authentication, deleteUserReview);
 
-router.route('/user/store/review').post(authentication(), saveUserReview).get(authentication(), getUserSavedReview).delete(authentication(), deleteUserSavedReview);
+router
+  .route('/comment')
+  .post(authentication, createUserComment)
+  .get(authentication, getUserComment)
+  .patch(authentication, updateUserComment)
+  .delete(authentication, deleteUserComment);
 
-router.route('/user/store/movie').post(authentication(), saveUserMovie).get(authentication(), getUserSavedMovie).delete(authentication(), deleteUserSavedMovie);
+router.route('/store/review').post(authentication, saveUserReview).get(authentication, getUserSavedReview).delete(authentication, deleteUserSavedReview);
 
-router.route('/user/movie/rating').post(authentication(), createMovieRating);
+router.route('/store/movie').post(authentication, saveUserMovie).get(authentication, getUserSavedMovie).delete(authentication, deleteUserSavedMovie);
 
-router.route('/review').get(getAllReviews);
-
-// TODO:
-router.route('/review_info').get(getReviewById);
+router.route('/movie/rating').post(authentication, createMovieRating);
 
 module.exports = router;

@@ -8,45 +8,52 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 
-const authentication = (role) =>
-  async function (req, res, next) {
-    let accessToken = req.get('Authorization');
-    if (!accessToken) {
-      res.status(401).send({ error: 'Unauthorized' });
-      return;
-    }
+const authentication = (req, res, next) => {
+  if (!req.session.isAuth) {
+    return res.status(400).render('login');
+  }
+  return next();
+};
 
-    accessToken = accessToken.replace('Bearer ', '');
-    if (accessToken == 'null') {
-      res.status(401).send({ error: 'Unauthorized' });
-      return;
-    }
+// const authentication = (role) =>
+//   async function (req, res, next) {
+//     let accessToken = req.get('Authorization');
+//     if (!accessToken) {
+//       res.status(401).send({ error: 'Unauthorized' });
+//       return;
+//     }
 
-    try {
-      const user = await promisify(jwt.verify)(accessToken, TOKEN_SECRET);
-      req.user = user;
-      if (role == null) {
-        next();
-      } else {
-        let userDetail;
-        if (role == User.USER_ROLE.USER) {
-          userDetail = await User.getUserDetail(user.email);
-        } else {
-          userDetail = await User.getUserDetail(user.email, role);
-        }
-        if (!userDetail) {
-          res.status(403).send({ error: 'Forbidden' });
-        } else {
-          req.user.id = userDetail.id;
-          req.user.role = userDetail.role;
-          next();
-        }
-      }
-      return;
-    } catch (err) {
-      res.status(403).send({ error: 'Forbidden, not existed' });
-    }
-  };
+//     accessToken = accessToken.replace('Bearer ', '');
+//     if (accessToken == 'null') {
+//       res.status(401).send({ error: 'Unauthorized' });
+//       return;
+//     }
+
+//     try {
+//       const user = await promisify(jwt.verify)(accessToken, TOKEN_SECRET);
+//       req.user = user;
+//       if (role == null) {
+//         next();
+//       } else {
+//         let userDetail;
+//         if (role == User.USER_ROLE.USER) {
+//           userDetail = await User.getUserDetail(user.email);
+//         } else {
+//           userDetail = await User.getUserDetail(user.email, role);
+//         }
+//         if (!userDetail) {
+//           res.status(403).send({ error: 'Forbidden' });
+//         } else {
+//           req.user.id = userDetail.id;
+//           req.user.role = userDetail.role;
+//           next();
+//         }
+//       }
+//       return;
+//     } catch (err) {
+//       res.status(403).send({ error: 'Forbidden, not existed' });
+//     }
+// };
 
 // multer setting
 const upload = multer({

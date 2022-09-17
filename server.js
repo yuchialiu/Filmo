@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { API_VERSION, SERVER_IP } = process.env;
+const { API_VERSION, SESSION_SECRET, SERVER_IP } = process.env;
 
 // Express Initialization
 const express = require('express');
@@ -14,47 +14,26 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/public', express.static('public'));
 
-app.get('/', (req, res) => {
-  res.render('index');
-});
+// session
+const session = require('express-session');
 
-app.get('/profile', (req, res) => {
-  res.render('profile');
-});
+const { sessionStore } = require('./server/models/mysqlcon');
 
-app.get('/login', (req, res) => {
-  res.render('login');
-});
+app.use(
+  session({
+    secret: SESSION_SECRET,
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
-// app.get('/review', (req, res) => {
-//   res.render('review_all');
-// });
-
-app.get('/movie', (req, res) => {
-  res.render('movie', { id: req.query.id, locale: req.query.locale });
-});
-
-app.get('/person', (req, res) => {
-  res.render('person', { person_id: req.query.id, locale: req.query.locale });
-});
-
-// TODO:
-app.get('/profile_review', (req, res) => {
-  res.render('review_account');
-});
-
-app.get('/user_store_review', (req, res) => {
-  res.render('saved_review');
-});
-
-app.get('/user_store_movie', (req, res) => {
-  res.render('saved_movie');
-});
-
-app.use('/', [require('./server/routes/user_route')]);
+app.use('/user', [require('./server/routes/user_route')]);
+app.use('/', [require('./server/routes/page_route')]);
 
 // API Routes
-app.use(`/api/${API_VERSION}`, [require('./server/routes/crawler_route'), require('./server/routes/user_route'), require('./server/routes/movie_route')]);
+app.use(`/api/${API_VERSION}/user`, [require('./server/routes/user_route')]);
+app.use(`/api/${API_VERSION}`, [require('./server/routes/crawler_route'), require('./server/routes/movie_route')]);
 
 // Server Port
 const port = 3000;

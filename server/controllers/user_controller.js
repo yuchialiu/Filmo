@@ -1,12 +1,12 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
 require('dotenv').config();
 const validator = require('validator');
 const bcrypt = require('bcrypt');
 
-const { TOKEN_EXPIRE, TOKEN_SECRET, SERVER_IP } = process.env; // 30 days by seconds
-const jwt = require('jsonwebtoken');
+const { SERVER_IP } = process.env;
 const User = require('../models/user_model');
 const Movie = require('../models/movie_model');
-const router = require('../routes/crawler_route');
 
 const signUp = async (req, res) => {
   let { username } = req.body;
@@ -49,10 +49,15 @@ const signUp = async (req, res) => {
     return;
   }
 
+  req.session.userId = user.id;
+  req.session.userName = user.username;
+  req.session.userEmail = user.email;
+  req.session.isAuth = true;
+
   res.status(201).send({
     data: {
-      access_token: user.access_token,
-      access_expired: user.access_expired,
+      // access_token: user.access_token,
+      // access_expired: user.access_expired,
       user: {
         id: user.id,
         username: user.username,
@@ -69,25 +74,36 @@ const signIn = async (req, res) => {
   if (!email || !password) {
     return res.status(400).send({ error: 'Request Error: email and password are required.' });
   }
-  const user = await User.GetUser(email);
+  const { user } = await User.GetUser(email);
 
   if (user.error) {
     return res.status(400).send("This email hasn't been registered");
   }
   // console.log(user.user.password);
-  if (!bcrypt.compareSync(password, user.user.password)) {
+  if (!bcrypt.compareSync(password, user.password)) {
     console.log({ email, error: 'Password is wrong' });
     return res.status(400).send('Email or password is wrong');
   }
+  // const result = user;
+  // const result = {};
+  // const accessToken = await generateJWT(user.user);
+  // result.access_token = accessToken;
+  // result.user = user.user;
+  req.session.userId = user.id;
+  req.session.userName = user.username;
+  req.session.userEmail = user.email;
+  req.session.userImage = `${SERVER_IP}/public/assets/images/uploads/${user.profile_image}`;
+  req.session.isAuth = true;
 
-  const result = {};
-  const accessToken = await generateJWT(user.user);
-  result.access_token = accessToken;
-  result.user = user.user;
-  res.status(201).send({
-    response: result,
+  return res.status(201).send({
+    response: user,
   });
   // const result = await validateUser(email, password);
+};
+
+const logout = async (req, res) => {
+  req.session.isAuth = false;
+  res.status(200).send('logout');
 };
 
 const getUserDetail = async (req, res) => {
@@ -102,10 +118,14 @@ const getUserDetail = async (req, res) => {
 };
 
 const updateUserImage = async (req, res) => {
-  const { id } = req.user;
+  const { userId } = req.session;
+  if (req.files.image === undefined) {
+    return res.status(400).send('did not choose file');
+  }
   const image = req.files.image[0].filename;
 
-  const result = await User.updateUserImage(id, image);
+  const result = await User.updateUserImage(userId, image);
+  req.session.userImage = `${SERVER_IP}/public/assets/images/uploads/${image}`;
 
   if (result.err) {
     console.log(result.err);
@@ -119,7 +139,7 @@ const updateUserImage = async (req, res) => {
 
 // Reviews CRUD
 const createUserReview = async (req, res) => {
-  const { id } = req.user;
+  const { userId } = req.session;
   const { movie_id, content } = req.body;
   let image;
   if (req.files.image) {
@@ -129,7 +149,7 @@ const createUserReview = async (req, res) => {
   }
 
   // image handler
-  const result = await User.createUserReview(id, movie_id, content, image);
+  const result = await User.createUserReview(userId, movie_id, content, image);
   if (result.err) {
     console.log(result.err);
     res.status(500).send({ err: 'cannot add comment' });
@@ -142,43 +162,44 @@ const createUserReview = async (req, res) => {
   }
 };
 
-const getUserReview = async (req, res) => {
-  const { id } = req.user;
-  const { locale } = req.query;
+// const getUserReview = async (req, res) => {
+//   const { userId } = req.session;
+//   const { locale } = req.query;
 
-  const resultReview = await User.getUserReview(id);
+//   const resultReview = await User.getUserReview(userId);
 
-  const info = [];
-  for (i in resultReview) {
-    const resultMovie = await Movie.getMovieInfo(resultReview[i].movie_id, locale);
+//   const info = [];
+//   for (i in resultReview) {
+//     const resultMovie = await Movie.getMovieInfo(resultReview[i].movie_id, locale);
 
-    const result = {
-      id: resultReview[i].id,
-      content: resultReview[i].content,
-      image: `${SERVER_IP}/public/assets/images/uploads/${resultReview[i].image}`,
-      image_blurred: resultReview[i].image_blurred,
-      user_id: resultReview[i].user_id,
-      created_dt: resultReview[i].created_dt,
-      updated_dt: resultReview[i].updated_dt,
-      movie_id: resultMovie.id,
-      title: resultMovie.title,
-      poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
-    };
+//     const result = {
+//       id: resultReview[i].id,
+//       title: resultReview[i].title,
+//       content: resultReview[i].content,
+//       image: `${SERVER_IP}/public/assets/images/uploads/${resultReview[i].image}`,
+//       image_blurred: resultReview[i].image_blurred,
+//       user_id: resultReview[i].user_id,
+//       created_dt: resultReview[i].created_dt,
+//       updated_dt: resultReview[i].updated_dt,
+//       movie_id: resultMovie.id,
+//       title: resultMovie.title,
+//       poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
+//     };
 
-    info.push(result);
-  }
+//     info.push(result);
+//   }
 
-  const response = {
-    data: info,
-  };
-  res.status(200).send(response);
-};
+//   const response = {
+//     data: info,
+//   };
+//   res.status(200).send(response);
+// };
 
 const updateUserReview = async (req, res) => {
-  const { id } = req.user;
+  const { userId } = req.session;
   const { review_id, content } = req.body;
 
-  const result = await User.updateUserReview(id, review_id, content);
+  const result = await User.updateUserReview(userId, review_id, content);
   if (result.err) {
     console.log(result.err);
     res.status(500).send({ err: 'review belongs to other user' });
@@ -192,10 +213,10 @@ const updateUserReview = async (req, res) => {
 };
 
 const deleteUserReview = async (req, res) => {
-  const { id } = req.user;
+  const { userId } = req.session;
   const { review_id } = req.body;
 
-  const result = await User.deleteUserReview(id, review_id);
+  const result = await User.deleteUserReview(userId, review_id);
   if (result.err) {
     console.log(result.err);
     res.status(500).send({ err: 'review belongs to other user' });
@@ -211,10 +232,10 @@ const deleteUserReview = async (req, res) => {
 // Comment CRUD
 
 const createUserComment = async (req, res) => {
-  const { id } = req.user;
+  const { userId } = req.session;
   const { review_id, content } = req.body;
 
-  const result = await User.createUserComment(id, review_id, content);
+  const result = await User.createUserComment(userId, review_id, content);
   if (result.err) {
     console.log(result.err);
     res.status(500).send({ err: 'cannot add comment' });
@@ -228,9 +249,9 @@ const createUserComment = async (req, res) => {
 };
 
 const getUserComment = async (req, res) => {
-  const { id } = req.user;
+  const { userId } = req.session;
 
-  const result = await User.getUserComment(id);
+  const result = await User.getUserComment(userId);
   if (result.err) {
     console.log(result.err);
     res.status(500).send({ err: 'cannot get comment' });
@@ -242,10 +263,10 @@ const getUserComment = async (req, res) => {
 };
 
 const updateUserComment = async (req, res) => {
-  const { id } = req.user;
+  const { userId } = req.session;
   const { comment_id, content } = req.body;
 
-  const result = await User.updateUserComment(id, comment_id, content);
+  const result = await User.updateUserComment(userId, comment_id, content);
   if (result.err) {
     console.log(result.err);
     res.status(500).send({ err: 'comment belongs to other user' });
@@ -259,10 +280,10 @@ const updateUserComment = async (req, res) => {
 };
 
 const deleteUserComment = async (req, res) => {
-  const { id } = req.user;
+  const { userId } = req.session;
   const { comment_id } = req.body;
 
-  const result = await User.deleteUserComment(id, comment_id);
+  const result = await User.deleteUserComment(userId, comment_id);
   if (result.err) {
     console.log(result.err);
     res.status(500).send({ err: 'comment belongs to other user' });
@@ -277,10 +298,10 @@ const deleteUserComment = async (req, res) => {
 
 // Saved Reviews CRD
 const saveUserReview = async (req, res) => {
-  const { id } = req.user;
+  const { userId } = req.session;
   const { review_id } = req.body;
 
-  const result = await User.saveUserReview(id, review_id);
+  const result = await User.saveUserReview(userId, review_id);
   if (result.err) {
     console.log(result.err);
     res.status(500).send({ err: 'review saved or review not existed' });
@@ -295,14 +316,14 @@ const saveUserReview = async (req, res) => {
 };
 
 const getUserSavedReview = async (req, res) => {
-  const { id } = req.user;
+  const { userId } = req.session;
 
-  const resultSavedReview = await User.getUserSavedReview(id);
+  const resultSavedReview = await User.getUserSavedReview(userId);
   const result = [];
 
-  for (i in resultSavedReview) {
+  for (const i in resultSavedReview) {
     const resultReview = await User.getReviewInfo(resultSavedReview[i].review_id);
-    for (j in resultReview) {
+    for (const j in resultReview) {
       const info = {
         review_id: resultReview[j].id,
         content: resultReview[j].content,
@@ -318,10 +339,10 @@ const getUserSavedReview = async (req, res) => {
 };
 
 const deleteUserSavedReview = async (req, res) => {
-  const { id } = req.user;
+  const { userId } = req.session;
   const { review_id } = req.body;
 
-  const result = await User.deleteUserSavedReview(id, review_id);
+  const result = await User.deleteUserSavedReview(userId, review_id);
 
   if (result.err) {
     console.log(result.err);
@@ -333,10 +354,10 @@ const deleteUserSavedReview = async (req, res) => {
 
 // Saved Movies CRD
 const saveUserMovie = async (req, res) => {
-  const { id } = req.user;
+  const { userId } = req.session;
   const { movie_id } = req.body;
 
-  const result = await User.saveUserMovie(id, movie_id);
+  const result = await User.saveUserMovie(userId, movie_id);
   if (result.err) {
     console.log(result.err);
     res.status(500).send({ err: 'movie saved or review not existed' });
@@ -351,9 +372,9 @@ const saveUserMovie = async (req, res) => {
 };
 
 const getUserSavedMovie = async (req, res) => {
-  const { id } = req.user;
+  const { userId } = req.session;
   const { locale } = req.query;
-  const resultSavedMovie = await User.getUserSavedMovie(id);
+  const resultSavedMovie = await User.getUserSavedMovie(userId);
   const result = [];
 
   for (i in resultSavedMovie) {
@@ -372,10 +393,10 @@ const getUserSavedMovie = async (req, res) => {
 };
 
 const deleteUserSavedMovie = async (req, res) => {
-  const { id } = req.user;
+  const { userId } = req.session;
   const { movie_id } = req.body;
 
-  const result = await User.deleteUserSavedMovie(id, movie_id);
+  const result = await User.deleteUserSavedMovie(userId, movie_id);
 
   if (result.err) {
     console.log(result.err);
@@ -387,10 +408,10 @@ const deleteUserSavedMovie = async (req, res) => {
 
 // Movie rating
 const createMovieRating = async (req, res) => {
-  const { id } = req.user;
+  const { userId } = req.session;
   const { movie_id, score } = req.body;
 
-  const result = await User.createMovieRating(id, movie_id, score);
+  const result = await User.createMovieRating(userId, movie_id, score);
   if (result.err) {
     console.log(result.err);
     res.status(500).send({ err: 'cannot submit' });
@@ -485,10 +506,11 @@ const getReviewById = async (req, res) => {
 module.exports = {
   signUp,
   signIn,
+  logout,
   getUserDetail,
   updateUserImage,
   createUserReview,
-  getUserReview,
+  // getUserReview,
   updateUserReview,
   deleteUserReview,
   createUserComment,
@@ -526,18 +548,18 @@ module.exports = {
 //   return result;
 // }
 
-function generateJWT(user) {
-  const accessToken = jwt.sign(
-    {
-      username: user.username,
-      id: user.id,
-      role: user.role,
-      email: user.email,
-      picture: user.profile_image,
-    },
-    TOKEN_SECRET,
-    { expiresIn: TOKEN_EXPIRE }
-  );
+// function generateJWT(user) {
+//   const accessToken = jwt.sign(
+//     {
+//       username: user.username,
+//       id: user.id,
+//       role: user.role,
+//       email: user.email,
+//       picture: user.profile_image,
+//     },
+//     TOKEN_SECRET,
+//     { expiresIn: TOKEN_EXPIRE }
+//   );
 
-  return accessToken;
-}
+//   return accessToken;
+// }

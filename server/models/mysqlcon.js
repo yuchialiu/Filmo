@@ -5,6 +5,9 @@ const env = process.env.NODE_ENV || 'production';
 const multipleStatements = process.env.NODE_ENV === 'test';
 const { DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE } = process.env;
 
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
+
 const mysqlConfig = {
   production: {
     // for EC2 machine
@@ -55,8 +58,11 @@ async function execute(sql, params) {
   return results;
 }
 
+const sessionStore = new MySQLStore({}, pool);
+
 module.exports = {
   mysql,
   pool,
   execute,
+  sessionStore,
 };

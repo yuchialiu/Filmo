@@ -4,17 +4,17 @@ head
   meta(http-equiv="X-UA-Compatible", content="IE=edge")
   meta(name="viewport", content="width=device-width, initial-scale=1.0")
   title Filmo
-  link(rel="stylesheet", href="stylesheet/layout.css")
+  //- link(rel="stylesheet", href="stylesheet/layout.css")
 block head  
 body 
 header#header
   // Bootstrap core CSS
-  link(href='vendor/bootstrap/css/bootstrap.min.css' rel='stylesheet')
+  link(href='/public/vendor/bootstrap/css/bootstrap.min.css' rel='stylesheet')
   // Additional CSS Files
-  link(rel='stylesheet' href='assets/css/fontawesome.css')
-  link(rel='stylesheet' href='assets/css/templatemo-cyborg-gaming.css')
-  link(rel='stylesheet' href='assets/css/owl.css')
-  link(rel='stylesheet' href='assets/css/animate.css')
+  link(rel='stylesheet' href='/public/assets/css/fontawesome.css')
+  link(rel='stylesheet' href='/public/assets/css/templatemo-cyborg-gaming.css')
+  link(rel='stylesheet' href='/public/assets/css/owl.css')
+  link(rel='stylesheet' href='/public/assets/css/animate.css')
   link(rel='stylesheet' href='https://unpkg.com/swiper@7/swiper-bundle.min.css')
   //
     TemplateMo 579 Cyborg Gaming
@@ -35,8 +35,9 @@ header.header-area.header-sticky
       .col-12
         nav.main-nav 
           // ***** Logo Start *****
-          a.logo(href='/')
-            img(src='assets/images/filmo_logo_2.png' alt='')
+          //TODO:
+          a.logo(href='/home?locale=en-US')
+            img(src='/public/assets/images/filmo_logo_2.png' alt='')
           // ***** Logo End *****
           // ***** Search End *****
           .search-input
@@ -47,14 +48,14 @@ header.header-area.header-sticky
           // ***** Menu Start *****
           ul.nav
             li
-              a.active(href='/') Home
+              a.active(href='/home?locale=en-US') Home
             li
               //TODO:
-              a(href='review?locale=en-US') Review
+              a(href='/review?locale=en-US') Review
             li
-              a(href='profile')
+              a(href='/profile')
                 | Profile 
-                img(src='assets/images/profile-header.jpg' alt='')
+                //- img(src='assets/images/profile-header.jpg' alt='')
             div.dropdown
               select
                 option(value='EN') EN
@@ -94,10 +95,10 @@ footer
           //- a(href='https://templatemo.com' target='_blank' title='free CSS templates') TemplateMo
 // Scripts
 // Bootstrap core JavaScript
-script(src='vendor/jquery/jquery.min.js')
-script(src='vendor/bootstrap/js/bootstrap.min.js')
-script(src='assets/js/isotope.min.js')
-script(src='assets/js/owl-carousel.js')
-script(src='assets/js/tabs.js')
-script(src='assets/js/popup.js')
-script(src='assets/js/custom.js')
+script(src='/public/vendor/jquery/jquery.min.js')
+script(src='/public/vendor/bootstrap/js/bootstrap.min.js')
+script(src='/public/assets/js/isotope.min.js')
+script(src='/public/assets/js/owl-carousel.js')
+script(src='/public/assets/js/tabs.js')
+script(src='/public/assets/js/popup.js')
+script(src='/public/assets/js/custom.js')

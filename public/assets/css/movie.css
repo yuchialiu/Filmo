@@ -3,6 +3,10 @@
   color: grey;
 }
 
+.movie_to_review_button {
+  margin: 100px 0 0 500px;
+}
+
 #title {
   text-align: center;
   padding-top: 100px;

@@ -12,7 +12,7 @@ block content
       p #{data[i].user_id}
       p #{data[i].username}
       img.profile_img(src= `${data[i].profile_image}`)
-      a(href=`/review_info?id=${data[i].review_id}&locale=en-US`)
+      a(href=`/review/info?id=${data[i].review_id}&locale=en-US`)
         h3 review# #{data[i].review_id}
       img.review_img(src= `${data[i].image}`)
       p #{data[i].content}
