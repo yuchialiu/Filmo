@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { authentication, upload } = require('../../util/util.js');
+const { authentication, upload } = require('../../util/util');
 
 const cpUpload = upload.fields([{ name: 'image', maxCount: 1 }]);
 
@@ -11,7 +11,7 @@ const {
   getUserDetail,
   updateUserImage,
   createUserReview,
-  // getUserReview,
+  getUserReview,
   updateUserReview,
   deleteUserReview,
   createUserComment,
@@ -40,7 +40,7 @@ router.route('/image').post(authentication, cpUpload, updateUserImage);
 router
   .route('/review')
   .post(authentication, cpUpload, createUserReview)
-  // .get(authentication, getUserReview)
+  .get(authentication, getUserReview)
   .patch(authentication, updateUserReview)
   .delete(authentication, deleteUserReview);
 

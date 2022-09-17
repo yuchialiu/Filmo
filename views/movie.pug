@@ -1,7 +1,7 @@
 extends layout.pug 
 
 block head
-  link(rel='stylesheet', href='./public/assets/css/movie.css', type='text/css')
+  link(rel='stylesheet', href='/public/assets/css/movie.css', type='text/css')
   script(src='https://code.jquery.com/jquery-3.5.1.min.js', type="text/javascript")
   script(src='https://unpkg.com/axios/dist/axios.min.js')
 
@@ -14,86 +14,98 @@ block content
       button.submit(type='button' onclick='click()') Submit Review
 
   div.detail 
-    h1#title 
-    p#original_title
-    p#genre
-    p#release_date
+    h1#title #{data.title}
+    p#original_title #{data.original_title}
+    p#genre #{data.genre}
+    p#release_date #{data.release_date}
     div Runtime
-      p#runtime 
+      p#runtime #{data.runtime} mins
     div#media
-      img#poster
+      img#poster(src=`${data.poster}`)
     
     //- h6(style='display: flex; justify-content: center;') #{data[0].release_date}
     div#media-middle
-      h6#overview
-      iframe#trailer( width='540' height='290', frameborder = '0', allowfullscreen = '')
+      h6#overview #{data.overview} 
+      iframe#trailer(src=`https://www.youtube.com/embed/${data.trailer}?rel=0`, width='540' height='290', frameborder = '0', allowfullscreen = '')
 
-    div#cast Cast
+    div#cast Cast 
+      br
+      - for (i in data.cast)
+        a(href=`/person?person_id=${data.cast[i].person_id}&locale=${data.locale}`)
+          img.cast_img(src=`${data.cast[i].image}`, alt="")
+          p.cast_character #{data.cast[i].character}
+          p.cast_name #{data.cast[i].name}
     div#crew Crew
+      br
+      - for (i in data.crew)
+        a(href=`/person?person_id=${data.crew[i].person_id}&locale=${data.locale}`)
+          img.crew_img(src=`${data.crew[i].image}`, alt="")
+          p.crew_job #{data.crew[i].job}
+          p.crew_name #{data.crew[i].name}
 
-  script.
+  //- script.
 
-    let movieInfo;
-    const id = document.URL.split("=")[1].split("&")[0];
-    const locale = document.URL.split("=")[2];
+  //-   let movieInfo;
+  //-   const id = document.URL.split("=")[1].split("&")[0];
+  //-   const locale = document.URL.split("=")[2];
 
-    window.addEventListener('load', async function (event) {
-      try{
-        movieInfo = await axios.get(`/api/1.0/movie/info?id=${id}&locale=${locale}`)
+  //-   window.addEventListener('load', async function (event) {
+  //-     try{
+  //-       movieInfo = await axios.get(`/api/1.0/movie/info?id=${id}&locale=${locale}`)
 
-        showMovieInfo(movieInfo)
-      }catch(err){
-        console.log(err)
-      }
+  //-       showMovieInfo(movieInfo)
+  //-     }catch(err){
+  //-       console.log(err)
+  //-     }
 
-    })
+  //-   })
     
 
-     function showMovieInfo(movieInfo){
-      let info = movieInfo.data.data
-      console.log('info',info)
-      $('#title ').html(info.title)
-      $('#original_title').html(info.original_title)
-      $('#genre').html(info.genre)
-      $('#release_date').html((info.release_date).slice(0,10))
-      $('#runtime').html(info.runtime)
-      $('#overview').html(info.overview)
-      $('#poster').attr('src', info.poster)
-      $('#trailer').attr('src', `https://www.youtube.com/embed/${info.trailer}?rel=0`)
+  //-    function showMovieInfo(movieInfo){
+  //-     let info = movieInfo.data.data
+  //-     console.log('info',info)
+  //-     $('#title ').html(info.title)
+  //-     $('#original_title').html(info.original_title)
+  //-     $('#genre').html(info.genre)
+  //-     $('#release_date').html((info.release_date).slice(0,10))
+  //-     $('#runtime').html(info.runtime)
+  //-     $('#overview').html(info.overview)
+  //-     $('#poster').attr('src', info.poster)
+  //-     $('#trailer').attr('src', `https://www.youtube.com/embed/${info.trailer}?rel=0`)
 
       
-      for (let i in info.cast){
-        const d = $('<div></div>').addClass('cast_div')
-        const a = $('<a></a>').attr('href', `/person?person_id=${ info.cast[i].person_id}&locale=${locale}`)
-        const img = $('<img>').addClass('cast_img').attr('src', info.cast[i].image)
-        const p = $('<p></p>').addClass('cast_character').html(info.cast[i].character)
-        const pName = $('<p></p>').addClass('cast_name').html(info.cast[i].name)
+  //-     for (let i in info.cast){
+  //-       const d = $('<div></div>').addClass('cast_div')
+  //-       const a = $('<a></a>').attr('href', `/person?person_id=${ info.cast[i].person_id}&locale=${locale}`)
+  //-       const img = $('<img>').addClass('cast_img').attr('src', info.cast[i].image)
+  //-       const p = $('<p></p>').addClass('cast_character').html(info.cast[i].character)
+  //-       const pName = $('<p></p>').addClass('cast_name').html(info.cast[i].name)
 
-        let div = a;
-        div = div.append(img)
-        div = div.append(p)
-        div = div.append(pName)
+  //-       let div = a;
+  //-       div = div.append(img)
+  //-       div = div.append(p)
+  //-       div = div.append(pName)
 
-        $('#cast').append(d)
-        $('#cast').append(div)
-      }
+  //-       $('#cast').append(d)
+  //-       $('#cast').append(div)
+  //-     }
 
-      for (let i in info.crew){
-        const d = $('<div></div>').addClass('crew_div')
-        const a = $('<a></a>').attr('href', `/person?person_id=${ info.crew[i].person_id}&locale=${locale}`)
-        const img = $('<img>').addClass('crew_img').attr('src', info.crew[i].image)
-        const p = $('<p></p>').addClass('crewt_job').html(info.crew[i].job)
-        const pName = $('<p></p>').addClass('crew_name').html(info.crew[i].name)
+  //-     for (let i in info.crew){
+  //-       const d = $('<div></div>').addClass('crew_div')
+  //-       const a = $('<a></a>').attr('href', `/person?person_id=${ info.crew[i].person_id}&locale=${locale}`)
+  //-       const img = $('<img>').addClass('crew_img').attr('src', info.crew[i].image)
+  //-       const p = $('<p></p>').addClass('crew_job').html(info.crew[i].job)
+  //-       const pName = $('<p></p>').addClass('crew_name').html(info.crew[i].name)
 
-        let div = a;
-        div = div.append(img)
-        div = div.append(p)
-        div = div.append(pName)
+  //-       let div = a;
+  //-       div = div.append(img)
+  //-       div = div.append(p)
+  //-       div = div.append(pName)
 
-        $('#crew').append(d)
-        $('#crew').append(div)
+  //-       $('#crew').append(d)
+  //-       $('#crew').append(div)
 
-      }
+  //-     }
 
 
     }

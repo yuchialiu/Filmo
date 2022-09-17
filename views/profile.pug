@@ -9,13 +9,13 @@ block content
   script(src='/public/assets/js/profile.js')
   body 
   .tab
-    a(href='/profile')
+    a(href=`/profile?locale=${data.locale}`)
       button.tablinks My Account
-    a(href='/profile/review?locale=en-US')  
+    a(href=`/profile/review?locale=${data.locale}`)  
       button.tablinks My Reviews
-    a(href='/store_review')
+    a(href=`/store/review?locale=${data.locale}`)
       button.tablinks Saved Reviews
-    a(href='/store_movie')
+    a(href=`/store/movie?locale=${data.locale}`)
       button.tablinks Saved Movies
 
   div.profile_info

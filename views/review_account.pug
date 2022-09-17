@@ -9,29 +9,29 @@ block head
 block content 
   body 
   .tab
-    a(href='/profile')
+    a(href=`/profile?locale=${data.locale}`)
       button.tablinks My Account
-    a(href='/profile/review?locale=en-US')  
+    a(href=`/profile/review?locale=${data.locale}`)  
       button.tablinks My Reviews
-    a(href='/store_review')
+    a(href=`/store/review?locale=${data.locale}`)
       button.tablinks Saved Reviews
-    a(href='/store_movie')
+    a(href=`/store/movie?locale=${data.locale}`)
       button.tablinks Saved Movies
   
   div#myReviews 
-    - for (const i in data)
-      a(href=`/review/info?id=${data[i].id}&locale=en-US`)
+    - for (let i = 0; i < data.length ; i++)
+      a(href=`/review/info?id=${data[i].id}&locale=${data.locale}`)
         p.review_num Review# #{data[i].id}
 
-      img.review_img(src=`${data[i].image}`)
+      img.review_img(src=`${data[i].image}`, alt='')
       h3.review_title #{data[i].review_title}
       p.review_content #{data[i].content}
       p.review_created_dt Created at #{data[i].created_dt}
       p.review_updated_dt Updated at #{data[i].updated_dt}
 
-      a(href=`/review/info?id=${data[i].id}&locale=en-US`)
+      a(href=`/movie?id=${data[i].movie_id}&locale=${data.locale}`)
         p.movie_title #{data[i].title}
-        img.movie_poster(src=`${data[i].poster}`)
+        img.movie_poster(src=`${data[i].poster}`, alt='')
 
   //- script.
 

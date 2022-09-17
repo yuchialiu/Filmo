@@ -1,3 +1,6 @@
+/* eslint-disable object-shorthand */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
 require('dotenv').config();
 
 const { SERVER_IP } = process.env;

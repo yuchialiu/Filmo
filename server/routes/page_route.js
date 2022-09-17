@@ -1,10 +1,18 @@
 const router = require('express').Router();
 const { authentication } = require('../../util/util');
 
-const { getAllReviews, getReviewById } = require('../controllers/user_controller');
-const { movieListInfo, profileReview } = require('../controllers/page_controller');
+const {
+  showMovieListInfo,
+  showMovieInfo,
+  showPersonDetail,
+  showProfileReview,
+  showUserSavedReview,
+  showUserSavedMovie,
+  showAllReviews,
+  showReviewById,
+} = require('../controllers/page_controller');
 
-router.get('/home', movieListInfo);
+router.get('/home', showMovieListInfo);
 
 router.get('/login', (req, res) => {
   res.render('login');
@@ -17,31 +25,26 @@ router.get('/profile', authentication, (req, res) => {
       username: req.session.userName,
       user_email: req.session.userEmail,
       user_image: req.session.userImage,
+      locale: req.query.locale,
     },
   });
 });
 
-router.get('/movie', (req, res) => {
-  res.render('movie', { id: req.query.id, locale: req.query.locale });
-});
+router.get('/movie', showMovieInfo);
+// router.get('/movie', (req, res) => {
+//   res.render('movie', { id: req.query.id, locale: req.query.locale });
+// });
 
-router.get('/person', (req, res) => {
-  res.render('person', { person_id: req.query.id, locale: req.query.locale });
-});
+router.get('/person', showPersonDetail);
 
-router.get('/profile/review', authentication, profileReview);
+router.get('/profile/review', authentication, showProfileReview);
 
-router.get('/store/review', authentication, (req, res) => {
-  res.render('saved_review');
-});
+router.get('/store/review', authentication, showUserSavedReview);
 
-router.get('/store/movie', authentication, (req, res) => {
-  res.render('saved_movie');
-});
+router.get('/store/movie', authentication, showUserSavedMovie);
 
-router.route('/review').get(getAllReviews);
+router.get('/review', showAllReviews);
 
-// TODO:
-router.route('/review/info').get(getReviewById);
+router.get('/review/info', showReviewById);
 
 module.exports = router;
