@@ -20,3 +20,16 @@
 .movie_poster {
   width: 100px;
 }
+
+.review_submit {
+  margin: 100px 0 0 100px;
+  color: white;
+}
+
+.movie {
+  margin: 100px 0 0 100px;
+}
+
+.poster {
+  width: 150px;
+}

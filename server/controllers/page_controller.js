@@ -4,6 +4,7 @@
 const { SERVER_IP } = process.env;
 const User = require('../models/user_model');
 const Movie = require('../models/movie_model');
+const Page = require('../models/page_model');
 
 const showMovieListInfo = async (req, res) => {
   const { locale } = req.query;
@@ -23,10 +24,10 @@ const showMovieListInfo = async (req, res) => {
   }
   result.locale = locale;
 
-  res.status(200).render('index', { data: result });
+  res.status(200).render('index', { data: result, locale: JSON.stringify(result.locale) });
 };
 
-const showMovieInfo = async (req, res) => {
+const getMovieInfo = async (req) => {
   const movieId = req.query.id;
   const { locale } = req.query;
 
@@ -40,7 +41,7 @@ const showMovieInfo = async (req, res) => {
   }
 
   const castInfo = [];
-  for (i in resultCast) {
+  for (const i in resultCast) {
     const resultPerson = await Movie.getPersonDetail(resultCast[i].person_id, locale);
 
     const cast = {
@@ -93,7 +94,17 @@ const showMovieInfo = async (req, res) => {
     crew: crewInfo,
     locale: locale,
   };
-  res.status(200).render('movie', { data: response });
+  return response;
+};
+
+const showMovieInfo = async (req, res) => {
+  const response = await getMovieInfo(req);
+  res.status(200).render('movie', { data: response, locale: JSON.stringify(response.locale) });
+};
+
+const showMovieInfoForReview = async (req, res) => {
+  const response = await getMovieInfo(req);
+  res.status(200).render('review_submit', { data: response, locale: JSON.stringify(response.locale) });
 };
 
 const showPersonDetail = async (req, res) => {
@@ -163,7 +174,7 @@ const showProfileReview = async (req, res) => {
   const resultReview = await User.getUserReview(userId);
 
   const info = [];
-  for (i in resultReview) {
+  for (const i in resultReview) {
     const resultMovie = await Movie.getMovieInfo(resultReview[i].movie_id, locale);
 
     const result = {
@@ -185,7 +196,7 @@ const showProfileReview = async (req, res) => {
   }
   info.locale = locale;
 
-  res.status(200).render('review_account', { data: info });
+  res.status(200).render('review_account', { data: info, locale: JSON.stringify(locale) });
 };
 
 const showUserSavedReview = async (req, res) => {
@@ -216,7 +227,7 @@ const showUserSavedReview = async (req, res) => {
   }
 
   info.locale = locale;
-  res.status(200).render('saved_review', { data: info });
+  res.status(200).render('saved_review', { data: info, locale: JSON.stringify(info.locale) });
 };
 
 const showUserSavedMovie = async (req, res) => {
@@ -229,7 +240,7 @@ const showUserSavedMovie = async (req, res) => {
     const resultMovie = await User.getMovieInfo(resultSavedMovie[i].movie_id, locale);
     for (j in resultMovie) {
       const result = {
-        movie_id: resultMovie[j].id,
+        movie_id: resultMovie[j].movie_id,
         title: resultMovie[j].title,
         poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie[j].poster_image}`,
       };
@@ -237,8 +248,7 @@ const showUserSavedMovie = async (req, res) => {
     }
   }
   info.locale = locale;
-
-  res.status(200).render('saved_movie', { data: info });
+  res.status(200).render('saved_movie', { data: info, locale: JSON.stringify(info.locale) });
 };
 
 const showAllReviews = async (req, res) => {
@@ -257,6 +267,7 @@ const showAllReviews = async (req, res) => {
       profile_image: resultAccount.profile_image,
       review_id: resultReview[i].id,
       content: resultReview[i].content,
+      review_title: resultReview[i].title,
       image: `${SERVER_IP}/public/assets/images/uploads/${resultReview[i].image}`,
       image_blurred: resultReview[i].image_blurred,
       created_dt: resultReview[i].created_dt,
@@ -270,7 +281,7 @@ const showAllReviews = async (req, res) => {
   }
   info.locale = locale;
 
-  res.render('review_all', { data: info });
+  res.render('review_all', { data: info, locale: JSON.stringify(locale) });
 };
 
 const showReviewById = async (req, res) => {
@@ -288,6 +299,7 @@ const showReviewById = async (req, res) => {
       username: resultAccount.username,
       profile_image: resultAccount.profile_image,
       review_id: resultReview[i].id,
+      review_title: resultReview[i].title,
       content: resultReview[i].content,
       image: `${SERVER_IP}/public/assets/images/uploads/${resultReview[i].image}`,
       image_blurred: resultReview[i].image_blurred,
@@ -302,16 +314,51 @@ const showReviewById = async (req, res) => {
   }
   info.locale = locale;
 
-  res.render('review_info', { data: info });
+  res.render('review_info', { data: info, locale: JSON.stringify(locale) });
+};
+
+const showReviewByMovieId = async (req, res) => {
+  const { id, locale } = req.query;
+
+  const resultReview = await Page.getReviewByMovieId(id);
+
+  const info = [];
+  for (const i in resultReview) {
+    const resultMovie = await Movie.getMovieInfo(resultReview[i].movie_id, locale);
+    const resultAccount = await User.getUserById(resultReview[i].user_id);
+
+    const result = {
+      user_id: resultAccount.id,
+      username: resultAccount.username,
+      profile_image: resultAccount.profile_image,
+      review_id: resultReview[i].id,
+      review_title: resultReview[i].title,
+      content: resultReview[i].content,
+      image: `${SERVER_IP}/public/assets/images/uploads/${resultReview[i].image}`,
+      image_blurred: resultReview[i].image_blurred,
+      created_dt: resultReview[i].created_dt,
+      updated_dt: resultReview[i].updated_dt,
+      movie_id: resultMovie.id,
+      title: resultMovie.title,
+      poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
+    };
+
+    info.push(result);
+  }
+  info.locale = locale;
+
+  res.render('review_movie', { data: info, movie_id: id, locale: JSON.stringify(locale) });
 };
 
 module.exports = {
   showMovieListInfo,
   showMovieInfo,
+  showMovieInfoForReview,
   showPersonDetail,
   showProfileReview,
   showUserSavedReview,
   showUserSavedMovie,
   showAllReviews,
   showReviewById,
+  showReviewByMovieId,
 };

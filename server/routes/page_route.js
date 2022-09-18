@@ -4,12 +4,14 @@ const { authentication } = require('../../util/util');
 const {
   showMovieListInfo,
   showMovieInfo,
+  showMovieInfoForReview,
   showPersonDetail,
   showProfileReview,
   showUserSavedReview,
   showUserSavedMovie,
   showAllReviews,
   showReviewById,
+  showReviewByMovieId,
 } = require('../controllers/page_controller');
 
 router.get('/home', showMovieListInfo);
@@ -45,6 +47,10 @@ router.get('/store/movie', authentication, showUserSavedMovie);
 
 router.get('/review', showAllReviews);
 
+router.get('/review/movie', showReviewByMovieId);
+
 router.get('/review/info', showReviewById);
+
+router.get('/review/submit', authentication, showMovieInfoForReview);
 
 module.exports = router;

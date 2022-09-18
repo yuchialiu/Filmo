@@ -8,9 +8,59 @@ block head
 block content 
   body 
 
-  div.review_submit
-    input(name='image' type='file')
-    
+  div.movie
+    p Submit Review for : 
+    h3 #{data.title}
+    img.poster(src=`${data.poster}`)
 
-  script. 
-  
+  div.review_submit
+    form.review_form
+      div#review_movie_id(name='movieId' data-id=`${data.movie_id}`) 
+      //- div
+        //- input#review_movie_id(type='text' name='movieId' value=`${data.movie_id}`)
+      div Title
+        br
+        input#review_title(type='text' name='title' placeholder='Title' maxlength='255')
+      div Content
+        br
+        textarea#review_content(type='text' name='content' placeholder='Review')
+      div Image (optional)
+        br
+        input(name='image' type='file')        
+      button#submit_review Submit
+
+  script(type='text/javascript').
+    let locale = !{locale}
+    
+    async function submitReview (e) {
+      e.preventDefault();
+
+      if ( $('#review_title').val() == "" || $('#review_content').val() == "" ) {
+        alert("please fill in title and content before submit");
+        return
+      } 
+      try{
+
+        const form = $('.review_form')[0];
+        const formData = new FormData(form);
+
+        let movieId = $('#review_movie_id').data('id')
+        formData.append('movieId', movieId);
+        
+        const reviewId = await axios({
+          method: 'POST',
+          url: '/api/1.0/user/review',
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+
+      window.location.href = `info?id=${reviewId.data.review_id}&locale=${locale}`;
+      }
+      catch(err){
+          console.log(err);
+      }    
+    };
+    
+    $('#submit_review').on('click', submitReview);

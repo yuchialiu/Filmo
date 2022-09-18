@@ -32,6 +32,37 @@ block content
         p.movie_title #{data[i].movie_title}
         img.movie_poster(src=`${data[i].movie_poster}`, alt='')
 
+      button.delete_saved_review(type='submit' value=`${data[i].review_id}`) Remove Review
+      br      
 
-  script. 
+  script(type='text/javascript').
+    const locale = !{ locale };
+
+    $('.delete_saved_review').on('click', async (e) => {
+      e.preventDefault();
+      let review_id = e.target.value;
+
+      try {
+        const data = JSON.stringify({
+          review_id,
+        });
+
+        const result = await axios({
+          method: 'delete',
+          url: '/api/1.0/user/store/review',
+          data,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        alert('review removed');
+        window.location.href = `review?locale=${locale}` ;
+
+      } catch {
+        alert('review not existed');
+        console.log('err: ', err);
+      }
+
+    });
   

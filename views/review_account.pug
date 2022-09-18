@@ -33,8 +33,41 @@ block content
         p.movie_title #{data[i].title}
         img.movie_poster(src=`${data[i].poster}`, alt='')
 
-  //- script.
+      div.save_review
+        button.save_review_button(type='submit' value=`${data[i].id}`) Save Review
 
+
+  script(type='text/javascript').
+
+    let locale = !{locale}
+
+    $('.save_review_button').on('click', async (e) => {
+      e.preventDefault(); 
+      let review_id = e.target.value;
+      console.log(review_id)
+
+      try {
+        const data = JSON.stringify({
+          review_id,
+        });
+
+        const result = await axios({
+          method: 'POST',
+          url: '/api/1.0/user/store/review',
+          data,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        alert('review saved successfully')
+        window.location.href = `/store/review?locale=${locale}` ;
+
+      } catch {
+        alert('review saved or not existed');
+        console.log('err: ', err);
+      }
+
+    });
     //- let token = localStorage.getItem('Authorization');
     
     //- window.addEventListener('load', async function (event) {

@@ -1,10 +1,10 @@
 require('dotenv').config();
-const { pool } = require('./mysqlcon');
 const bcrypt = require('bcrypt');
+const { pool } = require('./mysqlcon');
 
 const salt = parseInt(process.env.BCRYPT_SALT);
-const { TOKEN_EXPIRE, TOKEN_SECRET } = process.env; // 30 days by seconds
-const jwt = require('jsonwebtoken');
+// const { TOKEN_EXPIRE, TOKEN_SECRET } = process.env; // 30 days by seconds
+// const jwt = require('jsonwebtoken');
 
 const USER_ROLE = {
   ADMIN: 1,
@@ -90,9 +90,9 @@ const updateUserImage = async (id, image) => {
 };
 
 // Reviews CRUD
-const createUserReview = async (userId, movieId, content, image) => {
+const createUserReview = async (userId, movieId, title, content, image) => {
   try {
-    const result = await pool.execute('INSERT INTO review (user_id, movie_id, content, image) VALUES (?, ?, ?, ?)', [userId, movieId, content, image]);
+    const result = await pool.execute('INSERT INTO review (user_id, movie_id, title, content, image) VALUES (?, ?, ?, ?, ?)', [userId, movieId, title, content, image]);
     return result[0].insertId;
   } catch (err) {
     console.log(err);

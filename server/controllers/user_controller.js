@@ -140,7 +140,7 @@ const updateUserImage = async (req, res) => {
 // Reviews CRUD
 const createUserReview = async (req, res) => {
   const { userId } = req.session;
-  const { movie_id, content } = req.body;
+  const { movieId, title, content } = req.body;
   let image;
   if (req.files.image) {
     image = req.files.image[0].filename;
@@ -149,15 +149,13 @@ const createUserReview = async (req, res) => {
   }
 
   // image handler
-  const result = await User.createUserReview(userId, movie_id, content, image);
+  const result = await User.createUserReview(userId, movieId, title, content, image);
   if (result.err) {
     console.log(result.err);
     res.status(500).send({ err: 'cannot add comment' });
   } else {
     res.status(200).send({
-      data: {
-        comment_id: result,
-      },
+      review_id: result,
     });
   }
 };
@@ -174,7 +172,7 @@ const getUserReview = async (req, res) => {
 
     const result = {
       id: resultReview[i].id,
-      title: resultReview[i].title,
+      review_title: resultReview[i].title,
       content: resultReview[i].content,
       image: `${SERVER_IP}/public/assets/images/uploads/${resultReview[i].image}`,
       image_blurred: resultReview[i].image_blurred,
@@ -360,7 +358,7 @@ const saveUserMovie = async (req, res) => {
   const result = await User.saveUserMovie(userId, movie_id);
   if (result.err) {
     console.log(result.err);
-    res.status(500).send({ err: 'movie saved or review not existed' });
+    res.status(500).send({ err: 'movie saved or not existed' });
     return;
   }
   res.status(200).send({

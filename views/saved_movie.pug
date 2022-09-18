@@ -19,12 +19,45 @@ block content
       button.tablinks Saved Movies
 
   div.movie
-    - for (const i in data)
-      a.list_link(href=`/movie?id=${data[i].id}&locale=${data.locale}`)
-        img.list_img(src=`${data[i].poster}`)
-        p.list_title #{data[i].title}
+    - for (let i = 0; i < data.length; i++)
+      div
+        a.list_link(href=`/movie?id=${data[i].movie_id}&locale=${data.locale}`)
+          img.list_img(src=`${data[i].poster}`)
+          p.list_title #{data[i].title}
+        //- div.movie_id(data-id=`${data[i].movie_id}`) 
+        button.delete_saved_movie(type='submit' value=`${data[i].movie_id}`) Remove Movie
+        br      
 
-  script.
+  script(type='text/javascript').
+    const locale = !{ locale };
+
+    $('.delete_saved_movie').on('click', async (e) => {
+      e.preventDefault();
+      let movie_id = e.target.value;
+
+      try {
+        const data = JSON.stringify({
+          movie_id,
+        });
+
+        const result = await axios({
+          method: 'delete',
+          url: '/api/1.0/user/store/movie',
+          data,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        console.log("result", result)
+        alert('movie removed');
+        window.location.href = `movie?locale=${locale}` ;
+
+      } catch {
+        alert('movie not existed');
+        console.log('err: ', err);
+      }
+
+    });
 
     //- let token = localStorage.getItem('Authorization');
     
