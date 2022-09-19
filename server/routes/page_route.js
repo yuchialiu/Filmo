@@ -11,6 +11,7 @@ const {
   showUserSavedMovie,
   showAllReviews,
   showReviewById,
+  showReviewWhenUpdate,
   showReviewByMovieId,
 } = require('../controllers/page_controller');
 
@@ -50,6 +51,8 @@ router.get('/review', showAllReviews);
 router.get('/review/movie', showReviewByMovieId);
 
 router.get('/review/info', showReviewById);
+
+router.get('/review/update', authentication, showReviewWhenUpdate);
 
 router.get('/review/submit', authentication, showMovieInfoForReview);
 

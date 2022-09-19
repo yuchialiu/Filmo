@@ -41,7 +41,7 @@ router
   .route('/review')
   .post(authentication, cpUpload, createUserReview)
   .get(authentication, getUserReview)
-  .patch(authentication, updateUserReview)
+  .patch(authentication, cpUpload, updateUserReview)
   .delete(authentication, deleteUserReview);
 
 router

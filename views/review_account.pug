@@ -33,6 +33,13 @@ block content
         p.movie_title #{data[i].title}
         img.movie_poster(src=`${data[i].poster}`, alt='')
 
+      div.update_review
+        a(href=`/review/update?id=${data[i].id}&locale=${data.locale}`) 
+          button.update_review_button(type='button') Edit Review
+
+      div.delete_review
+        button.delete_review_button(type='submit' value=`${data[i].id}`) Delete Review
+
       div.save_review
         button.save_review_button(type='submit' value=`${data[i].id}`) Save Review
 
@@ -68,6 +75,34 @@ block content
       }
 
     });
+
+    $('.delete_review_button').on('click', async (e) => {
+      e.preventDefault(); 
+      let review_id = e.target.value;
+      console.log(review_id)
+
+      try {
+        const data = JSON.stringify({
+          review_id,
+        });
+
+        const result = await axios({
+          method: 'DELETE',
+          url: '/api/1.0/user/review',
+          data,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        alert('review deleted successfully')
+        window.location.href = `/profile/review?locale=${locale}` ;
+
+      } catch {
+        alert('review deleted or not existed');
+        console.log('err: ', err);
+      }
+
+    });    
     //- let token = localStorage.getItem('Authorization');
     
     //- window.addEventListener('load', async function (event) {

@@ -195,9 +195,15 @@ const getUserReview = async (req, res) => {
 
 const updateUserReview = async (req, res) => {
   const { userId } = req.session;
-  const { review_id, content } = req.body;
+  const { reviewId, title, content } = req.body;
+  let image;
+  if (req.files.image) {
+    image = req.files.image[0].filename;
+  } else {
+    image = null;
+  }
 
-  const result = await User.updateUserReview(userId, review_id, content);
+  const result = await User.updateUserReview(userId, reviewId, title, content, image);
   if (result.err) {
     console.log(result.err);
     res.status(500).send({ err: 'review belongs to other user' });

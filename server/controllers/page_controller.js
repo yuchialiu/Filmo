@@ -284,7 +284,7 @@ const showAllReviews = async (req, res) => {
   res.render('review_all', { data: info, locale: JSON.stringify(locale) });
 };
 
-const showReviewById = async (req, res) => {
+const getReviewInfo = async (req) => {
   const { id, locale } = req.query;
 
   const resultReview = await User.getReviewById(id);
@@ -314,7 +314,19 @@ const showReviewById = async (req, res) => {
   }
   info.locale = locale;
 
-  res.render('review_info', { data: info, locale: JSON.stringify(locale) });
+  return info;
+};
+
+const showReviewById = async (req, res) => {
+  const { locale } = req.query;
+  const response = await getReviewInfo(req);
+  res.render('review_info', { data: response, locale: JSON.stringify(locale) });
+};
+
+const showReviewWhenUpdate = async (req, res) => {
+  const { locale } = req.query;
+  const response = await getReviewInfo(req);
+  res.render('review_update', { data: response, locale: JSON.stringify(locale) });
 };
 
 const showReviewByMovieId = async (req, res) => {
@@ -360,5 +372,6 @@ module.exports = {
   showUserSavedMovie,
   showAllReviews,
   showReviewById,
+  showReviewWhenUpdate,
   showReviewByMovieId,
 };

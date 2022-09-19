@@ -110,14 +110,14 @@ const getUserReview = async (userId) => {
   }
 };
 
-const updateUserReview = async (userId, reviewId, content) => {
+const updateUserReview = async (userId, reviewId, title, content, image) => {
   try {
     const validation = await validateUserReview(reviewId);
     if (validation.user_id !== userId) {
       const err = new Error('review belongs to other user');
       throw err;
     } else {
-      const result = await pool.execute('UPDATE review SET content = (?) WHERE id = (?)', [content, reviewId]);
+      const result = await pool.execute('UPDATE review SET title = ?, content = ?, image = ? WHERE id = ?', [title, content, image, reviewId]);
       return result[0].insertId;
     }
   } catch (err) {
