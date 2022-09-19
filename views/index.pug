@@ -2,70 +2,155 @@ extends layout.pug
 
 block head
   link(rel='stylesheet', href='/public/assets/css/index.css')
+  link(rel='stylesheet', type="text/css", href='/public/assets/css/jquery.vm-carousel.css' )
   script(src="https://code.jquery.com/jquery-3.5.1.min.js", type="text/javascript")
-  script(src='https://unpkg.com/axios/dist/axios.min.js')
-
+  //- script(src='https://unpkg.com/axios/dist/axios.min.js')
+  script(type='text/javascript' src='/public/jquery/jquery.vm-carousel.js')
+  link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js")
+  
 block content 
-
 
   div.content
     div.banner
-    h1.title New Release
-    a.banner_link(href=`/movie?id=${data[3].id}&locale=${data.locale}`)
-      h3.banner_title #{data[3].title}
-      div.banner_media
-        img.banner_img(src=`${data[3].poster}`)
-        iframe.banner_trailer(src=`${data[3].trailer}`, width='640' height='390', frameborder = '0', allowfullscreen = '')
+      h1.title 
+      
+      a.banner_link(href=`/movie?id=${data[5].id}&locale=${data.locale}`)
+        
+        div.banner_media
+          img.banner_img(src=`${data[5].banner}`)
+          div.banner_text_background
+          div.banner_text
+            h1.banner_title #{data[5].title}
+            p.text-center.mt-5
+              a(href="#headerPopup" id="headerVideoLink" target="_blank" class="btn btn-outline-danger popup-modal") Watch Trailer
+      //- div(id="headerPopup" class="mfp-hide embed-responsive embed-responsive-21by9")
+      //-   iframe.embed-responsive-item(width='854' height='480' src=`${data[5].trailer_embed}` frameborder='0' allow='autoplay; encrypted-media' allowfullscreen='')
 
-
+      
     div.blocks
-    h1.second_title See More    
-    - for (const i in data)
-      div.list_div
-        a.list_link(href=`/movie?id=${data[i].id}&locale=${data.locale}`)
-          img.list_img(src=`${data[i].poster}`)
-          p.list_title #{data[i].title}
+      div.container
+        h1.second_title Trending   
+        //- div(class="vmc-container")
+        //-   div(class="vmc-viewport")
+        ul.movie_list.vmcarousel-normal
+          - for (let i = 0; i < 20; i++)
+            li.list_div
+              a.list_link(href=`/movie?id=${data[i].id}&locale=${data.locale}`)
+                img.list_img(src=`${data[i].poster}`)
+                p.list_title #{data[i].title}
+          //- a(href="" class="vmc-arrow-left") 
+          //- a(href="" class="vmc-arrow-right") 
 
-  //- script.
+        h1.second_title Latest 
+        ul.movie_list.vmcarousel-normal
+          - for (let i = 50; i < 70; i++)
+            li.list_div
+              a.list_link(href=`/movie?id=${data[i].id}&locale=${data.locale}`)
+                img.list_img(src=`${data[i].poster}`)
+                p.list_title #{data[i].title}
+  //- script(
+  //-     src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+  //-     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+  //-     crossorigin="anonymous")
+  script(src='/public/assets/js/jquery.vm-carousel.js')
+  
 
-  //-   const locale = document.URL.split("=")[1];
+  script(type="text/javascript").
+    $( document ).ready(function() {
+      $('#headerVideoLink').magnificPopup({
+      type:'inline',
+      midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+      });
+    });
+    
 
-  //-   var config = {
-  //-     method: 'get',
-  //-     url: `/api/1.0/movie/list?locale=en-US`,
-  //-     headers: { }
-  //-   };
+    $('.vmcarousel-normal').vmcarousel({
 
-  //-   axios(config)
-  //-   .then(function (response) {
-  //-     //- console.log(JSON.stringify(response.data));
-  //-     const list = response.data.data
-  //-     console.log(list)
-  //-     $('.banner_link').attr('href', `/movie?id=${list[3].id}&locale=en-US`)
-  //-     $('.banner_title').html(list[3].title);
-  //-     $('.banner_img').attr('src', list[3].poster)
-  //-     $('.banner_trailer').attr('src', list[3].trailer)
+      // delay in ms
+      delay: 4000,
 
-  //-     for (let i = 0 ; i < 20 ; i++){
-  //-       const d = $('<div></div>').addClass('list_div')
-  //-       const a = $('<a></a>').attr('href', `/movie?id=${list[i].id}&locale=en-US`)
-  //-       const img = $('<img>').addClass('list_img').attr('src', list[i].poster)
-  //-       const p = $('<p></p>').addClass('list_title').html(list[i].title)
+      // transition speed
+      speed: 500,
 
-  //-       let div = a;
-  //-       div = div.append(img); 
-  //-       div = div.append(p)
+      // enabe autoplay
+      autoplay: true,
 
-  //-       $('.list').append(d)
-  //-       $('.list').append(div)
+      // 0 for auto calc
+      items_to_show: 0, 
 
-  //-     }
-  //-   }
+      // min number of items
+      min_items_to_show: 3,
 
-  //-   )
-  //-   .catch(function (error) {
-  //-     console.log(error);
-  //-   });
+      // items to slide at a time
+      items_to_slide: 2,
+      dont_cut: true,
 
+      // center the current image
+      centered: false,
+
+      // start item
+      start_item: 0,
+      start_item_centered: false,
+
+      // infinite loop
+      infinite: false,
+
+      // callback
+      changed_slide: $.noop()
+
+    });
 
 
+        //- $(function() {
+        //-     $(".movie_list").mousewheel(function(event,delta) {
+        //-         this.scrollLeft -= (delta * 30);
+
+        //-         event.preventDefault();
+        //-     })
+        //- })
+
+        //- $('.movie_list').mousewheel(function(e, delta) {
+        //-   $(this).scrollLeft(this.scrollLeft + (-delta * 40));
+        //-   e.preventDefault();
+        //- });
+      //-   const locale = document.URL.split("=")[1];
+
+      //-   var config = {
+      //-     method: 'get',
+      //-     url: `/api/1.0/movie/list?locale=en-US`,
+      //-     headers: { }
+      //-   };
+
+      //-   axios(config)
+      //-   .then(function (response) {
+      //-     //- console.log(JSON.stringify(response.data));
+      //-     const list = response.data.data
+      //-     console.log(list)
+      //-     $('.banner_link').attr('href', `/movie?id=${list[3].id}&locale=en-US`)
+      //-     $('.banner_title').html(list[3].title);
+      //-     $('.banner_img').attr('src', list[3].poster)
+      //-     $('.banner_trailer').attr('src', list[3].trailer)
+
+      //-     for (let i = 0 ; i < 20 ; i++){
+      //-       const d = $('<div></div>').addClass('list_div')
+      //-       const a = $('<a></a>').attr('href', `/movie?id=${list[i].id}&locale=en-US`)
+      //-       const img = $('<img>').addClass('list_img').attr('src', list[i].poster)
+      //-       const p = $('<p></p>').addClass('list_title').html(list[i].title)
+
+      //-       let div = a;
+      //-       div = div.append(img); 
+      //-       div = div.append(p)
+
+      //-       $('.list').append(d)
+      //-       $('.list').append(div)
+
+      //-     }
+      //-   }
+
+      //-   )
+      //-   .catch(function (error) {
+      //-     console.log(error);
+      //-   });
+  
+    

@@ -1,3 +1,7 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable object-shorthand */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
 require('dotenv').config();
 const axios = require('axios');
 
@@ -6,7 +10,6 @@ const Crawler = require('../models/crawler_model');
 
 const resArr = [];
 let locale;
-const page = 5; // movie page
 
 const insertGenreCrawler = async (req, res) => {
   const locales = ['en-US', 'zh-TW', 'fr-FR'];
@@ -16,7 +19,7 @@ const insertGenreCrawler = async (req, res) => {
     resArr.push(result);
   }
 
-  if (resArr[0] == 'failed') {
+  if (resArr[0] === 'failed') {
     res.status(500).send({ error: 'insert error' });
   } else {
     res.status(200).send({ response: 'inserted' });
@@ -25,6 +28,7 @@ const insertGenreCrawler = async (req, res) => {
 
 const insertMovieCrawler = async (req, res) => {
   locale = 'en-US';
+  const { page } = req.query;
   const { data } = await axios.get(
     `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_Key}&language=${locale}&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`
   );

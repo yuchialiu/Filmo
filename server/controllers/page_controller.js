@@ -8,7 +8,7 @@ const Page = require('../models/page_model');
 
 const showMovieListInfo = async (req, res) => {
   const { locale } = req.query;
-  const limit = 20;
+  const limit = 100;
   const movieList = await Movie.getMovieListInfo(locale, limit);
 
   const result = [];
@@ -16,8 +16,11 @@ const showMovieListInfo = async (req, res) => {
     const info = {
       id: movieList[i].movie_id,
       title: movieList[i].title,
+      banner: `${SERVER_IP}/public/assets/images/banners/${movieList[i].banner_image}`,
       poster: `${SERVER_IP}/public/assets/images/posters/${movieList[i].poster_image}`,
-      trailer: `https://www.youtube.com/embed/${movieList[i].trailer}?rel=0`,
+      trailer_embed: `https://www.youtube.com/embed/${movieList[i].trailer}?rel=0`,
+      trailer_watch: `https://www.youtube.com/watch?v=${movieList[i].trailer}?rel=0`,
+      trailer: movieList[i].trailer,
     };
 
     result.push(info);
@@ -258,6 +261,7 @@ const showUserSavedMovie = async (req, res) => {
       const result = {
         movie_id: resultMovie[j].movie_id,
         title: resultMovie[j].title,
+        banner: `${SERVER_IP}/public/assets/images/banners/${resultMovie[j].banner_image}`,
         poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie[j].poster_image}`,
       };
       info.push(result);
@@ -290,6 +294,7 @@ const showAllReviews = async (req, res) => {
       updated_dt: resultReview[i].updated_dt,
       movie_id: resultMovie.id,
       title: resultMovie.title,
+      banner: `${SERVER_IP}/public/assets/images/banners/${resultMovie.banner_image}`,
       poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
     };
 
@@ -323,6 +328,7 @@ const getReviewInfo = async (req) => {
       updated_dt: resultReview[i].updated_dt,
       movie_id: resultMovie.id,
       title: resultMovie.title,
+      banner: `${SERVER_IP}/public/assets/images/banners/${resultMovie.banner_image}`,
       poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
     };
 
@@ -376,6 +382,7 @@ const getReviewByMovieId = async (req) => {
       updated_dt: resultReview[i].updated_dt,
       movie_id: resultMovie.id,
       title: resultMovie.title,
+      banner: `${SERVER_IP}/public/assets/images/banners/${resultMovie.banner_image}`,
       poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
     };
 

@@ -525,10 +525,13 @@ Header Style
   letter-spacing: 0.3px;
 }
 
+TODO:
 .header-area .main-nav .nav li:last-child a {
   background-color: #27292a;
-  padding: 8px 10px 8px 20px;
+  /* padding: 8px 10px 8px 20px; */
   border-radius: 23px;
+  width: 70px;
+  text-align: center;
 }
 
 .header-area .main-nav .nav li:last-child a img {
@@ -1006,12 +1009,22 @@ Footer Style
 --------------------------------------------- 
 */
 
+.body {
+  height: 100%;
+  margin: 0;
+}
+
+.wrapper {
+  min-height: calc(100% - 50px); /*減去footer高度*/
+}
+
 .container-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 0px; /* Height of the footer */
+  /* position: absolute; */
+  /* bottom: 0; */
+  /* width: 100%; */
+  /* height: 0px; Height of the footer */
   /* background: #6cf; */
+  height: 50px; /*設定footer本身高度*/
 }
 
 footer p {

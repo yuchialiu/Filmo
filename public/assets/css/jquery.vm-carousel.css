@@ -1,0 +1,113 @@
+/* ========================================================================= *\
+    vmcarousel plugin
+\* ========================================================================= */
+
+.vmc-container {
+  position: relative;
+}
+.vmc-viewport {
+  overflow: hidden;
+}
+
+.vmcarousel {
+  list-style-type: none;
+  padding: 0;
+  /* margin: 0; */
+  width: 1000%;
+}
+.vmcarousel:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.vmcarousel > li {
+  float: left;
+}
+.vmcarousel > li img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.vmc-container.hide-controls .vmc-arrow-left,
+.vmc-container.hide-controls .vmc-arrow-right {
+  display: none;
+}
+
+.vmc-arrow-left,
+.vmc-arrow-right {
+  position: absolute;
+  top: 50%;
+  left: -15px;
+  width: 50px;
+  height: 50px;
+  margin-top: -25px;
+  overflow: hidden;
+  opacity: 0;
+  border-radius: 50%;
+  transition: opacity 0.3s ease;
+  text-align: center;
+}
+.vmc-arrow-right {
+  left: auto;
+  right: -45px;
+}
+.vmc-container:hover .vmc-arrow-left,
+.vmc-container:hover .vmc-arrow-right {
+  opacity: 1;
+}
+
+.vmc-arrow-left:after,
+.vmc-arrow-right:after {
+  content: '';
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  font-size: 50px;
+  line-height: 50px;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-shadow: 2px 2px #000;
+}
+.vmc-arrow-left:hover:after,
+.vmc-arrow-right:hover:after {
+  color: white;
+}
+.vmc-arrow-left:after {
+  content: '\e079';
+}
+.vmc-arrow-right:after {
+  content: '\e080';
+}
+
+.vmc-container img[src$='.svg'] {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 100%;
+}
+
+.notransition {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  -ms-transition: none !important;
+  transition: none !important;
+}
+
+/* 123123 */
+/.vmc-centered {
+  padding: 10px 0;
+}
+.vmc-centered img {
+  transition: all 0.3s ease;
+}
+*/ .vmc-centered .vmc_active img {
+  transform: scale(1.2);
+}
+/* .container {
+  margin-top: 150px;
+}  */

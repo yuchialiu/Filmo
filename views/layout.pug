@@ -37,7 +37,7 @@ header.header-area.header-sticky
           // ***** Logo Start *****
           //TODO:
           a.logo(href='/home?locale=en-US')
-            img(src='/public/assets/images/filmo_logo_2.png' alt='')
+            img(src='/public/assets/images/logo0920.png' alt='')
           // ***** Logo End *****
           // ***** Search End *****
           .search-input
@@ -56,20 +56,20 @@ header.header-area.header-sticky
               a(href='/profile?locale=en-US')
                 | Account 
                 //- img(src='assets/images/profile-header.jpg' alt='')
-            div.dropdown
-              select
-                option(value='EN') EN
-                option(value='ZH') ZH
-                option(value='FR') FR
-            //- li.dropdown
-            //-   a.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false')
-            //-     | EN
-            //-     span.caret
-            //-   ul.dropdown-menu
-            //-     li
-            //-       a(href='#') ZH
-            //-     li
-            //-       a(href='#') FR
+            //- div.dropdown
+            //-   select.dropdown-toggle
+            //-     option(value='EN') EN
+            //-     option(value='ZH') ZH
+            //-     option(value='FR') FR
+            li.dropdown
+              a.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false')
+                | EN
+                //- span.caret
+              ul.dropdown-menu
+                li
+                  a(href='#') ZH
+                li
+                  a(href='#') FR
             //-     li
             //-       a(href='#') Something else here
             //-     li.divider(role='separator')
@@ -82,6 +82,8 @@ header.header-area.header-sticky
             span Menu
           // ***** Menu End *****
 block content
+  body.body
+    div.wrapper
 footer
   .container-footer
     .row
