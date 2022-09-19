@@ -98,16 +98,24 @@ const getMovieInfo = async (req) => {
 };
 
 const showMovieInfo = async (req, res) => {
-  const response = await getMovieInfo(req);
-  res.status(200).render('movie', { data: response, locale: JSON.stringify(response.locale) });
+  try {
+    const response = await getMovieInfo(req);
+    res.status(200).render('movie', { data: response, locale: JSON.stringify(response.locale) });
+  } catch (err) {
+    res.status(404).render('404');
+  }
 };
 
 const showMovieInfoForReview = async (req, res) => {
-  const response = await getMovieInfo(req);
-  res.status(200).render('review_submit', { data: response, locale: JSON.stringify(response.locale) });
+  try {
+    const response = await getMovieInfo(req);
+    res.status(200).render('review_submit', { data: response, locale: JSON.stringify(response.locale) });
+  } catch (err) {
+    res.status(404).render('404');
+  }
 };
 
-const showPersonDetail = async (req, res) => {
+const getPersonDetail = async (req) => {
   const personId = req.query.person_id;
   const { locale } = req.query;
 
@@ -125,7 +133,7 @@ const showPersonDetail = async (req, res) => {
   const resultCrew = await Movie.getCrewMovieByPersonId(personId, locale);
 
   const castMovie = [];
-  for (i in resultCast) {
+  for (const i in resultCast) {
     const resultCharacter = await Movie.getCharacterByCastId(resultCast[i].cast_id, locale);
     const movie = {
       movie_id: resultCast[i].movie_id,
@@ -138,7 +146,7 @@ const showPersonDetail = async (req, res) => {
   }
 
   const crewMovie = [];
-  for (i in resultCrew) {
+  for (const i in resultCrew) {
     const resultJob = await Movie.getJobByCrewId(resultCrew[i].crew_id, locale);
     const movie = {
       movie_id: resultCrew[i].movie_id,
@@ -163,8 +171,16 @@ const showPersonDetail = async (req, res) => {
     other_crew_movie: crewMovie,
     locale: locale,
   };
+  return response;
+};
 
-  res.status(200).render('person', { data: response });
+const showPersonDetail = async (req, res) => {
+  try {
+    const response = await getPersonDetail(req);
+    res.status(200).render('person', { data: response });
+  } catch (err) {
+    res.status(404).render('404');
+  }
 };
 
 const showProfileReview = async (req, res) => {
@@ -318,18 +334,26 @@ const getReviewInfo = async (req) => {
 };
 
 const showReviewById = async (req, res) => {
-  const { locale } = req.query;
-  const response = await getReviewInfo(req);
-  res.render('review_info', { data: response, locale: JSON.stringify(locale) });
+  try {
+    const { locale } = req.query;
+    const response = await getReviewInfo(req);
+    res.render('review_info', { data: response, locale: JSON.stringify(locale) });
+  } catch (err) {
+    res.status(404).render('404');
+  }
 };
 
 const showReviewWhenUpdate = async (req, res) => {
-  const { locale } = req.query;
-  const response = await getReviewInfo(req);
-  res.render('review_update', { data: response, locale: JSON.stringify(locale) });
+  try {
+    const { locale } = req.query;
+    const response = await getReviewInfo(req);
+    res.render('review_update', { data: response, locale: JSON.stringify(locale) });
+  } catch (err) {
+    res.status(404).render('404');
+  }
 };
 
-const showReviewByMovieId = async (req, res) => {
+const getReviewByMovieId = async (req) => {
   const { id, locale } = req.query;
 
   const resultReview = await Page.getReviewByMovieId(id);
@@ -358,8 +382,16 @@ const showReviewByMovieId = async (req, res) => {
     info.push(result);
   }
   info.locale = locale;
+};
 
-  res.render('review_movie', { data: info, movie_id: id, locale: JSON.stringify(locale) });
+const showReviewByMovieId = async (req, res) => {
+  try {
+    const { id, locale } = req.query;
+    const response = await getReviewByMovieId(req);
+    res.render('review_movie', { data: response, movie_id: id, locale: JSON.stringify(locale) });
+  } catch (err) {
+    res.status(404).render('404');
+  }
 };
 
 module.exports = {
