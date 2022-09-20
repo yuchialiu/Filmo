@@ -1,21 +1,46 @@
-.detail {
-  margin-left: 50px;
-  color: grey;
+#movie_id {
+  margin-top: 120px;
 }
 
-.movie_to_review {
-  margin: 100px 0 0 500px;
+.top_buttons {
+  display: flex;
+  justify-content: center;
+}
+.movie_to_review.movie_to_rating.movie_to_see_review.save_movie {
+  margin: 100px 100px 20px 500px;
+  display: flex;
+}
+
+.detail {
+  margin-left: 50px;
+  color: white;
+}
+
+.title_area {
+  margin-bottom: 10px;
+  line-height: 0.8;
 }
 
 #title {
-  text-align: center;
-  padding-top: 100px;
+  text-align: left;
+  padding-top: 30px;
   margin-top: 20px;
 }
 
 #original_title {
-  display: flex;
-  justify-content: center;
+  color: #e75e8d;
+  /* display: flex;
+  justify-content: center; */
+  text-align: left;
+}
+
+.subtitle {
+  margin-bottom: 20px;
+  width: 200px;
+  display: flex; /* establish flex container */
+  flex-direction: row; /* default value; can be omitted */
+  flex-wrap: nowrap; /* default value; can be omitted */
+  justify-content: space-between; /* switched from default (flex-start, see below) */
 }
 
 #media {
@@ -23,30 +48,65 @@
 }
 
 #poster {
-  width: 350px;
-}
-
-#media-middle {
-  display: flex;
-  flex-direction: column;
+  width: 300px;
 }
 
 #overview {
-  display: flex;
-  margin: 50px;
-  width: 500px;
+  /* display: flex; */
+  margin: 30px 0 30px 0;
+  width: 800px;
+  font-weight: 400;
+  font-size: medium;
+  line-height: 22px; /* 設定文字行距 */
 }
 
 #trailer {
-  margin: 50px;
+  margin-left: 20px;
 }
 
-#cast,
-#crew {
-  color: white;
+.cast,
+.crew {
+  color: #e75e8d;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .cast_img,
 .crew_img {
-  width: 80px;
+  width: 150px;
+  margin: 10px 30px 10px 0px !important;
+}
+/* .cast_alink.crew_alink {
+  width: 150px;
+} */
+
+.cast_list.crew_list {
+  margin-left: 55px;
+  display: flex;
+  justify-content: center;
+}
+
+.cast_name {
+  width: 150px !important;
+}
+
+.crew_name {
+  width: 150px !important;
+}
+
+.cast_character {
+  color: rgb(145, 145, 145) !important;
+  width: 150px !important;
+}
+
+.crew_job {
+  color: rgb(145, 145, 145) !important;
+  width: 150px !important;
+}
+
+.vmc-arrow-left {
+  left: -50px !important;
+}
+.vmc-arrow-right {
+  right: 10px !important;
 }

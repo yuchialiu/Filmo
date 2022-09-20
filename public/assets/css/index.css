@@ -127,11 +127,14 @@
 
 .list_img {
   width: 290px;
-  margin: 15px 0 0 0;
+  margin: 15px 60px 0 0 !important;
   display: flex;
   /* justify-content: space-around; */
 }
 
+.list_img:hover {
+  -webkit-filter: brightness(110%);
+}
 .list_title {
   display: flex;
   justify-content: center;
@@ -139,6 +142,13 @@
   font-size: medium;
   margin-top: 30px;
   max-width: fit-content;
+  font-weight: 500;
+}
+
+.list_title:hover {
+  /* border-radius: 25px; */
+  /* border-color: #fff; */
+  color: #e75e8d;
 }
 
 /* Video setting */

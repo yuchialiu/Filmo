@@ -9,19 +9,19 @@ block head
 block content 
   body
   .tab
-    a(href=`/profile?locale=${data.locale}`)
+    a(href=`/profile?locale=${locale}`)
       button.tablinks My Account
-    a(href=`/profile/review?locale=${data.locale}`)  
+    a(href=`/profile/review?locale=${locale}`)  
       button.tablinks My Reviews
-    a(href=`/store/review?locale=${data.locale}`)
+    a(href=`/store/review?locale=${locale}`)
       button.tablinks Saved Reviews
-    a(href=`/store/movie?locale=${data.locale}`)
+    a(href=`/store/movie?locale=${locale}`)
       button.tablinks Saved Movies
 
   div.movie
     - for (let i = 0; i < data.length; i++)
       div
-        a.list_link(href=`/movie?id=${data[i].movie_id}&locale=${data.locale}`)
+        a.list_link(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
           img.list_img(src=`${data[i].poster}`)
           p.list_title #{data[i].title}
         //- div.movie_id(data-id=`${data[i].movie_id}`) 

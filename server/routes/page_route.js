@@ -22,14 +22,15 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/profile', authentication, (req, res) => {
+  const { locale } = req.query;
   res.render('profile', {
     data: {
       user_id: req.session.userId,
       username: req.session.userName,
       user_email: req.session.userEmail,
       user_image: req.session.userImage,
-      locale: req.query.locale,
     },
+    locale,
   });
 });
 

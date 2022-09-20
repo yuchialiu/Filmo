@@ -22,7 +22,7 @@ block content
     p created at #{data[0].created_dt}
     p updated at #{data[0].updated_dt}
 
-    a(href=`/movie?id=${data[0].movie_id}&locale=${data.locale}`)
+    a(href=`/movie?id=${data[0].movie_id}&locale=${locale}`)
       img.movie_poster(src= `${data[0].poster}`, alt='')
       p #{data[0].title}
 

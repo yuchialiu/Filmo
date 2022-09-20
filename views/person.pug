@@ -23,7 +23,7 @@ block content
           div
         - else 
           - for (const i in data.other_cast_movie)
-            a(href=`/movie?id=${data.other_cast_movie[i].movie_id}&locale=${data.locale}`) 
+            a(href=`/movie?id=${data.other_cast_movie[i].movie_id}&locale=${locale}`) 
               img.movie_img(src=`${data.other_cast_movie[i].poster}`, alt="")
               p.movie_title #{data.other_cast_movie[i].title}
               p.movie_character #{data.other_cast_movie[i].character}
@@ -33,7 +33,7 @@ block content
           div
         - else 
           - for (const i in data.other_crew_movie)
-            a(href=`/movie?id=${data.other_crew_movie[i].movie_id}&locale=${data.locale}`) 
+            a(href=`/movie?id=${data.other_crew_movie[i].movie_id}&locale=${locale}`) 
               img.movie_img(src=`${data.other_crew_movie[i].poster}`, alt="")
               p.movie_title #{data.other_crew_movie[i].title}
               p.movie_job #{data.other_crew_movie[i].job}

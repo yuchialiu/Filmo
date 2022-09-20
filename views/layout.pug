@@ -35,8 +35,7 @@ header.header-area.header-sticky
       .col-12
         nav.main-nav 
           // ***** Logo Start *****
-          //TODO:
-          a.logo(href='/home?locale=en-US')
+          a.logo(href=`/home?locale=${locale}`)
             img(src='/public/assets/images/logo0920.png' alt='')
           // ***** Logo End *****
           // ***** Search End *****
@@ -48,12 +47,11 @@ header.header-area.header-sticky
           // ***** Menu Start *****
           ul.nav
             li
-              a.active(href='/home?locale=en-US') Home
+              a.active(href=`/home?locale=${locale}`) Home
             li
-              //TODO:
-              a(href='/review?locale=en-US') Review
+              a(href=`/review?locale=${locale}`) Review
             li
-              a(href='/profile?locale=en-US')
+              a(href=`/profile?locale=${locale}`)
                 | Account 
                 //- img(src='assets/images/profile-header.jpg' alt='')
             //- div.dropdown
