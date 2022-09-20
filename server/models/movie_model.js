@@ -121,10 +121,10 @@ const getBiography = async (personId) => {
   }
 };
 
-const getMovieListByFilter = async (title, genreId, locale) => {
+const getMovieListByFilter = async (keyword, genreId, locale) => {
   let queryDetails = `SELECT * FROM movie AS m LEFT JOIN movie_translation AS t ON m.id = t.movie_id WHERE locale = \'${locale}\'`;
-  if (title !== '') {
-    queryDetails += " AND title LIKE '%" + `${title}` + "%'";
+  if (keyword !== '') {
+    queryDetails += " AND title LIKE '%" + `${keyword}` + "%'";
   }
   if (genreId > 0) {
     queryDetails += ` AND genre_id = ${genreId}`;

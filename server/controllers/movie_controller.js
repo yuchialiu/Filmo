@@ -169,15 +169,16 @@ const getPersonDetail = async (req, res) => {
 };
 
 const searchMovie = async (req, res) => {
-  const { title, genreId, locale } = req.query;
+  const { keyword, genreId, locale } = req.query;
 
-  const resultSearch = await Movie.getMovieListByFilter(title, genreId, locale);
+  const resultSearch = await Movie.getMovieListByFilter(keyword, genreId, locale);
 
   const result = [];
   for (i in resultSearch) {
     const info = {
       movid_id: resultSearch[i].id,
       title: resultSearch[i].title,
+      banner: `${SERVER_IP}/public/assets/images/banners/${resultSearch[i].banner_image}`,
       poster: `${SERVER_IP}/public/assets/images/posters/${resultSearch[i].poster_image}`,
     };
 

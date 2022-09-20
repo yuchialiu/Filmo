@@ -406,6 +406,35 @@ const showReviewByMovieId = async (req, res) => {
     res.status(404).render('404');
   }
 };
+// TODO:
+const showSearchMovie = async (req, res) => {
+  const { keyword, genreId, locale } = req.query;
+
+  try {
+    const resultSearch = await Movie.getMovieListByFilter(keyword, genreId, locale);
+
+    const result = [];
+    for (const i in resultSearch) {
+      const info = {
+        movid_id: resultSearch[i].id,
+        title: resultSearch[i].title,
+        banner: `${SERVER_IP}/public/assets/images/banners/${resultSearch[i].banner_image}`,
+        poster: `${SERVER_IP}/public/assets/images/posters/${resultSearch[i].poster_image}`,
+      };
+
+      result.push(info);
+    }
+    // TODO:
+    if (result.length || resultSearch.length) {
+      res.status(404).render('404');
+      return;
+    }
+
+    res.status(200).render('search', { data: result, locale });
+  } catch (err) {
+    res.status(404).render('404');
+  }
+};
 
 module.exports = {
   showMovieListInfo,
@@ -419,4 +448,5 @@ module.exports = {
   showReviewById,
   showReviewWhenUpdate,
   showReviewByMovieId,
+  showSearchMovie,
 };

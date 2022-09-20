@@ -13,7 +13,10 @@ const {
   showReviewById,
   showReviewWhenUpdate,
   showReviewByMovieId,
+  showSearchMovie,
 } = require('../controllers/page_controller');
+// TODO:
+// const { searchMovie } = require('../controllers/movie_controller');
 
 router.get('/home', showMovieListInfo);
 
@@ -56,5 +59,7 @@ router.get('/review/info', showReviewById);
 router.get('/review/update', authentication, showReviewWhenUpdate);
 
 router.get('/review/submit', authentication, showMovieInfoForReview);
+// TODO:
+router.get('/movie/search', showSearchMovie);
 
 module.exports = router;
