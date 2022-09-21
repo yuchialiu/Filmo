@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const { authentication, upload } = require('../../util/util');
 
-// const cpUpload = upload.fields([{ name: 'image', maxCount: 1 }]);
+const cpUpload = upload.fields([{ name: 'image', maxCount: 1 }]);
 
 const {
   signUp,
@@ -35,13 +35,13 @@ router.route('/logout').get(logout);
 
 router.route('/info').get(authentication, getUserDetail);
 
-router.route('/image').post(authentication, upload, updateUserImage);
+router.route('/image').post(authentication, cpUpload, updateUserImage);
 
 router
   .route('/review')
-  .post(authentication, upload, createUserReview)
+  .post(authentication, cpUpload, createUserReview)
   .get(authentication, getUserReview)
-  .patch(authentication, upload, updateUserReview)
+  .patch(authentication, cpUpload, updateUserReview)
   .delete(authentication, deleteUserReview);
 
 router
