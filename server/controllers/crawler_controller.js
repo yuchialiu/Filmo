@@ -31,7 +31,7 @@ const insertMovieCrawler = async (req, res) => {
   locale = 'en-US';
   let result;
   // const { page } = req.query;
-  for (let page = 1; page < 11; page++) {
+  for (let page = 1; page < 2; page++) {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_Key}&language=${locale}&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`
     );

@@ -122,7 +122,7 @@ const updateUserImage = async (req, res) => {
   if (req.files.image === undefined) {
     return res.status(400).send('did not choose file');
   }
-  const image = req.files.image[0].filename;
+  const image = req.files.image[0].key;
 
   const result = await User.updateUserImage(userId, image);
   req.session.userImage = `${SERVER_IP}/public/assets/images/uploads/${image}`;
@@ -143,7 +143,7 @@ const createUserReview = async (req, res) => {
   const { movieId, title, content } = req.body;
   let image;
   if (req.files.image) {
-    image = req.files.image[0].filename;
+    image = req.files.image[0].key;
   } else {
     image = null;
   }
@@ -198,7 +198,7 @@ const updateUserReview = async (req, res) => {
   const { reviewId, title, content } = req.body;
   let image;
   if (req.files.image) {
-    image = req.files.image[0].filename;
+    image = req.files.image[0].key;
   } else {
     image = null;
   }
