@@ -22,21 +22,26 @@ const insertGenreCrawler = async (req, res) => {
   if (resArr[0] === 'failed') {
     res.status(500).send({ error: 'insert error' });
   } else {
+    console.log('done');
     res.status(200).send({ response: 'inserted' });
   }
 };
 
 const insertMovieCrawler = async (req, res) => {
   locale = 'en-US';
-  const { page } = req.query;
-  const { data } = await axios.get(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_Key}&language=${locale}&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`
-  );
-  const result = await Crawler.insertMovieCrawler(data.results);
+  let result;
+  // const { page } = req.query;
+  for (let page = 1; page < 11; page++) {
+    const { data } = await axios.get(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_Key}&language=${locale}&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`
+    );
+    result = await Crawler.insertMovieCrawler(data.results);
+  }
 
   if (result === 'failed') {
     res.status(500).send({ error: 'insert error' });
   } else {
+    console.log('done');
     res.status(200).send({ response: 'inserted' });
   }
 };
@@ -49,6 +54,7 @@ const insertPersonCrawler = async (req, res) => {
   } else if (result === 'not existed') {
     res.status(500).send({ error: 'movie not existed' });
   } else {
+    console.log('done');
     res.status(200).send({ response: 'inserted' });
   }
 };

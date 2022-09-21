@@ -7,4 +7,5 @@ node_modules/
 # images
 /public/assets/images/people/*
 /public/assets/images/posters/*
+/public/assets/images/banners/*
 /public/assets/images/uploads/*

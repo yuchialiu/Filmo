@@ -15,7 +15,7 @@ const showMovieListInfo = async (req, res) => {
   const result = [];
   for (const i in movieList) {
     const info = {
-      id: movieList[i].movie_id,
+      movie_id: movieList[i].movie_id,
       title: movieList[i].title,
       banner: `${SERVER_IP}/public/assets/images/banners/${movieList[i].banner_image}`,
       poster: `${SERVER_IP}/public/assets/images/posters/${movieList[i].poster_image}`,
@@ -27,7 +27,8 @@ const showMovieListInfo = async (req, res) => {
     result.push(info);
   }
 
-  res.status(200).render('index', { data: result, locale });
+  // TODO: remove stringify
+  res.status(200).render('index', { data: result, locale, locale_string: JSON.stringify(locale) });
 };
 
 const convertMinsToHrsMins = (mins) => {
@@ -130,13 +131,13 @@ const showMovieInfoForReview = async (req, res) => {
 };
 
 const getPersonDetail = async (req) => {
-  const personId = req.query.person_id;
+  const personId = req.query.id;
   const { locale } = req.query;
 
   const result = await Movie.getPersonDetail(personId, locale);
   let resultBiography;
 
-  if (result[0].biography.length === 0) {
+  if (result[0].biography === '') {
     const biographyEn = await Movie.getBiography(personId);
     resultBiography = biographyEn.biography;
   } else {
@@ -216,7 +217,7 @@ const showProfileReview = async (req, res) => {
       user_id: resultReview[i].user_id,
       created_dt: resultReview[i].created_dt,
       updated_dt: resultReview[i].updated_dt,
-      movie_id: resultMovie.id,
+      movie_id: resultMovie.movie_id,
       title: resultMovie.title,
       poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
       // locale: locale,
@@ -301,7 +302,7 @@ const showAllReviews = async (req, res) => {
       image_blurred: resultReview[i].image_blurred,
       created_dt: resultReview[i].created_dt,
       updated_dt: resultReview[i].updated_dt,
-      movie_id: resultMovie.id,
+      movie_id: resultMovie.movie_id,
       title: resultMovie.title,
       banner: `${SERVER_IP}/public/assets/images/banners/${resultMovie.banner_image}`,
       poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
@@ -334,7 +335,7 @@ const getReviewInfo = async (req) => {
       image_blurred: resultReview[i].image_blurred,
       created_dt: resultReview[i].created_dt,
       updated_dt: resultReview[i].updated_dt,
-      movie_id: resultMovie.id,
+      movie_id: resultMovie.movie_id,
       title: resultMovie.title,
       banner: `${SERVER_IP}/public/assets/images/banners/${resultMovie.banner_image}`,
       poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
@@ -387,7 +388,7 @@ const getReviewByMovieId = async (req) => {
       image_blurred: resultReview[i].image_blurred,
       created_dt: resultReview[i].created_dt,
       updated_dt: resultReview[i].updated_dt,
-      movie_id: resultMovie.id,
+      movie_id: resultMovie.movie_id,
       title: resultMovie.title,
       banner: `${SERVER_IP}/public/assets/images/banners/${resultMovie.banner_image}`,
       poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
@@ -395,6 +396,7 @@ const getReviewByMovieId = async (req) => {
 
     info.push(result);
   }
+  return info;
 };
 
 const showReviewByMovieId = async (req, res) => {
@@ -406,7 +408,7 @@ const showReviewByMovieId = async (req, res) => {
     res.status(404).render('404');
   }
 };
-// TODO:
+
 const showSearchMovie = async (req, res) => {
   const { keyword, genreId, locale } = req.query;
 
@@ -416,7 +418,7 @@ const showSearchMovie = async (req, res) => {
     const result = [];
     for (const i in resultSearch) {
       const info = {
-        movid_id: resultSearch[i].id,
+        movie_id: resultSearch[i].movie_id,
         title: resultSearch[i].title,
         banner: `${SERVER_IP}/public/assets/images/banners/${resultSearch[i].banner_image}`,
         poster: `${SERVER_IP}/public/assets/images/posters/${resultSearch[i].poster_image}`,
@@ -424,9 +426,9 @@ const showSearchMovie = async (req, res) => {
 
       result.push(info);
     }
-    // TODO:
-    if (result.length || resultSearch.length) {
-      res.status(404).render('404');
+
+    if (!result.length || !resultSearch.length) {
+      res.status(200).render('search', { data: 'empty', locale });
       return;
     }
 

@@ -107,12 +107,19 @@
 }
 
 .movie_list {
-  margin-left: 55px;
+  /* margin-left: 55px; */
   display: flex;
   justify-content: center;
-
   /* flex-wrap: wrap;
   justify-content: space-between; */
+}
+/* TODO: */
+.list_box {
+  margin: 0 20px 0 40px;
+}
+
+.vmcarousel-normal {
+  /* margin-left: 0px !important; */
 }
 
 .second_title {

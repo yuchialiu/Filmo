@@ -57,7 +57,7 @@ block content
       ul.cast_list.vmcarousel-normal
         - for (i in data.cast)
           li.list_div
-            a.cast_alink(href=`/person?person_id=${data.cast[i].person_id}&locale=${locale}`)
+            a.cast_alink(href=`/person?id=${data.cast[i].person_id}&locale=${locale}`)
               img.cast_img(src=`${data.cast[i].image}`, alt="")
               div.cast_text
                 p.cast_name #{data.cast[i].name}
@@ -68,7 +68,7 @@ block content
       ul.crew_list.vmcarousel-normal
         - for (i in data.crew)
           li.list_div
-            a.crew_alink(href=`/person?person_id=${data.crew[i].person_id}&locale=${locale}`)
+            a.crew_alink(href=`/person?id=${data.crew[i].person_id}&locale=${locale}`)
               img.crew_img(src=`${data.crew[i].image}`, alt="")
               div.crew_text
                 p.crew_name #{data.crew[i].name}
@@ -119,6 +119,7 @@ block content
     const movie_id = $('#movie_id').data('id');
 
     $('.save_movie_button').on('click', async (e) => {
+      console.log('123456')
       e.preventDefault();
       try {
         const data = JSON.stringify({

@@ -60,6 +60,6 @@ router.get('/review/update', authentication, showReviewWhenUpdate);
 
 router.get('/review/submit', authentication, showMovieInfoForReview);
 // TODO:
-router.get('/movie/search', showSearchMovie);
+router.get('/search', showSearchMovie);
 
 module.exports = router;

@@ -9,9 +9,9 @@ block head
 block content 
   div.movie_to_review
     button.to_submit_page(type='button') Submit Review
-
+    
   div.reviews 
-    - if (!data || data.length)
+    - if (!data[0] || data[0].length)
       h1 no review at this moment
     - else 
       - for (let i = 0; i < data.length ; i++)

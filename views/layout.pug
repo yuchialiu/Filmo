@@ -104,16 +104,18 @@ script(src='/public/assets/js/owl-carousel.js')
 script(src='/public/assets/js/tabs.js')
 script(src='/public/assets/js/popup.js')
 script(src='/public/assets/js/custom.js')
-script(src='/public/assets/js/search.js')
-//- script.
-//-   const locale = !{ locale };
 
-//-   async function search() {
-//-     const searchResponse = await axios.get(`/api/1.0/movie/search?title=${$('#searchText').val()}&locale=${locale}`);
-//-   }
-//-   $('#searchText').keypress(async (event) => {
-//-     if (event.key === 'Enter') {
-//-       console.log($('#searchText').val());
-//-       await search($('#searchText').val());
-//-     }
-//-   });
+script(type="text/javascript").
+  const locale = !{ locale_string };
+  console.log(locale)
+  // const locale = 'en-US';
+
+  async function search() {
+    await axios.get(`/search?keyword=${$('#searchText').val()}&locale=${locale}`);
+    window.location.href = `/search?keyword=${$('#searchText').val()}&locale=${locale}`;
+  }
+  $('#searchText').keypress(async (event) => {
+    if (event.key === 'Enter') {
+      await search($('#searchText').val());
+    }
+  });

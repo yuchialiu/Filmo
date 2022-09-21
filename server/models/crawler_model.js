@@ -65,8 +65,8 @@ const prepareMovieInfo = async (movie) => {
     posterFileName = null;
   } else {
     const url = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-    const path = `./public/assets/images/posters/${movie.id}.jpg`;
-    posterFileName = `${movie.id}.jpg`;
+    const path = `./public/assets/images/posters/p_${movie.id}.jpg`;
+    posterFileName = `p_${movie.id}.jpg`;
 
     download(url, path, () => {
       console.log(`✅ image ${movie.id} Done!`);
@@ -77,8 +77,8 @@ const prepareMovieInfo = async (movie) => {
     bannerFileName = null;
   } else {
     const url = `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`;
-    const path = `./public/assets/images/banners/${movie.id}.jpg`;
-    bannerFileName = `${movie.id}.jpg`;
+    const path = `./public/assets/images/banners/b_${movie.id}.jpg`;
+    bannerFileName = `b_${movie.id}.jpg`;
 
     download(url, path, () => {
       console.log(`✅ image ${movie.id} Done!`);
@@ -142,7 +142,7 @@ const insertPersonCrawler = async () => {
 
       let movieId;
       // Movie ID
-      if (data.id == movieDb[0][i].ref_id) {
+      if (data.id === movieDb[0][i].ref_id) {
         movieId = movieDb[0][i].id;
       } else {
         return 'not existed';

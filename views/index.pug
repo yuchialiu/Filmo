@@ -14,36 +14,40 @@ block content
     div.banner
       h1.title 
       
-      a.banner_link(href=`/movie?id=${data[5].id}&locale=${locale}`)
+      - for (i in data)
+        - if (data[i].movie_id === 5)
+          a.banner_link(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
 
-        div.banner_media
-          img.banner_img(src=`${data[5].banner}`)
-          div.banner_text_background
-          div.banner_text
-            h1.banner_title #{data[5].title}
-            p.text-center.mt-5
-              a(href="#headerPopup" id="headerVideoLink" target="_blank" class="btn btn-outline-danger popup-modal") Watch Trailer
-      //- div(id="headerPopup" class="mfp-hide embed-responsive embed-responsive-21by9")
-      //-   iframe.embed-responsive-item(width='854' height='480' src=`${data[5].trailer_embed}` frameborder='0' allow='autoplay; encrypted-media' allowfullscreen='')
+            div.banner_media
+              img.banner_img(src=`${data[i].banner}`)
+              div.banner_text_background
+              div.banner_text
+                h1.banner_title #{data[i].title}
+                p.text-center.mt-5
+                  a(href="#headerPopup" id="headerVideoLink" target="_blank" class="btn btn-outline-danger popup-modal") Watch Trailer
+          //- div(id="headerPopup" class="mfp-hide embed-responsive embed-responsive-21by9")
+          //-   iframe.embed-responsive-item(width='854' height='480' src=`${data[5].trailer_embed}` frameborder='0' allow='autoplay; encrypted-media' allowfullscreen='')
 
       
     div.blocks
       div.container
         h1.second_title Trending   
-        ul.movie_list.vmcarousel-normal
-          - for (let i = 0; i < 30; i++)
-            li.list_div
-              a.list_link(href=`/movie?id=${data[i].id}&locale=${locale}`)
-                img.list_img(src=`${data[i].poster}`)
-                p.list_title #{data[i].title}
+        div.list_box
+          ul.movie_list.vmcarousel-normal
+            - for (let i = 0; i < 30; i++)
+              li.list_div
+                a.list_link(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
+                  img.list_img(src=`${data[i].poster}`)
+                  p.list_title #{data[i].title}
 
         h1.second_title Latest 
-        ul.movie_list.vmcarousel-normal
-          - for (let i = 50; i < 80; i++)
-            li.list_div
-              a.list_link(href=`/movie?id=${data[i].id}&locale=${locale}`)
-                img.list_img(src=`${data[i].poster}`)
-                p.list_title #{data[i].title}
+        div.list_box
+          ul.movie_list.vmcarousel-normal
+            - for (let i = 50; i < 80; i++)
+              li.list_div
+                a.list_link(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
+                  img.list_img(src=`${data[i].poster}`)
+                  p.list_title #{data[i].title}
 
   script(src='/public/assets/js/jquery.vm-carousel.js')
   
@@ -66,7 +70,7 @@ block content
       speed: 500,
 
       // enabe autoplay
-      autoplay: true,
+      autoplay: false,
 
       // 0 for auto calc
       items_to_show: 3, 
