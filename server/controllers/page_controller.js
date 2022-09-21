@@ -113,18 +113,22 @@ const getMovieInfo = async (req) => {
 };
 
 const showMovieInfo = async (req, res) => {
+  const { locale } = req.query;
+
   try {
     const response = await getMovieInfo(req);
-    res.status(200).render('movie', { data: response, locale: response.locale });
+    res.status(200).render('movie', { data: response, locale });
   } catch (err) {
     res.status(404).render('404');
   }
 };
 
 const showMovieInfoForReview = async (req, res) => {
+  const { locale } = req.query;
+
   try {
     const response = await getMovieInfo(req);
-    res.status(200).render('review_submit', { data: response, locale: response.locale });
+    res.status(200).render('review_submit', { data: response, locale });
   } catch (err) {
     res.status(404).render('404');
   }
@@ -190,9 +194,11 @@ const getPersonDetail = async (req) => {
 };
 
 const showPersonDetail = async (req, res) => {
+  const { locale } = req.query;
+
   try {
     const response = await getPersonDetail(req);
-    res.status(200).render('person', { data: response, locale: response.locale });
+    res.status(200).render('person', { data: response, locale });
   } catch (err) {
     res.status(404).render('404');
   }
@@ -348,8 +354,9 @@ const getReviewInfo = async (req) => {
 };
 
 const showReviewById = async (req, res) => {
+  const { locale } = req.query;
+
   try {
-    const { locale } = req.query;
     const response = await getReviewInfo(req);
     res.render('review_info', { data: response, locale });
   } catch (err) {
@@ -358,8 +365,9 @@ const showReviewById = async (req, res) => {
 };
 
 const showReviewWhenUpdate = async (req, res) => {
+  const { locale } = req.query;
+
   try {
-    const { locale } = req.query;
     const response = await getReviewInfo(req);
     res.render('review_update', { data: response, locale });
   } catch (err) {
@@ -400,8 +408,8 @@ const getReviewByMovieId = async (req) => {
 };
 
 const showReviewByMovieId = async (req, res) => {
+  const { id, locale } = req.query;
   try {
-    const { id, locale } = req.query;
     const response = await getReviewByMovieId(req);
     res.render('review_movie', { data: response, movie_id: id, locale });
   } catch (err) {

@@ -56,20 +56,22 @@ header.header-area.header-sticky
               a(href=`/profile?locale=${locale}`)
                 | Account 
                 //- img(src='assets/images/profile-header.jpg' alt='')
-            //- div.dropdown
-            //-   select.dropdown-toggle
-            //-     option(value='EN') EN
-            //-     option(value='ZH') ZH
-            //-     option(value='FR') FR
-            li.dropdown
-              a.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false')
-                | EN
-                //- span.caret
-              ul.dropdown-menu
-                li
-                  a(href='#') ZH
-                li
-                  a(href='#') FR
+            div.dropdown
+              select.dropdown-toggle
+                option(value='en-US') EN
+                option(value='zh-TW') ZH
+                option(value='fr-FR') FR
+            //- li.dropdown
+            //-   a.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false')
+            //-     | 123
+            //-     //- span.caret
+            //-   ul.dropdown-menu
+            //-     li
+            //-       a(href='#') EN
+            //-     li
+            //-       a(href='#') ZH
+            //-     li
+            //-       a(href='#') FR
             //-     li
             //-       a(href='#') Something else here
             //-     li.divider(role='separator')
@@ -119,3 +121,11 @@ script(type="text/javascript").
       await search($('#searchText').val());
     }
   });
+
+  let origin   = window.location.origin
+  let pathname = window.location.pathname;
+
+  $( '.dropdown-toggle' ).on( 'change', function( e ){
+  document.location.href = origin + pathname + '?locale=' + $( this ).val();
+  });
+  

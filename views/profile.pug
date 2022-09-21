@@ -6,7 +6,7 @@ block head
   script(src='https://unpkg.com/axios/dist/axios.min.js')
 
 block content 
-  script(src='/public/assets/js/profile.js')
+  //- script(src='/public/assets/js/profile.js')
   body 
   .tab
     a(href=`/profile?locale=${locale}`)
@@ -24,10 +24,6 @@ block content
       img#picture(src=`${data.user_image}`)
     div#name username #{data.username}
     div#email email #{data.user_email}
-    //- form#form(action='/api/1.0/user/image' method='post' enctype="form-data")
-    //-   | Upload Your Profile Picture
-    //-   input(name='image' type='file')
-    //-   input(type='submit' value='Upload') 
     
     form.image_form
       input(name='image' type='file')
@@ -35,5 +31,40 @@ block content
 
     button#logout_btn Log out
 
-  
-    
+  script.
+    $(async () => {
+      const locale = !{ locale_string };
+
+      // logout
+      async function logout() {
+        await axios({
+          method: 'get',
+          url: '/api/1.0/user/logout',
+        });
+        window.location.href = `/home?locale=${locale}`;
+      }
+      
+      $('#logout_btn').on('click', logout);
+
+      // image upload
+      async function submit(e) {
+        e.preventDefault();
+        const form = $('.image_form')[0];
+        const formData = new FormData(form);
+
+        await axios({
+          method: 'POST',
+          url: '/api/1.0/user/image',
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        
+        window.location.href = `profile?locale=${locale}`;
+      }
+      $('#submit_image').on('click', submit);
+    });
+
+
+      

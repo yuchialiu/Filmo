@@ -7,6 +7,7 @@ block head
 
 block content 
   body 
+
   div#main
     //-  form(action="#")
     div.signin Login
@@ -29,6 +30,7 @@ block content
     script.
     
       //Sign in
+      const locale = !{ locale_string };
 
       async function signin(event){
         event.preventDefault()
@@ -56,7 +58,7 @@ block content
           //- localStorage.setItem("Authorization", `Bearer ${token}`);
           //- alert("sign in success");
           //- window.location.href = "profile";
-          window.location.href = "profile"
+          window.location.href = `profile?locale=${locale}`
         }
         catch(err){
             console.log(err);
@@ -92,7 +94,7 @@ block content
           //-   alert("sign up success");
           //-   window.location.href = "profile"
           //- }
-          window.location.href = "profile"
+          window.location.href = `profile?locale=${locale}`
         } catch(error) {
             console.log(error);
             let err_alert = error.response.data;

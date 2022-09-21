@@ -20,8 +20,13 @@ const provider = defaultProvider({
 const s3 = new S3Client({ credentialDefaultProvider: provider, region: 'us-west-2' });
 
 const authentication = (req, res, next) => {
+  const { locale } = req.query;
+
   if (!req.session.isAuth) {
-    return res.status(400).render('login');
+    return res.status(400).render('login', {
+      locale,
+      locale_string: JSON.stringify(locale),
+    });
   }
   return next();
 };

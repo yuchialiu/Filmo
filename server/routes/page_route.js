@@ -21,11 +21,17 @@ const {
 router.get('/home', showMovieListInfo);
 
 router.get('/login', (req, res) => {
-  res.render('login');
+  const { locale } = req.query;
+  console.log(locale);
+  res.render('login', {
+    locale,
+    locale_string: JSON.stringify(locale),
+  });
 });
 
 router.get('/profile', authentication, (req, res) => {
   const { locale } = req.query;
+
   res.render('profile', {
     data: {
       user_id: req.session.userId,
@@ -34,6 +40,7 @@ router.get('/profile', authentication, (req, res) => {
       user_image: req.session.userImage,
     },
     locale,
+    locale_string: JSON.stringify(locale),
   });
 });
 
