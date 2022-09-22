@@ -28,7 +28,7 @@ app.use(
   })
 );
 
-app.get('/', (req, res) => res.redirect('https://filmo.site/home?locale=en-US'));
+app.get('/', (req, res) => res.redirect(`${SERVER_IP}/home?locale=en-US`));
 
 app.use('/user', [require('./server/routes/user_route')]);
 app.use('/', [require('./server/routes/page_route')]);

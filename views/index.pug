@@ -31,16 +31,20 @@ block content
       
     div.blocks
       div.container
-        h1.second_title Trending   
+        div.second_title
+          h1.second_title_line_1#trending Trending   
+          h1.second_title_line_2 Now  
         div.list_box
           ul.movie_list.vmcarousel-normal
-            - for (let i = 0; i < 30; i++)
+            - for (let i = 11; i < 41; i++)
               li.list_div
                 a.list_link(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
                   img.list_img(src=`${data[i].poster}`)
                   p.list_title #{data[i].title}
 
-        h1.second_title Latest 
+        div.second_title
+          h1.second_title_line_1#new New     
+          h1.second_title_line_2 Releases 
         div.list_box
           ul.movie_list.vmcarousel-normal
             - for (let i = 50; i < 80; i++)
@@ -49,6 +53,18 @@ block content
                   img.list_img(src=`${data[i].poster}`)
                   p.list_title #{data[i].title}
 
+
+        div.second_title
+          h1.second_title_line_1#new Test     
+          h1.second_title_line_2 Carousel 
+        div.list_box
+          ul.movie_list(class="owl-features owl-carousel owl-loaded owl-drag")
+            - for (let i = 50; i < 80; i++)
+              li.list_div
+                a.list_link(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
+                  img.list_img(src=`${data[i].poster}`)
+                  p.list_title #{data[i].title}
+                  
   script(src='/public/assets/js/jquery.vm-carousel.js')
   
 
@@ -97,7 +113,22 @@ block content
 
     });
 
-
+    $(".owl-carousel").owlCarousel({
+      loop: true, // 循環播放
+      margin: 10, // 外距 10px
+      nav: true, // 顯示箭頭
+      responsive: {
+        0: {
+          items: 3 // 螢幕大小為 0~600 顯示 1 個項目
+        },
+        600: {
+          items: 3 // 螢幕大小為 600~1000 顯示 3 個項目
+        },
+        1000: {
+          items: 3 // 螢幕大小為 1000 以上 顯示 5 個項目
+        }
+    } 
+   });
         //- $(function() {
         //-     $(".movie_list").mousewheel(function(event,delta) {
         //-         this.scrollLeft -= (delta * 30);

@@ -3,14 +3,17 @@
 /* eslint-disable guard-for-in */
 const { SERVER_IP } = process.env;
 const dayjs = require('dayjs');
+require('dayjs/locale/fr');
+require('dayjs/locale/zh-tw');
 const User = require('../models/user_model');
 const Movie = require('../models/movie_model');
 const Page = require('../models/page_model');
 
 const showMovieListInfo = async (req, res) => {
   const { locale } = req.query;
-  const limit = 100;
-  const movieList = await Movie.getMovieListInfo(locale, limit);
+  // const limit = 100;
+  // const movieList = await Movie.getMovieListInfo(locale, limit);
+  const movieList = await Movie.getMovieListInfo(locale);
 
   const result = [];
   for (const i in movieList) {
@@ -27,7 +30,6 @@ const showMovieListInfo = async (req, res) => {
     result.push(info);
   }
 
-  // TODO: remove stringify
   res.status(200).render('index', { data: result, locale, locale_string: JSON.stringify(locale) });
 };
 
@@ -177,12 +179,21 @@ const getPersonDetail = async (req) => {
     crewMovie.push(movie);
   }
 
+  let formatDate;
+  if (locale === 'en-US') {
+    formatDate = 'MMMM DD YYYY';
+  } else if (locale === 'fr-FR') {
+    formatDate = 'DD MMMM YYYY';
+  } else if (locale === 'zh-TW') {
+    formatDate = 'YYYY MMM DD';
+  }
+
   const response = {
     id: result[0].person_id,
     ref_id: result[0].ref_id,
     name: result[0].name,
-    birthday: result[0].birthday,
-    deathday: result[0].deathday,
+    birthday: dayjs(result[0].birthday).locale(locale).format(formatDate),
+    deathday: dayjs(result[0].deathday).locale(locale).format(formatDate),
     place_of_birth: result[0].place_of_birth,
     image: `${SERVER_IP}/public/assets/images/people/${result[0].profile_image}`,
     biography: resultBiography,

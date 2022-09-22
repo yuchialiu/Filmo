@@ -1,7 +1,8 @@
 const { pool } = require('./mysqlcon');
 
 const getMovieListInfo = async (locale, limit) => {
-  const queryDetails = `SELECT * FROM movie AS m LEFT JOIN movie_translation AS t ON m.id = t.movie_id WHERE locale = \'${locale}\' LIMIT ${limit}`;
+  // const queryDetails = `SELECT * FROM movie AS m LEFT JOIN movie_translation AS t ON m.id = t.movie_id WHERE locale = \'${locale}\' LIMIT ${limit}`;
+  const queryDetails = `SELECT * FROM movie AS m LEFT JOIN movie_translation AS t ON m.id = t.movie_id WHERE locale = \'${locale}\'`;
   try {
     const DetailResult = await pool.execute(queryDetails);
     return DetailResult[0];

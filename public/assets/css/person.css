@@ -3,28 +3,68 @@
   margin-top: 150px;
 }
 
+#main_info {
+  margin: 10px 0 10px 0;
+}
+
 #birthday,
 #deathday,
 #place,
 #biography,
 #other_movie {
-  color: grey;
+  color: white;
+}
+
+#born,
+#died,
+#from {
+  width: 50px;
+  float: left;
+  color: #e75e8d;
+  font-weight: 500;
 }
 
 #image {
   width: 300px;
+  margin: 10px 0 10px 0;
 }
 
-#birthday,
+/* #birthday,
 #deathday,
-#place,
+#place, */
 #biography,
 #image {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+  flex-direction: row;
+}
+
+.readmore {
+  width: 800px;
 }
 
 .movie_img {
-  width: 80px;
+  width: 290px;
+  margin: 30px 0 10px 0;
+}
+
+#other_movie {
+  color: #e75e8d;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.movie_title {
+}
+
+.movie_character {
+  color: rgb(145, 145, 145) !important;
+  width: 150px !important;
+  font-weight: 400 !important;
+}
+.movie_job {
+  color: rgb(145, 145, 145) !important;
+  width: 150px !important;
+  font-weight: 400 !important;
 }

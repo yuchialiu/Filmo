@@ -332,9 +332,9 @@ async function savePerson(personId, myFileName) {
 async function savePersonDetail(apiId, dbPersonId) {
   const locales = ['en-US', 'fr-FR', 'zh-TW'];
 
-  for (const i in locales) {
-    const personDetail = await axios.get(`https://api.themoviedb.org/3/person/${apiId}?api_key=${TMDB_Key}&language=${locales[i]}`);
-    if (i === 0) {
+  for (const locale of locales) {
+    const personDetail = await axios.get(`https://api.themoviedb.org/3/person/${apiId}?api_key=${TMDB_Key}&language=${locale}`);
+    if (locale === 'en-US') {
       const sqlPersonUpdate = `UPDATE person SET birthday = (?), deathday = (?) , place_of_birth = (?) WHERE ref_id = ${apiId}`;
       await pool.execute(sqlPersonUpdate, [personDetail.data.birthday, personDetail.data.deathday, personDetail.data.place_of_birth]);
     }
@@ -342,6 +342,6 @@ async function savePersonDetail(apiId, dbPersonId) {
     const sqlPerson = `INSERT INTO person_translation (person_id, locale, \`name\`, biography) 
     VALUES (?, ?, ?, ?)
     ON DUPLICATE KEY UPDATE locale = ?, \`name\` = ?, biography = ?`;
-    await pool.execute(sqlPerson, [dbPersonId, locales[i], personDetail.data.name, personDetail.data.biography, locales[i], personDetail.data.name, personDetail.data.biography]);
+    await pool.execute(sqlPerson, [dbPersonId, locale, personDetail.data.name, personDetail.data.biography, locale, personDetail.data.name, personDetail.data.biography]);
   }
 }

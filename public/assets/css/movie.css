@@ -41,6 +41,7 @@
   flex-direction: row; /* default value; can be omitted */
   flex-wrap: nowrap; /* default value; can be omitted */
   justify-content: space-between; /* switched from default (flex-start, see below) */
+  letter-spacing: 0.8px !important;
 }
 
 #media {
@@ -73,7 +74,7 @@
 
 .cast_img,
 .crew_img {
-  width: 150px;
+  width: 150px !important;
   margin: 10px 30px 10px 0px !important;
 }
 /* .cast_alink.crew_alink {

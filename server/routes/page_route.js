@@ -15,8 +15,6 @@ const {
   showReviewByMovieId,
   showSearchMovie,
 } = require('../controllers/page_controller');
-// TODO:
-// const { searchMovie } = require('../controllers/movie_controller');
 
 router.get('/home', showMovieListInfo);
 
@@ -45,9 +43,6 @@ router.get('/profile', authentication, (req, res) => {
 });
 
 router.get('/movie', showMovieInfo);
-// router.get('/movie', (req, res) => {
-//   res.render('movie', { id: req.query.id, locale: req.query.locale });
-// });
 
 router.get('/person', showPersonDetail);
 
