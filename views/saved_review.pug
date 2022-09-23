@@ -17,26 +17,34 @@ block content
     a(href=`/store/movie?locale=${locale}`)
       button.tablinks Saved Movies
 
-  div.review
-    - for (let i = 0; i < data.length ; i++)
-      a(href=`/review/info?id=${data[i].review_id}&locale=${locale}`)
-        p.review_num Review# #{data[i].review_id}
+  div.main
+    div.reviews 
+      - for (let i = 0; i < data.length ; i++)
+        div.review
+          div.review_content    
 
-      img.review_img(src=`${data[i].image}`, alt='')
-      h3.review_title #{data[i].review_title}
-      p.review_content #{data[i].content}
-      p.review_created_dt Created at #{data[i].created_dt}
-      p.review_updated_dt Updated at #{data[i].updated_dt}
+            div.user
+              img.profile_img(src= `${data[i].profile_image}`, alt='')
+              p.username #{data[i].username}
 
-      a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
-        p.movie_title #{data[i].movie_title}
-        img.movie_poster(src=`${data[i].movie_poster}`, alt='')
+            a(href=`/review/info?id=${data[i].review_id}&locale=${locale}`)
+              p.review_num Review# #{data[i].review_id}
 
-      button.delete_saved_review(type='submit' value=`${data[i].review_id}`) Remove Review
-      br      
+            img.review_img(src=`${data[i].image}`, alt='')
+            h3.review_title #{data[i].review_title}
+            p.review_content #{data[i].content}
+            p.review_created_dt Created at #{data[i].created_dt}
+            p.review_updated_dt Updated at #{data[i].updated_dt}
+
+            a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
+              p.movie_title #{data[i].movie_title}
+              img.movie_poster(src=`${data[i].movie_poster}`, alt='')
+
+            button.delete_saved_review(type='submit' value=`${data[i].review_id}`) Remove Review
+            br      
 
   script(type='text/javascript').
-    const locale = !{ locale };
+    //- const locale = !{ locale };
 
     $('.delete_saved_review').on('click', async (e) => {
       e.preventDefault();

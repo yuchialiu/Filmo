@@ -1,11 +1,8 @@
 /* profile page */
-
+/* 
 * {
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 550;
-  letter-spacing: 1px;
-}
+} */
 
 .tab {
   margin-top: 100px;
@@ -34,6 +31,10 @@
 }
 
 #form {
+  color: white;
+}
+
+.choose_image {
   color: white;
 }
 

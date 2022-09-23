@@ -1,16 +1,41 @@
 /* review account */
-
+.main {
+  margin-left: 15px;
+}
 .tab {
   margin-top: 100px;
 }
 
-#myReviews,
 .reviews {
-  margin: 100px 0 0 100px;
+  margin: 150px 0 0 60px;
+}
+
+.review {
+  width: 90%;
+  border: 3px;
+  border-style: solid;
+  border-color: rgb(255, 255, 255, 0.9);
+  border-radius: 15px;
+  margin-bottom: 50px;
+  background-color: rgba(59, 59, 59, 0.7);
+}
+
+.review_content {
+  margin: 25px 25px 25px 25px;
+}
+
+.user {
+  display: flex;
 }
 
 .profile_img {
-  width: 100px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.username {
+  margin: auto auto auto 15px;
 }
 
 .review_img {

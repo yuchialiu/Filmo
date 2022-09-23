@@ -495,7 +495,7 @@ Header Style
   vertical-align: middle;
   text-align: right;
   margin-top: 0px;
-  margin-right: 0px;
+  margin-right: -50px;
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
@@ -1820,4 +1820,26 @@ body {
   .gaming-library .item ul li {
     width: 16%;
   }
+}
+
+/* 
+---------------------------------------------
+Dropdown Style
+--------------------------------------------- 
+*/
+.dropdown-toggle {
+  padding: 5px;
+  width: 52px;
+  height: 47px;
+  background-color: #1e1e1e;
+  border: 0px;
+  border-radius: 20%;
+  color: white;
+  margin: 0 10px 0 10px;
+}
+
+.dropdown-toggle:hover {
+  border-radius: 20%;
+  color: #e75e8d;
+  /* background-color: rgba(236, 96, 144, 0.9); */
 }

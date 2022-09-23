@@ -58,9 +58,18 @@ header.header-area.header-sticky
                 //- img(src='assets/images/profile-header.jpg' alt='')
             div.dropdown
               select.dropdown-toggle
-                option(value='en-US') EN
-                option(value='zh-TW') ZH
-                option(value='fr-FR') FR
+                if locale == 'en-US'
+                  option(value='en-US' selected) EN
+                  option(value='zh-TW') ZH
+                  option(value='fr-FR') FR
+                else if locale == 'zh-TW'
+                  option(value='en-US') EN
+                  option(value='zh-TW' selected) ZH
+                  option(value='fr-FR') FR
+                else if locale == 'fr-FR'
+                  option(value='en-US') EN
+                  option(value='zh-TW') ZH
+                  option(value='fr-FR' selected) FR
             //- li.dropdown
             //-   a.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false')
             //-     | 123
@@ -102,7 +111,10 @@ footer
 script(src='/public/vendor/jquery/jquery.min.js')
 script(src='/public/vendor/bootstrap/js/bootstrap.min.js')
 script(src='/public/assets/js/isotope.min.js')
-script(src='/public/assets/js/owl-carousel.js')
+//- script(src='/public/assets/js/owl-carousel.js')
+//- script(src='/public/assets/js/owl.carousel.js')
+//- script(src='/public/assets/js/owl.autoplay.js')
+//- script(src='/public/assets/js/owl.navigation.js')
 script(src='/public/assets/js/tabs.js')
 script(src='/public/assets/js/popup.js')
 script(src='/public/assets/js/custom.js')
@@ -126,6 +138,7 @@ script(type="text/javascript").
   let pathname = window.location.pathname;
 
   $( '.dropdown-toggle' ).on( 'change', function( e ){
-  document.location.href = origin + pathname + '?locale=' + $( this ).val();
+    //- const currentUrl = new URL(window.location.href);
+    const newUrl = origin + pathname + (document.location.search).slice(0, -5)
+    window.location.href = newUrl + $( this ).val();
   });
-  

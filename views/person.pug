@@ -9,48 +9,52 @@ block head
 
 block content 
   body
+  div.main
+    div.detail
+      h1#name #{data.name}
+      div#main_info
+        - if (data.birthday)
+          p#born Born 
+          p#birthday #{data.birthday}
+        - if (data.deathday != 'Invalid Date')
+          p#died Died
+          p#deathday #{data.deathday}
+        - if (data.place_of_birth)
+          p#from From
+          p#place #{data.place_of_birth}
+      img#image(src=`${data.image}`)
+      div.readmore
+        p#biography #{data.biography}
 
-  div.detail
-    h1#name #{data.name}
-    div#main_info
-      - if (data.birthday)
-        p#born Born 
-        p#birthday #{data.birthday}
-      - if (data.deathday != 'Invalid Date')
-        p#died Died
-        p#deathday #{data.deathday}
-      - if (data.place_of_birth)
-        p#from From
-        p#place #{data.place_of_birth}
-    img#image(src=`${data.image}`)
-    div.readmore
-      p#biography #{data.biography}
+      div#other_movie Filmography
+        br
+        div
+          div.other_cast_div
+            - if (data.other_cast_movie.length === 0 )
+              div
+            - else 
+              div(class="owl-features owl-carousel owl-loaded owl-drag")
+                - for (const i in data.other_cast_movie)
+                  a(href=`/movie?id=${data.other_cast_movie[i].movie_id}&locale=${locale}`) 
+                    img.movie_img(src=`${data.other_cast_movie[i].poster}`, alt="")
+                    p.movie_title #{data.other_cast_movie[i].title}
+                    p.movie_character #{data.other_cast_movie[i].character}
 
-    div#other_movie Filmography
-      br
-      div
-        div.other_cast_div
-          - if (data.other_cast_movie.length === 0 )
-            div
-          - else 
-            div(class="owl-features owl-carousel owl-loaded owl-drag")
-              - for (const i in data.other_cast_movie)
-                a(href=`/movie?id=${data.other_cast_movie[i].movie_id}&locale=${locale}`) 
-                  img.movie_img(src=`${data.other_cast_movie[i].poster}`, alt="")
-                  p.movie_title #{data.other_cast_movie[i].title}
-                  p.movie_character #{data.other_cast_movie[i].character}
-
-        div.other_crew_div
-          - if (data.other_crew_movie.length === 0 )
-            div
-          - else 
-            div(class="owl-features owl-carousel owl-loaded owl-drag")
-              - for (const i in data.other_crew_movie)
-                a(href=`/movie?id=${data.other_crew_movie[i].movie_id}&locale=${locale}`) 
-                  img.movie_img(src=`${data.other_crew_movie[i].poster}`, alt="")
-                  p.movie_title #{data.other_crew_movie[i].title}
-                  p.movie_job #{data.other_crew_movie[i].job}
+          div.other_crew_div
+            - if (data.other_crew_movie.length === 0 )
+              div
+            - else 
+              div(class="owl-features owl-carousel owl-loaded owl-drag")
+                - for (const i in data.other_crew_movie)
+                  a(href=`/movie?id=${data.other_crew_movie[i].movie_id}&locale=${locale}`) 
+                    img.movie_img(src=`${data.other_crew_movie[i].poster}`, alt="")
+                    p.movie_title #{data.other_crew_movie[i].title}
+                    p.movie_job #{data.other_crew_movie[i].job}
       
+  script(src='/public/assets/js/owl.carousel.js')
+  //- script(src='/public/assets/js/owl.autoplay.js')
+  script(src='/public/assets/js/owl.navigation.js')
+
   script(src='/public/assets/js/jquery.readall.js')
 
   script(type="text/javascript").
@@ -66,30 +70,28 @@ block content
         btnClassShowmore: 'readall-button',     // class(es) on button to show more
         btnClassShowless: 'readall-button'      // class(es) on button to show less
     }
-    
+
     $(".owl-carousel").owlCarousel({
-      items: 1,
+      items: 2,
       loop: false, // 循環播放
-      
       margin: 10, // 外距 10px
       nav: true, // 顯示箭頭
-      
+      autoplay: false,
+
       responsive: {
         0: {
-          items: 1, // 螢幕大小為 0~600 顯示 1 個項目
-          loop: false
+          items: 3 // 螢幕大小為 0~600 顯示 1 個項目
         },
         600: {
-          items: 1, // 螢幕大小為 600~1000 顯示 3 個項目
-          loop: false
+          items: 3 // 螢幕大小為 600~1000 顯示 3 個項目
         },
         1000: {
-          items: 1, // 螢幕大小為 1000 以上 顯示 5 個項目
-          loop: false
+          items: 3 // 螢幕大小為 1000 以上 顯示 5 個項目
         }
-      }
+      } 
+      
     });
-    $(".owl-carousel").trigger('stop.owl.autoplay')
+
 
 
     

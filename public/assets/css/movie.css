@@ -1,3 +1,7 @@
+.main {
+  margin-left: 15px;
+}
+
 #movie_id {
   margin-top: 120px;
 }
@@ -117,4 +121,28 @@
 .owl-item.cloned {
   margin: 0 auto !important;
   width: 200px !important;
+}
+
+.owl-stage-outer {
+  width: 1000px !important;
+}
+
+.cast_list {
+  position: relative;
+}
+
+.owl-prev {
+  color: white !important;
+  font-size: 100px !important;
+  position: absolute !important;
+  top: 50px !important;
+  left: -35px !important;
+}
+
+.owl-next {
+  color: white !important;
+  font-size: 100px !important;
+  position: absolute !important;
+  top: 50px !important;
+  right: 189px !important;
 }

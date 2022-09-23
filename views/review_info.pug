@@ -8,30 +8,33 @@ block head
 block content 
 
   div.review_id(data-id=`${data[0].review_id}`) 
+  div.main
+    div.reviews 
+      div.review
+        div.review_content
+          //- - for (const i in data)
+          div.user          
+            img.profile_img(src= `${data[0].profile_image}`, alt='')          
+            p.username #{data[0].username}
 
-  div.reviews 
-    //- - for (const i in data)
-      //- p #{data[i].user_id}
-    p username: #{data[0].username}
-    img.profile_img(src= `${data[0].profile_image}`, alt='')
-    //- a(href=`/review_info?id=${data[i].review_id}&locale=${data.locale}`)
-    h3 review# #{data[0].review_id}
-    img.review_img(src= `${data[0].image}`, alt='')
-    h3.review_title #{data[0].review_title}
-    p #{data[0].content}
-    p created at #{data[0].created_dt}
-    p updated at #{data[0].updated_dt}
+          //- a(href=`/review_info?id=${data[i].review_id}&locale=${data.locale}`)
+          h3 review# #{data[0].review_id}
+          img.review_img(src= `${data[0].image}`, alt='')
+          h3.review_title #{data[0].review_title}
+          p #{data[0].content}
+          p created at #{data[0].created_dt}
+          p updated at #{data[0].updated_dt}
 
-    a(href=`/movie?id=${data[0].movie_id}&locale=${locale}`)
-      img.movie_poster(src= `${data[0].poster}`, alt='')
-      p #{data[0].title}
+          a(href=`/movie?id=${data[0].movie_id}&locale=${locale}`)
+            img.movie_poster(src= `${data[0].poster}`, alt='')
+            p #{data[0].title}
 
-    div.save_movie
-      button.save_review_button(type='submit') Save Review
+          div.save_movie
+            button.save_review_button(type='submit') Save Review
 
 
   script(type='text/javascript').
-    const locale = !{ locale };
+    //- const locale = !{ locale };
     const review_id = $('.review_id').data('id');
 
     $('.save_review_button').on('click', async (e) => {

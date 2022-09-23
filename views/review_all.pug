@@ -6,30 +6,34 @@ block head
   script(src='https://unpkg.com/axios/dist/axios.min.js')
 
 block content 
+  div.main
+    div.reviews 
+      - for (let i = 0; i < data.length ; i++)
+        div.review
+          div.review_content
+            //- p #{data[i].user_id}
+            div.user
+              img.profile_img(src= `${data[i].profile_image}`)            
+              p.username #{data[i].username}
 
-  div.reviews 
-    - for (let i = 0; i < data.length ; i++)
-      //- p #{data[i].user_id}
-      p username #{data[i].username}
-      img.profile_img(src= `${data[i].profile_image}`, alt='')
-      a(href=`/review/info?id=${data[i].review_id}&locale=${locale}`)
-        h3 review# #{data[i].review_id}
-        img.review_img(src= `${data[i].image}`, alt='')
-      h3.review_title #{data[i].review_title}
-      p #{data[i].content}
-      p #{data[i].created_dt}
-      p #{data[i].updated_dt}
+            a(href=`/review/info?id=${data[i].review_id}&locale=${locale}`)
+              h3 review# #{data[i].review_id}
+              img.review_img(src= `${data[i].image}`, alt='')
+            h3.review_title #{data[i].review_title}
+            p #{data[i].content}
+            p #{data[i].created_dt}
+            p #{data[i].updated_dt}
 
-      a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`, alt='')
-        img.movie_poster(src= `${data[i].poster}`)
-        p #{data[i].title}
+            a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`, alt='')
+              img.movie_poster(src= `${data[i].poster}`)
+              p #{data[i].title}
 
-      div.save_review
-        button.save_review_button(type='submit' value=`${data[i].review_id}`) Save Review
+            div.save_review
+              button.save_review_button(type='submit' value=`${data[i].review_id}`) Save Review
 
 
   script(type='text/javascript').
-    const locale = !{ locale };
+    //- const locale = !{ locale };
     const review_id = $('.review_id').data('id');
 
     $('.save_review_button').on('click', async (e) => {
