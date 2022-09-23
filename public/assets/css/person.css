@@ -45,8 +45,14 @@
 }
 
 .movie_img {
-  width: 290px;
+  width: 200px !important;
   margin: 30px 0 10px 0;
+}
+/* carousel */
+.owl-item.active,
+.owl-item.cloned {
+  margin: 0 auto !important;
+  width: 300px !important;
 }
 
 #other_movie {

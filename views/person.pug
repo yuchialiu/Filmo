@@ -6,8 +6,6 @@ block head
   script(src='https://unpkg.com/axios/dist/axios.min.js')
 
   link(rel='stylesheet', href='/public/assets/css/jquery.readall.css', type='text/css')
-  //- link(rel='stylesheet', href='/public/assets/css/owl.css', type='text/css')
-  //- link(rel='stylesheet', href='/public/assets/css/animate.css', type='text/css')
 
 block content 
   body
@@ -35,24 +33,26 @@ block content
           - if (data.other_cast_movie.length === 0 )
             div
           - else 
-            - for (const i in data.other_cast_movie)
-              a(href=`/movie?id=${data.other_cast_movie[i].movie_id}&locale=${locale}`) 
-                img.movie_img(src=`${data.other_cast_movie[i].poster}`, alt="")
-                p.movie_title #{data.other_cast_movie[i].title}
-                p.movie_character #{data.other_cast_movie[i].character}
+            div(class="owl-features owl-carousel owl-loaded owl-drag")
+              - for (const i in data.other_cast_movie)
+                a(href=`/movie?id=${data.other_cast_movie[i].movie_id}&locale=${locale}`) 
+                  img.movie_img(src=`${data.other_cast_movie[i].poster}`, alt="")
+                  p.movie_title #{data.other_cast_movie[i].title}
+                  p.movie_character #{data.other_cast_movie[i].character}
 
-        div.other_crew_div(class="owl-features owl-carousel owl-loaded owl-drag")
+        div.other_crew_div
           - if (data.other_crew_movie.length === 0 )
             div
           - else 
-            - for (const i in data.other_crew_movie)
-              a(href=`/movie?id=${data.other_crew_movie[i].movie_id}&locale=${locale}`) 
-                img.movie_img(src=`${data.other_crew_movie[i].poster}`, alt="")
-                p.movie_title #{data.other_crew_movie[i].title}
-                p.movie_job #{data.other_crew_movie[i].job}
+            div(class="owl-features owl-carousel owl-loaded owl-drag")
+              - for (const i in data.other_crew_movie)
+                a(href=`/movie?id=${data.other_crew_movie[i].movie_id}&locale=${locale}`) 
+                  img.movie_img(src=`${data.other_crew_movie[i].poster}`, alt="")
+                  p.movie_title #{data.other_crew_movie[i].title}
+                  p.movie_job #{data.other_crew_movie[i].job}
       
   script(src='/public/assets/js/jquery.readall.js')
-  //- script(src='/public/assets/js/owl-carousel.js')
+
   script(type="text/javascript").
     $('#biography').readall();
       //Set options
@@ -70,36 +70,26 @@ block content
     $(".owl-carousel").owlCarousel({
       items: 1,
       loop: false, // 循環播放
+      
       margin: 10, // 外距 10px
       nav: true, // 顯示箭頭
       
-      autoplay: false,
-      autoplayTimeout: 1000,
-      autoplayHoverPause: true
-      
       responsive: {
         0: {
-          items: 1 // 螢幕大小為 0~600 顯示 1 個項目
+          items: 1, // 螢幕大小為 0~600 顯示 1 個項目
+          loop: false
         },
         600: {
-          items: 3 // 螢幕大小為 600~1000 顯示 3 個項目
+          items: 1, // 螢幕大小為 600~1000 顯示 3 個項目
+          loop: false
         },
         1000: {
-          items: 5 // 螢幕大小為 1000 以上 顯示 5 個項目
+          items: 1, // 螢幕大小為 1000 以上 顯示 5 個項目
+          loop: false
         }
       }
     });
-
-    $('.play').on('click',function(){
-        owl.trigger('play.owl.autoplay',[1000])
-    })
-    $('.stop').on('click',function(){
-        owl.trigger('stop.owl.autoplay')
-    })
-    //- $(document).ready(function(){
-    //-   $('.owl-carousel').owlCarousel();
-    //- });
-
+    $(".owl-carousel").trigger('stop.owl.autoplay')
 
 
     

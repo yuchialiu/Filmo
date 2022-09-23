@@ -76,7 +76,7 @@ block content
             
 
   //- script(src='/public/assets/js/jquery.vm-carousel.js')
-  script(src='/public/assets/js/owl-autoplay.js')
+  //- script(src='/public/assets/js/owl.autoplay.js')
   script(type='text/javascript').
   
     //- $('.vmcarousel-normal').vmcarousel({
@@ -116,13 +116,11 @@ block content
     //- });
 
      $(".owl-carousel").owlCarousel({
+      item: 5,
       loop: false, // 循環播放
       margin: 10, // 外距 10px
       nav: true, // 顯示箭頭
       
-      autoplay: false,
-      autoplayTimeout: 1000,
-      autoplayHoverPause: false
       
       responsive: {
         0: {
@@ -136,6 +134,10 @@ block content
         }
       }
     });
+    $(".owl-carousel").trigger('stop.owl.autoplay')
+    
+
+    
 
     const locale = !{ locale };
     const movie_id = $('#movie_id').data('id');

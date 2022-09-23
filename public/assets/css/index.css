@@ -110,6 +110,7 @@
   /* margin-left: 55px; */
   display: flex;
   justify-content: center;
+  position: relative;
   /* flex-wrap: wrap;
   justify-content: space-between; */
 }
@@ -209,18 +210,30 @@
   width: 105px;
 }
 
-.owl-carousel > .owl-nav {
-  width: 100%;
-  display: flex;
-}
-
 .owl-prev,
 .owl-next {
-  color: white !important;
-  font-size: 100px !important;
-  height: 60px !important;
+  /* color: white !important;
+  font-size: 100px !important; */
+}
+
+/* .owl-item {
+  display: flex;
+  justify-content: center;
+  margin-right: 0;
 }
 
 .owl-prev {
-  left: -15 !important;
+  position: absolute;
+  top: 31%;
+  left: -40px;
 }
+.owl-next {
+  position: absolute;
+  top: 31%;
+  right: -30px;
+}
+
+.owl-prev:hover {
+  background-color: #e75e8d;
+  color: #e75e8d;
+} */

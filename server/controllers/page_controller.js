@@ -185,7 +185,7 @@ const getPersonDetail = async (req) => {
   } else if (locale === 'fr-FR') {
     formatDate = 'DD MMMM YYYY';
   } else if (locale === 'zh-TW') {
-    formatDate = 'YYYY MMM DD';
+    formatDate = 'YYYY MMM DD' + '日';
   }
 
   const response = {

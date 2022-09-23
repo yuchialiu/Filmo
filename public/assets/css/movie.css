@@ -111,3 +111,10 @@
 .vmc-arrow-right {
   right: 10px !important;
 }
+
+/* carousel */
+.owl-item,
+.owl-item.cloned {
+  margin: 0 auto !important;
+  width: 200px !important;
+}
