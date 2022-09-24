@@ -28,11 +28,14 @@ block content
           a.menu_block(class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
             span#logout_btn Log out
 
-      div.main
+      div.review_saved_list
           - for (let i = 0; i < data.length ; i++)
+            div.review_movie
+              a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
+                p.movie_title #{data[i].movie_title}
+                img.movie_poster(src=`${data[i].movie_poster}`, alt='')
             div.review
               div.review_content    
-
                 div.user
                   img.profile_img(src= `${data[i].profile_image}`, alt='')
                   p.username #{data[i].username}
@@ -46,9 +49,7 @@ block content
                 p.review_created_dt Created at #{data[i].created_dt}
                 p.review_updated_dt Updated at #{data[i].updated_dt}
 
-                a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
-                  p.movie_title #{data[i].movie_title}
-                  img.movie_poster(src=`${data[i].movie_poster}`, alt='')
+
 
                 button.delete_saved_review(type='submit' value=`${data[i].review_id}`) Remove Review
                 br      

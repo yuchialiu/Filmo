@@ -16,7 +16,7 @@
 }
 
 .profile_info {
-  height: 600px;
+  height: 500px;
 }
 
 #name,
@@ -50,6 +50,11 @@
   min-height: 500px;
   background-color: rgb(44, 44, 44);
   padding: 0;
+  /* sticky */
+  overflow: auto;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 5px;
 }
 
 .sidebar-expanded {
