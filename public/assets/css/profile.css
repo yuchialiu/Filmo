@@ -3,14 +3,14 @@
 * {
   box-sizing: border-box;
 } */
-
+/* 
 .tab {
   margin-top: 100px;
-}
+} */
 
 .profile_info {
   height: 600px;
-  margin-top: 100px;
+  margin-top: -500px;
 }
 
 #name,
@@ -38,45 +38,73 @@
   color: white;
 }
 
-#logout_btn {
-  background-color: transparent;
-  border: 1px solid #a8b8d0;
-  box-sizing: border-box;
+/* Sidebar sizes when expanded and expanded */
+#sidebar-container {
+  margin-top: 120px;
+  min-height: 500px;
+  background-color: rgb(44, 44, 44);
+  padding: 0;
+}
+
+.sidebar-expanded {
+  width: 230px;
+}
+.sidebar-collapsed {
+  width: 60px;
+}
+
+/* Menu item*/
+#sidebar-container .list-group a {
+  height: 60px;
   color: white;
-  font-family: 'Avenir Next LT W01 Bold', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 24px;
-  padding: 16px 23px;
-  position: relative;
-  text-decoration: none;
-  touch-action: manipulation;
-  margin: 0 800px 0;
-  cursor: pointer;
 }
 
-#logout_btn:hover,
-#logout_btn:active {
-  outline: 0;
+#sidebar-container .list-group a:hover {
+  height: 60px;
+  color: #e75e8d;
+  background-color: #2a2929;
 }
 
-#logout_btn:hover {
-  background-color: transparent;
-  cursor: pointer;
+/* Submenu item*/
+/* #sidebar-container .list-group .sidebar-submenu a {
+  height: 45px;
+  padding-left: 30px;
 }
+.sidebar-submenu {
+  font-size: 0.9rem;
+} */
 
-#logout_btn:before {
-  background-color: #d5edf6;
-  content: '';
-  height: calc(100% + 3px);
-  position: absolute;
-  right: -7px;
-  top: -9px;
-  transition: background-color 300ms ease-in;
-  width: 100%;
-  z-index: -1;
+/* Separators */
+/* .sidebar-separator-title {
+  background-color: #333;
+  height: 35px;
 }
+.sidebar-separator {
+  background-color: #333;
+  height: 25px;
+}
+.logo-separator {
+  background-color: #333;
+  height: 60px;
+} */
 
-#logout_btn:hover:before {
-  background-color: #d4dfee;
+/* Closed submenu icon */
+/* #sidebar-container .list-group .list-group-item[aria-expanded='false'] .submenu-icon::after {
+  content: ' \f0d7';
+  font-family: FontAwesome;
+  display: inline;
+  text-align: right;
+  padding-left: 10px;
+} */
+/* Opened submenu icon */
+/* #sidebar-container .list-group .list-group-item[aria-expanded='true'] .submenu-icon::after {
+  content: ' \f0da';
+  font-family: FontAwesome;
+  display: inline;
+  text-align: right;
+  padding-left: 10px;
+} */
+
+#collapse-text {
+  margin: 0 5px 0 10px;
 }

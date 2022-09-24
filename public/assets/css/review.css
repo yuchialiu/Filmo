@@ -7,7 +7,7 @@
 }
 
 .reviews {
-  margin: 150px 0 0 60px;
+  margin: 120px 0 0 300px;
 }
 
 .review {
@@ -43,12 +43,7 @@
 }
 
 .movie_poster {
-  width: 100px;
-}
-
-.review_submit {
-  margin: 100px 0 0 100px;
-  color: white;
+  width: 220px;
 }
 
 .movie {

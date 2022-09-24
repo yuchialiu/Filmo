@@ -1,0 +1,60 @@
+.reviews {
+  margin: -410px 0 0 300px !important;
+}
+
+.movie_title {
+  font-size: medium;
+  width: 220px;
+}
+
+.movie_poster {
+  width: 220px;
+  margin: 15px 0 20px 0;
+}
+.sidebar {
+  width: 25%;
+  /* height: 110vh; // experiment with this value, try changing to 110vh */
+  min-height: 200px;
+  overflow: auto;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 60px;
+  margin: 150px 50px 0 50px;
+}
+
+.to_submit_page {
+  font-size: 14px;
+  color: #fff;
+  background-color: #e75e8d;
+  padding: 12px 30px;
+  display: inline-block;
+  border-radius: 25px;
+  font-weight: 400;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  margin: 0;
+}
+
+.to_submit_page:active,
+.to_submit_page:focus {
+  background-color: #e75e8d;
+  color: #fff;
+  box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2);
+}
+
+.to_submit_page:hover {
+  background-color: #fff;
+  color: #e75e8d;
+}
+
+.movie_to_review {
+  width: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
