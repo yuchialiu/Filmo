@@ -1,5 +1,27 @@
-.reviews {
+/* .reviews {
   margin: -410px 0 0 300px !important;
+} */
+
+.outer {
+  display: flex;
+  /* justify-content: flex-start; */
+}
+
+.no_review {
+  margin: -30px 0 0 0px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.no_review_text {
+  margin: 17px 0 30px 0;
+}
+
+.all_review {
+  margin: -490px 0 0 350px;
 }
 
 .movie_title {
@@ -11,6 +33,17 @@
   width: 220px;
   margin: 15px 0 20px 0;
 }
+
+.sidebar_nosticky {
+  width: 25%;
+  /* height: 110vh; // experiment with this value, try changing to 110vh */
+  min-height: 200px;
+  overflow: auto;
+  /* position: -webkit-sticky;
+  position: sticky; */
+  top: 60px;
+  margin: 150px 50px 0 50px;
+}
 .sidebar {
   width: 25%;
   /* height: 110vh; // experiment with this value, try changing to 110vh */
@@ -20,6 +53,10 @@
   position: sticky;
   top: 60px;
   margin: 150px 50px 0 50px;
+}
+
+.review {
+  width: 800px;
 }
 
 .to_submit_page {

@@ -57,6 +57,10 @@
   height: 220px;
 }
 
+.image_choose {
+  margin-top: 10px;
+}
+
 #submit_review {
   margin: 350px 0 0 -315px;
   font-size: 14px;

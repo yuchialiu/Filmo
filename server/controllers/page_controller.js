@@ -192,8 +192,8 @@ const getPersonDetail = async (req) => {
     id: result[0].person_id,
     ref_id: result[0].ref_id,
     name: result[0].name,
-    birthday: dayjs(result[0].birthday).locale(locale).format(formatDate),
-    deathday: dayjs(result[0].deathday).locale(locale).format(formatDate),
+    birthday: dayjs(result[0].birthday).format(formatDate),
+    deathday: dayjs(result[0].deathday).format(formatDate),
     place_of_birth: result[0].place_of_birth,
     image: `${SERVER_IP}/public/assets/images/people/${result[0].profile_image}`,
     biography: resultBiography,
@@ -220,24 +220,33 @@ const showProfileReview = async (req, res) => {
   const { locale } = req.query;
 
   const resultReview = await User.getUserReview(userId);
+  const resultAccount = await User.getUserById(userId);
 
   const info = [];
   for (const i in resultReview) {
     const resultMovie = await Movie.getMovieInfo(resultReview[i].movie_id, locale);
-    // const resultAccount = await User.getUserById(resultReview[i].user_id);
-    // TODO:
+
+    let formatDate;
+    if (locale === 'en-US') {
+      formatDate = 'hh:mm A MMMM DD YYYY';
+    } else if (locale === 'fr-FR') {
+      formatDate = 'HH:mm  DD MMMM YYYY';
+    } else if (locale === 'zh-TW') {
+      formatDate = 'HH:mm YYYY MMM DD' + '日';
+    }
+
     const result = {
-      // user_id: resultAccount.id,
-      // username: resultAccount.username,
-      // profile_image: resultAccount.profile_image,
+      user_id: resultAccount.id,
+      username: resultAccount.username,
+      profile_image: resultAccount.profile_image,
       id: resultReview[i].id,
       review_title: resultReview[i].title,
       content: resultReview[i].content,
       image: `${SERVER_IP}/public/assets/images/uploads/${resultReview[i].image}`,
       image_blurred: resultReview[i].image_blurred,
-      user_id: resultReview[i].user_id,
-      created_dt: resultReview[i].created_dt,
-      updated_dt: resultReview[i].updated_dt,
+      // user_id: resultReview[i].user_id,
+      created_dt: dayjs(resultReview[i].created_dt).format(formatDate),
+      updated_dt: dayjs(resultReview[i].updated_dt).format(formatDate),
       movie_id: resultMovie.movie_id,
       title: resultMovie.title,
       poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
@@ -255,6 +264,8 @@ const showUserSavedReview = async (req, res) => {
   const { locale } = req.query;
 
   const resultSavedReview = await User.getUserSavedReview(userId);
+  const resultAccount = await User.getUserById(userId);
+
   const info = [];
 
   for (const i in resultSavedReview) {
@@ -262,18 +273,25 @@ const showUserSavedReview = async (req, res) => {
 
     for (const j in resultReview) {
       const resultMovie = await Movie.getMovieInfo(resultReview[j].movie_id, locale);
-      // const resultAccount = await User.getUserById(resultReview[i].user_id);
-      // TODO:
+
+      let formatDate;
+      if (locale === 'en-US') {
+        formatDate = 'hh:mm A MMMM DD YYYY';
+      } else if (locale === 'fr-FR') {
+        formatDate = 'HH:mm  DD MMMM YYYY';
+      } else if (locale === 'zh-TW') {
+        formatDate = 'HH:mm YYYY MMM DD' + '日';
+      }
       const result = {
-        // user_id: resultAccount.id,
-        // username: resultAccount.username,
-        // profile_image: resultAccount.profile_image,
+        user_id: resultAccount.id,
+        username: resultAccount.username,
+        profile_image: resultAccount.profile_image,
         review_id: resultReview[j].id,
         review_title: resultReview[j].title,
         content: resultReview[j].content,
         image: `${SERVER_IP}/public/assets/images/uploads/${resultReview[j].image}`,
-        created_dt: resultReview[j].created_dt,
-        updated_dt: resultReview[j].updated_dt,
+        created_dt: dayjs(resultReview[j].created_dt).format(formatDate),
+        updated_dt: dayjs(resultReview[j].updated_dt).format(formatDate),
         movie_id: resultMovie.movie_id,
         movie_title: resultMovie.title,
         movie_poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
@@ -291,9 +309,9 @@ const showUserSavedMovie = async (req, res) => {
   const resultSavedMovie = await User.getUserSavedMovie(userId);
   const info = [];
 
-  for (i in resultSavedMovie) {
+  for (const i in resultSavedMovie) {
     const resultMovie = await User.getMovieInfo(resultSavedMovie[i].movie_id, locale);
-    for (j in resultMovie) {
+    for (const j in resultMovie) {
       const result = {
         movie_id: resultMovie[j].movie_id,
         title: resultMovie[j].title,
@@ -317,6 +335,15 @@ const showAllReviews = async (req, res) => {
     const resultMovie = await Movie.getMovieInfo(resultReview[i].movie_id, locale);
     const resultAccount = await User.getUserById(resultReview[i].user_id);
 
+    let formatDate;
+    if (locale === 'en-US') {
+      formatDate = 'hh:mm A MMMM DD YYYY';
+    } else if (locale === 'fr-FR') {
+      formatDate = 'HH:mm  DD MMMM YYYY';
+    } else if (locale === 'zh-TW') {
+      formatDate = 'HH:mm YYYY MMM DD' + '日';
+    }
+
     const result = {
       user_id: resultAccount.id,
       username: resultAccount.username,
@@ -326,8 +353,8 @@ const showAllReviews = async (req, res) => {
       review_title: resultReview[i].title,
       image: `${SERVER_IP}/public/assets/images/uploads/${resultReview[i].image}`,
       image_blurred: resultReview[i].image_blurred,
-      created_dt: resultReview[i].created_dt,
-      updated_dt: resultReview[i].updated_dt,
+      created_dt: dayjs(resultReview[i].created_dt).format(formatDate),
+      updated_dt: dayjs(resultReview[i].updated_dt).format(formatDate),
       movie_id: resultMovie.movie_id,
       title: resultMovie.title,
       banner: `${SERVER_IP}/public/assets/images/banners/${resultMovie.banner_image}`,
@@ -350,6 +377,15 @@ const getReviewInfo = async (req) => {
     const resultMovie = await Movie.getMovieInfo(resultReview[i].movie_id, locale);
     const resultAccount = await User.getUserById(resultReview[i].user_id);
 
+    let formatDate;
+    if (locale === 'en-US') {
+      formatDate = 'hh:mm A MMMM DD YYYY';
+    } else if (locale === 'fr-FR') {
+      formatDate = 'HH:mm  DD MMMM YYYY';
+    } else if (locale === 'zh-TW') {
+      formatDate = 'HH:mm YYYY MMM DD' + '日';
+    }
+
     const result = {
       user_id: resultAccount.id,
       username: resultAccount.username,
@@ -359,8 +395,8 @@ const getReviewInfo = async (req) => {
       content: resultReview[i].content,
       image: `${SERVER_IP}/public/assets/images/uploads/${resultReview[i].image}`,
       image_blurred: resultReview[i].image_blurred,
-      created_dt: resultReview[i].created_dt,
-      updated_dt: resultReview[i].updated_dt,
+      created_dt: dayjs(resultReview[i].created_dt).format(formatDate),
+      updated_dt: dayjs(resultReview[i].updated_dt).format(formatDate),
       movie_id: resultMovie.movie_id,
       title: resultMovie.title,
       banner: `${SERVER_IP}/public/assets/images/banners/${resultMovie.banner_image}`,
@@ -397,14 +433,30 @@ const showReviewWhenUpdate = async (req, res) => {
 
 const getReviewByMovieId = async (req) => {
   const { id, locale } = req.query;
-
-  const resultReview = await Page.getReviewByMovieId(id);
-
   const info = [];
+  const movie = [];
+  const resultReview = await Page.getReviewByMovieId(id);
+  const resultMovie = await Movie.getMovieInfo(id, locale);
+
+  const movieInfo = {
+    movie_id: resultMovie.movie_id,
+    title: resultMovie.title,
+    banner: `${SERVER_IP}/public/assets/images/banners/${resultMovie.banner_image}`,
+    poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
+  };
+  movie.push(movieInfo);
+
   for (const i in resultReview) {
-    const resultMovie = await Movie.getMovieInfo(resultReview[i].movie_id, locale);
     const resultAccount = await User.getUserById(resultReview[i].user_id);
 
+    let formatDate;
+    if (locale === 'en-US') {
+      formatDate = 'hh:mm A MMMM DD YYYY';
+    } else if (locale === 'fr-FR') {
+      formatDate = 'HH:mm  DD MMMM YYYY';
+    } else if (locale === 'zh-TW') {
+      formatDate = 'HH:mm YYYY MMM DD' + '日';
+    }
     const result = {
       user_id: resultAccount.id,
       username: resultAccount.username,
@@ -414,23 +466,24 @@ const getReviewByMovieId = async (req) => {
       content: resultReview[i].content,
       image: `${SERVER_IP}/public/assets/images/uploads/${resultReview[i].image}`,
       image_blurred: resultReview[i].image_blurred,
-      created_dt: resultReview[i].created_dt,
-      updated_dt: resultReview[i].updated_dt,
-      movie_id: resultMovie.movie_id,
-      title: resultMovie.title,
-      banner: `${SERVER_IP}/public/assets/images/banners/${resultMovie.banner_image}`,
-      poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
+      created_dt: dayjs(resultReview[i].created_dt).format(formatDate),
+      updated_dt: dayjs(resultReview[i].updated_dt).format(formatDate),
+      // movie_id: resultMovie.movie_id,
+      // title: resultMovie.title,
+      // banner: `${SERVER_IP}/public/assets/images/banners/${resultMovie.banner_image}`,
+      // poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
     };
-
     info.push(result);
   }
-  return info;
+
+  return { info, movie };
 };
 
 const showReviewByMovieId = async (req, res) => {
   const { id, locale } = req.query;
   try {
     const response = await getReviewByMovieId(req);
+
     res.render('review_movie', {
       data: response,
       movie_id: id,
