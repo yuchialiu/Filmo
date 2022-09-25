@@ -63,12 +63,12 @@ block content
                   p.review_text #{data[i].content}
 
                   //- p.review_updated_dt Updated at #{data[i].updated_dt}
-                  div
-                    div.update_review
-                      a(href=`/review/update?id=${data[i].id}&locale=${locale}`) 
-                        button.update_review_button(type='button') Edit Review
-                    div.delete_review
-                      button.delete_review_button(type='submit' value=`${data[i].id}`) Delete Review
+                div.buttons.d-flex
+                  div.update_review
+                    a(href=`/review/update?id=${data[i].id}&locale=${locale}`) 
+                      button.update_review_button(type='button') Edit
+                  div.delete_review
+                    button.delete_review_button(type='submit' value=`${data[i].id}`) Delete
 
   
   script(src='/public/assets/js/profile_sidebar.js')
