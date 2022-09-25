@@ -52,7 +52,7 @@ block content
                       p.username #{data[i].username}
                       p.review_created_dt #{data[i].created_dt}
                     div.save_review
-                      button.save_review_button(type='submit' value=`${data[i].id}`) Save Review
+                      button.save_review_button(type='submit' value=`${data[i].id}`) Save
 
                   div.ms-15
                     a(href=`/review/info?id=${data[i].id}&locale=${locale}`)

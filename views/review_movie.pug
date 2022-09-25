@@ -20,13 +20,13 @@ block content
           div.movie_to_review
             button.to_submit_page(type='button') Submit Review
     - else 
-      div.sidebar.col-5
+      div.sidebar.col-3
         div.movie_to_review
           button.to_submit_page(type='button') Submit Review
         a(href=`/movie?id=${data.movie[0].movie_id}&locale=${locale}`, alt='')
-          img.movie_poster(src= `${data.movie[0].poster}`, alt='Poster')
+          img.movie_poster_movie(src= `${data.movie[0].poster}`, alt='Poster')
           p.movie_title  #{data.movie[0].title}   
-      div.all_review.col-7
+      div.all_review.col-6
         - for (let i = 0; i < data.info.length ; i++)
           div.review_movie
             div.review_content 
@@ -37,7 +37,7 @@ block content
                     p.username #{data.info[i].username}
                     p.review_created_dt #{data.info[i].created_dt}
                   div.save_review
-                    button.save_review_button(type='submit' value=`${data.info[i].review_id}`) Save Review
+                    button.save_review_button(type='submit' value=`${data.info[i].review_id}`) Save
 
               div.ms-15
                 a(href=`/review/info?id=${data.info[i].review_id}&locale=${locale}`)

@@ -49,7 +49,7 @@ block content
                       p.username #{data[i].username}
                       p.review_created_dt #{data[i].created_dt}
                     div.save_review
-                      button.delete_saved_review(type='submit' value=`${data[i].review_id}`) Remove Review
+                      button.delete_saved_review(type='submit' value=`${data[i].review_id}`) Remove
                   div.ms-15
                     a(href=`/review/info?id=${data[i].review_id}&locale=${locale}`)
                       //- p.review_num Review# #{data[i].review_id}

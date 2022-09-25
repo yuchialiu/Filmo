@@ -19,7 +19,7 @@
 }
 
 .all_review {
-  margin: -490px 0 0 350px;
+  margin: -456px 0 0 350px;
 }
 
 .movie_title {
@@ -50,14 +50,18 @@
   position: -webkit-sticky;
   position: sticky;
   top: 60px;
-  margin: 150px 50px 0 50px;
+  margin: 150px 50px 0 79px;
+}
+
+.movie_poster_movie {
+  width: 220px;
 }
 
 .review_movie {
   min-height: 411px;
-  border: 3px;
+  border: 2px;
   border-style: solid;
-  border-color: rgb(255, 255, 255, 0.9);
+  border-color: rgba(131, 128, 128, 0.9);
   border-radius: 15px;
   margin-bottom: 50px;
   background-color: rgba(59, 59, 59, 0.7);
@@ -102,5 +106,5 @@
   margin-bottom: 20px;
 }
 .save_review {
-  margin-left: 253px !important;
+  margin-left: 190px !important;
 }

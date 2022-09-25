@@ -1838,8 +1838,8 @@ Dropdown Style
   margin: 0 10px 0 10px;
 }
 
-.dropdown-toggle:hover {
+/* .dropdown-toggle:hover {
   border-radius: 20%;
   color: #e75e8d;
-  /* background-color: rgba(236, 96, 144, 0.9); */
-}
+  background-color: rgba(236, 96, 144, 0.9);
+} */

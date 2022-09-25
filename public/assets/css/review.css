@@ -41,6 +41,7 @@
   border-radius: 50%;
   /* margin: 0 15px 0 0; */
 }
+
 .ms-15 {
   margin-left: 15px;
 }
@@ -50,7 +51,8 @@
 }
 
 .review_created_dt {
-  color: rgb(182, 182, 182);
+  width: 230px;
+  color: rgb(161, 157, 157);
 }
 
 .review_img {
@@ -64,7 +66,12 @@
 }
 
 .movie_poster {
-  width: 220px;
+  width: 160px;
+}
+
+.movie_poster_saved,
+.movie_poster_account {
+  width: 160px;
 }
 
 .movie {
@@ -114,20 +121,22 @@
 }
 
 .item {
-  margin: 0 auto;
+  margin: 0 auto !important;
   align-items: stretch;
   min-height: 160px;
 }
 
 .review_account,
 .review_saved {
-  border: 3px;
+  border: 2px;
   border-style: solid;
-  border-color: rgb(255, 255, 255, 0.9);
+  border-color: rgba(131, 128, 128, 0.9);
   border-radius: 15px;
   margin-bottom: 50px;
   background-color: rgba(59, 59, 59, 0.7);
-  min-height: 370px;
+  /* min-height: 370px; */
+  min-height: fit-content;
+  min-width: 510px !important;
 }
 
 /* review submit */
@@ -183,4 +192,8 @@
 .delete_review_button:hover {
   background-color: #fff;
   color: #e75e8d;
+}
+
+.review_movie_all {
+  width: 17% !important;
 }

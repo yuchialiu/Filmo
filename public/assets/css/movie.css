@@ -15,6 +15,14 @@
   display: flex;
 }
 
+#release_date {
+  width: 50px;
+}
+
+#runtime {
+  width: 80px;
+}
+
 .detail {
   margin-left: 50px;
   color: white;
