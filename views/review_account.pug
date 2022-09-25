@@ -10,8 +10,9 @@ block head
 
 block content 
   body 
-    div.main_outer.row
-      div.col-2(id="sidebar-container" class="sidebar-expanded d-none d-md-block")
+    div.main_outer
+      //- div.col-2
+      div(id="sidebar-container" class="sidebar-expanded d-none d-md-block")
         ul(class="list-group")
           a(href="#" data-toggle="sidebar-colapse" class="bg-dark list-group-item list-group-item-action d-flex align-items-center")
             div(class="d-flex w-100 justify-content-start align-items-center")
@@ -32,8 +33,9 @@ block content
           a(class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
             i(class="fas fa-sign-out-alt")
             span#logout_btn Log out
-  
-      div.col-10.outer_review_account(class="row")
+    
+      //- div.col-10
+      div.outer_review_account
           //- div.reviews 
           - for (let i = 0; i < data.length ; i++)
             div.item(class="row")
@@ -43,7 +45,7 @@ block content
                   p.movie_title #{data[i].title}
 
               div.review_account.col-7
-                div.review_content
+                div.review_content_outer   
                   div.user
                     img.profile_img(src= `${data[i].profile_image}`, alt='')
                     p.username #{data[i].username}

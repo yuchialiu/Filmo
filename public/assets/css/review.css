@@ -70,31 +70,17 @@
 }
 
 /* review account page */
-
-.outer_review_account {
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin: 0 auto; */
-}
-
 /* saved review page */
 
-.review_saved_list {
-  /* display: grid; */
-  /* justify-content: center;
-  align-items: center; */
-  /* flex-direction: column; */
+/* .review_saved_list {
   margin: 0 auto;
-}
+} */
 
 .main_outer {
   margin-top: 120px !important;
 }
 .movie_poster_saved,
 .movie_poster_account {
-  /* width: 180px; */
   margin-top: 3px;
 }
 
@@ -102,7 +88,7 @@
   margin: 0 30px 0 30px;
 }
 
-.review_content {
+.item {
   margin: 0 auto;
   align-items: stretch;
   min-height: 160px;
@@ -116,4 +102,5 @@
   border-radius: 15px;
   margin-bottom: 50px;
   background-color: rgba(59, 59, 59, 0.7);
+  min-height: 370px;
 }

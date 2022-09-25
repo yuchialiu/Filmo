@@ -9,8 +9,9 @@ block head
 
 block content 
   body 
-    div.main_outer.row
-      div.col-2(id="sidebar-container" class="sidebar-expanded d-none d-md-block")
+    div.main_outer
+      //- div.col-2
+      div(id="sidebar-container" class="sidebar-expanded d-none d-md-block")
         ul(class="list-group")
           a(href="#" data-toggle="sidebar-colapse" class="bg-dark list-group-item list-group-item-action d-flex align-items-center")
             div(class="d-flex w-100 justify-content-start align-items-center")
@@ -32,7 +33,8 @@ block content
             i(class="fas fa-sign-out-alt")
             span#logout_btn Log out
 
-      div.col-10.review_saved_list(class="row")
+      //- div.col-10
+      div.review_saved_list
           - for (let i = 0; i < data.length ; i++)
             div.item(class="row")
               div.review_movie.col-3
@@ -40,7 +42,7 @@ block content
                   img.movie_poster_saved(src=`${data[i].movie_poster}`, alt='')
                   p.movie_title #{data[i].movie_title}                  
               div.review_saved.col-7
-                div.review_content    
+                div.review_content_outer    
                   div.user
                     img.profile_img(src= `${data[i].profile_image}`, alt='')
                     p.username #{data[i].username}

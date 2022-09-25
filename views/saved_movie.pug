@@ -9,8 +9,9 @@ block head
 
 block content 
   body
-    div.main_outer.row
-      div.col-2(id="sidebar-container" class="sidebar-expanded d-none d-md-block")
+    div.main_outer
+      //- div.col-2    
+      div(id="sidebar-container" class="sidebar-expanded d-none d-md-block")
         ul(class="list-group")
           a(href="#" data-toggle="sidebar-colapse" class="bg-dark list-group-item list-group-item-action d-flex align-items-center")
             div(class="d-flex w-100 justify-content-start align-items-center")
@@ -32,15 +33,17 @@ block content
             i(class="fas fa-sign-out-alt")
             span#logout_btn Log out
 
-      div.movie.col-10
-        - for (let i = 0; i < data.length; i++)
-          div.movie_item
-            a.list_link(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
-              img.list_img(src=`${data[i].poster}`)
-              p.list_title #{data[i].title}
-            //- div.movie_id(data-id=`${data[i].movie_id}`) 
-            button.delete_saved_movie(type='submit' value=`${data[i].movie_id}`) Remove Movie
-            br
+      //- div.col-10
+      div.justify-content-center
+        div.movie.justify-content-flex-start
+          - for (let i = 0; i < data.length; i++)
+            div.movie_item
+              a.list_link(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
+                img.list_img(src=`${data[i].poster}`)
+                p.list_title #{data[i].title}
+              //- div.movie_id(data-id=`${data[i].movie_id}`) 
+              button.delete_saved_movie(type='submit' value=`${data[i].movie_id}`) Remove Movie
+              br
 
 
   script(src='/public/assets/js/profile_sidebar.js')

@@ -8,12 +8,12 @@ block head
 
 block content 
   body
-    div.main_outer_search
+    div.main_outer_search.justify-content-center
       //- div#movie_id(data-id=`${data.movie_id}`) 
-      div.movie
-        - if (data === 'empty')
-          h1 no movie
-        - else 
+      - if (data === 'empty')
+        h1 Cannot Find the Movie You're Searching For
+      - else 
+        div.movie_search.justify-content-flex-start           
           - for (let i =  0 ; i < data.length; i++)
             div.movie_item_search
               a.list_link(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)

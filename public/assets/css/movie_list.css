@@ -2,7 +2,6 @@
   display: flex;
   flex-wrap: wrap;
 
-  justify-content: center;
   /* align-items: center; */
   width: 1000px;
   margin: 0 auto;
@@ -15,13 +14,12 @@
 }
 
 .list_img {
-  width: 280px !important;
+  height: 400px !important;
 }
 .list_title {
   font-size: medium;
   margin: 10px auto;
   width: 280px;
-  /* height: auto; */
   /* height: auto; */
 }
 
@@ -30,8 +28,14 @@
   margin-top: 150px;
 }
 
+.movie_search {
+  display: flex;
+  flex-wrap: wrap;
+
+  width: 1000px;
+  margin: 0 auto;
+}
+
 .movie_item_search {
-  margin: 0 50px;
-  align-items: stretch;
-  align-content: space-around;
+  margin: 0 20px 35px 20px;
 }

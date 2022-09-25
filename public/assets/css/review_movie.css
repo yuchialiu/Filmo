@@ -1,14 +1,9 @@
-/* .reviews {
-  margin: -410px 0 0 300px !important;
-} */
-
 .outer_review_movie {
   margin: 150px auto;
 }
 
 .outer {
   display: flex;
-  /* justify-content: flex-start; */
 }
 
 .no_review {
@@ -36,10 +31,6 @@
   width: 220px;
   margin: 15px 0 20px 0;
 }
-
-/* .col-3 {
-  width: 48% !important;
-} */
 
 .sidebar_nosticky {
   /* width: 25%; */
@@ -69,6 +60,7 @@
   border-radius: 15px;
   margin-bottom: 50px;
   background-color: rgba(59, 59, 59, 0.7);
+  min-height: 300px;
 }
 
 .to_submit_page {
