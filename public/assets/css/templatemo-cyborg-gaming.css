@@ -495,7 +495,7 @@ Header Style
   vertical-align: middle;
   text-align: right;
   margin-top: 0px;
-  margin-right: -50px;
+  /* margin-right: -50px; */
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;

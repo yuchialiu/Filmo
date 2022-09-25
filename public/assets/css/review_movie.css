@@ -2,6 +2,10 @@
   margin: -410px 0 0 300px !important;
 } */
 
+.outer_review_movie {
+  margin: 150px auto;
+}
+
 .outer {
   display: flex;
   /* justify-content: flex-start; */
@@ -11,7 +15,6 @@
   margin: -30px 0 0 0px;
   height: 500px;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
 }
@@ -34,15 +37,19 @@
   margin: 15px 0 20px 0;
 }
 
+/* .col-3 {
+  width: 48% !important;
+} */
+
 .sidebar_nosticky {
-  width: 25%;
+  /* width: 25%; */
   /* height: 110vh; // experiment with this value, try changing to 110vh */
   min-height: 200px;
   overflow: auto;
   /* position: -webkit-sticky;
   position: sticky; */
-  top: 60px;
-  margin: 150px 50px 0 50px;
+  /* top: 60px; */
+  margin-left: 50px;
 }
 .sidebar {
   width: 25%;
@@ -55,8 +62,13 @@
   margin: 150px 50px 0 50px;
 }
 
-.review {
-  width: 800px;
+.review_movie {
+  border: 3px;
+  border-style: solid;
+  border-color: rgb(255, 255, 255, 0.9);
+  border-radius: 15px;
+  margin-bottom: 50px;
+  background-color: rgba(59, 59, 59, 0.7);
 }
 
 .to_submit_page {

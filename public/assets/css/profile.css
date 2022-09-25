@@ -9,7 +9,7 @@
 } */
 
 .main_outer {
-  margin-top: 120px;
+  margin-top: 120px !important;
   display: flex;
   align-items: flex-start;
   flex-direction: row;
@@ -117,6 +117,19 @@
   padding-left: 10px;
 } */
 
-#collapse-text {
+#collapse-text,
+.tablinks,
+#logout_btn {
   margin: 0 5px 0 10px;
+}
+
+/* icons */
+.fas {
+  font-size: 1.8rem;
+  display: inline;
+  text-align: right;
+  padding-left: 23px;
+}
+.fa {
+  padding-left: 6px;
 }

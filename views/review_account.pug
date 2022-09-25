@@ -10,55 +10,65 @@ block head
 
 block content 
   body 
-    div.main_outer
-      div(id="sidebar-container" class="sidebar-expanded d-none d-md-block")
+    div.main_outer.row
+      div.col-2(id="sidebar-container" class="sidebar-expanded d-none d-md-block")
         ul(class="list-group")
-          a.menu_block(href="#" data-toggle="sidebar-colapse" class="bg-dark list-group-item list-group-item-action d-flex align-items-center")
+          a(href="#" data-toggle="sidebar-colapse" class="bg-dark list-group-item list-group-item-action d-flex align-items-center")
             div(class="d-flex w-100 justify-content-start align-items-center")
               span#collapse-icon.fa.fa-2x.mr-3
               span#collapse-text.menu-collapsed Collapse
-            //- .tab.list-group
-          a.menu_block(href=`/profile?locale=${locale}` class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
+          a(href=`/profile?locale=${locale}` class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
+            i(class="fas fa-user-circle")
             span.tablinks My Account
-          a.menu_block(href=`/profile/review?locale=${locale}` class="menu-collapsed d-flex w-100 justify-content-start align-items-center")  
+          a(href=`/profile/review?locale=${locale}` class="menu-collapsed d-flex w-100 justify-content-start align-items-center")  
+            i(class="fas fa-book-reader")
             span.tablinks My Reviews
-          a.menu_block(href=`/store/review?locale=${locale}` class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
+          a(href=`/store/review?locale=${locale}` class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
+            i(class="fas fa-newspaper")
             span.tablinks Saved Reviews
-          a.menu_block(href=`/store/movie?locale=${locale}` class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
+          a(href=`/store/movie?locale=${locale}` class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
+            i(class="fas fa-film")
             span.tablinks Saved Movies
-          a.menu_block(class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
+          a(class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
+            i(class="fas fa-sign-out-alt")
             span#logout_btn Log out
   
-      div.outer_review_account
+      div.col-10.outer_review_account(class="row")
           //- div.reviews 
           - for (let i = 0; i < data.length ; i++)
-            div.review
-              div.review_content
-                div.user
-                  img.profile_img(src= `${data[i].profile_image}`, alt='')
-                  p.username #{data[i].username}
-                a(href=`/review/info?id=${data[i].id}&locale=${locale}`)
-                  p.review_num Review# #{data[i].id}
-
-                img.review_img(src=`${data[i].image}`, alt='')
-                h3.review_title #{data[i].review_title}
-                p.review_content #{data[i].content}
-                p.review_created_dt Created at #{data[i].created_dt}
-                p.review_updated_dt Updated at #{data[i].updated_dt}
-
+            div.item(class="row")
+              div.review_movie.col-3
                 a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
+                  img.movie_poster_account(src=`${data[i].poster}`, alt='')         
                   p.movie_title #{data[i].title}
-                  img.movie_poster(src=`${data[i].poster}`, alt='')
 
-                div.update_review
-                  a(href=`/review/update?id=${data[i].id}&locale=${locale}`) 
-                    button.update_review_button(type='button') Edit Review
+              div.review_account.col-7
+                div.review_content
+                  div.user
+                    img.profile_img(src= `${data[i].profile_image}`, alt='')
+                    p.username #{data[i].username}
+                  a(href=`/review/info?id=${data[i].id}&locale=${locale}`)
+                    p.review_num Review# #{data[i].id}
 
-                div.delete_review
-                  button.delete_review_button(type='submit' value=`${data[i].id}`) Delete Review
+                  img.review_img(src=`${data[i].image}`, alt='')
+                  h3.review_title #{data[i].review_title}
+                  p.review_content #{data[i].content}
+                  p.review_created_dt Created at #{data[i].created_dt}
+                  p.review_updated_dt Updated at #{data[i].updated_dt}
 
-                div.save_review
-                  button.save_review_button(type='submit' value=`${data[i].id}`) Save Review
+                  //- a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
+                  //-   p.movie_title #{data[i].title}
+                  //-   img.movie_poster(src=`${data[i].poster}`, alt='')
+
+                  div.update_review
+                    a(href=`/review/update?id=${data[i].id}&locale=${locale}`) 
+                      button.update_review_button(type='button') Edit Review
+
+                  div.delete_review
+                    button.delete_review_button(type='submit' value=`${data[i].id}`) Delete Review
+
+                  div.save_review
+                    button.save_review_button(type='submit' value=`${data[i].id}`) Save Review
 
   script(src='/public/assets/js/profile_sidebar.js')
 

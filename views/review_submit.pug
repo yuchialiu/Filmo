@@ -8,8 +8,8 @@ block head
 
 block content 
   body 
-    div.main
-      div.sidebar
+    div.main.row
+      div.sidebar.col-2
         a(href=`/movie?id=${data.movie_id}&locale=${locale}`, alt='')
           img.movie_poster(src= `${data.poster}`)
           p.movie_title #{data.title}   
@@ -19,20 +19,20 @@ block content
       //-   h3 #{data.title}
       //-   img.poster(src=`${data.poster}`)
 
-      div.review_submit
-        form.review_form
+      div.review_submit.col-9.row
+        form.review_form.col-6
           div#review_movie_id(name='movieId' data-id=`${data.movie_id}`) 
-          div.review_info
-            div.review_info_text
-              h5.title Title
-                br
-                input#review_title(type='text' name='title' placeholder='Title' maxlength='255')
-              h5.content Content
-                br
-                textarea#review_content(type='text' name='content' placeholder='Review')
-            h5.image Image (optional)
+            h5.title Title
               br
-              input.image_choose(name='image' type='file')        
+              input#review_title(type='text' name='title' placeholder='Title' maxlength='255')
+            h5.content Content
+              br
+              textarea#review_content(type='text' name='content' placeholder='Review')
+        div.col-4.row
+          h5.image.row-10 Image (optional)
+            br
+            input.image_choose(name='image' type='file')        
+          div.submit.row-2
             button#submit_review Submit
 
   script(type='text/javascript').

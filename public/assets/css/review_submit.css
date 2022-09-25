@@ -1,8 +1,12 @@
 .main {
-  margin-top: 150px;
-  display: flex;
+  margin-top: 150px !important;
+  /* display: flex;
   align-items: flex-start;
-  flex-direction: row;
+  flex-direction: row; */
+}
+
+.row {
+  width: auto;
 }
 .sidebar {
   /* width: 25%; */
@@ -12,11 +16,11 @@
   /* position: -webkit-sticky; */
   /* position: sticky; */
   /* top: 60px; */
-  margin: 0 50px 0 50px;
+  margin: 0 60px 0 50px;
 }
 .movie_poster {
   width: 220px;
-  margin: 0px 0 20px 0;
+  /* margin: 0px 0 20px 0; */
 }
 .movie_title {
   font-size: medium;
@@ -24,28 +28,14 @@
 }
 
 .review_submit {
-  margin: 0 20px 0 15px;
+  /* margin: 0 20px 0 15px; */
   color: white;
-  height: 500px;
-}
-
-.review_info {
-  width: 800px;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: row;
-  /* justify-content: space-around; */
-}
-.review_info_text {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 0 50px 0 0;
+  /* height: 500px; */
 }
 
 #review_title {
   margin-top: 10px;
-  width: 500px;
+  width: 400px;
 }
 .content {
   margin: 50px 0 0 0;
@@ -53,16 +43,20 @@
 .content,
 #review_content {
   margin-top: 10px;
-  width: 500px;
+  width: 400px;
   height: 220px;
 }
 
 .image_choose {
   margin-top: 10px;
+  height: 290px;
+}
+.submit {
+  text-align-last: center;
 }
 
 #submit_review {
-  margin: 350px 0 0 -315px;
+  /* margin: 350px 0 0 -315px; */
   font-size: 14px;
   color: #fff;
   background-color: #e75e8d;
