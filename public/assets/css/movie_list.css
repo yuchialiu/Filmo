@@ -13,6 +13,10 @@
   /* align-content: space-around; */
 }
 
+.no_review {
+  height: 400px;
+}
+
 .list_img {
   height: 400px !important;
 }

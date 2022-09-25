@@ -15,27 +15,45 @@
   margin-bottom: 50px;
   background-color: rgba(59, 59, 59, 0.7);
 }
-
 .review_content {
-  margin: 25px 25px 25px 25px;
+  margin-left: 10px;
+}
+.review_text {
+  margin: 10px 0 0 0;
 }
 
 .user {
   display: flex;
+  margin: 10px 0 0 0;
+}
+
+.review_title {
+  margin: 10px 0 0 0;
 }
 
 .profile_img {
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
+  /* margin: 0 15px 0 0; */
 }
 
-.username {
-  margin: auto auto auto 15px;
+.name_date {
+  margin: 0 0 0 15px;
+}
+
+.review_created_dt {
+  color: rgb(182, 182, 182);
 }
 
 .review_img {
-  width: 300px;
+  max-width: 300px;
+  margin-top: 10px;
+}
+
+.save_review {
+  margin-left: auto;
+  margin-right: 10px;
 }
 
 .movie_poster {
@@ -103,4 +121,17 @@
   margin-bottom: 50px;
   background-color: rgba(59, 59, 59, 0.7);
   min-height: 370px;
+}
+
+/* review submit */
+
+.review_info_update {
+  /* min-height: 411px; */
+  border: 3px;
+  border-style: solid;
+  border-color: rgb(255, 255, 255, 0.9);
+  border-radius: 15px;
+  /* margin-bottom: 50px; */
+  background-color: rgba(59, 59, 59, 0.7);
+  height: 400px !important;
 }

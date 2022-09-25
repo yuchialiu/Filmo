@@ -8,10 +8,10 @@ block head
 
 block content 
   body
-    div.main_outer_search.justify-content-center
+    div.main_outer_search(class='d-flex justify-content-center')
       //- div#movie_id(data-id=`${data.movie_id}`) 
       - if (data === 'empty')
-        h1 Cannot Find the Movie You're Searching For
+        h1.no_review Cannot Find the Movie You're Searching For
       - else 
         div.movie_search.justify-content-flex-start           
           - for (let i =  0 ; i < data.length; i++)

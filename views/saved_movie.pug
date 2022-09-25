@@ -34,8 +34,8 @@ block content
             span#logout_btn Log out
 
       //- div.col-10
-      div.justify-content-center
-        div.movie.justify-content-flex-start
+      div(class='d-flex justify-content-center')
+        div.movie(class='d-flex justify-content-flex-start')
           - for (let i = 0; i < data.length; i++)
             div.movie_item
               a.list_link(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)

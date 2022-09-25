@@ -54,6 +54,7 @@
 }
 
 .review_movie {
+  min-height: 411px;
   border: 3px;
   border-style: solid;
   border-color: rgb(255, 255, 255, 0.9);
@@ -61,6 +62,7 @@
   margin-bottom: 50px;
   background-color: rgba(59, 59, 59, 0.7);
   min-height: 300px;
+  margin: 0 30px 50px 30px !important;
 }
 
 .to_submit_page {
@@ -98,4 +100,7 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+}
+.save_review {
+  margin-left: 253px !important;
 }

@@ -1,8 +1,12 @@
 .main {
-  margin-top: 150px !important;
+  margin-top: 30px !important;
   /* display: flex;
   align-items: flex-start;
   flex-direction: row; */
+}
+.submit {
+  text-align-last: center;
+  margin-top: 120px;
 }
 
 .row {
@@ -16,7 +20,7 @@
   /* position: -webkit-sticky; */
   /* position: sticky; */
   /* top: 60px; */
-  margin: 0 60px 0 50px;
+  margin: 0 60px 0 60px;
 }
 .movie_poster {
   width: 220px;
@@ -51,9 +55,6 @@
   margin-top: 10px;
   height: 290px;
 }
-.submit {
-  text-align-last: center;
-}
 
 #submit_review {
   /* margin: 350px 0 0 -315px; */
@@ -84,4 +85,47 @@
 #submit_review:hover {
   background-color: #fff;
   color: #e75e8d;
+}
+
+/* update */
+
+#update_review {
+  font-size: 14px;
+  color: #fff;
+  background-color: #e75e8d;
+  padding: 12px 30px;
+  display: inline-block;
+  border-radius: 25px;
+  font-weight: 400;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  border: 0;
+
+  text-align: center;
+}
+#update_review :active,
+#update_review :focus {
+  background-color: #e75e8d;
+  color: #fff;
+  box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2);
+}
+
+#update_review:hover {
+  background-color: #fff;
+  color: #e75e8d;
+}
+
+.sidebar_review_update {
+  min-height: 200px;
+  margin: 0 50px 0 -20px;
+}
+
+.review_form_update {
+  margin-left: 30px;
+}
+.image_update {
+  margin-top: 42px;
 }
