@@ -13,7 +13,7 @@ block content
       div.outer.row
         div.sidebar_nosticky.col-3
           a(href=`/movie?id=${data.movie[0].movie_id}&locale=${locale}`, alt='')
-            img.movie_poster(src= `${data.movie[0].poster}`)
+            img.movie_poster(src= `${data.movie[0].poster}`, alt='Poster')
             p.movie_title  #{data.movie[0].title}   
         div.no_review.col-5
           h1.no_review_text Currently no review 
@@ -24,7 +24,7 @@ block content
         div.movie_to_review
           button.to_submit_page(type='button') Submit Review
         a(href=`/movie?id=${data.movie[0].movie_id}&locale=${locale}`, alt='')
-          img.movie_poster(src= `${data.movie[0].poster}`)
+          img.movie_poster(src= `${data.movie[0].poster}`, alt='Poster')
           p.movie_title  #{data.movie[0].title}   
       div.all_review.col-7
         - for (let i = 0; i < data.info.length ; i++)
@@ -32,20 +32,20 @@ block content
             div.review_content 
               div.user.flex-row         
                 div.user
-                  img.profile_img(src= `${data.info[i].profile_image}`, alt='')
+                  img.profile_img(src= `${data.info[i].profile_image}`, alt='Profile Image')
                   div.name_date.flex-column                  
                     p.username #{data.info[i].username}
                     p.review_created_dt #{data.info[i].created_dt}
                   div.save_review
                     button.save_review_button(type='submit' value=`${data.info[i].review_id}`) Save Review
 
-
-              a(href=`/review/info?id=${data.info[i].review_id}&locale=${locale}`)
-                //- h3 review# #{data.info[i].review_id}
-                h3.review_title #{data.info[i].review_title}
-                img.review_img(src= `${data.info[i].image}`, alt='')
-              p.review_text #{data.info[i].content}
-              //- p.review_updated_dt #{data.info[i].updated_dt}
+              div.ms-15
+                a(href=`/review/info?id=${data.info[i].review_id}&locale=${locale}`)
+                  //- h3 review# #{data.info[i].review_id}
+                  h3.review_title #{data.info[i].review_title}
+                  img.review_img(src= `${data.info[i].image}`, alt='')
+                p.review_text #{data.info[i].content}
+                //- p.review_updated_dt #{data.info[i].updated_dt}
 
             //- a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`, alt='')
             //-   img.movie_poster(src= `${data[i].poster}`)

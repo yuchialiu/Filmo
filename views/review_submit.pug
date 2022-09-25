@@ -14,7 +14,7 @@ block content
     div.main.row
       div.sidebar.col-2
         a(href=`/movie?id=${data.movie_id}&locale=${locale}`, alt='')
-          img.movie_poster(src= `${data.poster}`)
+          img.movie_poster(src= `${data.poster}`, alt='Poster')
           p.movie_title #{data.title}   
 
       //- div.movie

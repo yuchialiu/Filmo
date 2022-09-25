@@ -146,3 +146,43 @@
   top: 50px !important;
   right: 189px !important;
 }
+
+.to_submit_page,
+.see_review {
+  /* margin: 350px 0 0 -315px; */
+  font-size: 14px;
+  color: #fff;
+  background-color: #e75e8d;
+  padding: 12px 30px;
+  display: inline-block;
+  border-radius: 25px;
+  font-weight: 400;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  border: 0;
+
+  text-align: center;
+}
+
+.to_submit_page:active,
+.see_review:active,
+.to_submit_page:focus,
+.see_review:focus {
+  background-color: #e75e8d;
+  color: #fff;
+  box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2);
+}
+
+.to_submit_page:hover,
+.see_review:hover {
+  background-color: #fff;
+  color: #e75e8d;
+}
+
+.movie_to_review,
+.movie_to_see_review {
+  margin: 0 10px;
+}

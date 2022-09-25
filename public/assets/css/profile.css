@@ -38,10 +38,12 @@
 #user_info {
   display: grid;
   justify-content: center;
+  margin: 30px 0 0 0;
 }
 #name,
 #email {
   display: flex;
+  margin: 5px 0;
 }
 
 #name_title,

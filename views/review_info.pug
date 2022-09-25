@@ -14,23 +14,23 @@ block content
     div.sidebar_review_info.col-3
       div.movie_to_review
         button.to_submit_page(type='button') Submit Review
-      a(href=`/movie?id=${data[0].movie_id}&locale=${locale}`, alt='')
-        img.movie_poster(src= `${data[0].poster}`)
+      a(href=`/movie?id=${data[0].movie_id}&locale=${locale}`)
+        img.movie_poster(src= `${data[0].poster}`, alt='Poster')
         p.movie_title  #{data[0].title}  
     div.outer_review_info.col-6
       div.review
         div.review_content
           div.user.flex-row          
-            img.profile_img(src= `${data[0].profile_image}`, alt='')          
+            img.profile_img(src= `${data[0].profile_image}`, alt='Profile Image')          
             div.name_date.flex-column
               p.username #{data[0].username}
               p.review_created_dt #{data[0].created_dt}   
             div.save_review
               button.save_review_button(type='submit') Save Review           
-
-          h3.review_title #{data[0].review_title}
-          img.review_img(src= `${data[0].image}`, alt='')
-          p.review_text #{data[0].content}
+          div.ms-15
+            h3.review_title #{data[0].review_title}
+            img.review_img(src= `${data[0].image}`, alt='')
+            p.review_text #{data[0].content}
 
           //- p.review_updated_dt updated at #{data[0].updated_dt}
 
