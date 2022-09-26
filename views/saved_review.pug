@@ -52,7 +52,7 @@ block content
                   a(href=`/review/info?id=${data[i].review_id}&locale=${locale}`)
                     h4.review_title #{data[i].review_title}
                   p.movie_title #{data[i].movie_title}     
-                div.save_review
+                div.save_review          
                   button.delete_saved_review(type='submit' value=`${data[i].review_id}`) 
                     i18n(vanilla-i18n='remove') Remove
 
@@ -74,10 +74,10 @@ block content
 
   script(type='text/javascript').
     //- const locale = !{ locale };
-
     $('.delete_saved_review').on('click', async (e) => {
       e.preventDefault();
-      let review_id = e.target.value;
+      const review_id = e.target.value;
+      console.log(review_id)
 
       try {
         const data = JSON.stringify({

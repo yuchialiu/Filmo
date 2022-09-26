@@ -58,10 +58,11 @@ block content
 
   script(type='text/javascript').
     //- const locale = !{ locale };
-
     $('.delete_saved_movie').on('click', async (e) => {
       e.preventDefault();
-      let movie_id = e.target.value;
+      const movie_id = e.target.value;
+      console.log(movie_id)
+      console.log("e", e.target.value)
 
       try {
         const data = JSON.stringify({

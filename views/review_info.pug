@@ -23,7 +23,7 @@ block content
         div.review_movie.d-flex
           div
             a(href=`/movie?id=${data[0].movie_id}&locale=${locale}`)
-            img.movie_poster_saved(src= `${data[0].poster}`, alt='Poster')
+              img.movie_poster_saved(src= `${data[0].poster}`, alt='Poster')
           div
             h4.review_title #{data[0].review_title}
             p.movie_title  #{data[0].title}

@@ -17,6 +17,7 @@
   overflow: hidden;
   border: 0;
   margin: 0;
+  margin-left: 8px;
 }
 
 .save_review_button:active,
@@ -27,7 +28,6 @@
   color: #e75e8d;
   box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2);
 }
-
 .save_review_button:focus,
 .delete_saved_review:focus,
 .save_movie_button:focus,

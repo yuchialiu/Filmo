@@ -18,7 +18,7 @@ const CreateUser = async (username, role, email, password) => {
       role,
       email: email.toLowerCase(),
       password: bcrypt.hashSync(password, salt),
-      picture: null,
+      picture: 'images/uploads/clownfish.png',
       // access_expired: TOKEN_EXPIRE,
     };
 

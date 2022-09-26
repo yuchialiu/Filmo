@@ -239,7 +239,7 @@ const showProfileReview = async (req, res) => {
       user_id: resultAccount.id,
       username: resultAccount.username,
       profile_image: `${AWS_CLOUDFRONT_DOMAIN}/${resultAccount.profile_image}`,
-      id: resultReview[i].id,
+      review_id: resultReview[i].id,
       review_title: resultReview[i].title,
       content: resultReview[i].content,
       image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultReview[i].image}`,
