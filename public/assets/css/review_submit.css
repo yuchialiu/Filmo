@@ -38,9 +38,7 @@
 }
 
 .review_submit {
-  /* margin: 0 20px 0 15px; */
   color: white;
-  /* height: 500px; */
 }
 
 #review_title {
@@ -130,12 +128,16 @@
 
 .sidebar_review_update {
   min-height: 200px;
-  margin: 0 50px 0 -20px;
 }
 
 .review_form_update {
   margin-left: 30px;
 }
+
+#main_update {
+  display: flex;
+  justify-content: center;
+}
 .image_update {
-  margin-top: 42px;
+  margin-left: 50px;
 }

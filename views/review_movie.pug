@@ -1,8 +1,8 @@
 extends layout.pug 
 
 block head
+  link(rel='stylesheet', href='/public/assets/css/review.css', type='text/css')
   link(rel='stylesheet', href='/public/assets/css/review_movie.css', type='text/css')
-  //- link(rel='stylesheet', href='/public/assets/css/review.css', type='text/css')
   link(rel='stylesheet', href='/public/assets/css/save_button.css', type='text/css')
 
   script(src='https://code.jquery.com/jquery-3.5.1.min.js', type="text/javascript")
@@ -29,29 +29,33 @@ block content
           img.movie_poster_movie(src= `${data.movie[0].poster}`, alt='Poster')
           p.movie_title  #{data.movie[0].title}   
       div.all_review.col-6
-        - for (let i = 0; i < data.info.length ; i++)
-          div.review_movie
-            div.review_content 
-              div.user.flex-row         
-                div.user
-                  img.profile_img(src= `${data.info[i].profile_image}`, alt='Profile Image')
-                  div.name_date.flex-column                  
-                    p.username #{data.info[i].username}
-                    p.review_created_dt #{data.info[i].created_dt}
-                  div.save_review
-                    button.save_review_button(type='submit' value=`${data.info[i].review_id}`) Save
+        div.outer_review_account
+          - for (let i = 0; i < data.info.length ; i++)
+            div.review_account 
+              div.item_movie     
+                div.d-flex
+                  div.user
+                    img.profile_img(src= `${data.info[i].profile_image}`, alt='Profile Image')
+                    //- div.name_date.flex-column                  
+                    p.username #{data.info[i].username}                    
+                div
+                  a(href=`/review/info?id=${data.info[i].review_id}&locale=${locale}`)
+                    h3.review_title #{data.info[i].review_title}
+                div.save_review
+                  button.save_review_button(type='submit' value=`${data.info[i].review_id}`) Save
 
-              div.ms-15
-                a(href=`/review/info?id=${data.info[i].review_id}&locale=${locale}`)
-                  //- h3 review# #{data.info[i].review_id}
-                  h3.review_title #{data.info[i].review_title}
-                  img.review_img(src= `${data.info[i].image}`, alt='')
+              div.ms-80
+                img.review_img(src= `${data.info[i].image}`, alt='')
                 p.review_text #{data.info[i].content}
-                //- p.review_updated_dt #{data.info[i].updated_dt}
 
-            //- a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`, alt='')
-            //-   img.movie_poster(src= `${data[i].poster}`)
-            //-   p #{data[i].title}
+              div.bottom  
+                p.review_created_dt #{data.info[i].created_dt}  
+                  //- p.review_updated_dt #{data.info[i].updated_dt}
+              
+              //- h3 review# #{data.info[i].review_id}
+              //- a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`, alt='')
+              //-   img.movie_poster(src= `${data[i].poster}`)
+              //-   p #{data[i].title}
 
  
 

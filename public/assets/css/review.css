@@ -138,19 +138,6 @@
   min-width: 510px !important;
 }
 
-/* review submit */
-
-.review_info_update {
-  /* min-height: 411px; */
-  border: 3px;
-  border-style: solid;
-  border-color: rgb(255, 255, 255, 0.9);
-  border-radius: 5px;
-  /* margin-bottom: 50px; */
-  background-color: rgba(59, 59, 59, 0.7);
-  height: 400px !important;
-}
-
 /* review account */
 .bottom {
   display: flex;

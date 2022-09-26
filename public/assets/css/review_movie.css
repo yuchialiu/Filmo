@@ -22,10 +22,10 @@
   margin: -456px 0 0 350px;
 }
 
-.movie_title {
+/* .movie_title {
   font-size: medium;
   width: 220px;
-}
+} */
 
 .movie_poster {
   width: 220px;
@@ -57,7 +57,7 @@
   width: 220px;
 }
 
-.review_movie {
+/* .review_movie {
   min-height: 411px;
   border: 2px;
   border-style: solid;
@@ -67,7 +67,7 @@
   background-color: rgba(59, 59, 59, 0.7);
   min-height: 300px;
   margin: 0 30px 50px 30px !important;
-}
+} */
 
 .to_submit_page {
   font-size: 14px;
@@ -105,6 +105,18 @@
   align-items: center;
   margin-bottom: 20px;
 }
-.save_review {
+/* .save_review {
   margin-left: 190px !important;
+} */
+
+.item {
+  display: flex;
+}
+.ms-80 {
+  margin-left: 80px;
+}
+.item_movie {
+  display: flex;
+  justify-content: center;
+  height: 60px;
 }
