@@ -39,8 +39,9 @@ block content
                 div.d-flex
                   div.user
                     img.profile_img(src= `${data.info[i].profile_image}`, alt='Profile Image')
-                    //- div.name_date.flex-column                  
-                    p.username #{data.info[i].username}                    
+                    //- div.name_date.flex-column  
+                    div.name_date                
+                      p.username #{data.info[i].username}                    
                 div
                   a(href=`/review/info?id=${data.info[i].review_id}&locale=${locale}`)
                     h3.review_title #{data.info[i].review_title}

@@ -30,7 +30,9 @@
   margin: 10px 10px;
   width: 60px;
 }
-
+.name_date {
+  width: 60px;
+}
 .username {
   margin-top: 5px;
   text-align: center;
