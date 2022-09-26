@@ -31,11 +31,12 @@
   width: 60px;
 }
 .name_date {
-  width: 60px;
+  width: 60px !important;
 }
 .username {
   margin-top: 5px;
   text-align: center;
+  font-size: small;
 }
 
 .review_title {
