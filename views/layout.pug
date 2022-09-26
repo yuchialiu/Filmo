@@ -21,7 +21,7 @@ head
         debug: false,
         i18n_attr_name: "vanilla-i18n",
         toggler_id: "vanilla-i18n-toggler",
-        default_language: "zh-TW",
+        default_language: languages[0],
       }
     );
       
@@ -56,7 +56,7 @@ header.header-area.header-sticky
         nav.main-nav
           // ***** Logo Start *****
           a.logo(href=`/home?locale=${locale}`)
-            img(src='/public/assets/images/logo0920.png' alt='')
+            img(src='https://d2idt211kyg8ql.cloudfront.net/images/filmo0926.png' alt='')
           // ***** Logo End *****
           // ***** Search End *****
           .search-input
@@ -78,38 +78,18 @@ header.header-area.header-sticky
             div.dropdown
               select.dropdown-toggle#vanilla-i18n-toggler
                 if locale == 'en-US'
-                  option(value='en-US' selected) en-US
-                  option(value='zh-TW') zh-TW
-                  option(value='fr-FR') fr-FR
+                  option(value='en-US' selected) En
+                  option(value='zh-TW') ZH
+                  option(value='fr-FR') FR
                 else if locale == 'zh-TW'
-                  option(value='en-US') en-US
-                  option(value='zh-TW' selected) zh-TW
-                  option(value='fr-FR') fr-FR
+                  option(value='en-US') EN
+                  option(value='zh-TW' selected) ZH
+                  option(value='fr-FR') FR
                 else if locale == 'fr-FR'
-                  option(value='en-US') en-US
-                  option(value='zh-TW') zh-TW
-                  option(value='fr-FR' selected) fr-FR
-            //- li.dropdown
-            //-   a.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false')
-            //-     | 123
-            //-     //- span.caret
-            //-   ul.dropdown-menu
-            //-     li
-            //-       a(href='#') EN
-            //-     li
-            //-       a(href='#') ZH
-            //-     li
-            //-       a(href='#') FR
-            //-     li
-            //-       a(href='#') Something else here
-            //-     li.divider(role='separator')
-            //-     li
-            //-       a(href='#') Separated link
-            //-     li.divider(role='separator')
-            //-     li
-            //-       a(href='#') One more separated link
-          a.menu-trigger
-            span Menu
+                  option(value='en-US') EN
+                  option(value='zh-TW') ZH
+                  option(value='fr-FR' selected) FR
+          //-   span Menu
           // ***** Menu End *****
 block content
   body.body

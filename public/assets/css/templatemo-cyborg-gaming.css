@@ -475,6 +475,7 @@ Header Style
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
+  margin-top: -4px;
 }
 
 .header-area .main-nav .logo img {

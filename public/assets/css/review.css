@@ -45,8 +45,9 @@
 }
 
 .profile_img {
-  width: 20px;
-  height: 20px;
+  margin-left: 5px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   /* margin: 0 15px 0 0; */
 }

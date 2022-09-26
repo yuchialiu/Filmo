@@ -4,7 +4,7 @@ require('dotenv').config();
 const validator = require('validator');
 const bcrypt = require('bcrypt');
 
-const { SERVER_IP } = process.env;
+const { SERVER_IP, AWS_CLOUDFRONT_DOMAIN } = process.env;
 const User = require('../models/user_model');
 const Movie = require('../models/movie_model');
 
@@ -92,7 +92,8 @@ const signIn = async (req, res) => {
   req.session.userId = user.id;
   req.session.userName = user.username;
   req.session.userEmail = user.email;
-  req.session.userImage = `${SERVER_IP}/public/assets/images/uploads/${user.profile_image}`;
+  // TODO:need to check route
+  req.session.userImage = `${AWS_CLOUDFRONT_DOMAIN}/${user.profile_image}`;
   req.session.isAuth = true;
 
   return res.status(201).send({
@@ -112,7 +113,7 @@ const getUserDetail = async (req, res) => {
       id: req.user.id,
       username: req.user.username,
       email: req.user.email,
-      picture: `${SERVER_IP}/public/assets/images/uploads/${req.user.picture}`,
+      picture: `${AWS_CLOUDFRONT_DOMAIN}/${req.user.picture}`,
     },
   });
 };
@@ -125,7 +126,7 @@ const updateUserImage = async (req, res) => {
   const image = req.files.image[0].key;
 
   const result = await User.updateUserImage(userId, image);
-  req.session.userImage = `${SERVER_IP}/public/assets/images/uploads/${image}`;
+  req.session.userImage = `${AWS_CLOUDFRONT_DOMAIN}/${image}`;
 
   if (result.err) {
     console.log(result.err);
