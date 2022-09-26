@@ -23,9 +23,9 @@
   margin-left: 10px;
 }
 .review_text {
-  margin: 10px 0 0 0;
+  margin: 10px 10px 0 0;
+  min-height: 115px;
 }
-
 .user {
   margin: 10px 10px;
   width: 60px;
@@ -44,9 +44,6 @@
 .review_title {
   margin: 15px 0 10px 0;
   /* min-height: 10px; */
-}
-.review_text {
-  min-height: 115px;
 }
 
 .profile_img {
