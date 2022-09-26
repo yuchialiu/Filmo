@@ -34,8 +34,10 @@ block content
           .col-12.text-center.align-self-center.py-5
             .section.pb-5.pt-5.pt-sm-2.text-center
               h6.mb-0.pb-3
-                span Log In 
-                span Sign Up
+                span 
+                  i18n(vanilla-i18n='login') Log In 
+                span 
+                  i18n(vanilla-i18n='signup') Sign Up
               input#reg-log.checkbox(type='checkbox', name='reg-log')
               label(for='reg-log', style="font-family: 'unicons'")
               .card-3d-wrap.mx-auto
@@ -43,20 +45,23 @@ block content
                   .card-front
                     .center-wrap
                       .section.text-center
-                        h4.mb-4.pb-3 Log In
+                        h4.mb-4.pb-3 
+                          i18n(vanilla-i18n='login') Log In
                         .form-group
                           input#logemail.form-style(type='email', name='logemail', placeholder='Your Email', autocomplete='off')
                           i.input-icon.uil.uil-at
                         .form-group.mt-2
                           input#logpass.form-style(type='password', name='logpass', placeholder='Your Password', autocomplete='off')
                           i.input-icon.uil.uil-lock-alt
-                        button#sign_in_button.button.mt-4(type="button" onclick='signin(event)') submit
+                        button#sign_in_button.button.mt-4(type="button" onclick='signin(event)') 
+                          i18n(vanilla-i18n='submit') Submit
                         //- p.mb-0.mt-4.text-center
                         //-   a.link(href='#0') Forgot your password?
                   .card-back
                     .center-wrap
                       .section.text-center
-                        h4.mb-4.pb-3 Sign Up
+                        h4.mb-4.pb-3 
+                          i18n(vanilla-i18n='signup') Sign Up
                         .form-group
                           input#logname.form-style(type='text', name='logname', placeholder='Your Username', autocomplete='off')
                           i.input-icon.uil.uil-user
@@ -66,7 +71,8 @@ block content
                         .form-group.mt-2
                           input#logpass.form-style(type='password', name='logpass', placeholder='Your Password', autocomplete='off')
                           i.input-icon.uil.uil-lock-alt
-                        button#sign_up_button.button.mt-4(type="button" onclick='signup(event)') submit  
+                        button#sign_up_button.button.mt-4(type="button" onclick='signup(event)') 
+                          i18n(vanilla-i18n='submit') Submit  
     script.
     
       //Sign in

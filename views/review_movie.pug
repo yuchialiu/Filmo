@@ -18,13 +18,16 @@ block content
             img.movie_poster(src= `${data.movie[0].poster}`, alt='Poster')
             p.movie_title  #{data.movie[0].title}   
         div.no_review.col-5
-          h1.no_review_text Currently no review 
+          h1.no_review_text 
+            i18n(vanilla-i18n='no_reivew')Currently no review 
           div.movie_to_review
-            button.to_submit_page(type='button') Submit Review
+            button.to_submit_page(type='button') 
+              i18n(vanilla-i18n='submit_reivew') Submit Review
     - else 
       div.sidebar.col-3
         div.movie_to_review
-          button.to_submit_page(type='button') Submit Review
+          button.to_submit_page(type='button') 
+              i18n(vanilla-i18n='submit_reivew') Submit Review
         a(href=`/movie?id=${data.movie[0].movie_id}&locale=${locale}`, alt='')
           img.movie_poster_movie(src= `${data.movie[0].poster}`, alt='Poster')
           p.movie_title  #{data.movie[0].title}   
@@ -42,7 +45,8 @@ block content
                   a(href=`/review/info?id=${data.info[i].review_id}&locale=${locale}`)
                     h3.review_title #{data.info[i].review_title}
                 div.save_review
-                  button.save_review_button(type='submit' value=`${data.info[i].review_id}`) Save
+                  button.save_review_button(type='submit' value=`${data.info[i].review_id}`) 
+                    i18n(vanilla-i18n='save') Save
 
               div.ms-80
                 img.review_img(src= `${data.info[i].image}`, alt='')

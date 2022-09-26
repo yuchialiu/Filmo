@@ -47,7 +47,8 @@ block content
                     h4.review_title #{data[i].review_title}                    
                   p.movie_title #{data[i].title}           
                 div.save_review
-                  button.save_review_button(type='submit' value=`${data[i].id}`) Save
+                  button.save_review_button(type='submit' value=`${data[i].id}`) 
+                    i18n(vanilla-i18n='save') Save
                 
             div.d-flex
               div.user
@@ -64,9 +65,11 @@ block content
             div.buttons
               div.update_review
                 a(href=`/review/update?id=${data[i].id}&locale=${locale}`) 
-                  button.update_review_button(type='button') Edit
+                  button.update_review_button(type='button') 
+                    i18n(vanilla-i18n='edit') Edit
               div.delete_review
-                button.delete_review_button(type='submit' value=`${data[i].id}`) Delete
+                button.delete_review_button(type='submit' value=`${data[i].id}`) 
+                  i18n(vanilla-i18n='delete') Delete
               //- p.review_num Review# #{data[i].id}
               //- p.review_updated_dt Updated at #{data[i].updated_dt}
   

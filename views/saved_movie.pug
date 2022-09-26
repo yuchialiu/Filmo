@@ -42,7 +42,8 @@ block content
                 p.list_title #{data[i].title}
               //- div.movie_id(data-id=`${data[i].movie_id}`)
               div.delete_button
-                button.delete_saved_movie(type='submit' value=`${data[i].movie_id}`) Remove
+                button.delete_saved_movie(type='submit' value=`${data[i].movie_id}`) 
+                  i18n(vanilla-i18n='remove') Remove
               
 
 

@@ -47,7 +47,8 @@ block content
                     h4.review_title #{data[i].review_title}
                   p.movie_title #{data[i].movie_title}     
                 div.save_review
-                  button.delete_saved_review(type='submit' value=`${data[i].review_id}`) Remove
+                  button.delete_saved_review(type='submit' value=`${data[i].review_id}`) 
+                    i18n(vanilla-i18n='remove') Remove
 
             div.d-flex
               div.user

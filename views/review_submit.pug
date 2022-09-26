@@ -24,18 +24,22 @@ block content
       div.review_submit.col-9.row
         form.review_form.col-6
           div#review_movie_id(name='movieId' data-id=`${data.movie_id}`) 
-            h5.title Title
+            h5.title 
+              i18n(vanilla-i18n='title') Title
               br
               input#review_title(type='text' name='title' placeholder='Title' maxlength='255')
-            h5.content Content
+            h5.content 
+              i18n(vanilla-i18n='content') Content
               br
               textarea#review_content(type='text' name='content' placeholder='Review')
         div.col-4.row
-          h5.image.row-10 Image (optional)
+          h5.image.row-10 
+            i18n(vanilla-i18n='image') Image
             br
             input.image_choose(name='image' type='file')        
     div.submit
-      button#submit_review Submit  
+      button#submit_review 
+        i18n(vanilla-i18n='submit') Submit  
 
   script(type='text/javascript').
     //- let locale = !{locale}

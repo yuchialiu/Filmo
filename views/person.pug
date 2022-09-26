@@ -14,19 +14,23 @@ block content
       h1#name #{data.name}
       div#main_info
         - if (data.birthday)
-          p#born Born 
+          p#born 
+            i18n(vanilla-i18n='born') Born 
           p#birthday #{data.birthday}
         - if (data.deathday != 'Invalid Date')
-          p#died Died
+          p#died 
+            i18n(vanilla-i18n='died') Died
           p#deathday #{data.deathday}
         - if (data.place_of_birth)
-          p#from From
+          p#from 
+            i18n(vanilla-i18n='from') From
           p#place #{data.place_of_birth}
       img#image(src=`${data.image}`)
       div.readmore
         p#biography #{data.biography}
 
-      div#other_movie Filmography
+      div#other_movie 
+        i18n(vanilla-i18n='filmography') Filmography
         br
         div
           div.other_cast_div
