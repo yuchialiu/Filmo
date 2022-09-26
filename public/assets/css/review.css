@@ -44,6 +44,7 @@
 .review_title {
   margin: 15px 0 10px 0;
   /* min-height: 10px; */
+  font-size: 20px !important;
 }
 
 .profile_img {
