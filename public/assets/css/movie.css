@@ -8,13 +8,19 @@
 
 .top_buttons {
   display: flex;
-  justify-content: center;
+  justify-content: right;
+  /* margin-top: 150px; */
+  margin-right: 75px;
 }
-.movie_to_review.movie_to_rating.movie_to_see_review.save_movie {
-  margin: 100px 100px 20px 500px;
+.movie_to_review.movie_to_rating.movie_to_see_review {
+  /* margin: 100px 100px 20px 500px; */
   display: flex;
 }
-
+.title_save {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
 #release_date {
   width: 50px;
 }
@@ -31,12 +37,14 @@
 .title_area {
   margin-bottom: 10px;
   line-height: 0.8;
+  margin-top: 30px;
+  width: 1113px;
 }
 
 #title {
   text-align: left;
-  padding-top: 30px;
-  margin-top: 20px;
+  /* padding-top: 30px; */
+  /* margin-top: 30px; */
 }
 
 #original_title {
@@ -48,12 +56,12 @@
 
 .subtitle {
   margin-bottom: 20px;
-  width: 200px;
+  width: 260px;
   display: flex; /* establish flex container */
   flex-direction: row; /* default value; can be omitted */
   flex-wrap: nowrap; /* default value; can be omitted */
   justify-content: space-between; /* switched from default (flex-start, see below) */
-  letter-spacing: 0.8px !important;
+  letter-spacing: 0.5px !important;
 }
 
 #media {

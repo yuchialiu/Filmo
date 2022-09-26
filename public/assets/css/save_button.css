@@ -1,0 +1,46 @@
+.save_review_button,
+.delete_saved_review,
+.save_movie_button,
+.delete_saved_movie {
+  font-size: 10px;
+  color: #e75e8d;
+  background-color: #ffffff;
+  /* padding: 12px 30px; */
+  padding: 6px 10px;
+  display: inline-block;
+  border-radius: 25px;
+  font-weight: 400;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  margin: 0;
+}
+
+.save_review_button:active,
+.delete_saved_review:active,
+.save_movie_button:active,
+.delete_saved_movie:active {
+  background-color: #fff;
+  color: #e75e8d;
+  box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2);
+}
+
+.save_review_button:focus,
+.delete_saved_review:focus,
+.save_movie_button:focus,
+.delete_saved_movie:focus {
+  background-color: #fff;
+  color: #e75e8d;
+  box-shadow: 0 8px 24px 0 rgba(16, 39, 112, 0.2);
+}
+
+.save_review_button:hover,
+.delete_saved_review:hover,
+.save_movie_button:hover,
+.delete_saved_movie:hover {
+  background-color: #e75e8d;
+  color: #fff;
+}

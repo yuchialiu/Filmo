@@ -72,6 +72,11 @@
   color: white;
 }
 
+.image_form {
+  color: white;
+  margin-top: 30px;
+}
+
 /* Sidebar sizes when expanded and expanded */
 #sidebar-container {
   /* margin-top: 120px; */

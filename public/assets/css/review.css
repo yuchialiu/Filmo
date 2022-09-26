@@ -6,15 +6,19 @@
   margin-top: 100px;
 }
 
-.review {
+.outer_review_account {
+  margin-left: 100px;
+}
+
+/* .review {
   min-height: 411px;
   border: 3px;
   border-style: solid;
   border-color: rgb(255, 255, 255, 0.9);
-  border-radius: 15px;
+  border-radius: 5px;
   margin-bottom: 50px;
-  background-color: rgba(59, 59, 59, 0.7);
-}
+  background-color: rgba(155, 155, 155, 0.7);
+} */
 .review_content {
   margin-left: 10px;
 }
@@ -23,8 +27,13 @@
 }
 
 .user {
-  display: flex;
-  margin: 10px 0 0 0;
+  margin: 10px 10px;
+  width: 60px;
+}
+
+.username {
+  margin-top: 5px;
+  text-align: center;
 }
 
 .review_title {
@@ -36,23 +45,17 @@
 }
 
 .profile_img {
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   /* margin: 0 15px 0 0; */
 }
 
-.ms-15 {
-  margin-left: 15px;
-}
-
-.name_date {
-  margin: 0 0 0 15px;
-}
-
 .review_created_dt {
-  width: 230px;
+  /* width: 230px; */
+
   color: rgb(161, 157, 157);
+  margin-right: 5px;
 }
 
 .review_img {
@@ -61,8 +64,7 @@
 }
 
 .save_review {
-  margin-left: auto;
-  margin-right: 10px;
+  margin: 5px 5px 0 auto;
 }
 
 .movie_poster {
@@ -71,7 +73,8 @@
 
 .movie_poster_saved,
 .movie_poster_account {
-  width: 160px;
+  width: 60px;
+  margin: 10px 10px;
 }
 
 .movie {
@@ -111,27 +114,23 @@
 .main_outer {
   margin-top: 120px !important;
 }
-.movie_poster_saved,
-.movie_poster_account {
-  margin-top: 3px;
-}
 
 .review_movie {
-  margin: 0 30px 0 30px;
 }
 
 .item {
-  margin: 0 auto !important;
-  align-items: stretch;
-  min-height: 160px;
+  /* margin: 0 auto !important; */
+  /* align-items: stretch; */
+  /* min-height: 160px; */
 }
 
 .review_account,
-.review_saved {
-  border: 2px;
+.review_saved,
+.review_info {
+  border: 3px;
   border-style: solid;
   border-color: rgba(131, 128, 128, 0.9);
-  border-radius: 15px;
+  border-radius: 5px;
   margin-bottom: 50px;
   background-color: rgba(59, 59, 59, 0.7);
   /* min-height: 370px; */
@@ -146,17 +145,23 @@
   border: 3px;
   border-style: solid;
   border-color: rgb(255, 255, 255, 0.9);
-  border-radius: 15px;
+  border-radius: 5px;
   /* margin-bottom: 50px; */
   background-color: rgba(59, 59, 59, 0.7);
   height: 400px !important;
 }
 
 /* review account */
-.buttons {
+.bottom {
+  display: flex;
   justify-content: right;
-  margin-bottom: 5px;
-  margin-right: -8px;
+  /* align-items: flex-end; */
+}
+.buttons {
+  display: flex;
+  justify-content: right;
+  margin-bottom: 1px;
+  margin-right: 0px;
 }
 
 .update_review_button,
@@ -196,4 +201,9 @@
 
 .review_movie_all {
   width: 17% !important;
+}
+.outer_review_info {
+  margin: 150px auto;
+  min-width: 510px !important;
+  max-width: 710px !important;
 }

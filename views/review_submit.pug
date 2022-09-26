@@ -9,8 +9,7 @@ block head
 block content 
   body 
 
-    div.submit
-      button#submit_review Submit  
+
     div.main.row
       div.sidebar.col-2
         a(href=`/movie?id=${data.movie_id}&locale=${locale}`, alt='')
@@ -35,7 +34,8 @@ block content
           h5.image.row-10 Image (optional)
             br
             input.image_choose(name='image' type='file')        
-
+    div.submit
+      button#submit_review Submit  
 
   script(type='text/javascript').
     //- let locale = !{locale}

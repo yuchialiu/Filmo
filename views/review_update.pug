@@ -11,9 +11,8 @@ block head
 block content 
 
   div.review_id(data-id=`${data[0].review_id}`) 
-  div.submit
-    button#update_review Update  
-  .main.row(class='d-flex justify-content-center')
+
+  .main.row.height(class='d-flex justify-content-center')
     div.sidebar_review_update.col-2
       a(href=`/movie?id=${data[0].movie_id}&locale=${locale}`)
         img.movie_poster(src= `${data[0].poster}`, alt='Poster')
@@ -49,7 +48,8 @@ block content
           h5.image_update Image (optional)
             br
             input.image_choose(name='image' type='file')        
-
+  div.submit
+    button#update_review Update  
 
   script(type='text/javascript').
     //- let locale = !{locale}
