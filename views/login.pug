@@ -63,13 +63,13 @@ block content
                         h4.mb-4.pb-3 
                           i18n(vanilla-i18n='signup') Sign Up
                         .form-group
-                          input#logname.form-style(type='text', name='logname', placeholder='Your Username', autocomplete='off')
+                          input#regisname.form-style(type='text', name='regisname', placeholder='Your Username', autocomplete='off')
                           i.input-icon.uil.uil-user
                         .form-group.mt-2
-                          input#logemail.form-style(type='email', name='logemail', placeholder='Your Email', autocomplete='off')
+                          input#regisemail.form-style(type='email', name='regisemail', placeholder='Your Email', autocomplete='off')
                           i.input-icon.uil.uil-at
                         .form-group.mt-2
-                          input#logpass.form-style(type='password', name='logpass', placeholder='Your Password', autocomplete='off')
+                          input#regispass.form-style(type='password', name='regispass', placeholder='Your Password', autocomplete='off')
                           i.input-icon.uil.uil-lock-alt
                         button#sign_up_button.button.mt-4(type="button" onclick='signup(event)') 
                           i18n(vanilla-i18n='submit') Submit  
@@ -111,8 +111,10 @@ block content
 
       async function signup(event){
         event.preventDefault()
-
-        if ($('#logname').val() == "" || $('#logemail').val() == "" ||  $('#logpass').val() == "") {
+        console.log($('#regisname').val())
+        console.log($('#regisemail').val())
+        console.log($('#regispass').val())
+        if ($('#regisname').val() == "" || $('#regisemail').val() == "" ||  $('#regispass').val() == "") {
             alert("Please fill in all blank before register");
             return
         }
@@ -122,9 +124,9 @@ block content
               url: '/api/1.0/user/signup',
               responseType: 'json',
               data: {
-              username: $('#logname').val(),
-              email: $('#logemail').val(),
-              password: $('#logpass').val()
+                username: $('#regisname').val(),
+                email: $('#regisemail').val(),
+                password: $('#regispass').val()
               }
           })
           console.log(signup_response);

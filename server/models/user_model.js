@@ -19,23 +19,23 @@ const CreateUser = async (username, role, email, password) => {
       email: email.toLowerCase(),
       password: bcrypt.hashSync(password, salt),
       picture: null,
-      access_expired: TOKEN_EXPIRE,
+      // access_expired: TOKEN_EXPIRE,
     };
 
     const sql = 'INSERT INTO `user` (username, email, password, profile_image, role) VALUES (?, ?, ?, ?, ?)';
     const [result] = await pool.execute(sql, [user.username, user.email, user.password, user.picture, user.role]);
     user.id = result.insertId;
 
-    const accessToken = jwt.sign(
-      {
-        username: user.username,
-        email: user.email,
-        role: user.role,
-      },
-      TOKEN_SECRET
-    );
+    // const accessToken = jwt.sign(
+    //   {
+    //     username: user.username,
+    //     email: user.email,
+    //     role: user.role,
+    //   },
+    //   TOKEN_SECRET
+    // );
 
-    user.access_token = accessToken;
+    // user.access_token = accessToken;
 
     return { user };
   } catch (err) {
