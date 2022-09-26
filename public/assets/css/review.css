@@ -30,13 +30,15 @@
   margin: 10px 10px;
   width: 60px;
 }
-.name_date {
+/* .name_date {
   width: 60px !important;
-}
+} */
 .username {
   margin-top: 5px;
   text-align: center;
-  font-size: small;
+  font-size: small !important;
+  word-wrap: break-word;
+  line-height: 16px;
 }
 
 .review_title {
