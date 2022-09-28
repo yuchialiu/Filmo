@@ -1,7 +1,4 @@
-const User = require('../server/models/user_model');
-
-const { TOKEN_SECRET, PROTOCOL, AWS_BUCKET_NAME } = process.env; // 30 days by seconds
-const jwt = require('jsonwebtoken');
+const { AWS_BUCKET_NAME } = process.env; // 30 days by seconds
 const { promisify } = require('util'); // util from native nodejs library
 const multer = require('multer');
 const crypto = require('crypto');

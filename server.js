@@ -37,6 +37,18 @@ app.use('/', [require('./server/routes/page_route')]);
 app.use(`/api/${API_VERSION}/user`, [require('./server/routes/user_route')]);
 app.use(`/api/${API_VERSION}`, [require('./server/routes/crawler_route'), require('./server/routes/movie_route')]);
 
+// Handle 404
+app.use((req, res, next) => {
+  console.log('404', req.url);
+  return res.render('404');
+});
+
+// Handle 500
+app.use((err, req, res, next) => {
+  console.log('error handler: ', err);
+  return res.render('500');
+});
+
 // Server Port
 const port = 3000;
 app.listen(port, () => {

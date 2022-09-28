@@ -57,9 +57,9 @@
 
 .review_created_dt {
   /* width: 230px; */
-
+  font-size: 14px !important;
   color: rgb(161, 157, 157);
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .review_img {

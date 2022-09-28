@@ -37,7 +37,7 @@ block content
               i18n(vanilla-i18n='saved_movies') Saved Movies
           a(class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
             i(class="fas fa-sign-out-alt")
-            span#logout_btn 
+            button(type='button')#logout_btn 
               i18n(vanilla-i18n='logout') Log out
 
     
@@ -83,64 +83,82 @@ block content
   script(src='/public/assets/js/profile_sidebar.js')
 
   script(type='text/javascript').
+    $(async () => {
+      const locale = !{ locale_string };
+      //- let locale = !{locale}
 
-    //- let locale = !{locale}
+      // logout
+      async function logout(e) {
+        e.preventDefault();        
 
-    $('.save_review_button').on('click', async (e) => {
-      e.preventDefault(); 
-      let review_id = e.target.value;
-      console.log(review_id)
-
-      try {
-        const data = JSON.stringify({
-          review_id,
+        await axios({
+          method: 'get',
+          url: '/api/1.0/user/logout',
         });
-
-        const result = await axios({
-          method: 'POST',
-          url: '/api/1.0/user/store/review',
-          data,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        alert('review saved successfully')
-        window.location.href = `/store/review?locale=${locale}` ;
-
-      } catch {
-        alert('review saved or not existed');
-        console.log('err: ', err);
+        alert("You have successfully logged out!");
+        window.location.href = `/home?locale=${locale}`;
       }
+      
+      $('#logout_btn').on('click', logout);
+
+      $('.save_review_button').on('click', async (e) => {
+        e.preventDefault(); 
+        let review_id = e.target.value;
+        console.log(review_id)
+
+        try {
+          const data = JSON.stringify({
+            review_id,
+          });
+
+          const result = await axios({
+            method: 'POST',
+            url: '/api/1.0/user/store/review',
+            data,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          alert('review saved successfully')
+          window.location.href = `/store/review?locale=${locale}` ;
+
+        } catch {
+          alert('review saved or not existed');
+          console.log('err: ', err);
+        }
+
+      });
+
+      $('.delete_review_button').on('click', async (e) => {
+        e.preventDefault(); 
+        let review_id = e.target.value;
+        console.log(review_id)
+
+        try {
+          const data = JSON.stringify({
+            review_id,
+          });
+
+          const result = await axios({
+            method: 'DELETE',
+            url: '/api/1.0/user/review',
+            data,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          alert('review deleted successfully')
+          window.location.href = `/profile/review?locale=${locale}` ;
+
+        } catch {
+          alert('review deleted or not existed');
+          console.log('err: ', err);
+        }
+
+      });    
 
     });
 
-    $('.delete_review_button').on('click', async (e) => {
-      e.preventDefault(); 
-      let review_id = e.target.value;
-      console.log(review_id)
-
-      try {
-        const data = JSON.stringify({
-          review_id,
-        });
-
-        const result = await axios({
-          method: 'DELETE',
-          url: '/api/1.0/user/review',
-          data,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        alert('review deleted successfully')
-        window.location.href = `/profile/review?locale=${locale}` ;
-
-      } catch {
-        alert('review deleted or not existed');
-        console.log('err: ', err);
-      }
-
-    });    
     //- let token = localStorage.getItem('Authorization');
     
     //- window.addEventListener('load', async function (event) {

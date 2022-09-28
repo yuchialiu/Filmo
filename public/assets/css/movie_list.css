@@ -27,11 +27,21 @@
 .list_img {
   height: 400px !important;
 }
+.list_img:hover {
+  -webkit-filter: brightness(110%);
+  border: 3px solid;
+}
+
 .list_title {
   font-size: medium;
   margin: 10px auto;
   width: 280px;
   /* height: auto; */
+}
+
+.list_title:hover {
+  color: #e75e8d !important;
+  font-size: 17px;
 }
 
 /* search page */

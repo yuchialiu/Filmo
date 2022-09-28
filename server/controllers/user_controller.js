@@ -74,7 +74,7 @@ const signIn = async (req, res) => {
   if (!email || !password) {
     return res.status(400).send({ error: 'Request Error: email and password are required.' });
   }
-  const { user } = await User.GetUser(email);
+  const user = await User.GetUser(email);
 
   if (user.error) {
     return res.status(400).send("This email hasn't been registered");

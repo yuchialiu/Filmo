@@ -219,7 +219,7 @@ const insertPersonCrawler = async () => {
           crewFileName = null;
         } else {
           const url = `https://image.tmdb.org/t/p/h632${crew[i].profile_path}`;
-          const path = `./public/assets/images/people/${crew[i]}.jpg`;
+          const path = `./public/assets/images/people/${crew[i].id}.jpg`;
           crewFileName = `${crew[i].id}.jpg`;
 
           download(url, path, () => {

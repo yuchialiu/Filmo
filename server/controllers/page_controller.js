@@ -121,7 +121,7 @@ const showMovieInfo = async (req, res) => {
     const response = await getMovieInfo(req);
     res.status(200).render('movie', { data: response, locale, locale_string: JSON.stringify(locale) });
   } catch (err) {
-    res.status(404).render('404');
+    res.status(404).render('404', { locale });
   }
 };
 
@@ -132,7 +132,7 @@ const showMovieInfoForReview = async (req, res) => {
     const response = await getMovieInfo(req);
     res.status(200).render('review_submit', { data: response, locale, locale_string: JSON.stringify(locale) });
   } catch (err) {
-    res.status(404).render('404');
+    res.status(404).render('404', { locale });
   }
 };
 
@@ -211,7 +211,7 @@ const showPersonDetail = async (req, res) => {
     const response = await getPersonDetail(req);
     res.status(200).render('person', { data: response, locale, locale_string: JSON.stringify(locale) });
   } catch (err) {
-    res.status(404).render('404');
+    res.status(404).render('404', { locale });
   }
 };
 
@@ -264,12 +264,12 @@ const showUserSavedReview = async (req, res) => {
   const { locale } = req.query;
 
   const resultSavedReview = await User.getUserSavedReview(userId);
-  const resultAccount = await User.getUserById(userId);
 
   const info = [];
 
   for (const i in resultSavedReview) {
     const resultReview = await User.getReviewInfo(resultSavedReview[i].review_id);
+    const resultAccount = await User.getUserById(resultSavedReview[i].user_id);
 
     for (const j in resultReview) {
       const resultMovie = await Movie.getMovieInfo(resultReview[j].movie_id, locale);
@@ -416,7 +416,7 @@ const showReviewById = async (req, res) => {
     const response = await getReviewInfo(req);
     res.render('review_info', { data: response, locale, locale_string: JSON.stringify(locale) });
   } catch (err) {
-    res.status(404).render('404');
+    res.status(404).render('404', { locale });
   }
 };
 
@@ -427,7 +427,7 @@ const showReviewWhenUpdate = async (req, res) => {
     const response = await getReviewInfo(req);
     res.render('review_update', { data: response, locale, locale_string: JSON.stringify(locale) });
   } catch (err) {
-    res.status(404).render('404');
+    res.status(404).render('404', { locale });
   }
 };
 
@@ -491,7 +491,7 @@ const showReviewByMovieId = async (req, res) => {
       locale_string: JSON.stringify(locale),
     });
   } catch (err) {
-    res.status(404).render('404');
+    res.status(404).render('404', { locale });
   }
 };
 
@@ -520,7 +520,7 @@ const showSearchMovie = async (req, res) => {
 
     res.status(200).render('search', { data: result, locale, locale_string: JSON.stringify(locale) });
   } catch (err) {
-    res.status(404).render('404');
+    res.status(404).render('404', { locale });
   }
 };
 

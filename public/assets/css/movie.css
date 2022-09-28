@@ -100,6 +100,11 @@
 /* .cast_alink.crew_alink {
   width: 150px;
 } */
+.cast_img:hover,
+.crew_img:hover {
+  /* -webkit-filter: brightness(110%); */
+  border: solid;
+}
 
 .cast_list.crew_list {
   margin-left: 55px;
@@ -107,22 +112,21 @@
   justify-content: center;
 }
 
-.cast_name {
-  width: 150px !important;
-}
-
+.cast_name,
 .crew_name {
-  width: 150px !important;
+  max-width: 150px;
 }
 
-.cast_character {
-  color: rgb(145, 145, 145) !important;
-  width: 150px !important;
+.cast_name:hover,
+.crew_name:hover {
+  color: #e75e8d !important;
+  font-size: 16px;
 }
 
+.cast_character,
 .crew_job {
   color: rgb(145, 145, 145) !important;
-  width: 150px !important;
+  max-width: 150px;
 }
 
 .vmc-arrow-left {

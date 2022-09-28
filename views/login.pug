@@ -7,6 +7,10 @@ block head
 
   script(src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css')
   link(rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css")
+
+  script(src="https://unpkg.com/validator@latest/validator.min.js") 
+  script(src='https://unpkg.com/sweetalert/dist/sweetalert.min.js')
+
 block content 
   body 
 
@@ -53,7 +57,7 @@ block content
                         .form-group.mt-2
                           input#logpass.form-style(type='password', name='logpass', placeholder='Your Password', autocomplete='off')
                           i.input-icon.uil.uil-lock-alt
-                        button#sign_in_button.button.mt-4(type="button" onclick='signin(event)') 
+                        button#sign_in_button.button.mt-4(type="button") 
                           i18n(vanilla-i18n='submit') Submit
                         //- p.mb-0.mt-4.text-center
                         //-   a.link(href='#0') Forgot your password?
@@ -71,9 +75,10 @@ block content
                         .form-group.mt-2
                           input#regispass.form-style(type='password', name='regispass', placeholder='Your Password', autocomplete='off')
                           i.input-icon.uil.uil-lock-alt
-                        button#sign_up_button.button.mt-4(type="button" onclick='signup(event)') 
+                        button#sign_up_button.button.mt-4(type="button") 
                           i18n(vanilla-i18n='submit') Submit  
     script.
+
     
       //Sign in
       //- const locale = !{ locale_string };
@@ -82,9 +87,14 @@ block content
         event.preventDefault()
 
         if ( $('#logemail').val() == "" || $('#logpass').val() == "" ) {
-          alert("Please fill in all blank before login");
+          swal("Please fill in all blank before login");
           return
         } 
+        if (!validator.isEmail($('#logemail').val())) {
+          swal('Please input valid email format');
+          return
+        }
+
         try{
           const signin_response = await axios({
             method: 'POST',
@@ -107,17 +117,68 @@ block content
         }
       }
 
+      $('#sign_in_button').on('click', signin);
+      $("#logemail").keypress(function(e){
+        code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13)
+        {
+          signin(event)
+        }
+      });     
+      $("#logpass").keypress(function(e){
+        code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13)
+        {
+          signin(event)
+        }
+      });
+
       //Sign up
 
       async function signup(event){
         event.preventDefault()
-        console.log($('#regisname').val())
-        console.log($('#regisemail').val())
-        console.log($('#regispass').val())
+        // Empty Validation
         if ($('#regisname').val() == "" || $('#regisemail').val() == "" ||  $('#regispass').val() == "") {
-            alert("Please fill in all blank before register");
+            swal("Please fill in all blank before register");
             return
         }
+        // Email Validation
+        if (!validator.isEmail($('#regisemail').val())) {
+          swal('Please input valid email format');
+          return
+        }
+        if (!validator.isLength($('#regisemail').val(), {min:6, max:30})) {
+          swal('Email must be between 6 and 30 characters');
+          return
+        }
+        // Username Validation
+        if(!validator.isAlphanumeric($('#regisname').val())) {
+          console.log()
+          swal('Username must be alphanumeric');
+          return
+        }
+        if(!validator.isLength($('#regisname').val(), {min:6}) ) {
+          swal('Username must be at least 6 characters');
+          return
+        }
+        if(!validator.isLength($('#regisname').val(), {max:12}) ) {
+          swal('Username must be less than 12 characters');
+          return
+        }
+        // Password Validation
+        if(!validator.isAlphanumeric($('#regispass').val())) {
+          swal('Password must be alphanumeric');
+          return
+        }    
+        if(!validator.isLength($('#regispass').val(), {min:6}) ) {
+          swal('Password must be at least 6 characters');
+          return
+        }
+        if(!validator.isLength($('#regispass').val(), {max:20}) ) {
+          swal('Password must be less than 20 characters');
+          return
+        }            
+
         try{
           const signup_response = await axios({
               method: 'POST',
@@ -134,6 +195,15 @@ block content
         } catch(error) {
             console.log(error);
             let err_alert = error.response.data;
-            alert(err_alert);
+            swal(err_alert);
         }
       }
+      $('#sign_up_button').on('click', signup);
+
+      $("#regispass").keypress(function(e){
+        code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13)
+        {
+          signup(event)
+        }
+      });

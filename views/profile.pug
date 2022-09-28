@@ -37,7 +37,7 @@ block content
                 i18n(vanilla-i18n='saved_movies') Saved Movies
             a(class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
               i(class="fas fa-sign-out-alt")
-              span#logout_btn 
+              button(type='button')#logout_btn 
                 i18n(vanilla-i18n='logout') Log out
 
         //- div.col-10
@@ -69,11 +69,14 @@ block content
       const locale = !{ locale_string };
 
       // logout
-      async function logout() {
+      async function logout(e) {
+        e.preventDefault();        
+        
         await axios({
           method: 'get',
           url: '/api/1.0/user/logout',
         });
+        alert("You have successfully logged out!");
         window.location.href = `/home?locale=${locale}`;
       }
       
