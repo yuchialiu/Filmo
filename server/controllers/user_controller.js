@@ -31,7 +31,7 @@ const signUp = async (req, res) => {
   }
 
   const resultUsername = await User.ValidateUsername();
-  for (i in resultUsername) {
+  for (const i in resultUsername) {
     if (resultUsername[i].username === username) {
       return res.status(400).send('username existed');
     }
@@ -52,6 +52,7 @@ const signUp = async (req, res) => {
   req.session.userId = user.id;
   req.session.userName = user.username;
   req.session.userEmail = user.email;
+  req.session.picture = user.picture;
   req.session.isAuth = true;
 
   res.status(201).send({
@@ -79,8 +80,10 @@ const signIn = async (req, res) => {
   if (user.error) {
     return res.status(400).send("This email hasn't been registered");
   }
+
+  const isAuth = await bcrypt.compare(password, user.password);
   // console.log(user.user.password);
-  if (!bcrypt.compareSync(password, user.password)) {
+  if (!isAuth) {
     console.log({ email, error: 'Password is wrong' });
     return res.status(400).send('Email or password is wrong');
   }
@@ -93,7 +96,7 @@ const signIn = async (req, res) => {
   req.session.userName = user.username;
   req.session.userEmail = user.email;
   // TODO:need to check route
-  req.session.userImage = `${AWS_CLOUDFRONT_DOMAIN}/${user.profile_image}`;
+  req.session.picture = `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${user.profile_image}`;
   req.session.isAuth = true;
 
   return res.status(201).send({
@@ -113,7 +116,7 @@ const getUserDetail = async (req, res) => {
       id: req.user.id,
       username: req.user.username,
       email: req.user.email,
-      picture: `${AWS_CLOUDFRONT_DOMAIN}/${req.user.picture}`,
+      picture: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${req.user.picture}`,
     },
   });
 };
@@ -123,10 +126,11 @@ const updateUserImage = async (req, res) => {
   if (req.files.image === undefined) {
     return res.status(400).send('did not choose file');
   }
-  const image = req.files.image[0].key;
+  // const image = req.files.image[0].key;
+  const image = req.filename;
 
   const result = await User.updateUserImage(userId, image);
-  req.session.userImage = `${AWS_CLOUDFRONT_DOMAIN}/${image}`;
+  req.session.picture = `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${image}`;
 
   if (result.err) {
     console.log(result.err);

@@ -37,8 +37,10 @@ const upload = multer({
     },
     key(req, file, cb) {
       const ext = path.extname(file.originalname);
-      const newFileName = `images/uploads/${crypto.randomBytes(18).toString('hex').substr(0, 8)}${ext}`;
-      cb(null, newFileName.toString());
+      const newFileName = `${crypto.randomBytes(18).toString('hex').substr(0, 8)}${ext}`;
+      const filePath = `images/uploads/${newFileName}`;
+      cb(null, filePath.toString());
+      req.filename = newFileName;
     },
   }),
 });

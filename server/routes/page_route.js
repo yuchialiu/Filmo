@@ -35,7 +35,7 @@ router.get('/profile', authentication, (req, res) => {
       user_id: req.session.userId,
       username: req.session.userName,
       user_email: req.session.userEmail,
-      user_image: req.session.userImage,
+      user_picture: req.session.picture,
     },
     locale,
     locale_string: JSON.stringify(locale),

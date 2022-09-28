@@ -3,8 +3,6 @@ const bcrypt = require('bcrypt');
 const { pool } = require('./mysqlcon');
 
 const salt = parseInt(process.env.BCRYPT_SALT);
-// const { TOKEN_EXPIRE, TOKEN_SECRET } = process.env; // 30 days by seconds
-// const jwt = require('jsonwebtoken');
 
 const USER_ROLE = {
   ADMIN: 1,
@@ -18,24 +16,12 @@ const CreateUser = async (username, role, email, password) => {
       role,
       email: email.toLowerCase(),
       password: bcrypt.hashSync(password, salt),
-      picture: 'images/uploads/clownfish.png',
-      // access_expired: TOKEN_EXPIRE,
+      picture: null,
     };
 
     const sql = 'INSERT INTO `user` (username, email, password, profile_image, role) VALUES (?, ?, ?, ?, ?)';
     const [result] = await pool.execute(sql, [user.username, user.email, user.password, user.picture, user.role]);
     user.id = result.insertId;
-
-    // const accessToken = jwt.sign(
-    //   {
-    //     username: user.username,
-    //     email: user.email,
-    //     role: user.role,
-    //   },
-    //   TOKEN_SECRET
-    // );
-
-    // user.access_token = accessToken;
 
     return { user };
   } catch (err) {
@@ -59,7 +45,7 @@ const GetUser = async (email) => {
       return { error: 'email has not registered' };
     }
     const user = users[0];
-    return { user };
+    return user;
   } catch (err) {
     console.log(err);
     return { err };

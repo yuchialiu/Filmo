@@ -9,7 +9,7 @@ block head
   link(rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css")
 
   script(src="https://unpkg.com/validator@latest/validator.min.js") 
-  script(src='https://unpkg.com/sweetalert/dist/sweetalert.min.js')
+  script(src='//cdn.jsdelivr.net/npm/sweetalert2@11')
 
 block content 
   body 
@@ -87,11 +87,11 @@ block content
         event.preventDefault()
 
         if ( $('#logemail').val() == "" || $('#logpass').val() == "" ) {
-          swal("Please fill in all blank before login");
+          swal.fire({icon: 'warning', text: "Please fill in all blank before login"});
           return
         } 
         if (!validator.isEmail($('#logemail').val())) {
-          swal('Please input valid email format');
+          swal.fire({icon: 'warning', text:'Please input valid email format'});
           return
         }
 
@@ -105,12 +105,13 @@ block content
                 password: $('#logpass').val()
             }
             }).catch(function (error) {
+                alert('aaaaa')
                 let err_alert = error.response.data;
                 alert(err_alert);
             });
 
           console.log(signin_response);
-          window.location.href = `profile?locale=${locale}`
+          window.location.href = `/profile?locale=${locale}`
         }
         catch(err){
             console.log(err);
@@ -139,43 +140,43 @@ block content
         event.preventDefault()
         // Empty Validation
         if ($('#regisname').val() == "" || $('#regisemail').val() == "" ||  $('#regispass').val() == "") {
-            swal("Please fill in all blank before register");
+            swal.fire({icon: 'warning',text: "Please fill in all blank before register"});
             return
         }
         // Email Validation
         if (!validator.isEmail($('#regisemail').val())) {
-          swal('Please input valid email format');
+          swal.fire({icon: 'warning', text: 'Please input valid email format'});
           return
         }
         if (!validator.isLength($('#regisemail').val(), {min:6, max:30})) {
-          swal('Email must be between 6 and 30 characters');
+          swal.fire({icon: 'warning', text: 'Email must be between 6 and 30 characters'});
           return
         }
         // Username Validation
         if(!validator.isAlphanumeric($('#regisname').val())) {
           console.log()
-          swal('Username must be alphanumeric');
+          swal.fire({icon: 'warning', text: 'Username must be alphanumeric'});
           return
         }
         if(!validator.isLength($('#regisname').val(), {min:6}) ) {
-          swal('Username must be at least 6 characters');
+          swal.fire({icon: 'warning', text: 'Username must be at least 6 characters'});
           return
         }
         if(!validator.isLength($('#regisname').val(), {max:12}) ) {
-          swal('Username must be less than 12 characters');
+          swal.fire({icon: 'warning', text: 'Username must be less than 12 characters'});
           return
         }
         // Password Validation
         if(!validator.isAlphanumeric($('#regispass').val())) {
-          swal('Password must be alphanumeric');
+          swal.fire({icon: 'warning', text: 'Password must be alphanumeric'});
           return
         }    
         if(!validator.isLength($('#regispass').val(), {min:6}) ) {
-          swal('Password must be at least 6 characters');
+          swal.fire({icon: 'warning', text: 'Password must be at least 6 characters'});
           return
         }
         if(!validator.isLength($('#regispass').val(), {max:20}) ) {
-          swal('Password must be less than 20 characters');
+          swal.fire({icon: 'warning', text: 'Password must be less than 20 characters'});
           return
         }            
 
