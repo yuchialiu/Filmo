@@ -149,8 +149,8 @@ block content
         console.log("result", result)
         window.location.href = `store/movie?locale=${locale}` ;
 
-      } catch {
-        alert('movie saved or not existed');
+      } catch(err) {
+        alert(err);
         console.log('err: ', err);
       }
 

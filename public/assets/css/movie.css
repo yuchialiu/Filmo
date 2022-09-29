@@ -21,13 +21,13 @@
   justify-content: space-between;
   align-items: flex-start;
 }
-#release_date {
+/* #release_date {
   width: 50px;
 }
 
 #runtime {
   width: 80px;
-}
+} */
 
 .detail {
   margin-left: 50px;
@@ -56,7 +56,7 @@
 
 .subtitle {
   margin-bottom: 20px;
-  width: 260px;
+  width: 235px;
   display: flex; /* establish flex container */
   flex-direction: row; /* default value; can be omitted */
   flex-wrap: nowrap; /* default value; can be omitted */

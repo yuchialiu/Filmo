@@ -52,8 +52,7 @@ block content
                   a(href=`/review/info?id=${data.info[i].review_id}&locale=${locale}`)
                     h3.review_title #{data.info[i].review_title}
                 div.save_review 
-                  button.save_review_button(type='submit' value=`${data.info[i].review_id}`) 
-                    i18n(vanilla-i18n='save') Save
+                  button.save_review_button(type='submit' value=`${data.info[i].review_id}`) Save
 
               div.ms-80
                 img.review_img(src= `${data.info[i].image}`, alt='')
@@ -85,7 +84,10 @@ block content
 
     $('.save_review_button').on('click', async (e) => {
       e.preventDefault(); 
+      //- alert("AAAAA");
+
       let review_id = e.target.value;
+      //- alert("review_id",review_id);
 
       try {
         const data = JSON.stringify({

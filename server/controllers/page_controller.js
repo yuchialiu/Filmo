@@ -1,13 +1,14 @@
 /* eslint-disable object-shorthand */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
-const { SERVER_IP, AWS_CLOUDFRONT_DOMAIN } = process.env;
+const { AWS_CLOUDFRONT_DOMAIN } = process.env;
 const dayjs = require('dayjs');
 require('dayjs/locale/fr');
 require('dayjs/locale/zh-tw');
 const User = require('../models/user_model');
 const Movie = require('../models/movie_model');
 const Page = require('../models/page_model');
+const lang = require('../../util/language');
 
 const showMovieListInfo = async (req, res) => {
   const { locale } = req.query;
@@ -30,7 +31,12 @@ const showMovieListInfo = async (req, res) => {
     result.push(info);
   }
 
-  res.status(200).render('index', { data: result, locale, locale_string: JSON.stringify(locale) });
+  res.status(200).render('index', {
+    data: result,
+    locale,
+    locale_string: JSON.stringify(locale),
+    lang: lang[locale],
+  });
 };
 
 const convertMinsToHrsMins = (mins) => {
@@ -119,9 +125,14 @@ const showMovieInfo = async (req, res) => {
 
   try {
     const response = await getMovieInfo(req);
-    res.status(200).render('movie', { data: response, locale, locale_string: JSON.stringify(locale) });
+    res.status(200).render('movie', {
+      data: response,
+      locale,
+      locale_string: JSON.stringify(locale),
+      lang: lang[locale],
+    });
   } catch (err) {
-    res.status(404).render('404', { locale });
+    res.status(404).render('404', { locale, lang: lang[locale] });
   }
 };
 
@@ -130,9 +141,14 @@ const showMovieInfoForReview = async (req, res) => {
 
   try {
     const response = await getMovieInfo(req);
-    res.status(200).render('review_submit', { data: response, locale, locale_string: JSON.stringify(locale) });
+    res.status(200).render('review_submit', {
+      data: response,
+      locale,
+      locale_string: JSON.stringify(locale),
+      lang: lang[locale],
+    });
   } catch (err) {
-    res.status(404).render('404', { locale });
+    res.status(404).render('404', { locale, lang: lang[locale] });
   }
 };
 
@@ -209,9 +225,14 @@ const showPersonDetail = async (req, res) => {
 
   try {
     const response = await getPersonDetail(req);
-    res.status(200).render('person', { data: response, locale, locale_string: JSON.stringify(locale) });
+    res.status(200).render('person', {
+      data: response,
+      locale,
+      locale_string: JSON.stringify(locale),
+      lang: lang[locale],
+    });
   } catch (err) {
-    res.status(404).render('404', { locale });
+    res.status(404).render('404', { locale, lang: lang[locale] });
   }
 };
 
@@ -238,7 +259,7 @@ const showProfileReview = async (req, res) => {
     const result = {
       user_id: resultAccount.id,
       username: resultAccount.username,
-      profile_image: `${AWS_CLOUDFRONT_DOMAIN}/${resultAccount.profile_image}`,
+      profile_image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultAccount.profile_image}`,
       review_id: resultReview[i].id,
       review_title: resultReview[i].title,
       content: resultReview[i].content,
@@ -256,7 +277,12 @@ const showProfileReview = async (req, res) => {
     info.push(result);
   }
 
-  res.status(200).render('review_account', { data: info, locale, locale_string: JSON.stringify(locale) });
+  res.status(200).render('review_account', {
+    data: info,
+    locale,
+    locale_string: JSON.stringify(locale),
+    lang: lang[locale],
+  });
 };
 
 const showUserSavedReview = async (req, res) => {
@@ -285,7 +311,7 @@ const showUserSavedReview = async (req, res) => {
       const result = {
         user_id: resultAccount.id,
         username: resultAccount.username,
-        profile_image: `${AWS_CLOUDFRONT_DOMAIN}/${resultAccount.profile_image}`,
+        profile_image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultAccount.profile_image}`,
         review_id: resultReview[j].id,
         review_title: resultReview[j].title,
         content: resultReview[j].content,
@@ -300,7 +326,12 @@ const showUserSavedReview = async (req, res) => {
     }
   }
 
-  res.status(200).render('saved_review', { data: info, locale, locale_string: JSON.stringify(locale) });
+  res.status(200).render('saved_review', {
+    data: info,
+    locale,
+    locale_string: JSON.stringify(locale),
+    lang: lang[locale],
+  });
 };
 
 const showUserSavedMovie = async (req, res) => {
@@ -322,7 +353,12 @@ const showUserSavedMovie = async (req, res) => {
     }
   }
 
-  res.status(200).render('saved_movie', { data: info, locale, locale_string: JSON.stringify(locale) });
+  res.status(200).render('saved_movie', {
+    data: info,
+    locale,
+    locale_string: JSON.stringify(locale),
+    lang: lang[locale],
+  });
 };
 
 const showAllReviews = async (req, res) => {
@@ -347,7 +383,7 @@ const showAllReviews = async (req, res) => {
     const result = {
       user_id: resultAccount.id,
       username: resultAccount.username,
-      profile_image: `${AWS_CLOUDFRONT_DOMAIN}/${resultAccount.profile_image}`,
+      profile_image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultAccount.profile_image}`,
       review_id: resultReview[i].id,
       content: resultReview[i].content,
       review_title: resultReview[i].title,
@@ -364,7 +400,12 @@ const showAllReviews = async (req, res) => {
     info.push(result);
   }
 
-  res.render('review_all', { data: info, locale, locale_string: JSON.stringify(locale) });
+  res.render('review_all', {
+    data: info,
+    locale,
+    locale_string: JSON.stringify(locale),
+    lang: lang[locale],
+  });
 };
 
 const getReviewInfo = async (req) => {
@@ -389,7 +430,7 @@ const getReviewInfo = async (req) => {
     const result = {
       user_id: resultAccount.id,
       username: resultAccount.username,
-      profile_image: `${AWS_CLOUDFRONT_DOMAIN}/${resultAccount.profile_image}`,
+      profile_image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultAccount.profile_image}`,
       review_id: resultReview[i].id,
       review_title: resultReview[i].title,
       content: resultReview[i].content,
@@ -414,9 +455,14 @@ const showReviewById = async (req, res) => {
 
   try {
     const response = await getReviewInfo(req);
-    res.render('review_info', { data: response, locale, locale_string: JSON.stringify(locale) });
+    res.render('review_info', {
+      data: response,
+      locale,
+      locale_string: JSON.stringify(locale),
+      lang: lang[locale],
+    });
   } catch (err) {
-    res.status(404).render('404', { locale });
+    res.status(404).render('404', { locale, lang: lang[locale] });
   }
 };
 
@@ -425,9 +471,14 @@ const showReviewWhenUpdate = async (req, res) => {
 
   try {
     const response = await getReviewInfo(req);
-    res.render('review_update', { data: response, locale, locale_string: JSON.stringify(locale) });
+    res.render('review_update', {
+      data: response,
+      locale,
+      locale_string: JSON.stringify(locale),
+      lang: lang[locale],
+    });
   } catch (err) {
-    res.status(404).render('404', { locale });
+    res.status(404).render('404', { locale, lang: lang[locale] });
   }
 };
 
@@ -460,7 +511,7 @@ const getReviewByMovieId = async (req) => {
     const result = {
       user_id: resultAccount.id,
       username: resultAccount.username,
-      profile_image: `${AWS_CLOUDFRONT_DOMAIN}/${resultAccount.profile_image}`,
+      profile_image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultAccount.profile_image}`,
       review_id: resultReview[i].id,
       review_title: resultReview[i].title,
       content: resultReview[i].content,
@@ -489,9 +540,10 @@ const showReviewByMovieId = async (req, res) => {
       movie_id: id,
       locale,
       locale_string: JSON.stringify(locale),
+      lang: lang[locale],
     });
   } catch (err) {
-    res.status(404).render('404', { locale });
+    res.status(404).render('404', { locale, lang: lang[locale] });
   }
 };
 
@@ -518,9 +570,14 @@ const showSearchMovie = async (req, res) => {
       return;
     }
 
-    res.status(200).render('search', { data: result, locale, locale_string: JSON.stringify(locale) });
+    res.status(200).render('search', {
+      data: result,
+      locale,
+      locale_string: JSON.stringify(locale),
+      lang: lang[locale],
+    });
   } catch (err) {
-    res.status(404).render('404', { locale });
+    res.status(404).render('404', { locale, lang: lang[locale] });
   }
 };
 

@@ -20,6 +20,7 @@ const authentication = (req, res, next) => {
   const { locale } = req.query;
 
   if (!req.session.isAuth) {
+    console.log('aaaaaabbbb');
     return res.status(400).render('login', {
       locale,
       locale_string: JSON.stringify(locale),

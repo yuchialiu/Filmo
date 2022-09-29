@@ -30,9 +30,9 @@ block content
             i(class="fas fa-newspaper")
             span.tablinks 
               i18n(vanilla-i18n='saved_reviews') Saved Reviews
-          a(href=`/store/movie?locale=${locale}` class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
+          a#sidebar_selected(href=`/store/movie?locale=${locale}` class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
             i(class="fas fa-film")
-            span.tablinks 
+            span.tablinks#sidebar_selected_text 
               i18n(vanilla-i18n='saved_movies') Saved Movies
           a(class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
             i(class="fas fa-sign-out-alt")

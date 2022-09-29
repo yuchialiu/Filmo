@@ -14,7 +14,6 @@ block content
   div.content
     div.banner
       h1.title 
-      
       - for (i in data)
         - if (data[i].movie_id === 5)
           a.banner_link(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
@@ -25,11 +24,9 @@ block content
               div.banner_text
                 h1.banner_title #{data[i].title}
                 p.text-center.mt-5
-                  a(href="#headerPopup" id="headerVideoLink" target="_blank" class="btn btn-outline-danger popup-modal") 
-                    i18n(vanilla-i18n='watch_trailer') Watch Trailer
+                  a(href="#headerPopup" id="headerVideoLink" target="_blank" class="btn btn-outline-danger popup-modal") #{lang.trailer}
           //- div(id="headerPopup" class="mfp-hide embed-responsive embed-responsive-21by9")
           //-   iframe.embed-responsive-item(width='854' height='480' src=`${data[5].trailer_embed}` frameborder='0' allow='autoplay; encrypted-media' allowfullscreen='')
-
       
     div.blocks
       div.container

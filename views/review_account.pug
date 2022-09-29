@@ -23,9 +23,9 @@ block content
             i(class="fas fa-user-circle")
             span.tablinks
               i18n(vanilla-i18n='my_account') My Account
-          a(href=`/profile/review?locale=${locale}` class="menu-collapsed d-flex w-100 justify-content-start align-items-center")  
+          a#sidebar_selected(href=`/profile/review?locale=${locale}` class="menu-collapsed d-flex w-100 justify-content-start align-items-center")  
             i(class="fas fa-book-reader")
-            span.tablinks 
+            span.tablinks#sidebar_selected_text
               i18n(vanilla-i18n='my_reviews') My Reviews
           a(href=`/store/review?locale=${locale}` class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
             i(class="fas fa-newspaper")
