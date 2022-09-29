@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { authentication, upload } = require('../../util/util');
+const { authentication, upload, checkImageExist } = require('../../util/util');
 
 const cpUpload = upload.fields([{ name: 'image', maxCount: 1 }]);
 
@@ -35,7 +35,7 @@ router.route('/logout').get(logout);
 
 router.route('/info').get(authentication, getUserDetail);
 
-router.route('/image').post(authentication, cpUpload, updateUserImage);
+router.route('/image').post(authentication, cpUpload, checkImageExist, updateUserImage);
 
 router
   .route('/review')

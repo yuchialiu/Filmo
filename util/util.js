@@ -43,7 +43,30 @@ const upload = multer({
       req.filename = newFileName;
     },
   }),
+  // SET DEFAULT FILE SIZE UPLOAD LIMIT
+  limits: { fileSize: 1024 * 1024 * 2 }, // 2MB
+  // FILTER OPTIONS LIKE VALIDATING FILE EXTENSION
+  fileFilter(req, file, cb) {
+    const filetypes = /jpeg|jpg|png/;
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = filetypes.test(file.mimetype);
+    if (mimetype && extname) {
+      return cb(null, true);
+    }
+    const err = new Error('Please submit image only!');
+    err.status = 400;
+    return cb(err, false);
+  },
 });
+
+const checkImageExist = (req, res, next) => {
+  if (!Object.keys(req.files).length) {
+    const err = new Error('Please choose image before submit');
+    err.status = 400;
+    throw err;
+  }
+  next();
+};
 
 // // multer setting
 // const upload = multer({
@@ -78,4 +101,5 @@ const upload = multer({
 module.exports = {
   upload,
   authentication,
+  checkImageExist,
 };

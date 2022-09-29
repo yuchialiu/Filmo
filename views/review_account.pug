@@ -40,45 +40,48 @@ block content
             button(type='button')#logout_btn 
               i18n(vanilla-i18n='logout') Log out
 
-    
-      div.outer_review_account
-        - for (let i = 0; i < data.length ; i++)
-          div.review_account
-            div.item
-              div.review_movie.d-flex
-                div
-                  a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
-                    img.movie_poster_account(src=`${data[i].poster}`, alt='Poster')         
-                div
-                  a(href=`/review/info?id=${data[i].review_id}&locale=${locale}`)
-                    h4.review_title #{data[i].review_title}                    
-                  p.movie_title #{data[i].title}           
-                div.save_review
-                  button.save_review_button(type='submit' value=`${data[i].review_id}`) 
-                    i18n(vanilla-i18n='save') Save
-                
-            div.d-flex
-              div.user
-                img.profile_img(src= `${data[i].profile_image}`, alt='Profile Image')
-                div.name_date.flex-column
-                  p.username #{data[i].username}
 
-              div                 
-                img.review_img(src=`${data[i].image}`, alt='')
-                p.review_text #{data[i].content}
+      - if (!data.length)
+        h3.no_data_title You haven't submitted any reviews yet.
+      - else     
+        div.outer_review_account
+          - for (let i = 0; i < data.length ; i++)
+            div.review_account
+              div.item
+                div.review_movie.d-flex
+                  div
+                    a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
+                      img.movie_poster_account(src=`${data[i].poster}`, alt='Poster')         
+                  div
+                    a(href=`/review/info?id=${data[i].review_id}&locale=${locale}`)
+                      h4.review_title #{data[i].review_title}                    
+                    p.movie_title #{data[i].title}           
+                  div.save_review
+                    button.save_review_button(type='submit' value=`${data[i].review_id}`) 
+                      i18n(vanilla-i18n='save') Save
                   
-            div.bottom
-              p.review_created_dt #{data[i].created_dt}  
-            div.buttons
-              div.update_review
-                a(href=`/review/update?id=${data[i].review_id}&locale=${locale}`) 
-                  button.update_review_button(type='button' value=`${data[i].review_id}`) 
-                    i18n(vanilla-i18n='edit') Edit
-              div.delete_review
-                button.delete_review_button(type='submit' value=`${data[i].review_id}`) 
-                  i18n(vanilla-i18n='delete') Delete
-              //- p.review_num Review# #{data[i].id}
-              //- p.review_updated_dt Updated at #{data[i].updated_dt}
+              div.d-flex
+                div.user
+                  img.profile_img(src= `${data[i].profile_image}`, alt='Profile Image')
+                  div.name_date.flex-column
+                    p.username #{data[i].username}
+
+                div                 
+                  img.review_img(src=`${data[i].image}`, alt='')
+                  p.review_text #{data[i].content}
+                    
+              div.bottom
+                p.review_created_dt #{data[i].created_dt}  
+              div.buttons
+                div.update_review
+                  a(href=`/review/update?id=${data[i].review_id}&locale=${locale}`) 
+                    button.update_review_button(type='button' value=`${data[i].review_id}`) 
+                      i18n(vanilla-i18n='edit') Edit
+                div.delete_review
+                  button.delete_review_button(type='submit' value=`${data[i].review_id}`) 
+                    i18n(vanilla-i18n='delete') Delete
+                //- p.review_num Review# #{data[i].id}
+                //- p.review_updated_dt Updated at #{data[i].updated_dt}
   
   script(src='/public/assets/js/profile_sidebar.js')
 

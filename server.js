@@ -45,8 +45,11 @@ app.use((req, res, next) => {
 
 // Handle 500
 app.use((err, req, res, next) => {
+  if (err.status !== 500) {
+    return res.status(err.status).send({ message: err.message });
+  }
   console.log('error handler: ', err);
-  return res.render('500');
+  return res.status(500).render('500');
 });
 
 // Server Port
