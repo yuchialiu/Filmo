@@ -207,15 +207,29 @@ const getReviewInfo = async (reviewId) => {
     return { err };
   }
 };
-// const getUserSavedReview = async (userId) => {
-//   try {
-//     const result = await pool.execute('SELECT * FROM saved_review WHERE user_id = (?)', [userId]);
-//     return result[0];
-//   } catch (err) {
-//     console.log(err);
-//     return { err };
-//   }
-// };
+
+const checkUserSavedReview = async (userId, reviewId) => {
+  try {
+    const result = await pool.execute('SELECT * FROM saved_review WHERE user_id = (?) AND review_id = (?)', [userId, reviewId]);
+    if (result[0].length) {
+      return true;
+    }
+    return false;
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
+const getUserSavedReview = async (userId) => {
+  try {
+    const result = await pool.execute('SELECT * FROM saved_review WHERE user_id = (?)', [userId]);
+    return result[0];
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
 
 // const saveUserReview = async (userId, reviewId) => {
 //   try {
@@ -276,15 +290,16 @@ const checkUserSavedMovie = async (userId, movieId) => {
   }
 };
 
-// const getUserSavedMovie = async (userId) => {
-//   try {
-//     const result = await pool.execute('SELECT * FROM saved_movie WHERE user_id = (?)', [userId]);
-//     return result[0];
-//   } catch (err) {
-//     console.log(err);
-//     return { err };
-//   }
-// };
+const getUserSavedMovie = async (userId) => {
+  try {
+    const result = await pool.execute('SELECT * FROM saved_movie WHERE user_id = (?)', [userId]);
+    return result[0];
+  } catch (err) {
+    console.log(err);
+    return { err };
+  }
+};
+
 // const saveUserMovie = async (userId, movieId) => {
 //   try {
 //     await pool.execute('INSERT INTO saved_movie (user_id, movie_id) VALUES (?, ?)', [userId, movieId]);
@@ -361,14 +376,15 @@ module.exports = {
   updateUserComment,
   deleteUserComment,
   updateUserSavedReview,
-  // getUserSavedReview,
+  checkUserSavedReview,
+  getUserSavedReview,
   getReviewInfo,
   // saveUserReview,
   deleteUserSavedReview,
   updateUserSavedMovie,
   checkUserSavedMovie,
   getMovieInfo,
-  // getUserSavedMovie,
+  getUserSavedMovie,
   // saveUserMovie,
   deleteUserSavedMovie,
   createMovieRating,

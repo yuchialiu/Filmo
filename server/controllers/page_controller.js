@@ -100,6 +100,7 @@ const getMovieInfo = async (req) => {
 
   const runtime = convertMinsToHrsMins(result.runtime);
 
+  // check if user saved movie
   let savedMovie;
   if (userId) {
     const resultSaved = await User.checkUserSavedMovie(userId, movieId);
@@ -127,7 +128,7 @@ const getMovieInfo = async (req) => {
     cast: castInfo,
     crew: crewInfo,
     // locale: locale,
-    user_saved_movie: savedMovie,
+    8: savedMovie,
   };
   return response;
 };
@@ -261,11 +262,11 @@ const showProfileReview = async (req, res) => {
 
     let formatDate;
     if (locale === 'en-US') {
-      formatDate = 'hh:mm A MMMM DD YYYY';
+      formatDate = 'MMMM DD YYYY' + ' ' + 'hh:mm A';
     } else if (locale === 'fr-FR') {
-      formatDate = 'HH:mm  DD MMMM YYYY';
+      formatDate = 'DD MMMM YYYY' + ' ' + 'HH:mm';
     } else if (locale === 'zh-TW') {
-      formatDate = 'HH:mm YYYY MMM DD' + '日';
+      formatDate = 'YYYY MMM DD' + '日' + ' ' + 'HH:mm';
     }
 
     const result = {
@@ -314,12 +315,13 @@ const showUserSavedReview = async (req, res) => {
 
       let formatDate;
       if (locale === 'en-US') {
-        formatDate = 'hh:mm A MMMM DD YYYY';
+        formatDate = 'MMMM DD YYYY' + ' ' + 'hh:mm A';
       } else if (locale === 'fr-FR') {
-        formatDate = 'HH:mm  DD MMMM YYYY';
+        formatDate = 'DD MMMM YYYY' + ' ' + 'HH:mm';
       } else if (locale === 'zh-TW') {
-        formatDate = 'HH:mm YYYY MMM DD' + '日';
+        formatDate = 'YYYY MMM DD' + '日' + ' ' + 'HH:mm';
       }
+
       const result = {
         user_id: resultAccount.id,
         username: resultAccount.username,
@@ -385,11 +387,11 @@ const showAllReviews = async (req, res) => {
 
     let formatDate;
     if (locale === 'en-US') {
-      formatDate = 'hh:mm A MMMM DD YYYY';
+      formatDate = 'MMMM DD YYYY' + ' ' + 'hh:mm A';
     } else if (locale === 'fr-FR') {
-      formatDate = 'HH:mm  DD MMMM YYYY';
+      formatDate = 'DD MMMM YYYY' + ' ' + 'HH:mm';
     } else if (locale === 'zh-TW') {
-      formatDate = 'HH:mm YYYY MMM DD' + '日';
+      formatDate = 'YYYY MMM DD' + '日' + ' ' + 'HH:mm';
     }
 
     const result = {
@@ -432,11 +434,11 @@ const getReviewInfo = async (req) => {
 
     let formatDate;
     if (locale === 'en-US') {
-      formatDate = 'hh:mm A MMMM DD YYYY';
+      formatDate = 'MMMM DD YYYY' + ' ' + 'hh:mm A';
     } else if (locale === 'fr-FR') {
-      formatDate = 'HH:mm  DD MMMM YYYY';
+      formatDate = 'DD MMMM YYYY' + ' ' + 'HH:mm';
     } else if (locale === 'zh-TW') {
-      formatDate = 'HH:mm YYYY MMM DD' + '日';
+      formatDate = 'YYYY MMM DD' + '日' + ' ' + 'HH:mm';
     }
 
     const result = {
@@ -496,6 +498,8 @@ const showReviewWhenUpdate = async (req, res) => {
 
 const getReviewByMovieId = async (req) => {
   const { id, locale } = req.query;
+  const { userId } = req.session;
+
   const info = [];
   const movie = [];
   const resultReview = await Page.getReviewByMovieId(id);
@@ -514,12 +518,24 @@ const getReviewByMovieId = async (req) => {
 
     let formatDate;
     if (locale === 'en-US') {
-      formatDate = 'hh:mm A MMMM DD YYYY';
+      formatDate = 'MMMM DD YYYY' + ' ' + 'hh:mm A';
     } else if (locale === 'fr-FR') {
-      formatDate = 'HH:mm  DD MMMM YYYY';
+      formatDate = 'DD MMMM YYYY' + ' ' + 'HH:mm';
     } else if (locale === 'zh-TW') {
-      formatDate = 'HH:mm YYYY MMM DD' + '日';
+      formatDate = 'YYYY MMM DD' + '日' + ' ' + 'HH:mm';
     }
+
+    // check if user saved review
+    let savedReview = false;
+    if (userId) {
+      const resultSaved = await User.checkUserSavedReview(userId, resultReview[i].id);
+      if (resultSaved === true) {
+        savedReview = true;
+      } else {
+        savedReview = false;
+      }
+    }
+
     const result = {
       user_id: resultAccount.id,
       username: resultAccount.username,
@@ -531,6 +547,7 @@ const getReviewByMovieId = async (req) => {
       image_blurred: resultReview[i].image_blurred,
       created_dt: dayjs(resultReview[i].created_dt).locale(locale).format(formatDate),
       updated_dt: dayjs(resultReview[i].updated_dt).locale(locale).format(formatDate),
+      user_saved_review: savedReview,
       // movie_id: resultMovie.movie_id,
       // title: resultMovie.title,
       // banner: `${SERVER_IP}/public/assets/images/banners/${resultMovie.banner_image}`,
@@ -544,6 +561,7 @@ const getReviewByMovieId = async (req) => {
 
 const showReviewByMovieId = async (req, res) => {
   const { id, locale } = req.query;
+
   try {
     const response = await getReviewByMovieId(req);
 

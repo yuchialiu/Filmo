@@ -16,6 +16,7 @@
 
 .main_outer {
   margin-top: 120px !important;
+  min-height: 650px;
   display: flex;
   align-items: flex-start;
   flex-direction: row;

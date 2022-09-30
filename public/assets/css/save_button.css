@@ -44,3 +44,7 @@
   background-color: #e75e8d;
   color: #fff;
 }
+
+.fa-bookmark::before {
+  font-size: 16px;
+}

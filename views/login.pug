@@ -2,14 +2,10 @@ extends layout.pug
 
 block head
   link(rel='stylesheet', href='/public/assets/css/login.css', type='text/css')
-  script(src='https://code.jquery.com/jquery-3.5.1.min.js', type="text/javascript")
-  script(src='https://unpkg.com/axios/dist/axios.min.js')
 
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css')
   link(rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css")
-
   script(src="https://unpkg.com/validator@latest/validator.min.js") 
-  script(src='//cdn.jsdelivr.net/npm/sweetalert2@11')
+
 
 block content 
   body 
@@ -81,11 +77,18 @@ block content
         event.preventDefault()
 
         if ( $('#logemail').val() == "" || $('#logpass').val() == "" ) {
-          swal.fire({icon: 'warning', text: "Please fill in all blank before login"});
+          swal.fire({
+            icon: 'warning', 
+            text: "Please fill in all blank before login",
+            confirmButtonColor: '#ec7aa0',
+          });
           return
         } 
         if (!validator.isEmail($('#logemail').val())) {
-          swal.fire({icon: 'warning', text:'Please input valid email format'});
+          swal.fire({icon: 'warning', 
+          text:'Please input valid email format',
+          confirmButtonColor: '#ec7aa0',          
+          });
           return
         }
 
@@ -101,11 +104,19 @@ block content
             }).catch(function (error) {
                 let err_alert = error.response.data;
                 //TODO:
-                alert(err_alert);
+                swal.fire({text: err_alert});
             });
 
           console.log(signin_response);
-          window.location.href = `/profile?locale=${locale}`
+
+          swal.fire({
+            icon: 'success', 
+            text: 'Log in successfully! ',
+            showConfirmButton: false,
+            timer: 1000,
+          }).then(result=>{
+            window.location.href = `/profile?locale=${locale}`
+          });           
         }
         catch(err){
             console.log(err);
@@ -134,43 +145,43 @@ block content
         event.preventDefault()
         // Empty Validation
         if ($('#regisname').val() == "" || $('#regisemail').val() == "" ||  $('#regispass').val() == "") {
-            swal.fire({icon: 'warning',text: "Please fill in all blank before register"});
+            swal.fire({icon: 'warning',text: "Please fill in all blank before register", confirmButtonColor: '#ec7aa0'});
             return
         }
         // Email Validation
         if (!validator.isEmail($('#regisemail').val())) {
-          swal.fire({icon: 'warning', text: 'Please input valid email format'});
+          swal.fire({icon: 'warning', text: 'Please input valid email format', confirmButtonColor: '#ec7aa0'});
           return
         }
         if (!validator.isLength($('#regisemail').val(), {min:6, max:30})) {
-          swal.fire({icon: 'warning', text: 'Email must be between 6 and 30 characters'});
+          swal.fire({icon: 'warning', text: 'Email must be between 6 and 30 characters', confirmButtonColor: '#ec7aa0'});
           return
         }
         // Username Validation
         if(!validator.isAlphanumeric($('#regisname').val())) {
           console.log()
-          swal.fire({icon: 'warning', text: 'Username must be alphanumeric'});
+          swal.fire({icon: 'warning', text: 'Username must be alphanumeric', confirmButtonColor: '#ec7aa0'});
           return
         }
         if(!validator.isLength($('#regisname').val(), {min:6}) ) {
-          swal.fire({icon: 'warning', text: 'Username must be at least 6 characters'});
+          swal.fire({icon: 'warning', text: 'Username must be at least 6 characters', confirmButtonColor: '#ec7aa0'});
           return
         }
         if(!validator.isLength($('#regisname').val(), {max:12}) ) {
-          swal.fire({icon: 'warning', text: 'Username must be less than 12 characters'});
+          swal.fire({icon: 'warning', text: 'Username must be less than 12 characters', confirmButtonColor: '#ec7aa0'});
           return
         }
         // Password Validation
         if(!validator.isAlphanumeric($('#regispass').val())) {
-          swal.fire({icon: 'warning', text: 'Password must be alphanumeric'});
+          swal.fire({icon: 'warning', text: 'Password must be alphanumeric', confirmButtonColor: '#ec7aa0'});
           return
         }    
         if(!validator.isLength($('#regispass').val(), {min:6}) ) {
-          swal.fire({icon: 'warning', text: 'Password must be at least 6 characters'});
+          swal.fire({icon: 'warning', text: 'Password must be at least 6 characters', confirmButtonColor: '#ec7aa0'});
           return
         }
         if(!validator.isLength($('#regispass').val(), {max:20}) ) {
-          swal.fire({icon: 'warning', text: 'Password must be less than 20 characters'});
+          swal.fire({icon: 'warning', text: 'Password must be less than 20 characters', confirmButtonColor: '#ec7aa0'});
           return
         }            
 
@@ -186,11 +197,19 @@ block content
               }
           })
           console.log(signup_response);
-          window.location.href = `profile?locale=${locale}`
+
+          swal.fire({
+            icon: 'success', 
+            text: 'Sign up successfully! ',
+            showConfirmButton: false,
+            timer: 1000,
+          }).then(result=>{
+            window.location.href = `profile?locale=${locale}`
+          }); 
         } catch(error) {
             console.log(error);
             let err_alert = error.response.data;
-            swal(err_alert);
+            swal.fire({test: err_alert});
         }
       }
       $('#sign_up_button').on('click', signup);
