@@ -47,12 +47,10 @@ block content
     div.input_area
       form.review_form_update
         div#review_id(name='movieId' data-id=`${data[0].review_id}`) 
-        h5.title 
-          i18n(vanilla-i18n='title') Title
+        h5.title #{lang.review.title}
           br
           input#review_title(type='text' name='title' maxlength='255' value=`${data[0].review_title}`)
-        h5.content 
-          i18n(vanilla-i18n='content') Content
+        h5.content #{lang.review.content}
           br
           textarea#review_content(type='text' name='content') #{data[0].content}
     //- div
@@ -61,8 +59,7 @@ block content
     //-     br
     //-     input.image_choose(name='image' type='file')        
   div.submit
-    button#update_review 
-      i18n(vanilla-i18n='update') Update  
+    button#update_review #{lang.update}
 
   script(type='text/javascript').
     //- let locale = !{locale}

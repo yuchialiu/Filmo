@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { authentication } = require('../../util/util');
+const lang = require('../../util/language');
 
 const {
   showMovieListInfo,
@@ -24,6 +25,7 @@ router.get('/login', (req, res) => {
   res.render('login', {
     locale,
     locale_string: JSON.stringify(locale),
+    lang: lang[locale],
   });
 });
 
@@ -39,6 +41,7 @@ router.get('/profile', authentication, (req, res) => {
     },
     locale,
     locale_string: JSON.stringify(locale),
+    lang: lang[locale],
   });
 });
 
@@ -61,7 +64,7 @@ router.get('/review/info', showReviewById);
 router.get('/review/update', authentication, showReviewWhenUpdate);
 
 router.get('/review/submit', authentication, showMovieInfoForReview);
-// TODO:
+
 router.get('/search', showSearchMovie);
 
 module.exports = router;

@@ -50,8 +50,9 @@ const convertMinsToHrsMins = (mins) => {
 const getMovieInfo = async (req) => {
   const movieId = req.query.id;
   const { locale } = req.query;
+  const { userId } = req.session;
 
-  const result = await Movie.getMovieInfo(movieId, locale);
+  const result = await Movie.getMovieInfo(movieId, locale, userId);
   const resultCast = await Movie.getCastInfoByMovieId(movieId, locale);
   const resultCrew = await Movie.getCrewInfoByMovieId(movieId, locale);
   const resultGenre = await Movie.getGenre(result.genre_id, locale);
@@ -99,6 +100,14 @@ const getMovieInfo = async (req) => {
 
   const runtime = convertMinsToHrsMins(result.runtime);
 
+  let savedMovie = false;
+  if (userId) {
+    const resultSaved = await User.getUserSavedMovie(userId);
+    if (resultSaved.movie_id === movieId) {
+      savedMovie = true;
+    }
+  }
+
   const response = {
     movie_id: result.movie_id,
     ref_id: result.ref_id,
@@ -115,7 +124,8 @@ const getMovieInfo = async (req) => {
     spoken_languages: result.spoken_languages,
     cast: castInfo,
     crew: crewInfo,
-    locale: locale,
+    // locale: locale,
+    user_saved_movie: savedMovie,
   };
   return response;
 };

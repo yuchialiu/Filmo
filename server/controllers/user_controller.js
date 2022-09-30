@@ -362,6 +362,25 @@ const deleteUserSavedReview = async (req, res) => {
 };
 
 // Saved Movies CRD
+const updateUserSavedMovie = async (req, res) => {
+  const { userId } = req.session;
+  const { movie_id } = req.body;
+
+  const result = await User.updateUserSavedMovie(userId, movie_id);
+  // if (result.err) {
+  //   console.log(result.err);
+  //   res.status(500).send(result.err);
+  //   return;
+  // }
+  console.log('result', result);
+  // res.status(200).send({
+  //   data: {
+  //     user_id: result.userId,
+  //     movie_id: result.movieId,
+  //   },
+  // });
+};
+
 const saveUserMovie = async (req, res) => {
   const { userId } = req.session;
   const { movie_id } = req.body;
@@ -439,17 +458,22 @@ module.exports = {
   logout,
   getUserDetail,
   updateUserImage,
+  // review
   createUserReview,
   getUserReview,
   updateUserReview,
   deleteUserReview,
+  // comment
   createUserComment,
   getUserComment,
   updateUserComment,
   deleteUserComment,
+  // saved review
   saveUserReview,
   getUserSavedReview,
   deleteUserSavedReview,
+  // saved movie
+  updateUserSavedMovie,
   saveUserMovie,
   getUserSavedMovie,
   deleteUserSavedMovie,

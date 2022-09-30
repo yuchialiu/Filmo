@@ -19,17 +19,14 @@ block content
     ul.top_buttons
       li.movie_to_review
         a(href=`/review/submit?id=${data.movie_id}&locale=${locale}`)
-          button.to_submit_page(type='button') 
-            i18n(vanilla-i18n='submit_reivew') Submit Review
+          button.to_submit_page(type='button') #{lang.review.submit_reivew}
 
       //- li.movie_to_rating
       //-   button.rating(type='button') Rate it
 
       li.movie_to_see_review
         a(href=`/review/movie?id=${data.movie_id}&locale=${locale}`)
-          button.see_review(type='button') 
-            i18n(vanilla-i18n='see_all_review') See All Review
-
+          button.see_review(type='button') #{lang.review.see_all_review}
 
     div.detail 
 
@@ -38,7 +35,7 @@ block content
           h1#title #{data.title}
           li.save_movie
             button.save_movie_button(type='submit') 
-              i18n(vanilla-i18n='save') Save
+
         br
         h5#original_title #{data.original_title}
 
@@ -58,8 +55,7 @@ block content
         h6#overview #{data.overview} 
 
       div#cast 
-        h4.cast 
-          i18n(vanilla-i18n='cast') Cast 
+        h4.cast #{lang.movie.cast}
         ul.cast_list(class="owl-features owl-carousel owl-loaded owl-drag")
           - for (i in data.cast)
             li.list_div
@@ -70,8 +66,7 @@ block content
                   p.cast_character #{data.cast[i].character}
               
       div#crew 
-        h4.crew 
-          i18n(vanilla-i18n='crew') Crew 
+        h4.crew #{lang.movie.crew}
         ul.crew_list(class="owl-features owl-carousel owl-loaded owl-drag")
           - for (i in data.crew)
             li.list_div
@@ -131,8 +126,8 @@ block content
     const movie_id = $('#movie_id').data('id');
 
     $('.save_movie_button').on('click', async (e) => {
-      console.log('123456')
       e.preventDefault();
+      console.log(movie_id)
       try {
         const data = JSON.stringify({
           movie_id,

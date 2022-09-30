@@ -1,73 +1,26 @@
+/* shared element start ------ */
 .outer_review_movie {
-  margin: 150px auto;
-}
-
-.outer {
+  margin: 150px 0;
   display: flex;
+  justify-content: center;
 }
-
-.no_review {
-  margin: -30px 0 0 0px;
-  height: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.no_review_text {
-  margin: 17px 0 30px 0;
-}
-
-.all_review {
-  margin: -456px 0 0 350px;
-}
-
-/* .movie_title {
-  font-size: medium;
-  width: 220px;
-} */
-
 .movie_poster {
   width: 220px;
-  margin: 15px 0 20px 0;
+  margin: 0 auto;
 }
 
-.sidebar_nosticky {
-  /* width: 25%; */
-  /* height: 110vh; // experiment with this value, try changing to 110vh */
-  min-height: 200px;
-  overflow: auto;
-  /* position: -webkit-sticky;
-  position: sticky; */
-  /* top: 60px; */
-  margin-left: 50px;
-}
-.sidebar {
-  width: 25%;
-  /* height: 110vh; // experiment with this value, try changing to 110vh */
-  min-height: 200px;
-  overflow: auto;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 60px;
-  margin: 150px 50px 0 79px;
+.movie_poster:hover {
+  border: solid;
 }
 
-.movie_poster_movie {
-  width: 220px;
+.movie_title {
+  margin: 5px 0;
 }
 
-/* .review_movie {
-  min-height: 411px;
-  border: 2px;
-  border-style: solid;
-  border-color: rgba(131, 128, 128, 0.9);
-  border-radius: 15px;
-  margin-bottom: 50px;
-  background-color: rgba(59, 59, 59, 0.7);
-  min-height: 300px;
-  margin: 0 30px 50px 30px !important;
-} */
+.movie_title:hover {
+  color: #e75e8d !important;
+  font-size: 16px;
+}
 
 .to_submit_page {
   font-size: 14px;
@@ -83,7 +36,8 @@
   position: relative;
   overflow: hidden;
   border: 0;
-  margin: 0;
+  margin: 10px auto;
+  width: auto;
 }
 
 .to_submit_page:active,
@@ -97,17 +51,55 @@
   background-color: #fff;
   color: #e75e8d;
 }
+/* shared element end ------ */
 
-.movie_to_review {
-  width: 220px;
+/* no review start ----------  */
+
+.no_review {
+  /* margin: -30px 0 0 0px; */
+  /* height: 500px; */
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  margin-left: 150px;
 }
-/* .save_review {
-  margin-left: 190px !important;
-} */
+
+.no_review_text {
+  margin: 20px 0 30px 0;
+}
+
+.sidebar_nosticky {
+  width: 220px;
+  /* height: 110vh; // experiment with this value, try changing to 110vh */
+  min-height: 200px;
+  overflow: auto;
+  /* position: -webkit-sticky;
+  position: sticky; */
+  /* top: 60px; */
+}
+
+/* no review end ----------  */
+
+/* with review start -----------*/
+
+.sidebar {
+  width: 220px;
+  /* height: 110vh; */
+  /* // experiment with this value, try changing to 110vh */
+  height: 460px;
+  overflow: auto;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 5%;
+  /* margin: 150px 50px 0 80px; */
+}
+
+.submite_review {
+  margin: 0 auto;
+}
+.outer_review_account {
+  margin-top: -39px;
+}
 
 .item {
   display: flex;
@@ -120,3 +112,7 @@
   justify-content: center;
   height: 60px;
 }
+/* with review end -----------*/
+
+/* review block start ------- */
+/* review block end ------- */

@@ -17,32 +17,25 @@ block content
           a(href="#" data-toggle="sidebar-colapse" class="bg-dark list-group-item list-group-item-action d-flex align-items-center")
             div(class="d-flex w-100 justify-content-start align-items-center")
               span#collapse-icon.fa.fa-2x.mr-3
-              span#collapse-text.menu-collapsed
-                i18n(vanilla-i18n='collapse') Collapse
+              span#collapse-text.menu-collapsed #{lang.account.collapse}
           a(href=`/profile?locale=${locale}` class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
             i(class="fas fa-user-circle")
-            span.tablinks
-              i18n(vanilla-i18n='my_account') My Account
+            span.tablinks #{lang.account.my_account}
           a#sidebar_selected(href=`/profile/review?locale=${locale}` class="menu-collapsed d-flex w-100 justify-content-start align-items-center")  
             i(class="fas fa-book-reader")
-            span.tablinks#sidebar_selected_text
-              i18n(vanilla-i18n='my_reviews') My Reviews
+            span.tablinks#sidebar_selected_text #{lang.account.my_reviews}
           a(href=`/store/review?locale=${locale}` class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
             i(class="fas fa-newspaper")
-            span.tablinks 
-              i18n(vanilla-i18n='saved_reviews') Saved Reviews
+            span.tablinks  #{lang.account.saved_reviews}
           a(href=`/store/movie?locale=${locale}` class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
             i(class="fas fa-film")
-            span.tablinks 
-              i18n(vanilla-i18n='saved_movies') Saved Movies
+            span.tablinks #{lang.account.saved_movies}
           a(class="menu-collapsed d-flex w-100 justify-content-start align-items-center")
             i(class="fas fa-sign-out-alt")
-            button(type='button')#logout_btn 
-              i18n(vanilla-i18n='logout') Log out
+            button(type='button')#logout_btn #{lang.account.logout}
 
-
-      - if (!data.length)
-        h3.no_data_title You haven't submitted any reviews yet.
+      - if (!data.length) 
+        h3.no_data_title #{lang.account.no_submitted_review} 
       - else     
         div.outer_review_account
           - for (let i = 0; i < data.length ; i++)
@@ -53,16 +46,16 @@ block content
                     a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
                       img.movie_poster_account(src=`${data[i].poster}`, alt='Poster')         
                   div
-                    a(href=`/review/info?id=${data[i].review_id}&locale=${locale}`)
-                      h4.review_title #{data[i].review_title}                    
+                    //- a(href=`/review/info?id=${data[i].review_id}&locale=${locale}`)
+                    h4.review_title #{data[i].review_title}                    
                     p.movie_title #{data[i].title}           
                   div.save_review
                     button.save_review_button(type='submit' value=`${data[i].review_id}`) 
-                      i18n(vanilla-i18n='save') Save
                   
               div.d-flex
                 div.user
-                  img.profile_img(src= `${data[i].profile_image}`, alt='Profile Image')
+                  div#picture_outline
+                    img.profile_img(src= `${data[i].profile_image}`, alt='Profile Image')
                   div.name_date.flex-column
                     p.username #{data[i].username}
 
@@ -75,11 +68,9 @@ block content
               div.buttons
                 div.update_review
                   a(href=`/review/update?id=${data[i].review_id}&locale=${locale}`) 
-                    button.update_review_button(type='button' value=`${data[i].review_id}`) 
-                      i18n(vanilla-i18n='edit') Edit
+                    button.update_review_button(type='button' value=`${data[i].review_id}`) #{lang.edit}
                 div.delete_review
-                  button.delete_review_button(type='submit' value=`${data[i].review_id}`) 
-                    i18n(vanilla-i18n='delete') Delete
+                  button.delete_review_button(type='submit' value=`${data[i].review_id}`) #{lang.delete}
                 //- p.review_num Review# #{data[i].id}
                 //- p.review_updated_dt Updated at #{data[i].updated_dt}
   

@@ -11,6 +11,8 @@ const multerS3 = require('multer-s3');
 const { getDefaultRoleAssumerWithWebIdentity } = require('@aws-sdk/client-sts');
 const { defaultProvider } = require('@aws-sdk/credential-provider-node');
 
+const lang = require('./language');
+
 const provider = defaultProvider({
   roleAssumerWithWebIdentity: getDefaultRoleAssumerWithWebIdentity,
 });
@@ -20,10 +22,10 @@ const authentication = (req, res, next) => {
   const { locale } = req.query;
 
   if (!req.session.isAuth) {
-    console.log('aaaaaabbbb');
     return res.status(400).render('login', {
       locale,
       locale_string: JSON.stringify(locale),
+      lang: lang[locale],
     });
   }
   return next();

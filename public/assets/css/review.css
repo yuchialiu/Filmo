@@ -1,4 +1,3 @@
-/* review account */
 .main {
   margin-left: 15px;
 }
@@ -10,15 +9,6 @@
   margin-left: 100px;
 }
 
-/* .review {
-  min-height: 411px;
-  border: 3px;
-  border-style: solid;
-  border-color: rgb(255, 255, 255, 0.9);
-  border-radius: 5px;
-  margin-bottom: 50px;
-  background-color: rgba(155, 155, 155, 0.7);
-} */
 .review_content {
   margin-left: 10px;
 }
@@ -30,9 +20,7 @@
   margin: 10px 10px;
   width: 60px;
 }
-/* .name_date {
-  width: 60px !important;
-} */
+
 .username {
   margin-top: 5px;
   text-align: center;
@@ -47,12 +35,11 @@
   font-size: 20px !important;
 }
 
-.profile_img {
-  margin-left: 5px;
-  width: 50px;
-  height: 50px;
+#picture_outline .profile_img {
   border-radius: 50%;
-  /* margin: 0 15px 0 0; */
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
 }
 
 .review_created_dt {
@@ -81,6 +68,11 @@
   margin: 10px 10px;
 }
 
+.movie_poster_saved:hover,
+.movie_poster_account:hover {
+  border: solid;
+}
+
 .movie {
   margin: 100px 0 0 100px;
 }
@@ -89,7 +81,7 @@
   width: 150px;
 }
 
-/* review info page */
+/* review info page start ------- */
 .main_review_info {
   margin-top: 160px !important;
 }
@@ -108,24 +100,8 @@
   text-align: -webkit-center;
 }
 
-/* review account page */
-/* saved review page */
-
-/* .review_saved_list {
-  margin: 0 auto;
-} */
-
 .main_outer {
   margin-top: 120px !important;
-}
-
-.review_movie {
-}
-
-.item {
-  /* margin: 0 auto !important; */
-  /* align-items: stretch; */
-  /* min-height: 160px; */
 }
 
 .review_account,
@@ -139,11 +115,11 @@
   background-color: rgba(59, 59, 59, 0.7);
   /* min-height: 370px; */
   min-height: fit-content;
-  min-width: 510px !important;
-  max-width: 700px;
+  width: 600px;
 }
+/* review info page end ------- */
 
-/* review account */
+/* review account start ------*/
 .bottom {
   display: flex;
   justify-content: right;
@@ -199,3 +175,4 @@
   min-width: 510px !important;
   max-width: 710px !important;
 }
+/* review account end ------*/

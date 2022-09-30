@@ -13,59 +13,54 @@ block content
 
   div.outer_review_movie
     - if (!data.info[0] || data.info[0].length)
-      div.outer.row
-        div.sidebar_nosticky.col-3
+      div.sidebar_nosticky
+        a(href=`/movie?id=${data.movie[0].movie_id}&locale=${locale}`, alt='')
+          img.movie_poster(src= `${data.movie[0].poster}`, alt='Poster')
+          p.movie_title  #{data.movie[0].title}   
+      div.no_review
+        h1.no_review_text #{lang.review.no_review}
+        button.to_submit_page(type='button') #{lang.review.submit_reivew}
+
+    - else 
+      div.sidebar
+        div.d-flex.flex-column 
           a(href=`/movie?id=${data.movie[0].movie_id}&locale=${locale}`, alt='')
             img.movie_poster(src= `${data.movie[0].poster}`, alt='Poster')
             p.movie_title  #{data.movie[0].title}   
-        div.no_review.col-5
-          h1.no_review_text 
-            i18n(vanilla-i18n='no_reivew') Currently no review 
-          div.movie_to_review
-            button.to_submit_page(type='button') 
-              i18n(vanilla-i18n='submit_reivew') Submit Review
-    - else 
-      div.sidebar.col-3
-        div.movie_to_review
-          button.to_submit_page(type='button') 
-              i18n(vanilla-i18n='submit_reivew') Submit Review
-        a(href=`/movie?id=${data.movie[0].movie_id}&locale=${locale}`, alt='')
-          img.movie_poster_movie(src= `${data.movie[0].poster}`, alt='Poster')
-          p.movie_title  #{data.movie[0].title}   
-      div.all_review.col-6
-        div.outer_review_account
-          button.spoiler_alert(type='button') 
-            i18n(vanilla-i18n='spoiler') Spoiler Alert    
-          - for (let i = 0; i < data.info.length ; i++)
-            div.review_account 
-              div.item_movie     
-                div.d-flex
-                  div.user
-                    -if (data.info[i].profile_image =='https://d2idt211kyg8ql.cloudfront.net/images/uploads/null')
-                      div
-                    -else
+          div.submite_review  
+            button.to_submit_page(type='button') #{lang.review.submit_reivew}
+      div.outer_review_account
+        button.spoiler_alert(type='button') #{lang.review.spoiler}
+        - for (let i = 0; i < data.info.length ; i++)
+          div.review_account 
+            div.item_movie     
+              div.d-flex
+                div.user
+                  -if (data.info[i].profile_image =='https://d2idt211kyg8ql.cloudfront.net/images/uploads/null')
+                    div
+                  -else
+                    div#picture_outline
                       img.profile_img(src= `${data.info[i].profile_image}`, alt='Profile Image')
-                    //- div.name_date.flex-column  
                     div.name_date                
                       p.username #{data.info[i].username}                    
-                div
-                  a(href=`/review/info?id=${data.info[i].review_id}&locale=${locale}`)
-                    h3.review_title #{data.info[i].review_title}
-                div.save_review 
-                  button.save_review_button(type='submit' value=`${data.info[i].review_id}`) Save
+              div
+                //- a(href=`/review/info?id=${data.info[i].review_id}&locale=${locale}`)
+                h3.review_title #{data.info[i].review_title}
+              div.save_review 
+                button.save_review_button(type='submit' value=`${data.info[i].review_id}`) 
 
-              div.ms-80
-                img.review_img(src= `${data.info[i].image}`, alt='')
-                p.review_text #{data.info[i].content}
+            div.ms-80
+              //- img.review_img(src= `${data.info[i].image}`, alt='')
+              p.review_text #{data.info[i].content}
 
-              div.bottom  
-                p.review_created_dt #{data.info[i].created_dt}  
-                  //- p.review_updated_dt #{data.info[i].updated_dt}
-              
-              //- h3 review# #{data.info[i].review_id}
-              //- a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`, alt='')
-              //-   img.movie_poster(src= `${data[i].poster}`)
-              //-   p #{data[i].title}
+            div.bottom  
+              p.review_created_dt #{data.info[i].created_dt}  
+                //- p.review_updated_dt #{data.info[i].updated_dt}
+            
+            //- h3 review# #{data.info[i].review_id}
+            //- a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`, alt='')
+            //-   img.movie_poster(src= `${data[i].poster}`)
+            //-   p #{data[i].title}
 
  
 
@@ -84,10 +79,8 @@ block content
 
     $('.save_review_button').on('click', async (e) => {
       e.preventDefault(); 
-      //- alert("AAAAA");
 
       let review_id = e.target.value;
-      //- alert("review_id",review_id);
 
       try {
         const data = JSON.stringify({

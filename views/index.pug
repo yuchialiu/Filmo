@@ -24,17 +24,15 @@ block content
               div.banner_text
                 h1.banner_title #{data[i].title}
                 p.text-center.mt-5
-                  a(href="#headerPopup" id="headerVideoLink" target="_blank" class="btn btn-outline-danger popup-modal") #{lang.trailer}
+                  a(href="#headerPopup" id="headerVideoLink" target="_blank" class="btn btn-outline-danger popup-modal") #{lang.movie.trailer}
           //- div(id="headerPopup" class="mfp-hide embed-responsive embed-responsive-21by9")
           //-   iframe.embed-responsive-item(width='854' height='480' src=`${data[5].trailer_embed}` frameborder='0' allow='autoplay; encrypted-media' allowfullscreen='')
       
     div.blocks
       div.container
         div.second_title
-          h1.second_title_line_1#trending 
-            i18n(vanilla-i18n='trending') Trending   
-          h1.second_title_line_2 
-            i18n(vanilla-i18n='now') Now  
+          h1.second_title_line_1#trending #{lang.index.trending}
+          h1.second_title_line_2 #{lang.index.now}
         div.list_box
           //- ul.movie_list.vmcarousel-normal
           ul.movie_list(class="owl-features owl-carousel owl-loaded owl-drag")
@@ -45,10 +43,8 @@ block content
                   p.list_title #{data[i].title}
 
         div.second_title
-          h1.second_title_line_1#new 
-            i18n(vanilla-i18n='new') New     
-          h1.second_title_line_2 
-            i18n(vanilla-i18n='releases') Releases 
+          h1.second_title_line_1#new #{lang.index.new}
+          h1.second_title_line_2 #{lang.index.releases}
         div.list_box
           //- ul.movie_list.vmcarousel-normal
           ul.movie_list(class="owl-features owl-carousel owl-loaded owl-drag")

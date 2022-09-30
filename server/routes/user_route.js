@@ -21,7 +21,8 @@ const {
   saveUserReview,
   getUserSavedReview,
   deleteUserSavedReview,
-  saveUserMovie,
+  updateUserSavedMovie,
+  // saveUserMovie,
   getUserSavedMovie,
   deleteUserSavedMovie,
   createMovieRating,
@@ -53,7 +54,7 @@ router
 
 router.route('/store/review').post(authentication, saveUserReview).get(authentication, getUserSavedReview).delete(authentication, deleteUserSavedReview);
 
-router.route('/store/movie').post(authentication, saveUserMovie).get(authentication, getUserSavedMovie).delete(authentication, deleteUserSavedMovie);
+router.route('/store/movie').post(authentication, updateUserSavedMovie).get(authentication, getUserSavedMovie).delete(authentication, deleteUserSavedMovie);
 
 router.route('/movie/rating').post(authentication, createMovieRating);
 
