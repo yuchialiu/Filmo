@@ -100,11 +100,13 @@ const getMovieInfo = async (req) => {
 
   const runtime = convertMinsToHrsMins(result.runtime);
 
-  let savedMovie = false;
+  let savedMovie;
   if (userId) {
-    const resultSaved = await User.getUserSavedMovie(userId);
-    if (resultSaved.movie_id === movieId) {
+    const resultSaved = await User.checkUserSavedMovie(userId, movieId);
+    if (resultSaved === true) {
       savedMovie = true;
+    } else {
+      savedMovie = false;
     }
   }
 

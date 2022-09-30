@@ -106,11 +106,11 @@ block content
             },
           });
 
-          alert('review removed');
-          window.location.href = `review?locale=${locale}` ;
+          alert('test');
+          //- window.location.href = `review?locale=${locale}` ;
 
         } catch {
-          alert('review not existed');
+          alert(err);
           console.log('err: ', err);
         }
 

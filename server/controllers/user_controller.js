@@ -306,23 +306,37 @@ const deleteUserComment = async (req, res) => {
 };
 
 // Saved Reviews CRD
-const saveUserReview = async (req, res) => {
+const updateUserSavedReview = async (req, res) => {
   const { userId } = req.session;
   const { review_id } = req.body;
 
-  const result = await User.saveUserReview(userId, review_id);
+  const result = await User.updateUserSavedReview(userId, review_id);
   if (result.err) {
     console.log(result.err);
-    res.status(500).send({ err: 'review saved or review not existed' });
-  } else {
-    res.status(200).send({
-      data: {
-        user_id: result.userId,
-        review_id: result.reviewId,
-      },
-    });
+    res.status(500).send(result.err);
+    return;
   }
+  res.status(200).send({
+    data: result,
+  });
 };
+// const saveUserReview = async (req, res) => {
+//   const { userId } = req.session;
+//   const { review_id } = req.body;
+
+//   const result = await User.saveUserReview(userId, review_id);
+//   if (result.err) {
+//     console.log(result.err);
+//     res.status(500).send({ err: 'review saved or review not existed' });
+//   } else {
+//     res.status(200).send({
+//       data: {
+//         user_id: result.userId,
+//         review_id: result.reviewId,
+//       },
+//     });
+//   }
+// };
 
 const getUserSavedReview = async (req, res) => {
   const { userId } = req.session;
@@ -367,37 +381,33 @@ const updateUserSavedMovie = async (req, res) => {
   const { movie_id } = req.body;
 
   const result = await User.updateUserSavedMovie(userId, movie_id);
-  // if (result.err) {
-  //   console.log(result.err);
-  //   res.status(500).send(result.err);
-  //   return;
-  // }
-  console.log('result', result);
-  // res.status(200).send({
-  //   data: {
-  //     user_id: result.userId,
-  //     movie_id: result.movieId,
-  //   },
-  // });
-};
-
-const saveUserMovie = async (req, res) => {
-  const { userId } = req.session;
-  const { movie_id } = req.body;
-
-  const result = await User.saveUserMovie(userId, movie_id);
   if (result.err) {
     console.log(result.err);
-    res.status(500).send({ err: 'movie saved or not existed' });
+    res.status(500).send(result.err);
     return;
   }
   res.status(200).send({
-    data: {
-      user_id: result.userId,
-      movie_id: result.movieId,
-    },
+    data: result,
   });
 };
+
+// const saveUserMovie = async (req, res) => {
+//   const { userId } = req.session;
+//   const { movie_id } = req.body;
+
+//   const result = await User.saveUserMovie(userId, movie_id);
+//   if (result.err) {
+//     console.log(result.err);
+//     res.status(500).send({ err: 'movie saved or not existed' });
+//     return;
+//   }
+//   res.status(200).send({
+//     data: {
+//       user_id: result.userId,
+//       movie_id: result.movieId,
+//     },
+//   });
+// };
 
 const getUserSavedMovie = async (req, res) => {
   const { userId } = req.session;
@@ -458,23 +468,20 @@ module.exports = {
   logout,
   getUserDetail,
   updateUserImage,
-  // review
   createUserReview,
   getUserReview,
   updateUserReview,
   deleteUserReview,
-  // comment
   createUserComment,
   getUserComment,
   updateUserComment,
   deleteUserComment,
-  // saved review
-  saveUserReview,
+  updateUserSavedReview,
+  // saveUserReview,
   getUserSavedReview,
   deleteUserSavedReview,
-  // saved movie
   updateUserSavedMovie,
-  saveUserMovie,
+  // saveUserMovie,
   getUserSavedMovie,
   deleteUserSavedMovie,
   createMovieRating,

@@ -18,7 +18,8 @@ const {
   getUserComment,
   updateUserComment,
   deleteUserComment,
-  saveUserReview,
+  updateUserSavedReview,
+  // saveUserReview,
   getUserSavedReview,
   deleteUserSavedReview,
   updateUserSavedMovie,
@@ -52,7 +53,7 @@ router
   .patch(authentication, updateUserComment)
   .delete(authentication, deleteUserComment);
 
-router.route('/store/review').post(authentication, saveUserReview).get(authentication, getUserSavedReview).delete(authentication, deleteUserSavedReview);
+router.route('/store/review').post(authentication, updateUserSavedReview).get(authentication, getUserSavedReview).delete(authentication, deleteUserSavedReview);
 
 router.route('/store/movie').post(authentication, updateUserSavedMovie).get(authentication, getUserSavedMovie).delete(authentication, deleteUserSavedMovie);
 

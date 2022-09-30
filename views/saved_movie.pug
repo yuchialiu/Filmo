@@ -92,10 +92,10 @@ block content
           });
           console.log("result", result)
           alert('movie removed');
-          window.location.href = `movie?locale=${locale}` ;
+          //- window.location.href = `movie?locale=${locale}` ;
 
         } catch {
-          alert('movie not existed');
+          alert(err);
           console.log('err: ', err);
         }
 

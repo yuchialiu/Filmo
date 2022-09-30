@@ -184,23 +184,17 @@ const deleteUserComment = async (userId, commentId) => {
 };
 
 // Saved Reviews CRD
-const saveUserReview = async (userId, reviewId) => {
+const updateUserSavedReview = async (userId, reviewId) => {
   try {
+    const resultSavedReview = await pool.execute('SELECT * FROM saved_review AS ms WHERE user_id = (?) AND review_id = (?)', [userId, reviewId]);
+    if (resultSavedReview[0].length) {
+      await pool.execute('DELETE FROM saved_review WHERE user_id = (?) AND review_id = (?)', [userId, reviewId]);
+      return 'deleted';
+    }
     await pool.execute('INSERT INTO saved_review (user_id, review_id) VALUES (?, ?)', [userId, reviewId]);
-    return { userId, reviewId };
+    return 'saved';
   } catch (err) {
     console.log(err);
-    return { err };
-  }
-};
-
-const getUserSavedReview = async (userId) => {
-  try {
-    const result = await pool.execute('SELECT * FROM saved_review WHERE user_id = (?)', [userId]);
-    return result[0];
-  } catch (err) {
-    console.log(err);
-    return { err };
   }
 };
 
@@ -213,6 +207,25 @@ const getReviewInfo = async (reviewId) => {
     return { err };
   }
 };
+// const getUserSavedReview = async (userId) => {
+//   try {
+//     const result = await pool.execute('SELECT * FROM saved_review WHERE user_id = (?)', [userId]);
+//     return result[0];
+//   } catch (err) {
+//     console.log(err);
+//     return { err };
+//   }
+// };
+
+// const saveUserReview = async (userId, reviewId) => {
+//   try {
+//     await pool.execute('INSERT INTO saved_review (user_id, review_id) VALUES (?, ?)', [userId, reviewId]);
+//     return { userId, reviewId };
+//   } catch (err) {
+//     console.log(err);
+//     return { err };
+//   }
+// };
 
 const deleteUserSavedReview = async (userId, reviewId) => {
   try {
@@ -225,36 +238,17 @@ const deleteUserSavedReview = async (userId, reviewId) => {
 };
 
 // Saved Movies CRD
-// TODO:
 const updateUserSavedMovie = async (userId, movieId) => {
   try {
-    // const resultSavedMovie = await pool.execute('SELECT * FROM saved_movie AS ms WHERE user_id = (?)', [userId]);
-    // for (const i of resultSavedMovie[0]) {
-    //   if (resultSavedMovie[0][i].movie_id === movieId) {
-    //     await pool.execute('DELETE FROM saved_movie WHERE user_id = (?) AND movie_id = (?)', [userId, movieId]);
-    //   } else {
-    //     await pool.execute('INSERT INTO saved_movie (user_id, movie_id) VALUES (?, ?)', [userId, movieId]);
-    //   }
     const resultSavedMovie = await pool.execute('SELECT * FROM saved_movie AS ms WHERE user_id = (?) AND movie_id = (?)', [userId, movieId]);
-    console.log(resultSavedMovie[0]);
-    if (resultSavedMovie[0]) {
-      await pool.execute('INSERT INTO saved_movie (user_id, movie_id) VALUES (?, ?)', [userId, movieId]);
-      return 'saved';
+    if (resultSavedMovie[0].length) {
+      await pool.execute('DELETE FROM saved_movie WHERE user_id = (?) AND movie_id = (?)', [userId, movieId]);
+      return 'deleted';
     }
-    await pool.execute('DELETE FROM saved_movie WHERE user_id = (?) AND movie_id = (?)', [userId, movieId]);
-    return 'deleted';
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-const saveUserMovie = async (userId, movieId) => {
-  try {
     await pool.execute('INSERT INTO saved_movie (user_id, movie_id) VALUES (?, ?)', [userId, movieId]);
-    return { userId, movieId };
+    return 'saved';
   } catch (err) {
     console.log(err);
-    return { err };
   }
 };
 
@@ -269,15 +263,37 @@ const getMovieInfo = async (movieId, locale) => {
   }
 };
 
-const getUserSavedMovie = async (userId) => {
+const checkUserSavedMovie = async (userId, movieId) => {
   try {
-    const result = await pool.execute('SELECT * FROM saved_movie WHERE user_id = (?)', [userId]);
-    return result[0];
+    const result = await pool.execute('SELECT * FROM saved_movie WHERE user_id = (?) AND movie_id = (?)', [userId, movieId]);
+    if (result[0].length) {
+      return true;
+    }
+    return false;
   } catch (err) {
     console.log(err);
     return { err };
   }
 };
+
+// const getUserSavedMovie = async (userId) => {
+//   try {
+//     const result = await pool.execute('SELECT * FROM saved_movie WHERE user_id = (?)', [userId]);
+//     return result[0];
+//   } catch (err) {
+//     console.log(err);
+//     return { err };
+//   }
+// };
+// const saveUserMovie = async (userId, movieId) => {
+//   try {
+//     await pool.execute('INSERT INTO saved_movie (user_id, movie_id) VALUES (?, ?)', [userId, movieId]);
+//     return { userId, movieId };
+//   } catch (err) {
+//     console.log(err);
+//     return { err };
+//   }
+// };
 
 const deleteUserSavedMovie = async (userId, movieId) => {
   try {
@@ -336,28 +352,25 @@ module.exports = {
   GetUser,
   getUserDetail,
   updateUserImage,
-  // review
   createUserReview,
   getUserReview,
   updateUserReview,
   deleteUserReview,
-  // comment
   createUserComment,
   getUserComment,
   updateUserComment,
   deleteUserComment,
-  // saved review
-  saveUserReview,
-  getUserSavedReview,
+  updateUserSavedReview,
+  // getUserSavedReview,
   getReviewInfo,
+  // saveUserReview,
   deleteUserSavedReview,
-  // saved movie
   updateUserSavedMovie,
-  saveUserMovie,
+  checkUserSavedMovie,
   getMovieInfo,
-  getUserSavedMovie,
+  // getUserSavedMovie,
+  // saveUserMovie,
   deleteUserSavedMovie,
-  // other
   createMovieRating,
   getAllReviews,
   getReviewById,
