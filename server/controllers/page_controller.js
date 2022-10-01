@@ -50,7 +50,7 @@ const convertMinsToHrsMins = (mins) => {
 const getMovieInfo = async (req) => {
   const movieId = req.query.id;
   const { locale } = req.query;
-  const { userId } = req.session;
+  const { userId, isAuth } = req.session;
 
   const result = await Movie.getMovieInfo(movieId, locale, userId);
   const resultCast = await Movie.getCastInfoByMovieId(movieId, locale);
@@ -101,10 +101,10 @@ const getMovieInfo = async (req) => {
   const runtime = convertMinsToHrsMins(result.runtime);
 
   // check if user saved movie
-  let savedMovie;
-  if (userId) {
+  let savedMovie = false;
+  if (isAuth) {
     const resultSaved = await User.checkUserSavedMovie(userId, movieId);
-    if (resultSaved === true) {
+    if (resultSaved) {
       savedMovie = true;
     } else {
       savedMovie = false;
@@ -128,7 +128,7 @@ const getMovieInfo = async (req) => {
     cast: castInfo,
     crew: crewInfo,
     // locale: locale,
-    8: savedMovie,
+    user_saved_movie: savedMovie,
   };
   return response;
 };
@@ -498,7 +498,7 @@ const showReviewWhenUpdate = async (req, res) => {
 
 const getReviewByMovieId = async (req) => {
   const { id, locale } = req.query;
-  const { userId } = req.session;
+  const { userId, isAuth } = req.session;
 
   const info = [];
   const movie = [];
@@ -527,9 +527,9 @@ const getReviewByMovieId = async (req) => {
 
     // check if user saved review
     let savedReview = false;
-    if (userId) {
+    if (isAuth) {
       const resultSaved = await User.checkUserSavedReview(userId, resultReview[i].id);
-      if (resultSaved === true) {
+      if (resultSaved) {
         savedReview = true;
       } else {
         savedReview = false;
@@ -611,6 +611,22 @@ const showSearchMovie = async (req, res) => {
   }
 };
 
+const showProfile = async (req, res) => {
+  const { locale } = req.query;
+  console.log('showProfile Controller');
+  res.render('profile', {
+    data: {
+      user_id: req.session.userId,
+      username: req.session.userName,
+      user_email: req.session.userEmail,
+      user_picture: req.session.picture,
+    },
+    locale,
+    locale_string: JSON.stringify(locale),
+    lang: lang[locale],
+  });
+};
+
 module.exports = {
   showMovieListInfo,
   showMovieInfo,
@@ -624,4 +640,5 @@ module.exports = {
   showReviewWhenUpdate,
   showReviewByMovieId,
   showSearchMovie,
+  showProfile,
 };

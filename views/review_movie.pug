@@ -44,7 +44,7 @@ block content
                 //- a(href=`/review/info?id=${data.info[i].review_id}&locale=${locale}`)
                 h3.review_title #{data.info[i].review_title}
               div.save_review #{data.info[i].user_saved_review}
-              - if (data.info[i].user_saved_review == true)
+              - if (data.info[i].user_saved_review)
                 button.save_review_button(type='submit' class="fas fa-bookmark" value=`${data.info[i].review_id}`) 
               - else 
                 button.save_review_button(type='submit' class="far fa-bookmark" value=`${data.info[i].review_id}`) 
@@ -63,18 +63,59 @@ block content
             //-   img.movie_poster(src= `${data[i].poster}`)
             //-   p #{data[i].title}
 
- 
 
   script(type='text/javascript').
 
     let movie_id = !{movie_id}
     //- let locale = !{locale}
 
-    function submitReview (e) {
-      e.preventDefault();
-      window.location.href = `/review/submit?id=${movie_id}&locale=${locale}`
-    }
-    $('.to_submit_page').on('click', submitReview);
+    //- function submitReview (e) {
+    //-   e.preventDefault();
+    //-   window.location.href = `/review/submit?id=${movie_id}&locale=${locale}`
+    //- }
+    //- $('.to_submit_page').on('click', submitReview);
+
+    $('.to_submit_page').on('click', async (e) => {
+      e.preventDefault(); 
+      
+      try{
+        await axios({
+          method: 'GET',
+          url: '/api/1.0/user/review/submit',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        window.location.href = `/review/submit?id=${movie_id}&locale=${locale}`
+
+      } catch (err) {
+        if (locale == 'en-US'){
+          swal.fire({
+            icon: 'warning', 
+            text: 'Please sign in first',
+            confirmButtonColor: '#ec7aa0',          
+          });         
+        } else if (locale == 'zh-TW') {
+          swal.fire({
+            icon: 'warning', 
+            text: '請先登入',
+            confirmButtonColor: '#ec7aa0',          
+          });          
+        } else if (locale == 'fr-FR') {
+          swal.fire({
+            icon: 'warning', 
+            text: 'Veuillez vous connecter',
+            confirmButtonColor: '#ec7aa0',          
+          });          
+        }
+        setTimeout(() => {
+          window.location.href = `/login?locale=${locale}`
+        }, '1000');
+        console.log('err: ', err);
+      }
+    });
+
 
     const review_id = $('.review_id').data('id');
 
@@ -102,26 +143,91 @@ block content
 
         if (resultUser == 'deleted') {
           $(e.target).removeClass('fas').addClass('far')
-          swal.fire({
-            icon: 'success', 
-            text: 'Review Removed',
-            timer: 800,
-            });
+
+          if (locale == 'en-US'){
+            swal.fire({
+              icon: 'success', 
+              text: 'Review Removed',
+              showConfirmButton: false,
+              timer: 800,
+            });       
+          } else if (locale == 'zh-TW') {
+            swal.fire({
+              icon: 'success', 
+              text: '已移除',
+              showConfirmButton: false,
+              timer: 800,
+            });        
+          } else if (locale == 'fr-FR') {
+            swal.fire({
+              icon: 'success', 
+              text: 'Supprimé',
+              showConfirmButton: false,
+              timer: 800,
+            });   
+          } 
         } else if (resultUser == 'saved'){
           $(e.target).removeClass('far').addClass('fas')
-          swal.fire({icon: 'success', 
-          text: 'Review Saved',
-          timer: 800,
-          });
+
+          if (locale == 'en-US'){
+              swal.fire({
+                icon: 'success', 
+                text: 'Review Saved',
+                showConfirmButton: false,
+                timer: 800,
+              });
+            } else if (locale == 'zh-TW') {
+              swal.fire({
+                icon: 'success', 
+                text: '已儲存',
+                showConfirmButton: false,
+                timer: 800,
+              });     
+            } else if (locale == 'fr-FR') {
+              swal.fire({
+                icon: 'success', 
+                text: 'Enregistrée',
+                showConfirmButton: false,
+                timer: 800,
+              });     
+            }  
         }
       } catch(err) {
-        swal.fire(err);
+        if (locale == 'en-US'){
+          swal.fire({
+            icon: 'warning', 
+            text: 'Please sign in first',
+            confirmButtonColor: '#ec7aa0',          
+          });         
+        } else if (locale == 'zh-TW') {
+          swal.fire({
+            icon: 'warning', 
+            text: '請先登入',
+            confirmButtonColor: '#ec7aa0',          
+          });          
+        } else if (locale == 'fr-FR') {
+          swal.fire({
+            icon: 'warning', 
+            text: 'Veuillez vous connecter',
+            confirmButtonColor: '#ec7aa0',          
+          });          
+        }
+        setTimeout(() => {
+          window.location.href = `/login?locale=${locale}`
+        }, '1000');
         console.log('err: ', err);
       }
-      
     });
   
-
+    $('.spoiler_alert').click(function(e) {
+      e.preventDefault();      
+      $('.review_title').slideToggle("slow");
+      //- $('.review_img').slideToggle("slow");
+      $('.review_text').slideToggle("slow");
+      // Alternative animation for example
+      // slideToggle("fast");
+    });
+    
     //- function showReview (e) {
     //-   e.preventDefault();      
     //-   ${.review_title}.show();
@@ -137,12 +243,3 @@ block content
     //-   ${.review_text}.show();
     //- });
 
-    $('.spoiler_alert').click(function(e) {
-      e.preventDefault();      
-      $('.review_title').slideToggle("slow");
-      //- $('.review_img').slideToggle("slow");
-      $('.review_text').slideToggle("slow");
-      // Alternative animation for example
-      // slideToggle("fast");
-    });
-    

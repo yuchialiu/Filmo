@@ -14,8 +14,8 @@ block content
   div.main
     ul.top_buttons
       li.movie_to_review
-        a(href=`/review/submit?id=${data.movie_id}&locale=${locale}`)
-          button.to_submit_page(type='button') #{lang.review.submit_reivew}
+        //- a(href=`/review/submit?id=${data.movie_id}&locale=${locale}`)
+        button.to_submit_page(type='button') #{lang.review.submit_reivew}
 
       //- li.movie_to_rating
       //-   button.rating(type='button') Rate it
@@ -27,9 +27,9 @@ block content
     div.detail 
 
       div.title_area
-        div.title_save
+        div.title_save 
           h1#title #{data.title}
-          li.save_movie
+          li.save_movie 
             - if (data.user_saved_movie == true)
               button.save_movie_button(type='submit') 
                 i(class="fas fa-bookmark")
@@ -119,12 +119,51 @@ block content
     //-   changed_slide: $.noop()
 
     //- });
+    const movie_id = $('#movie_id').data('id');
 
+    $('.to_submit_page').on('click', async (e) => {
+      e.preventDefault(); 
+      
+      try{
+        await axios({
+          method: 'GET',
+          url: '/api/1.0/user/review/submit',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        
+        window.location.href = `/review/submit?id=${movie_id}&locale=${locale}`
 
+      } catch (err) {
+        if (locale == 'en-US'){
+          swal.fire({
+            icon: 'warning', 
+            text: 'Please sign in first',
+            confirmButtonColor: '#ec7aa0',          
+          });         
+        } else if (locale == 'zh-TW') {
+          swal.fire({
+            icon: 'warning', 
+            text: '請先登入',
+            confirmButtonColor: '#ec7aa0',          
+          });          
+        } else if (locale == 'fr-FR') {
+          swal.fire({
+            icon: 'warning', 
+            text: 'Veuillez vous connecter',
+            confirmButtonColor: '#ec7aa0',          
+          });          
+        }
+        setTimeout(() => {
+          window.location.href = `/login?locale=${locale}`
+        }, '1000');
+        console.log('err: ', err);
+      }
+    });
     
 
     //- const locale = !{ locale };
-    const movie_id = $('#movie_id').data('id');
 
     $('.save_movie_button').on('click', async (e) => {
       e.preventDefault();
@@ -144,25 +183,83 @@ block content
         });
         let resultUser = result.data.data 
         console.log(resultUser)
+        console.log('aaaaa')
+
 
         if (resultUser == 'deleted') {
           $('.fas').removeClass('fas').addClass('far')
-          swal.fire({
-            icon: 'success', 
-            text: 'Movie Removed',
+          if (locale == 'en-US'){
+            swal.fire({
+              icon: 'success', 
+              text: 'Movie Removed',
+              showConfirmButton: false,
             timer: 800,
-            });
+            });       
+          } else if (locale == 'zh-TW') {
+            swal.fire({
+              icon: 'success', 
+              text: '已移除',
+              showConfirmButton: false,
+              timer: 800,
+            });        
+          } else if (locale == 'fr-FR') {
+            swal.fire({
+              icon: 'success', 
+              text: 'Supprimé',
+              showConfirmButton: false,
+              timer: 800,
+            });       
+          }          
         } else if (resultUser == 'saved'){
           $('.far').removeClass('far').addClass('fas')
-          swal.fire({icon: 'success', 
-          text: 'Movie Saved',
-          timer: 800,
-          });
+          if (locale == 'en-US'){
+            swal.fire({
+              icon: 'success', 
+              text: 'Movie Saved',
+              showConfirmButton: false,
+              timer: 800,
+            });
+          } else if (locale == 'zh-TW') {
+            swal.fire({
+              icon: 'success', 
+              text: '已儲存',
+              showConfirmButton: false,
+              timer: 800,
+            });     
+          } else if (locale == 'fr-FR') {
+            swal.fire({
+              icon: 'success', 
+              text: 'Enregistrée',
+              showConfirmButton: false,
+              timer: 800,
+            });     
+          }    
         }
-        //- window.location.href = `store/movie?locale=${locale}` ;
 
       } catch(err) {
-        alert(err);
+        console.log('bbbbb')
+        if (locale == 'en-US'){
+          swal.fire({
+            icon: 'warning', 
+            text: 'Please sign in first',
+            confirmButtonColor: '#ec7aa0',          
+          });         
+        } else if (locale == 'zh-TW') {
+          swal.fire({
+            icon: 'warning', 
+            text: '請先登入',
+            confirmButtonColor: '#ec7aa0',          
+          });          
+        } else if (locale == 'fr-FR') {
+          swal.fire({
+            icon: 'warning', 
+            text: 'Veuillez vous connecter',
+            confirmButtonColor: '#ec7aa0',          
+          });          
+        }
+        setTimeout(() => {
+          window.location.href = `/login?locale=${locale}`
+        }, '1000');
         console.log('err: ', err);
       }
     });

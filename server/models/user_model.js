@@ -195,6 +195,7 @@ const updateUserSavedReview = async (userId, reviewId) => {
     return 'saved';
   } catch (err) {
     console.log(err);
+    return err;
   }
 };
 
@@ -263,6 +264,7 @@ const updateUserSavedMovie = async (userId, movieId) => {
     return 'saved';
   } catch (err) {
     console.log(err);
+    return err;
   }
 };
 

@@ -45,10 +45,10 @@ block content
                       .section.text-center
                         h4.mb-4.pb-3 #{lang.account.login}
                         .form-group
-                          input#logemail.form-style(type='email', name='logemail', placeholder='Your Email', autocomplete='off')
+                          input#logemail.form-style(type='email', name='logemail', placeholder='Your Email', autocomplete='off' value='test1@test.com') 
                           i.input-icon.uil.uil-at
                         .form-group.mt-2
-                          input#logpass.form-style(type='password', name='logpass', placeholder='Your Password', autocomplete='off')
+                          input#logpass.form-style(type='password', name='logpass', placeholder='Your Password', autocomplete='off' value='12345678')
                           i.input-icon.uil.uil-lock-alt
                         button#sign_in_button.button.mt-4(type="button") #{lang.submit}
                         //- p.mb-0.mt-4.text-center
@@ -101,25 +101,60 @@ block content
                 email: $('#logemail').val(),
                 password: $('#logpass').val()
             }
-            }).catch(function (error) {
-                let err_alert = error.response.data;
-                //TODO:
-                swal.fire({text: err_alert});
-            });
+            })
+            //- .catch(function (error) {
+            //-     let err_alert = error.response.data;
+            //-     //TODO:
+            //-                 console.log(error);
+            //-     swal.fire({text: err_alert});
+            //- });
 
           console.log(signin_response);
 
-          swal.fire({
-            icon: 'success', 
-            text: 'Log in successfully! ',
-            showConfirmButton: false,
-            timer: 1000,
-          }).then(result=>{
+          if (locale == 'en-US'){
+            swal.fire({
+              icon: 'success', 
+              text: 'Log in successfully! ',
+              showConfirmButton: false,
+            })      
+          } else if (locale == 'zh-TW') {
+            swal.fire({
+              icon: 'success', 
+              text: '登入成功! ',
+              showConfirmButton: false,
+            })              
+          } else if (locale == 'fr-FR') {
+            swal.fire({
+              icon: 'success', 
+              text: 'Connectez-vous avec succès! ',
+              showConfirmButton: false,
+            })             
+          }  
+          setTimeout(() => {
             window.location.href = `/profile?locale=${locale}`
-          });           
+          }, '1000');           
         }
         catch(err){
-            console.log(err);
+          console.log(err.response.data);
+          if (locale == 'en-US'){
+            swal.fire({icon: 'warning', 
+            text: err.response.data,
+            confirmButtonColor: '#ec7aa0',          
+            });         
+          } else if (locale == 'zh-TW') {
+            swal.fire({icon: 'warning', 
+            text: '帳號或密碼有誤',
+            confirmButtonColor: '#ec7aa0',          
+            });          
+          } else if (locale == 'fr-FR') {
+            swal.fire({icon: 'warning', 
+            text: 'e-mail ou le mot de passe est erroné',
+            confirmButtonColor: '#ec7aa0',          
+            });          
+          }
+          setTimeout(() => {
+            location.reload();
+          }, '800');            
         }
       }
 

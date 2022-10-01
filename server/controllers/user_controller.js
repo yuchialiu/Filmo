@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt');
 const { SERVER_IP, AWS_CLOUDFRONT_DOMAIN } = process.env;
 const User = require('../models/user_model');
 const Movie = require('../models/movie_model');
+const lang = require('../../util/language');
 
 const signUp = async (req, res) => {
   let { username } = req.body;
@@ -113,10 +114,14 @@ const logout = async (req, res) => {
 const getUserDetail = async (req, res) => {
   res.status(200).send({
     data: {
-      id: req.user.id,
-      username: req.user.username,
-      email: req.user.email,
-      picture: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${req.user.picture}`,
+      user_id: req.session.userId,
+      username: req.session.userName,
+      user_email: req.session.userEmail,
+      user_picture: req.session.picture,
+      // id: req.user.id,
+      // username: req.user.username,
+      // email: req.user.email,
+      // picture: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${req.user.picture}`,
     },
   });
 };
@@ -184,7 +189,7 @@ const getUserReview = async (req, res) => {
       user_id: resultReview[i].user_id,
       created_dt: resultReview[i].created_dt,
       updated_dt: resultReview[i].updated_dt,
-      movie_id: resultMovie.id,
+      movie_id: resultMovie.movie_id,
       title: resultMovie.title,
       poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
     };
@@ -462,6 +467,19 @@ const createMovieRating = async (req, res) => {
 
 // Comment ranking
 
+// submit review
+const getMovieInfoForReview = async (req, res) => {
+  const { locale } = req.query;
+
+  res.status(200).send({
+    data: {
+      locale,
+      locale_string: JSON.stringify(locale),
+      lang: lang[locale],
+    },
+  });
+};
+
 module.exports = {
   signUp,
   signIn,
@@ -485,6 +503,7 @@ module.exports = {
   getUserSavedMovie,
   deleteUserSavedMovie,
   createMovieRating,
+  getMovieInfoForReview,
 };
 
 // async function validateUser(email, password) {

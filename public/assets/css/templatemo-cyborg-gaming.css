@@ -1844,3 +1844,11 @@ Dropdown Style
   color: #e75e8d;
   background-color: rgba(236, 96, 144, 0.9);
 } */
+
+.account:hover {
+  cursor: pointer;
+}
+
+.swal2-confirm:hover {
+  color: black !important;
+}

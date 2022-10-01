@@ -78,23 +78,134 @@ block content
       //- let locale = !{locale}
 
       // logout
-      async function logout() {
+      $('#logout_btn').on('click', async (e) => {
+        e.preventDefault();        
+        try {
+          await axios({
+            method: 'get',
+            url: '/api/1.0/user/logout',
+          });
 
-        await axios({
-          method: 'get',
-          url: '/api/1.0/user/logout',
-        });
-        swal.fire({
-          icon: 'success', 
-          text: 'You\'ve successfully logged out',
-          showConfirmButton: false,
-          timer: 1000,
-          }).then(result=>{
-            window.location.href = `/home?locale=${locale}`;
-        });
-      }
-      
-      $('#logout_btn').on('click', logout);
+          if (locale == 'en-US'){
+            swal.fire({
+              icon: 'success', 
+              text: 'You\'ve successfully logged out',
+              showConfirmButton: false,
+            })     
+          } else if (locale == 'zh-TW') {
+            swal.fire({
+              icon: 'success', 
+              text: '您已登出',
+              showConfirmButton: false,
+            })            
+          } else if (locale == 'fr-FR') {
+            swal.fire({
+              icon: 'success', 
+              text: 'Vous vous êtes déconnecté',
+              showConfirmButton: false,
+            })            
+          }
+          setTimeout(() => {
+              window.location.href = `/home?locale=${locale}`;
+          }, '1000');
+        } catch (err) {
+          console.log(err);
+          swal.fire(err.response.data.message);
+        }
+      });
+
+
+      $('.delete_review_button').on('click', async (e) => {
+        e.preventDefault(); 
+        let review_id = e.target.value;
+
+          if (locale == 'en-US'){
+            swal.fire({
+              icon: 'warning',
+              text: 'Please confirm delete',
+              showConfirmButton: true,
+              confirmButtonColor: '#ec7aa0', 
+              showCancelButton: true,
+              cancelButtonColor: '#444444',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                deleteReview(review_id);
+              }
+            })
+          } else if (locale == 'zh-TW') {
+            swal.fire({
+              icon: 'warning',
+              text: '確定刪除評論?',
+              showConfirmButton: true,
+              confirmButtonColor: '#ec7aa0', 
+              showCancelButton: true,
+              cancelButtonColor: '#444444',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                deleteReview(review_id);
+              }
+            })      
+          } else if (locale == 'fr-FR') {
+            swal.fire({
+              icon: 'warning',
+              text: 'Veuillez confirmer la suppression',
+              showConfirmButton: true,
+              confirmButtonColor: '#ec7aa0', 
+              showCancelButton: true,
+              cancelButtonColor: '#444444',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                deleteReview(review_id);
+              }
+            })        
+          }
+
+        async function deleteReview(review_id){
+
+          try {
+            const data = JSON.stringify({
+              review_id,
+            });
+
+            const result = await axios({
+              method: 'DELETE',
+              url: '/api/1.0/user/review',
+              data,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+
+            if (locale == 'en-US'){
+              swal.fire({
+                icon: 'success', 
+                text: 'Review Deleted',
+                showConfirmButton: false,
+              })
+            } else if (locale == 'zh-TW') {
+              swal.fire({
+                icon: 'success', 
+                text: '刪除成功',
+                showConfirmButton: false,
+              })       
+            } else if (locale == 'fr-FR') {
+              swal.fire({
+                icon: 'success', 
+                text: 'Supprimé',
+                showConfirmButton: false,
+              })          
+            }
+            setTimeout(() => {
+                window.location.href = `/profile/review?locale=${locale}` ;
+            }, '1000');
+          } catch {
+            swal.fire(err);
+            console.log('err: ', err);
+          }
+        }
+      });    
+    });
+
 
       //- $('.save_review_button').on('click', async (e) => {
       //-   e.preventDefault(); 
@@ -123,54 +234,6 @@ block content
       //-   }
 
       //- });
-
-      $('.delete_review_button').on('click', async (e) => {
-        e.preventDefault(); 
-        let review_id = e.target.value;
-
-        swal.fire({
-          icon: 'warning',
-          text: 'Please confirm delete',
-          showConfirmButton: true,
-          confirmButtonColor: '#ec7aa0', 
-          showCancelButton: true,
-          cancelButtonColor: '#444444',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            deleteReview(review_id);
-          }
-        })
-
-        async function deleteReview(review_id){
-
-          try {
-            const data = JSON.stringify({
-              review_id,
-            });
-
-            const result = await axios({
-              method: 'DELETE',
-              url: '/api/1.0/user/review',
-              data,
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            });
-            swal.fire({
-              icon: 'success', 
-              text: 'Review Deleted',
-              showConfirmButton: false,
-              timer: 1000,
-              }).then(result=>{
-              window.location.href = `/profile/review?locale=${locale}` ;
-            });
-          } catch {
-            swal.fire(err);
-            console.log('err: ', err);
-          }
-        }
-      });    
-    });
 
     //- let token = localStorage.getItem('Authorization');
     

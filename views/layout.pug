@@ -60,7 +60,8 @@ header.header-area.header-sticky
             //- li
             //-   a(href=`/review?locale=${locale}`) Review
             li
-              a.account(href=`/profile?locale=${locale}`) #{lang.nav.account}
+              a.account #{lang.nav.account}
+              //- a.account(href=`/profile?locale=${locale}`) #{lang.nav.account}
                 //- img(src='assets/images/profile-header.jpg' alt='')
             div.dropdown
               select.dropdown-toggle
@@ -105,6 +106,8 @@ script(src='/public/assets/js/tabs.js')
 script(src='/public/assets/js/popup.js')
 script(src='/public/assets/js/custom.js')
 
+//- script(src='/public/assets/js/test.js')
+
 script(type="text/javascript").
   const locale = !{ locale_string };
   console.log(locale)
@@ -133,3 +136,42 @@ script(type="text/javascript").
       window.location.href = newUrl + $( this ).val();
     });
   //- })()
+    
+  $('.account').on('click', async (e) => {
+    e.preventDefault();
+    console.log('aaa');
+    try {
+      await axios({
+        method: 'GET',
+        url: '/api/1.0/user/profile',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+      });
+      window.location.href = `/profile?locale=${locale}`;
+    } catch (err) {
+      if (locale == 'en-US') {
+        swal.fire({
+          icon: 'warning',
+          text: 'Please sign in first',
+          confirmButtonColor: '#ec7aa0',
+        });
+      } else if (locale == 'zh-TW') {
+        swal.fire({
+          icon: 'warning',
+          text: '請先登入',
+          confirmButtonColor: '#ec7aa0',
+        });
+      } else if (locale == 'fr-FR') {
+        swal.fire({
+          icon: 'warning',
+          text: 'Veuillez vous connecter',
+          confirmButtonColor: '#ec7aa0',
+        });
+      }
+      setTimeout(() => {
+        window.location.href = `/login?locale=${locale}`
+      }, '1000');
+      console.log('err: ', err);
+    }
+  });

@@ -43,10 +43,26 @@ block content
       e.preventDefault();
 
       if ( $('#review_title').val() == "" || $('#review_content').val() == "" ) {
-        swal.fire({icon: 'warning', 
-        text: "Please fill in title and content before submit",
-        confirmButtonColor: '#ec7aa0',
-      });
+
+        if (locale == 'en-US'){
+          swal.fire({
+            icon: 'warning', 
+            text: "Please fill in title and content before submit",
+            confirmButtonColor: '#ec7aa0',
+          });    
+        } else if (locale == 'zh-TW') {
+          swal.fire({
+            icon: 'warning', 
+            text: "請填寫標題及內容",
+            confirmButtonColor: '#ec7aa0',
+          });         
+        } else if (locale == 'fr-FR') {
+          swal.fire({
+            icon: 'warning', 
+            text: "Veuillez remplir le titre et le contenu avant de soumettre",
+            confirmButtonColor: '#ec7aa0',
+          });       
+        }
         return
       } 
       try{
@@ -65,14 +81,29 @@ block content
             'Content-Type': 'multipart/form-data',
           },
         });
-        swal.fire({
-          icon: 'success', 
-          text: 'Submitted ',
-          showConfirmButton: false,
-          timer: 1000,
-          }).then(result=>{
-            window.location.href = `/profile/review?locale=${locale}`;
-        });
+
+        if (locale == 'en-US'){
+          swal.fire({
+            icon: 'success', 
+            text: 'Submitted ',
+            showConfirmButton: false,
+          })      
+        } else if (locale == 'zh-TW') {
+          swal.fire({
+            icon: 'success', 
+            text: '已送出 ',
+            showConfirmButton: false,
+          })          
+        } else if (locale == 'fr-FR') {
+          swal.fire({
+            icon: 'success', 
+            text: 'Soumis ',
+            showConfirmButton: false,
+          })           
+        }
+        setTimeout(() => {
+          window.location.href = `/profile/review?locale=${locale}`;
+        }, '1000');
       }
       catch(err){
           console.log(err);

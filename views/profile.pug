@@ -57,28 +57,44 @@ block content
       const locale = !{ locale_string };
 
       // logout
-      async function logout(e) {
+      //- $('#logout_btn').on('click', logout);
+      $('#logout_btn').on('click', async (e) => {
         e.preventDefault();        
-        
-        console.log('asdasd')
+        try {
+          await axios({
+            method: 'get',
+            url: '/api/1.0/user/logout',
+          });
 
-        await axios({
-          method: 'get',
-          url: '/api/1.0/user/logout',
-        });
-
-        swal.fire({
-          icon: 'success', 
-          text: 'You\'ve successfully logged out',
-          showConfirmButton: false,
-          timer: 1000,
-          }).then(result=>{
-            window.location.href = `/home?locale=${locale}`;
-        });
-      }
+          if (locale == 'en-US'){
+            swal.fire({
+              icon: 'success', 
+              text: 'You\'ve successfully logged out',
+              showConfirmButton: false,
+            })     
+          } else if (locale == 'zh-TW') {
+            swal.fire({
+              icon: 'success', 
+              text: '您已登出',
+              showConfirmButton: false,
+            })            
+          } else if (locale == 'fr-FR') {
+            swal.fire({
+              icon: 'success', 
+              text: 'Vous vous êtes déconnecté',
+              showConfirmButton: false,
+            })            
+          }
+          setTimeout(() => {
+              window.location.href = `/home?locale=${locale}`;
+          }, '1000');
+          
+        } catch (err) {
+          console.log(err);
+          swal.fire(err.response.data.message);
+        }
+      });
       
-      $('#logout_btn').on('click', logout);
-
       // image upload
       async function submit(e) {
         e.preventDefault();
@@ -96,20 +112,33 @@ block content
             },
           });
           console.log(updateImage)
-          swal.fire({
-            icon: 'success', 
-            text:'Update successfully', 
-            showConfirmButton: false,
-            timer: 1000,
-            }).then(result=>{
-            window.location.href = `profile?locale=${locale}`;
-          }); 
-        
+
+          if (locale == 'en-US'){
+            swal.fire({
+              icon: 'success', 
+              text:'Update successfully', 
+              showConfirmButton: false,
+            })    
+          } else if (locale == 'zh-TW') {
+            swal.fire({
+              icon: 'success', 
+              text:'已更新', 
+              showConfirmButton: false,
+            })         
+          } else if (locale == 'fr-FR') {
+            swal.fire({
+              icon: 'success', 
+              text:'Actualisé', 
+              showConfirmButton: false,
+            })          
+          }
+          setTimeout(() => {
+              window.location.href = `profile?locale=${locale}`;
+          }, '1000');
         } catch(err) {
           console.log(err);
           swal.fire(err.response.data.message);
         }
-
       }
       $('#submit_image').on('click', submit);
     });

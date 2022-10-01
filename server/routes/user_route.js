@@ -27,6 +27,7 @@ const {
   getUserSavedMovie,
   deleteUserSavedMovie,
   createMovieRating,
+  getMovieInfoForReview,
 } = require('../controllers/user_controller');
 
 router.route('/signup').post(signUp);
@@ -35,7 +36,7 @@ router.route('/signin').post(signIn);
 
 router.route('/logout').get(logout);
 
-router.route('/info').get(authentication, getUserDetail);
+router.route('/profile').get(authentication, getUserDetail);
 
 router.route('/image').post(authentication, cpUpload, checkImageExist, updateUserImage);
 
@@ -58,5 +59,7 @@ router.route('/store/review').post(authentication, updateUserSavedReview).get(au
 router.route('/store/movie').post(authentication, updateUserSavedMovie).get(authentication, getUserSavedMovie).delete(authentication, deleteUserSavedMovie);
 
 router.route('/movie/rating').post(authentication, createMovieRating);
+
+router.route('/review/submit').get(authentication, getMovieInfoForReview);
 
 module.exports = router;
