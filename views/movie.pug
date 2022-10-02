@@ -11,7 +11,7 @@ block content
   body
 
   div#movie_id(data-id=`${data.movie_id}`) 
-  div.main
+  div.main.width
     ul.top_buttons
       li.movie_to_review
         //- a(href=`/review/submit?id=${data.movie_id}&locale=${locale}`)
@@ -27,7 +27,7 @@ block content
     div.detail 
 
       div.title_area
-        div.title_save 
+        div.title_save
           h1#title #{data.title}
           li.save_movie 
             - if (data.user_saved_movie == true)

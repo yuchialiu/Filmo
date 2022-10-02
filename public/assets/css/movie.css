@@ -1,7 +1,9 @@
 .main {
   margin-left: 15px;
 }
-
+.width {
+  max-width: 1200px;
+}
 #movie_id {
   margin-top: 120px;
 }
@@ -9,14 +11,15 @@
 .top_buttons {
   display: flex;
   justify-content: right;
-  /* margin-top: 150px; */
-  margin-right: 75px;
+  margin-top: 150px;
+  margin-right: 31px;
 }
 .movie_to_review.movie_to_rating.movie_to_see_review {
   /* margin: 100px 100px 20px 500px; */
   display: flex;
 }
 .title_save {
+  max-width: 1115px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
