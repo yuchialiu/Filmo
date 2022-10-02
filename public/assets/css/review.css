@@ -166,7 +166,8 @@
 }
 
 .card-header {
-  height: 95px !important;
+  height: 110px !important;
+  /* height: 95px !important; */
   background-color: #444647 !important;
   padding: 8px 8px !important;
 }
@@ -190,7 +191,8 @@
 
 .review_title_spoiler,
 .review_title_movie {
-  margin: 25px 0 15px 10px;
+  margin: 35px 0 15px 10px;
+  /* margin: 25px 0 15px 10px; */
 }
 .review_text_movie {
   margin-left: 80px;
