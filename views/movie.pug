@@ -63,7 +63,7 @@ block content
               a.cast_alink(href=`/person?id=${data.cast[i].person_id}&locale=${locale}`)
                 - if (data.cast[i].image == 'https://d2idt211kyg8ql.cloudfront.net/images/people/null')
                   div.img_alt 
-                    p.img_alt_text Currently no image, will fix it soon.
+                    p.img_alt_text #{lang.movie.no_image} 
                 - else                
                   img.cast_img(src=`${data.cast[i].image}`, alt="")
                 div.cast_text
@@ -78,7 +78,7 @@ block content
               a.crew_alink(href=`/person?id=${data.crew[i].person_id}&locale=${locale}`)
                 - if (data.crew[i].image == 'https://d2idt211kyg8ql.cloudfront.net/images/people/null')
                   div.img_alt 
-                    p.img_alt_text Currently no image, will fix it soon.
+                    p.img_alt_text #{lang.movie.no_image}
                 - else
                   img.crew_img(src=`${data.crew[i].image}`, alt="")
                 div.crew_text

@@ -89,7 +89,7 @@ const createUserReview = async (userId, movieId, title, content, image) => {
 
 const getUserReview = async (userId) => {
   try {
-    const result = await pool.execute('SELECT * FROM review WHERE user_id = (?)', [userId]);
+    const result = await pool.execute('SELECT * FROM review WHERE user_id = (?) ORDER BY created_dt DESC', [userId]);
     return result[0];
   } catch (err) {
     console.log(err);
