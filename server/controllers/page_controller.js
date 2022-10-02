@@ -308,7 +308,7 @@ const showUserSavedReview = async (req, res) => {
 
   for (const i in resultSavedReview) {
     const resultReview = await User.getReviewInfo(resultSavedReview[i].review_id);
-    const resultAccount = await User.getUserById(resultSavedReview[i].user_id);
+    const resultAccount = await User.getUserById(resultReview[0].user_id);
 
     for (const j in resultReview) {
       const resultMovie = await Movie.getMovieInfo(resultReview[j].movie_id, locale);
