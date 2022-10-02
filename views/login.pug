@@ -202,8 +202,8 @@ block content
           swal.fire({icon: 'warning', text: 'Username must be at least 6 characters', confirmButtonColor: '#ec7aa0'});
           return
         }
-        if(!validator.isLength($('#regisname').val(), {max:12}) ) {
-          swal.fire({icon: 'warning', text: 'Username must be less than 12 characters', confirmButtonColor: '#ec7aa0'});
+        if(!validator.isLength($('#regisname').val(), {max:10}) ) {
+          swal.fire({icon: 'warning', text: 'Username must be less than 10 characters', confirmButtonColor: '#ec7aa0'});
           return
         }
         // Password Validation

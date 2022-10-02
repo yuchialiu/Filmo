@@ -20,14 +20,20 @@ block content
       //-   img.poster(src=`${data.poster}`)
 
       div.review_submit.row
-        form.review_form.col-6
+        form.review_form
           div#review_movie_id(name='movieId' data-id=`${data.movie_id}`) 
             h5.title #{lang.review.title}
               br
-              input#review_title(type='text' name='title' placeholder='Title' maxlength='255')
+              input#review_title(type='text' name='title' placeholder='Title' maxlength='30' length='30')
+              div#input_count
+                span#input_current 0
+                span#input_maximum / 30
             h5.content #{lang.review.content}
               br
-              textarea#review_content(type='text' name='content' placeholder='Review')
+              textarea#review_content(type='text' name='content' placeholder='Review' length='300')
+              div#textarea_count
+                span#textarea_current 0
+                span#textarea_maximum / 300
         //- div.col-4.row
         //-   h5.image.row-10 
         //-     i18n(vanilla-i18n='image') Image
@@ -38,7 +44,40 @@ block content
 
   script(type='text/javascript').
     //- let locale = !{locale}
-    
+
+    // text count validate
+    $('input').keyup(function() {
+        
+      var characterCount = $(this).val().length,
+          current = $('#input_current'),
+          maximum = $('#input_maximum'),
+          theCount = $('#input_count');
+        
+      current.text(characterCount);
+
+      if (characterCount >= 20) {
+        maximum.css('color', '#f693b8');
+        current.css('color', '#f693b8');
+        theCount.css('font-weight','bold');
+      }
+    })
+
+    $('textarea').keyup(function() {
+        
+      var characterCount = $(this).val().length,
+          current = $('#textarea_current'),
+          maximum = $('#textarea_maximum'),
+          theCount = $('textarea_count');
+        
+      current.text(characterCount);
+
+      if (characterCount >= 250) {
+        maximum.css('color', '#f693b8');
+        current.css('color', '#f693b8');
+        theCount.css('font-weight','bold');
+      }      
+    })
+
     async function submitReview (e) {
       e.preventDefault();
 
@@ -65,6 +104,24 @@ block content
         }
         return
       } 
+
+      if ( $('#review_title').val().length > 30 ) {
+        swal.fire({
+          icon: 'warning', 
+          text: "Please input less than 30 characters for title",
+          confirmButtonColor: '#ec7aa0',
+        }); 
+        return
+      }
+      if ( $('#review_content').val().length > 300 ) {
+        swal.fire({
+          icon: 'warning', 
+          text: "Please input less than 300 characters for content",
+          confirmButtonColor: '#ec7aa0',
+        }); 
+        return
+      }
+
       try{
 
         const form = $('.review_form')[0];
@@ -111,3 +168,5 @@ block content
     };
     
     $('#submit_review').on('click', submitReview);
+
+    

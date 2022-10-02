@@ -6,6 +6,9 @@ block head
   link(rel='stylesheet', href='/public/assets/css/save_button.css', type='text/css')
   link(rel='stylesheet', href='/public/assets/css/spoiler.css', type='text/css')
 
+  link(href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet")
+  script(src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js")
+
 block content 
 
   div.outer_review_movie
@@ -26,42 +29,70 @@ block content
             p.movie_title  #{data.movie[0].title}   
           div.submite_review  
             button.to_submit_page(type='button') #{lang.review.submit_reivew}
-      div.outer_review_account
-        button.spoiler_alert(type='button') #{lang.review.spoiler}
-        - for (let i = 0; i < data.info.length ; i++)
-          div.review_account 
-            div.item_movie     
-              div.d-flex
-                div.user
-                  -if (data.info[i].profile_image =='https://d2idt211kyg8ql.cloudfront.net/images/uploads/null')
-                    div
-                  -else
-                    div#picture_outline
-                      img.profile_img(src= `${data.info[i].profile_image}`, alt='Profile Image')
-                    div.name_date                
-                      p.username #{data.info[i].username}                    
-              div
-                //- a(href=`/review/info?id=${data.info[i].review_id}&locale=${locale}`)
-                h3.review_title #{data.info[i].review_title}
-              div.save_review #{data.info[i].user_saved_review}
-              - if (data.info[i].user_saved_review)
-                button.save_review_button(type='submit' class="fas fa-bookmark" value=`${data.info[i].review_id}`) 
-              - else 
-                button.save_review_button(type='submit' class="far fa-bookmark" value=`${data.info[i].review_id}`) 
-                  //- button.save_review_button(type='submit' value=`${data.info[i].review_id}`) 
-          
-            div.ms-80
-              //- img.review_img(src= `${data.info[i].image}`, alt='')
-              p.review_text #{data.info[i].content}
-
-            div.bottom  
-              p.review_created_dt #{data.info[i].created_dt}  
-                //- p.review_updated_dt #{data.info[i].updated_dt}
+      div.d-flex.flex-column 
+        div.spoiler.d-flex.flex-row
+          p.spoiler_text #{lang.review.spoiler}
+          input#spoiler_alert(type='checkbox' checked data-toggle='toggle' data-size="sm" data-style="ios" ) 
+          //- button.spoiler_alert(type='button') #{lang.review.spoiler}
+        div.outer_review_account
+          - for (let i = 0; i < data.info.length ; i++)
+            div.review_account(class='card text-white bg-dark mb-3' style="max-width: 600px;")
+              div.item_movie(class='card-header')
+                div.d-flex
+                  div.user
+                    -if (data.info[i].profile_image =='https://d2idt211kyg8ql.cloudfront.net/images/uploads/null')
+                      div
+                    -else
+                      div#picture_outline
+                        img.profile_img(src= `${data.info[i].profile_image}`, alt='Profile Image')
+                      div.name_date                
+                        p.username #{data.info[i].username}                    
+                div
+                  h4.review_title_spoiler(class="card-title") #{lang.review.spoiler}
+                  h3.review_title(class="card-title") #{data.info[i].review_title}
+                div.save_review 
+                - if (data.info[i].user_saved_review)
+                  button.save_review_button(type='submit' class="fas fa-bookmark" value=`${data.info[i].review_id}`) 
+                - else 
+                  button.save_review_button(type='submit' class="far fa-bookmark" value=`${data.info[i].review_id}`) 
             
-            //- h3 review# #{data.info[i].review_id}
-            //- a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`, alt='')
-            //-   img.movie_poster(src= `${data[i].poster}`)
-            //-   p #{data[i].title}
+              div(class='card-body')
+                //- img.review_img(src= `${data.info[i].image}`, alt='')
+                p.review_text_movie(class="card-text") #{data.info[i].content}
+
+              div.bottom  
+                p.review_created_dt(class='card-footer') #{data.info[i].created_dt}  
+                  //- p.review_updated_dt #{data.info[i].updated_dt}
+              
+
+            //- div.review_account
+            //-   div.item_movie     
+            //-     div.d-flex
+            //-       div.user
+            //-         -if (data.info[i].profile_image =='https://d2idt211kyg8ql.cloudfront.net/images/uploads/null')
+            //-           div
+            //-         -else
+            //-           div#picture_outline
+            //-             img.profile_img(src= `${data.info[i].profile_image}`, alt='Profile Image')
+            //-           div.name_date                
+            //-             p.username #{data.info[i].username}                    
+            //-     div
+            //-       h4.review_text_spoiler #{lang.review.spoiler}
+            //-       h3.review_title #{data.info[i].review_title}
+            //-     div.save_review 
+            //-     - if (data.info[i].user_saved_review)
+            //-       button.save_review_button(type='submit' class="fas fa-bookmark" value=`${data.info[i].review_id}`) 
+            //-     - else 
+            //-       button.save_review_button(type='submit' class="far fa-bookmark" value=`${data.info[i].review_id}`) 
+            
+            //-   div.ms-80
+            //-     //- img.review_img(src= `${data.info[i].image}`, alt='')
+            //-     p.review_text #{data.info[i].content}
+
+            //-   div.bottom  
+            //-     p.review_created_dt #{data.info[i].created_dt}  
+            //-       //- p.review_updated_dt #{data.info[i].updated_dt}
+              
 
 
   script(type='text/javascript').
@@ -219,11 +250,13 @@ block content
       }
     });
   
-    $('.spoiler_alert').click(function(e) {
-      e.preventDefault();      
-      $('.review_title').slideToggle("slow");
+    $('#spoiler_alert').change(function(e) {
+      e.preventDefault();   
+      console.log('qswqweqwa')
+      $('.review_title_spoiler').slideToggle("fast");   
+      $('.review_title').slideToggle("fast");
       //- $('.review_img').slideToggle("slow");
-      $('.review_text').slideToggle("slow");
+      $('.review_text_movie').slideToggle("fast");
       // Alternative animation for example
       // slideToggle("fast");
     });

@@ -12,13 +12,11 @@
 .review_content {
   margin-left: 10px;
 }
-.review_text {
-  margin: 10px 10px 0 0;
-  min-height: 115px;
-}
+
 .user {
-  margin: 10px 10px;
-  width: 60px;
+  /* margin: 10px 10px; */
+  width: 75px;
+  text-align: center;
 }
 
 .username {
@@ -29,10 +27,11 @@
   line-height: 16px;
 }
 
+.review_title_spoiler,
 .review_title {
-  margin: 15px 0 10px 0;
+  /* margin: 15px 0 10px 15px; */
   /* min-height: 10px; */
-  font-size: 20px !important;
+  /* font-size: 22px !important; */
 }
 
 #picture_outline .profile_img {
@@ -42,12 +41,11 @@
   object-fit: cover;
 }
 
-.review_created_dt {
-  /* width: 230px; */
+/* .review_created_dt {
   font-size: 14px !important;
   color: rgb(161, 157, 157);
   margin-right: 10px;
-}
+} */
 
 .review_img {
   max-width: 300px;
@@ -65,7 +63,7 @@
 .movie_poster_saved,
 .movie_poster_account {
   width: 60px;
-  margin: 10px 10px;
+  /* margin: 10px 10px; */
 }
 
 .movie_poster_saved:hover,
@@ -104,32 +102,23 @@
   margin-top: 120px !important;
 }
 
-.review_account,
+/* .review_account,
 .review_saved,
 .review_info {
   border: 3px;
   border-style: solid;
   border-color: rgba(131, 128, 128, 0.9);
   border-radius: 5px;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   background-color: rgba(59, 59, 59, 0.7);
-  /* min-height: 370px; */
   min-height: fit-content;
-  width: 600px;
-}
+} */
 /* review info page end ------- */
 
 /* review account start ------*/
 .bottom {
   display: flex;
   justify-content: right;
-  /* align-items: flex-end; */
-}
-.buttons {
-  display: flex;
-  justify-content: right;
-  margin-bottom: 1px;
-  margin-right: 0px;
 }
 
 .update_review_button,
@@ -138,7 +127,8 @@
   font-size: 14px;
   color: #fff;
   background-color: #e75e8d;
-  padding: 12px 30px;
+  padding: 3px 9px;
+  width: 68px;
   display: inline-block;
   border-radius: 25px;
   font-weight: 400;
@@ -176,3 +166,60 @@
   max-width: 710px !important;
 }
 /* review account end ------*/
+
+/* card ---------------------------------- */
+.card.bg-dark {
+  background-color: #333537 !important;
+}
+
+.card-header {
+  height: 95px !important;
+  background-color: #444647 !important;
+  padding: 8px 8px !important;
+}
+
+.card-title {
+  margin: 15px 0 10px 10px;
+  font-size: 22px !important;
+}
+
+.card-body {
+  padding: 15px 15px !important;
+}
+
+.card-footer {
+  font-size: 14px !important;
+  color: rgb(161, 157, 157) !important;
+  margin-right: 10px;
+}
+
+/* movie review card ------------------ */
+
+.review_text_movie {
+  margin-left: 80px;
+}
+
+/* review account + saved review card -------------------- */
+
+.ms15 {
+  margin-left: 15px;
+}
+
+.review_text {
+  margin-left: 22px;
+}
+.buttons {
+  margin-left: auto;
+}
+
+.movie_title {
+  margin-top: 5px;
+}
+
+.review_title {
+  margin-top: 10px;
+}
+
+.review_account {
+  margin-bottom: 40px;
+}

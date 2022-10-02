@@ -50,17 +50,22 @@
 .review_submit {
   color: white;
 }
+.title {
+  width: 400px;
+}
 
 #review_title {
   margin-top: 10px;
   width: 400px;
 }
+
 .content {
   margin: 50px 0 0 0;
 }
+
 .content,
 #review_content {
-  margin-top: 10px;
+  margin-top: 20px;
   width: 400px;
   height: 220px;
 }
@@ -144,15 +149,23 @@
   margin-left: 30px;
 }
 
-#main_update {
-  display: flex;
-  justify-content: center;
-}
 .image_update {
   margin-left: 50px;
 }
 
-/*  */
+/* input  */
 .input_area {
   margin-left: 50px;
 }
+
+/* input and textarea show text limit -------- */
+#input_count,
+#textarea_count {
+  float: right;
+  padding: 0.1rem 0 0 0;
+  font-size: 0.875rem;
+  margin: 2px;
+  font-weight: 400;
+}
+
+/* input and textarea show text limit -------- */

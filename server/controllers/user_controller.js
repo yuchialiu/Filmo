@@ -111,6 +111,7 @@ const logout = async (req, res) => {
   res.status(200).send('logout');
 };
 
+// TODO:
 const getUserDetail = async (req, res) => {
   res.status(200).send({
     data: {
@@ -467,7 +468,7 @@ const createMovieRating = async (req, res) => {
 
 // Comment ranking
 
-// submit review
+// TODO: submit review
 const getMovieInfoForReview = async (req, res) => {
   const { locale } = req.query;
 
