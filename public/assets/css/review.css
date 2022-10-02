@@ -19,12 +19,20 @@
   text-align: center;
 }
 
+.name_date {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .username {
   margin-top: 5px;
   text-align: center;
   font-size: 15px !important;
   /* word-wrap: break-word; */
-  line-height: 16px;
+  line-height: 15px;
+  width: 68px;
 }
 
 #picture_outline .profile_img {
