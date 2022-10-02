@@ -36,12 +36,20 @@ block content
       -else  
         div.outer_review_account
           - for (let i = 0; i < data.length ; i++)
-            div.review_account(class='card text-white bg-dark mb-300' style="max-width: 650px;")
+            div.review_account(class='card text-white bg-dark mb-300' style="max-width: 650px; min-width: 650px")
               div.item_movie.d-flex.flex-row(class='card-header')
                 div.user
-                  -if (data[i].profile_image =='https://d2idt211kyg8ql.cloudfront.net/images/uploads/null')
-                    div
-                  -else                
+                  - if (data[i].profile_image =='https://d2idt211kyg8ql.cloudfront.net/images/uploads/null')
+                    div#picture_outline
+                      img.profile_img(src= 'https://d2idt211kyg8ql.cloudfront.net/images/uploads/clownfish.png', alt='Profile Image')
+                    div.name_date                
+                      p.username #{data[i].username}  
+                  - else if (data[i].profile_image == null)
+                    div#picture_outline
+                      img.profile_img(src= 'https://d2idt211kyg8ql.cloudfront.net/images/uploads/clownfish.png', alt='Profile Image')
+                    div.name_date                
+                      p.username #{data[i].username}  
+                  - else         
                     div#picture_outline
                       img.profile_img(src= `${data[i].profile_image}`, alt='Profile Image')
                     div.name_date

@@ -26,7 +26,8 @@
 }
 .profile_info {
   height: 300px;
-  border: solid 2px gray;
+  /* border: solid 2px gray; */
+  background-color: #373535;
   padding: 30px;
   width: 600px;
   margin: auto;

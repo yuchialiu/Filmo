@@ -154,7 +154,7 @@
   display: flex;
   justify-content: center;
   color: white;
-  font-size: medium;
+  font-size: large;
   margin-top: 30px;
   max-width: fit-content;
   font-weight: 500;
@@ -206,15 +206,16 @@
 
 .second_title_line_2 {
   color: white;
+  margin-left: 10px;
 }
 
-#trending {
+/* #trending {
   width: 200px;
 }
 
 #new {
   width: 105px;
-}
+} */
 
 /* .owl-item {
   display: flex;

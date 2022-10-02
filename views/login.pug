@@ -45,7 +45,7 @@ block content
                       .section.text-center
                         h4.mb-4.pb-3 #{lang.account.login}
                         .form-group
-                          input#logemail.form-style(type='email', name='logemail', placeholder='Your Email', autocomplete='off' value='test1@test.com') 
+                          input#logemail.form-style(type='email', name='logemail', placeholder='Your Email', autocomplete='off' value='ellie@gmail.com') 
                           i.input-icon.uil.uil-at
                         .form-group.mt-2
                           input#logpass.form-style(type='password', name='logpass', placeholder='Your Password', autocomplete='off' value='12345678')
@@ -198,8 +198,8 @@ block content
           swal.fire({icon: 'warning', text: 'Username must be alphanumeric', confirmButtonColor: '#ec7aa0'});
           return
         }
-        if(!validator.isLength($('#regisname').val(), {min:6}) ) {
-          swal.fire({icon: 'warning', text: 'Username must be at least 6 characters', confirmButtonColor: '#ec7aa0'});
+        if(!validator.isLength($('#regisname').val(), {min:3}) ) {
+          swal.fire({icon: 'warning', text: 'Username must be at least 3 characters', confirmButtonColor: '#ec7aa0'});
           return
         }
         if(!validator.isLength($('#regisname').val(), {max:10}) ) {

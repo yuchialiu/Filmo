@@ -22,16 +22,9 @@
 .username {
   margin-top: 5px;
   text-align: center;
-  font-size: small !important;
-  word-wrap: break-word;
+  font-size: 15px !important;
+  /* word-wrap: break-word; */
   line-height: 16px;
-}
-
-.review_title_spoiler,
-.review_title {
-  /* margin: 15px 0 10px 15px; */
-  /* min-height: 10px; */
-  /* font-size: 22px !important; */
 }
 
 #picture_outline .profile_img {
@@ -195,8 +188,13 @@
 
 /* movie review card ------------------ */
 
+.review_title_spoiler,
+.review_title_movie {
+  margin: 25px 0 15px 10px;
+}
 .review_text_movie {
   margin-left: 80px;
+  line-height: 24px !important;
 }
 
 /* review account + saved review card -------------------- */
@@ -207,6 +205,7 @@
 
 .review_text {
   margin-left: 22px;
+  line-height: 24px !important;
 }
 .buttons {
   margin-left: auto;

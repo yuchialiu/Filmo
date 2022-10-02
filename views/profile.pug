@@ -35,7 +35,12 @@ block content
       div.profile_outer
         div.profile_info
           div#picture_outline
-            img#picture(src=`${data.user_picture}` title='Profile Image' alt='')
+            - if (data.user_picture == 'https://d2idt211kyg8ql.cloudfront.net/images/uploads/null')
+              img#picture(src='https://d2idt211kyg8ql.cloudfront.net/images/uploads/clownfish.png' title='Profile Image' alt='')
+            - else if (data.user_picture == null)
+              img#picture(src='https://d2idt211kyg8ql.cloudfront.net/images/uploads/clownfish.png' title='Profile Image' alt='')
+            - else
+              img#picture(src=`${data.user_picture}` title='Profile Image' alt='')
           div#user_info
             div#name
               div#name_title #{lang.account.username}

@@ -92,6 +92,7 @@
   margin-bottom: 20px;
 }
 
+.img_alt,
 .cast_img,
 .crew_img {
   width: 150px !important;
@@ -104,6 +105,15 @@
 .crew_img:hover {
   /* -webkit-filter: brightness(110%); */
   border: solid;
+}
+
+.img_alt {
+  height: 225px;
+  background-color: rgb(56, 56, 56, 1);
+}
+
+.img_alt_text {
+  padding: 60px 17px;
 }
 
 .cast_list.crew_list {

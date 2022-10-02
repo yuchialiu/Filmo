@@ -61,7 +61,11 @@ block content
           - for (i in data.cast)
             li.list_div
               a.cast_alink(href=`/person?id=${data.cast[i].person_id}&locale=${locale}`)
-                img.cast_img(src=`${data.cast[i].image}`, alt="")
+                - if (data.cast[i].image == 'https://d2idt211kyg8ql.cloudfront.net/images/people/null')
+                  div.img_alt 
+                    p.img_alt_text Currently no image, will fix it soon.
+                - else                
+                  img.cast_img(src=`${data.cast[i].image}`, alt="")
                 div.cast_text
                   p.cast_name #{data.cast[i].name}
                   p.cast_character #{data.cast[i].character}
@@ -72,7 +76,11 @@ block content
           - for (i in data.crew)
             li.list_div
               a.crew_alink(href=`/person?id=${data.crew[i].person_id}&locale=${locale}`)
-                img.crew_img(src=`${data.crew[i].image}`, alt="")
+                - if (data.crew[i].image == 'https://d2idt211kyg8ql.cloudfront.net/images/people/null')
+                  div.img_alt 
+                    p.img_alt_text Currently no image, will fix it soon.
+                - else
+                  img.crew_img(src=`${data.crew[i].image}`, alt="")
                 div.crew_text
                   p.crew_name #{data.crew[i].name}
                   p.crew_job #{data.crew[i].job}

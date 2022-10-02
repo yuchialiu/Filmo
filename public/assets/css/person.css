@@ -71,7 +71,18 @@
 #other_movie {
   color: #e75e8d;
   font-weight: 500;
-  margin-top: 10px;
+  margin-top: 15px;
+}
+
+#other_movie_production {
+  color: #e75e8d;
+  font-weight: 500;
+  margin-top: 15px;
+}
+
+.text_alt {
+  margin-top: 15px;
+  margin-left: 40px;
 }
 
 .movie_character {

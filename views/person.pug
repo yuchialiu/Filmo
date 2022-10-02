@@ -19,16 +19,19 @@ block content
         - if (data.place_of_birth)
           p#from #{lang.movie.from}
           p#place #{data.place_of_birth}
-      img#image(src=`${data.image}`)
+      div 
+        - if (data.image == 'https://d2idt211kyg8ql.cloudfront.net/images/people/null')
+          div
+        - else     
+          img#image(src=`${data.image}`)
       div.readmore
         p#biography #{data.biography}
 
       div#other_movie #{lang.movie.filmography}
-        br
         div
           div.other_cast_div
             - if (data.other_cast_movie.length === 0 )
-              div
+              p.text_alt #{lang.movie.none}
             - else 
               div(class="owl-features owl-carousel owl-loaded owl-drag")
                 - for (const i in data.other_cast_movie)
@@ -36,10 +39,11 @@ block content
                     img.movie_img(src=`${data.other_cast_movie[i].poster}`, alt="")
                     p.movie_title #{data.other_cast_movie[i].title}
                     p.movie_character #{data.other_cast_movie[i].character}
-
+    
+      div#other_movie_production #{lang.movie.production}
           div.other_crew_div
             - if (data.other_crew_movie.length === 0 )
-              div
+              p.text_alt #{lang.movie.none}
             - else 
               div(class="owl-features owl-carousel owl-loaded owl-drag")
                 - for (const i in data.other_crew_movie)

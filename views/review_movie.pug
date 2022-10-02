@@ -40,16 +40,24 @@ block content
               div.item_movie(class='card-header')
                 div.d-flex
                   div.user
-                    -if (data.info[i].profile_image =='https://d2idt211kyg8ql.cloudfront.net/images/uploads/null')
-                      div
-                    -else
+                    - if (data.info[i].profile_image =='https://d2idt211kyg8ql.cloudfront.net/images/uploads/null')
+                      div#picture_outline
+                        img.profile_img(src= 'https://d2idt211kyg8ql.cloudfront.net/images/uploads/clownfish.png', alt='Profile Image')
+                      div.name_date                
+                        p.username #{data.info[i].username}  
+                    - else if (data.info[i].profile_image == null)
+                      div#picture_outline
+                        img.profile_img(src= 'https://d2idt211kyg8ql.cloudfront.net/images/uploads/clownfish.png', alt='Profile Image')
+                      div.name_date                
+                        p.username #{data.info[i].username}  
+                    - else
                       div#picture_outline
                         img.profile_img(src= `${data.info[i].profile_image}`, alt='Profile Image')
                       div.name_date                
                         p.username #{data.info[i].username}                    
                 div
                   h4.review_title_spoiler(class="card-title") #{lang.review.spoiler}
-                  h3.review_title(class="card-title") #{data.info[i].review_title}
+                  h3.review_title_movie(class="card-title") #{data.info[i].review_title}
                 div.save_review 
                 - if (data.info[i].user_saved_review)
                   button.save_review_button(type='submit' class="fas fa-bookmark" value=`${data.info[i].review_id}`) 
@@ -254,7 +262,7 @@ block content
       e.preventDefault();   
       console.log('qswqweqwa')
       $('.review_title_spoiler').slideToggle("fast");   
-      $('.review_title').slideToggle("fast");
+      $('.review_title_movie').slideToggle("fast");
       //- $('.review_img').slideToggle("slow");
       $('.review_text_movie').slideToggle("fast");
       // Alternative animation for example

@@ -12,37 +12,38 @@ block content
         - if (data[i].movie_id === 5)
           a.banner_link(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
 
-            div.banner_media
+            div.banner_media.d-flex
               img.banner_img(src=`${data[i].banner}`)
               div.banner_text_background
               div.banner_text
                 h1.banner_title #{data[i].title}
                 p.text-center.mt-5
-                  a(href="#headerPopup" id="headerVideoLink" target="_blank" class="btn btn-outline-danger popup-modal") #{lang.movie.trailer}
+                  a(href=`/movie?id=${data[i].movie_id}&locale=${locale}` id="headerVideoLink" target="_blank" class="btn btn-outline-danger popup-modal") #{lang.movie.info}
+                  //- a(href="#headerPopup" id="headerVideoLink" target="_blank" class="btn btn-outline-danger popup-modal") #{lang.movie.trailer}
           //- div(id="headerPopup" class="mfp-hide embed-responsive embed-responsive-21by9")
           //-   iframe.embed-responsive-item(width='854' height='480' src=`${data[5].trailer_embed}` frameborder='0' allow='autoplay; encrypted-media' allowfullscreen='')
       
     div.blocks
       div.container
         div.second_title
-          h1.second_title_line_1#trending #{lang.index.trending}
+          h1.second_title_line_1 #{lang.index.trending}
           h1.second_title_line_2 #{lang.index.now}
         div.list_box
           //- ul.movie_list.vmcarousel-normal
           ul.movie_list(class="owl-features owl-carousel owl-loaded owl-drag")
-            - for (let i = 5; i < 35; i++)
+            - for (let i = 0; i < 10; i++)
               li.list_div
                 a.list_link(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
                   img.list_img(src=`${data[i].poster}`)
                   p.list_title #{data[i].title}
 
         div.second_title
-          h1.second_title_line_1#new #{lang.index.new}
+          h1.second_title_line_1 #{lang.index.new}
           h1.second_title_line_2 #{lang.index.releases}
         div.list_box
           //- ul.movie_list.vmcarousel-normal
           ul.movie_list(class="owl-features owl-carousel owl-loaded owl-drag")
-            - for (let i = 50; i < 80; i++)
+            - for (let i = 40; i < 50; i++)
               li.list_div
                 a.list_link(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
                   img.list_img(src=`${data[i].poster}`)

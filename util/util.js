@@ -21,7 +21,7 @@ const s3 = new S3Client({ credentialDefaultProvider: provider, region: 'us-west-
 const authentication = (req, res, next) => {
   // const lang = require('./language');
   // const { locale } = req.query;
-  console.log(req.session.isAuth);
+  // console.log(req.session.isAuth);
   if (!req.session.isAuth) {
     return res.status(403).json({ success: false, message: 'unauthenticate' });
     // return res.status(403).render('login', {

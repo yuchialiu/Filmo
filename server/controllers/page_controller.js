@@ -613,7 +613,7 @@ const showSearchMovie = async (req, res) => {
 
 const showProfile = async (req, res) => {
   const { locale } = req.query;
-  console.log('showProfile Controller');
+
   res.render('profile', {
     data: {
       user_id: req.session.userId,
