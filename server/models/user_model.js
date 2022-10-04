@@ -211,6 +211,7 @@ const getReviewInfo = async (reviewId) => {
 
 const checkUserSavedReview = async (userId, reviewId) => {
   try {
+    // TODO: return result
     const result = await pool.execute('SELECT * FROM saved_review WHERE user_id = (?) AND review_id = (?)', [userId, reviewId]);
     if (result[0].length) {
       return true;

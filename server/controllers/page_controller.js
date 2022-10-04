@@ -305,7 +305,7 @@ const showUserSavedReview = async (req, res) => {
   const resultSavedReview = await User.getUserSavedReview(userId);
 
   const info = [];
-
+  // TODO: the second for loop is weird and note that for in is for array not obj
   for (const i in resultSavedReview) {
     const resultReview = await User.getReviewInfo(resultSavedReview[i].review_id);
     const resultAccount = await User.getUserById(resultReview[0].user_id);
@@ -516,6 +516,7 @@ const getReviewByMovieId = async (req) => {
   for (const i in resultReview) {
     const resultAccount = await User.getUserById(resultReview[i].user_id);
 
+    // TODO: check space below
     let formatDate;
     if (locale === 'en-US') {
       formatDate = 'MMMM DD YYYY' + ' ' + 'hh:mm A';
@@ -525,15 +526,15 @@ const getReviewByMovieId = async (req) => {
       formatDate = 'YYYY MMM DD' + '日' + ' ' + 'HH:mm';
     }
 
-    // check if user saved review
+    // TODO:
+    // check if user sign in
     let savedReview = false;
     if (isAuth) {
       const resultSaved = await User.checkUserSavedReview(userId, resultReview[i].id);
       if (resultSaved) {
         savedReview = true;
-      } else {
-        savedReview = false;
       }
+      // TODO: else can be omit actually
     }
 
     const result = {
