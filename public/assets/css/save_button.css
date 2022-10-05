@@ -1,5 +1,24 @@
 .save_review_button,
-.delete_saved_review,
+.delete_saved_review {
+  font-size: 10px;
+  color: #e75e8d;
+  background-color: #ffffff;
+  /* padding: 12px 30px; */
+  padding: 6px 10px;
+  display: inline-block;
+  border-radius: 25px;
+  font-weight: 400;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  margin: 0;
+  margin-right: -7px;
+  height: 27px;
+}
+
 .save_movie_button,
 .delete_saved_movie {
   font-size: 10px;
@@ -17,7 +36,7 @@
   overflow: hidden;
   border: 0;
   margin: 0;
-  margin-right: -5px;
+  margin-right: 5px;
   height: 27px;
 }
 
