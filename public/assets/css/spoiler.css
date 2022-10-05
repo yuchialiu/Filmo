@@ -29,29 +29,30 @@
 .btn-primary {
   --bs-btn-bg: #e75e8d !important;
   --bs-btn-border-color: #e75e8d !important;
-  --bs-btn-hover-bg: #de779b !important;
-  --bs-btn-hover-border-color: #de779b !important;
+  --bs-btn-hover-bg: #ee72a8 !important;
+  --bs-btn-hover-border-color: #ee72a8 !important;
   --bs-btn-active-bg: #de4e80 !important;
   --bs-btn-active-border-color: #de4e80 !important;
   --bs-btn-disabled-bg: #e75e8d !important;
   --bs-btn-disabled-border-color: #e75e8d !important;
 }
 
-.btn-light {
-  /* --bs-btn-bg: #fff !important;
-  --bs-btn-border-color: #fff !important;
-  --bs-btn-hover-bg: #d3d4d5;
-  --bs-btn-hover-border-color: #c6c7c8;
-  --bs-btn-active-bg: #c6c7c8;
-  --bs-btn-active-border-color: #babbbc;
-  --bs-btn-disabled-bg: #f8f9fa;
-  --bs-btn-disabled-border-color: #f8f9fa; */
+.toggle-off {
+  --bs-btn-bg: rgb(210, 208, 208) !important;
+  --bs-btn-border-color: rgb(210, 208, 208) !important;
+  --bs-btn-hover-bg: rgb(228, 227, 227) !important;
+  --bs-btn-hover-border-color: rgb(228, 227, 227) !important;
+  --bs-btn-active-bg: rgb(210, 208, 208) !important;
+  --bs-btn-active-border-color: rgb(210, 208, 208) !important;
+  --bs-btn-disabled-bg: rgb(210, 208, 208) !important;
+  --bs-btn-disabled-border-color: rgb(210, 208, 208) !important;
 }
 
 .spoiler {
   justify-content: right;
   margin-bottom: 15px;
   margin-top: -50px;
+  margin-right: 1px;
 }
 
 .toggle {

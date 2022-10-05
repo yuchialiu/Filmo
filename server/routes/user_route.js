@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { authentication, upload, checkImageExist } = require('../../util/util');
+const { authenticationAPI, upload, checkImageExist } = require('../../util/util');
 
 const cpUpload = upload.fields([{ name: 'image', maxCount: 1 }]);
 
@@ -36,30 +36,30 @@ router.route('/signin').post(signIn);
 
 router.route('/logout').get(logout);
 
-router.route('/profile').get(authentication, getUserDetail);
+router.route('/profile').get(authenticationAPI, getUserDetail);
 
-router.route('/image').post(authentication, cpUpload, checkImageExist, updateUserImage);
+router.route('/image').post(authenticationAPI, cpUpload, checkImageExist, updateUserImage);
 
 router
   .route('/review')
-  .post(authentication, cpUpload, createUserReview)
-  .get(authentication, getUserReview)
-  .patch(authentication, cpUpload, updateUserReview)
-  .delete(authentication, deleteUserReview);
+  .post(authenticationAPI, cpUpload, createUserReview)
+  .get(authenticationAPI, getUserReview)
+  .patch(authenticationAPI, cpUpload, updateUserReview)
+  .delete(authenticationAPI, deleteUserReview);
 
 router
   .route('/comment')
-  .post(authentication, createUserComment)
-  .get(authentication, getUserComment)
-  .patch(authentication, updateUserComment)
-  .delete(authentication, deleteUserComment);
+  .post(authenticationAPI, createUserComment)
+  .get(authenticationAPI, getUserComment)
+  .patch(authenticationAPI, updateUserComment)
+  .delete(authenticationAPI, deleteUserComment);
 
-router.route('/store/review').post(authentication, updateUserSavedReview).get(authentication, getUserSavedReview).delete(authentication, deleteUserSavedReview);
+router.route('/store/review').post(authenticationAPI, updateUserSavedReview).get(authenticationAPI, getUserSavedReview).delete(authenticationAPI, deleteUserSavedReview);
 
-router.route('/store/movie').post(authentication, updateUserSavedMovie).get(authentication, getUserSavedMovie).delete(authentication, deleteUserSavedMovie);
+router.route('/store/movie').post(authenticationAPI, updateUserSavedMovie).get(authenticationAPI, getUserSavedMovie).delete(authenticationAPI, deleteUserSavedMovie);
 
-router.route('/movie/rating').post(authentication, createMovieRating);
+router.route('/movie/rating').post(authenticationAPI, createMovieRating);
 
-router.route('/review/submit').get(authentication, getMovieInfoForReview);
+router.route('/review/submit').get(authenticationAPI, getMovieInfoForReview);
 
 module.exports = router;

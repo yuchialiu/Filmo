@@ -42,18 +42,27 @@ block content
                   - if (data[i].profile_image =='https://d2idt211kyg8ql.cloudfront.net/images/uploads/null')
                     div#picture_outline
                       img.profile_img(src= 'https://d2idt211kyg8ql.cloudfront.net/images/uploads/clownfish.png', alt='Profile Image')
-                    div.name_date                
-                      p.username #{data[i].username}  
+                    div.name_date          
+                      - if (data[i].username.length > 7)
+                        p.username_small #{data[i].username}                          
+                      - else                                
+                        p.username #{data[i].username}  
                   - else if (data[i].profile_image == null)
                     div#picture_outline
                       img.profile_img(src= 'https://d2idt211kyg8ql.cloudfront.net/images/uploads/clownfish.png', alt='Profile Image')
-                    div.name_date                
-                      p.username #{data[i].username}  
+                    div.name_date   
+                      - if (data[i].username.length > 7)
+                        p.username_small #{data[i].username}                          
+                      - else                                    
+                        p.username #{data[i].username}  
                   - else         
                     div#picture_outline
                       img.profile_img(src= `${data[i].profile_image}`, alt='Profile Image')
                     div.name_date
-                      p.username #{data[i].username}
+                      - if (data[i].username.length > 7)
+                        p.username_small #{data[i].username}                          
+                      - else               
+                        p.username #{data[i].username}
                 div.ms15
                   h4.review_title #{data[i].review_title}
                   p.movie_title #{data[i].movie_title}   

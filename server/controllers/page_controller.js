@@ -106,8 +106,6 @@ const getMovieInfo = async (req) => {
     const resultSaved = await User.checkUserSavedMovie(userId, movieId);
     if (resultSaved) {
       savedMovie = true;
-    } else {
-      savedMovie = false;
     }
   }
 
@@ -127,7 +125,6 @@ const getMovieInfo = async (req) => {
     spoken_languages: result.spoken_languages,
     cast: castInfo,
     crew: crewInfo,
-    // locale: locale,
     user_saved_movie: savedMovie,
   };
   return response;
@@ -214,7 +211,7 @@ const getPersonDetail = async (req) => {
   } else if (locale === 'fr-FR') {
     formatDate = 'DD MMMM YYYY';
   } else if (locale === 'zh-TW') {
-    formatDate = 'YYYY MMM DD' + '日';
+    formatDate = 'YYYY MMM DD日';
   }
 
   const response = {
@@ -262,11 +259,11 @@ const showProfileReview = async (req, res) => {
 
     let formatDate;
     if (locale === 'en-US') {
-      formatDate = 'MMMM DD YYYY' + ' ' + 'hh:mm A';
+      formatDate = 'MMMM DD YYYY hh:mm A';
     } else if (locale === 'fr-FR') {
-      formatDate = 'DD MMMM YYYY' + ' ' + 'HH:mm';
+      formatDate = 'DD MMMM YYYY HH:mm';
     } else if (locale === 'zh-TW') {
-      formatDate = 'YYYY MMM DD' + '日' + ' ' + 'HH:mm';
+      formatDate = 'YYYY MMM DD日 HH:mm';
     }
 
     const result = {
@@ -310,11 +307,11 @@ const showUserSavedReview = async (req, res) => {
 
     let formatDate;
     if (locale === 'en-US') {
-      formatDate = 'MMMM DD YYYY' + ' ' + 'hh:mm A';
+      formatDate = 'MMMM DD YYYY hh:mm A';
     } else if (locale === 'fr-FR') {
-      formatDate = 'DD MMMM YYYY' + ' ' + 'HH:mm';
+      formatDate = 'DD MMMM YYYY HH:mm';
     } else if (locale === 'zh-TW') {
-      formatDate = 'YYYY MMM DD' + '日' + ' ' + 'HH:mm';
+      formatDate = 'YYYY MMM DD日 HH:mm';
     }
 
     const result = {
@@ -379,11 +376,11 @@ const showAllReviews = async (req, res) => {
 
     let formatDate;
     if (locale === 'en-US') {
-      formatDate = 'MMMM DD YYYY' + ' ' + 'hh:mm A';
+      formatDate = 'MMMM DD YYYY hh:mm A';
     } else if (locale === 'fr-FR') {
-      formatDate = 'DD MMMM YYYY' + ' ' + 'HH:mm';
+      formatDate = 'DD MMMM YYYY HH:mm';
     } else if (locale === 'zh-TW') {
-      formatDate = 'YYYY MMM DD' + '日' + ' ' + 'HH:mm';
+      formatDate = 'YYYY MMM DD日 HH:mm';
     }
 
     const result = {
@@ -426,11 +423,11 @@ const getReviewInfo = async (req) => {
 
     let formatDate;
     if (locale === 'en-US') {
-      formatDate = 'MMMM DD YYYY' + ' ' + 'hh:mm A';
+      formatDate = 'MMMM DD YYYY hh:mm A';
     } else if (locale === 'fr-FR') {
-      formatDate = 'DD MMMM YYYY' + ' ' + 'HH:mm';
+      formatDate = 'DD MMMM YYYY HH:mm';
     } else if (locale === 'zh-TW') {
-      formatDate = 'YYYY MMM DD' + '日' + ' ' + 'HH:mm';
+      formatDate = 'YYYY MMM DD日 HH:mm';
     }
 
     const result = {
@@ -508,17 +505,15 @@ const getReviewByMovieId = async (req) => {
   for (const review of resultReview) {
     const resultAccount = await User.getUserById(review.user_id);
 
-    // TODO: check space below
     let formatDate;
     if (locale === 'en-US') {
-      formatDate = 'MMMM DD YYYY' + ' ' + 'hh:mm A';
+      formatDate = 'MMMM DD YYYY hh:mm A';
     } else if (locale === 'fr-FR') {
-      formatDate = 'DD MMMM YYYY' + ' ' + 'HH:mm';
+      formatDate = 'DD MMMM YYYY HH:mm';
     } else if (locale === 'zh-TW') {
-      formatDate = 'YYYY MMM DD' + '日' + ' ' + 'HH:mm';
+      formatDate = 'YYYY MMM DD日 HH:mm';
     }
 
-    // TODO:
     // check if user sign in
     let savedReview = false;
     if (isAuth) {
@@ -526,7 +521,6 @@ const getReviewByMovieId = async (req) => {
       if (resultSaved) {
         savedReview = true;
       }
-      // TODO: else can be omit actually
     }
 
     const result = {

@@ -7,18 +7,16 @@ block head
 block content 
   div.content
     div.banner
-      h1.title 
-      - for (i in data)
-        - if (data[i].movie_id === 5)
-          a.banner_link(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
-
-            div.banner_media.d-flex
-              img.banner_img(src=`${data[i].banner}`)
-              div.banner_text_background
-              div.banner_text
-                h1.banner_title #{data[i].title}
-                p.text-center.mt-5
-                  a(href=`/movie?id=${data[i].movie_id}&locale=${locale}` id="headerVideoLink" target="_blank" class="btn btn-outline-danger popup-modal") #{lang.movie.info}
+      //- - for (i in data)
+        //- - if (data[i].movie_id === 5)
+      a.banner_link(href=`/movie?id=${data[5].movie_id}&locale=${locale}`)
+        div.banner_media.d-flex.flex-column
+          img.banner_img(src=`${data[5].banner}`)
+          div.banner_text_background
+          div.banner_text.d-flex.flex-row.align-items-center
+            h1.banner_title #{data[5].title}
+            p.banner_button
+              a(href=`/movie?id=${data[5].movie_id}&locale=${locale}` id="headerVideoLink" target="_blank" class="btn btn-outline-danger popup-modal") #{lang.movie.info}
                   //- a(href="#headerPopup" id="headerVideoLink" target="_blank" class="btn btn-outline-danger popup-modal") #{lang.movie.trailer}
           //- div(id="headerPopup" class="mfp-hide embed-responsive embed-responsive-21by9")
           //-   iframe.embed-responsive-item(width='854' height='480' src=`${data[5].trailer_embed}` frameborder='0' allow='autoplay; encrypted-media' allowfullscreen='')

@@ -30,14 +30,12 @@ block content
                 span#input_maximum / 30
             h5.content #{lang.review.content}
               br
-              textarea#review_content(type='text' name='content' placeholder='Review' length='300')
+              textarea#review_content(type='text' name='content' placeholder='Review' length='1000')
               div#textarea_count
                 span#textarea_current 0
-                span#textarea_maximum / 300
+                span#textarea_maximum / 1000
         //- div.col-4.row
-        //-   h5.image.row-10 
-        //-     i18n(vanilla-i18n='image') Image
-        //-     br
+        //-   h5.image.row-10 Image
         //-     input.image_choose(name='image' type='file')        
     div.submit
       button#submit_review #{lang.submit}
@@ -52,13 +50,17 @@ block content
           current = $('#input_current'),
           maximum = $('#input_maximum'),
           theCount = $('#input_count');
-        
+
       current.text(characterCount);
 
       if (characterCount >= 20) {
         maximum.css('color', '#f693b8');
         current.css('color', '#f693b8');
         theCount.css('font-weight','bold');
+      } else {
+        maximum.css('color', '#fff');
+        current.css('color', '#fff');
+        theCount.css('font-weight','normal');
       }
     })
 
@@ -68,14 +70,22 @@ block content
           current = $('#textarea_current'),
           maximum = $('#textarea_maximum'),
           theCount = $('textarea_count');
-        
+
+      //- if ($(this).val().match(/[^\x00-\xff]/ig) != null) {
+      //-   characterCount += 1
+      //- }
+              
       current.text(characterCount);
 
-      if (characterCount >= 250) {
+      if (characterCount >= 850) {
         maximum.css('color', '#f693b8');
         current.css('color', '#f693b8');
         theCount.css('font-weight','bold');
-      }      
+      } else {
+        maximum.css('color', '#fff');
+        current.css('color', '#fff');
+        theCount.css('font-weight','normal');
+      }     
     })
 
     async function submitReview (e) {
@@ -113,10 +123,10 @@ block content
         }); 
         return
       }
-      if ( $('#review_content').val().length > 300 ) {
+      if ( $('#review_content').val().length > 1000 ) {
         swal.fire({
           icon: 'warning', 
-          text: "Please input less than 300 characters for content",
+          text: "Please input less than 1000 characters for content",
           confirmButtonColor: '#ec7aa0',
         }); 
         return
@@ -159,7 +169,7 @@ block content
           })           
         }
         setTimeout(() => {
-          window.location.href = `/profile/review?locale=${locale}`;
+          window.location.href = `/review/movie?id=${movieId}&locale=${locale}`;
         }, '1000');
       }
       catch(err){

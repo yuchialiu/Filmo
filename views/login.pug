@@ -9,24 +9,6 @@ block head
 
 block content 
   body 
-
-    //- div#main
-      div.signin Login
-        div
-          input#sign_in_email(type="text" placeholder="email")
-        div
-          input#sign_in_password(type="password" placeholder="password")
-        button#sign_in_button.button_control(type="button" onclick='signin(event)') Sign In
-          
-      div.signup Register
-        div
-          input#sign_up_email(type="text" placeholder="email")
-        div
-          input#sign_up_username(type="text" placeholder="username")
-        div
-          input#sign_up_password(type="password" placeholder="password")
-        button#sign_up_button.button_control(type="button" onclick='signup(event)') Sign Up
-
   div#main
     .section
       .container
@@ -45,12 +27,12 @@ block content
                       .section.text-center
                         h4.mb-4.pb-3 #{lang.account.login}
                         .form-group
-                          input#logemail.form-style(type='email', name='logemail', placeholder='Your Email', autocomplete='off') 
-                          //- input#logemail.form-style(type='email', name='logemail', placeholder='Your Email', autocomplete='off' value='ellie@gmail.com') 
+                          input#logemail.form-style(type='email', name='logemail', placeholder='Your Email', autocomplete='off', maxlength='30') 
+                          //- input#logemail.form-style(type='email', name='logemail', placeholder='Your Email', autocomplete='off', maxlength='30', value='ellie@gmail.com') 
                           i.input-icon.uil.uil-at
                         .form-group.mt-2
-                          input#logpass.form-style(type='password', name='logpass', placeholder='Your Password', autocomplete='off')
-                          //- input#logpass.form-style(type='password', name='logpass', placeholder='Your Password', autocomplete='off' value='12345678')
+                          input#logpass.form-style(type='password', name='logpass', placeholder='Your Password', autocomplete='off', maxlength='20')
+                          //- input#logpass.form-style(type='password', name='logpass', placeholder='Your Password', autocomplete='off', maxlength='20', value='12345678')
                           i.input-icon.uil.uil-lock-alt
                         button#sign_in_button.button.mt-4(type="button") #{lang.submit}
                         //- p.mb-0.mt-4.text-center
@@ -60,20 +42,18 @@ block content
                       .section.text-center
                         h4.mb-4.pb-3 #{lang.account.signup}
                         .form-group
-                          input#regisname.form-style(type='text', name='regisname', placeholder='Your Username', autocomplete='off')
+                          input#regisname.form-style(type='text', name='regisname', placeholder='Your Username', autocomplete='off', maxlength='8')
                           i.input-icon.uil.uil-user
                         .form-group.mt-2
-                          input#regisemail.form-style(type='email', name='regisemail', placeholder='Your Email', autocomplete='off')
+                          input#regisemail.form-style(type='email', name='regisemail', placeholder='Your Email', autocomplete='off', maxlength='30')
                           i.input-icon.uil.uil-at
                         .form-group.mt-2
-                          input#regispass.form-style(type='password', name='regispass', placeholder='Your Password', autocomplete='off')
+                          input#regispass.form-style(type='password', name='regispass', placeholder='Your Password', autocomplete='off', maxlength='20')
                           i.input-icon.uil.uil-lock-alt
                         button#sign_up_button.button.mt-4(type="button") #{lang.submit}
     script.
 
-    
       //Sign in
-      //- const locale = !{ locale_string };
 
       async function signin(event){
         event.preventDefault()
@@ -199,8 +179,8 @@ block content
           swal.fire({icon: 'warning', text: 'Username must be at least 3 characters', confirmButtonColor: '#ec7aa0'});
           return
         }
-        if(!validator.isLength($('#regisname').val(), {max:10}) ) {
-          swal.fire({icon: 'warning', text: 'Username must be less than 10 characters', confirmButtonColor: '#ec7aa0'});
+        if(!validator.isLength($('#regisname').val(), {max:8}) ) {
+          swal.fire({icon: 'warning', text: 'Username must be no more than 8 characters', confirmButtonColor: '#ec7aa0'});
           return
         }
         // Password Validation
@@ -213,7 +193,7 @@ block content
           return
         }
         if(!validator.isLength($('#regispass').val(), {max:20}) ) {
-          swal.fire({icon: 'warning', text: 'Password must be less than 20 characters', confirmButtonColor: '#ec7aa0'});
+          swal.fire({icon: 'warning', text: 'Password must be no more than 20 characters', confirmButtonColor: '#ec7aa0'});
           return
         }            
 
@@ -241,7 +221,10 @@ block content
         } catch(err) {
             console.log(err);
             let err_alert = err.response.data.error;
-            swal.fire({text: err_alert});
+            swal.fire({
+              text: err_alert,
+              confirmButtonColor: '#ec7aa0',          
+            });
         }
       }
       $('#sign_up_button').on('click', signup);

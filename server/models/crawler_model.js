@@ -2,6 +2,7 @@
 /* eslint-disable object-shorthand */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
+
 const { pool } = require('./mysqlcon');
 require('dotenv').config();
 
@@ -155,18 +156,18 @@ const insertPersonCrawler = async () => {
       if (castLen < castIndex) {
         castIndex = castLen;
       }
-      for (let i = 0; i < castIndex; i++) {
+      for (let j = 0; j < castIndex; j++) {
         // const personDb = await pool.execute('SELECT * FROM person WHERE ref_id = ?', [cast[i].id]);
         // if (personDb[0].length == 0) {
         if (cast[i].profile_path === null) {
           castFileName = null;
         } else {
-          const url = `https://image.tmdb.org/t/p/h632${cast[i].profile_path}`;
-          const path = `./public/assets/images/people/${cast[i].id}.jpg`;
+          const url = `https://image.tmdb.org/t/p/h632${cast[j].profile_path}`;
+          const path = `./public/assets/images/people/${cast[j].id}.jpg`;
           castFileName = `${cast[i].id}.jpg`;
 
           download(url, path, () => {
-            console.log(`✅ cast image ${i} Done!`);
+            console.log(`✅ cast image ${j} Done!`);
           });
         }
 
