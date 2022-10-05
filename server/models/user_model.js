@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-restricted-syntax */
 require('dotenv').config();
 const bcrypt = require('bcrypt');
@@ -10,7 +11,7 @@ const USER_ROLE = {
   USER: 2,
 };
 
-const CreateUser = async (username, role, email, password) => {
+const createUser = async (username, role, email, password) => {
   try {
     const user = {
       username,
@@ -34,29 +35,29 @@ const CreateUser = async (username, role, email, password) => {
   }
 };
 
-const ValidateUsername = async () => {
-  const result = await pool.execute('SELECT * FROM `user`');
-  return result[0];
-};
-
-const GetUser = async (email) => {
+const validateEmail = async (email) => {
   try {
-    const [users] = await pool.execute('SELECT * FROM `user` WHERE email = ?', [email]);
-    if (!users[0]) {
+    const [result] = await pool.execute('SELECT * FROM `user` WHERE email = ?', [email]);
+    if (!result.length) {
       return { error: 'email has not registered' };
     }
-    const user = users[0];
-    return user;
+    // const user = users[0]
+    return result;
   } catch (err) {
     console.log(err);
     return { err };
   }
 };
 
+const validateUsername = async (username) => {
+  const [result] = await pool.execute('SELECT * FROM `user` WHERE username = ?', [username]);
+  return result;
+};
+
 const getUserDetail = async (email, role) => {
   try {
     if (role) {
-      const [users] = await pool.execute('SELECT * FROM user WHERE email = ? AND role_id = ?', [email, roleId]);
+      const [users] = await pool.execute('SELECT * FROM user WHERE email = ? AND role_id = ?', [email, role]);
       return users[0];
     }
     const [users] = await pool.execute('SELECT * FROM user WHERE email = ?', [email]);
@@ -73,14 +74,15 @@ const updateUserImage = async (id, image) => {
     return result;
   } catch (err) {
     console.log(err);
+    return { err };
   }
 };
 
 // Reviews CRUD
 const createUserReview = async (userId, movieId, title, content, image) => {
   try {
-    const result = await pool.execute('INSERT INTO review (user_id, movie_id, title, content, image) VALUES (?, ?, ?, ?, ?)', [userId, movieId, title, content, image]);
-    return result[0].insertId;
+    const [result] = await pool.execute('INSERT INTO review (user_id, movie_id, title, content, image) VALUES (?, ?, ?, ?, ?)', [userId, movieId, title, content, image]);
+    return result.insertId;
   } catch (err) {
     console.log(err);
     return { err };
@@ -89,13 +91,18 @@ const createUserReview = async (userId, movieId, title, content, image) => {
 
 const getUserReview = async (userId) => {
   try {
-    const result = await pool.execute('SELECT * FROM review WHERE user_id = (?) ORDER BY created_dt DESC', [userId]);
-    return result[0];
+    const [result] = await pool.execute('SELECT * FROM review WHERE user_id = (?) ORDER BY created_dt DESC', [userId]);
+    return result;
   } catch (err) {
     console.log(err);
     return { err };
   }
 };
+
+async function validateUserReview(reviewId) {
+  const [result] = await pool.execute('SELECT * FROM review WHERE id = (?)', [reviewId]);
+  return result[0];
+}
 
 const updateUserReview = async (userId, reviewId, title, content, image) => {
   try {
@@ -104,8 +111,8 @@ const updateUserReview = async (userId, reviewId, title, content, image) => {
       const err = new Error('review belongs to other user');
       throw err;
     } else {
-      const result = await pool.execute('UPDATE review SET title = ?, content = ?, image = ? WHERE id = ?', [title, content, image, reviewId]);
-      return result[0].insertId;
+      const [result] = await pool.execute('UPDATE review SET title = ?, content = ?, image = ? WHERE id = ?', [title, content, image, reviewId]);
+      return result.insertId;
     }
   } catch (err) {
     console.log(err);
@@ -120,8 +127,8 @@ const deleteUserReview = async (userId, reviewId) => {
       const err = new Error('review belongs to other user');
       throw err;
     } else {
-      const result = await pool.execute('DELETE FROM review WHERE id = (?)', [reviewId]);
-      return result[0].insertId;
+      const [result] = await pool.execute('DELETE FROM review WHERE id = (?)', [reviewId]);
+      return result.insertId;
     }
   } catch (err) {
     console.log(err);
@@ -133,8 +140,8 @@ const deleteUserReview = async (userId, reviewId) => {
 
 const createUserComment = async (userId, reviewId, content) => {
   try {
-    const result = await pool.execute('INSERT INTO comment (user_id, review_id, content) VALUES (?, ?, ?)', [userId, reviewId, content]);
-    return result[0].insertId;
+    const [result] = await pool.execute('INSERT INTO comment (user_id, review_id, content) VALUES (?, ?, ?)', [userId, reviewId, content]);
+    return result.insertId;
   } catch (err) {
     console.log(err);
     return { err };
@@ -143,13 +150,18 @@ const createUserComment = async (userId, reviewId, content) => {
 
 const getUserComment = async (userId) => {
   try {
-    const result = await pool.execute('SELECT * FROM comment WHERE user_id = (?)', [userId]);
-    return result[0];
+    const [result] = await pool.execute('SELECT * FROM comment WHERE user_id = (?)', [userId]);
+    return result;
   } catch (err) {
     console.log(err);
     return { err };
   }
 };
+
+async function validateUserComment(commentId) {
+  const [result] = await pool.execute('SELECT * FROM comment WHERE id = (?)', [commentId]);
+  return result[0];
+}
 
 const updateUserComment = async (userId, commentId, content) => {
   try {
@@ -158,8 +170,8 @@ const updateUserComment = async (userId, commentId, content) => {
       const err = new Error('comment belongs to other user');
       throw err;
     } else {
-      const result = await pool.execute('UPDATE comment SET content = (?) WHERE id = (?)', [content, commentId]);
-      return result[0].insertId;
+      const [result] = await pool.execute('UPDATE comment SET content = (?) WHERE id = (?)', [content, commentId]);
+      return result.insertId;
     }
   } catch (err) {
     console.log(err);
@@ -174,8 +186,8 @@ const deleteUserComment = async (userId, commentId) => {
       const err = new Error('comment belongs to other user');
       throw err;
     } else {
-      const result = await pool.execute('DELETE FROM comment WHERE id = (?)', [commentId]);
-      return result[0].insertId;
+      const [result] = await pool.execute('DELETE FROM comment WHERE id = (?)', [commentId]);
+      return result.insertId;
     }
   } catch (err) {
     console.log(err);
@@ -186,8 +198,8 @@ const deleteUserComment = async (userId, commentId) => {
 // Saved Reviews CRD
 const updateUserSavedReview = async (userId, reviewId) => {
   try {
-    const resultSavedReview = await pool.execute('SELECT * FROM saved_review AS ms WHERE user_id = (?) AND review_id = (?)', [userId, reviewId]);
-    if (resultSavedReview[0].length) {
+    const [resultSavedReview] = await pool.execute('SELECT * FROM saved_review AS ms WHERE user_id = (?) AND review_id = (?)', [userId, reviewId]);
+    if (resultSavedReview.length) {
       await pool.execute('DELETE FROM saved_review WHERE user_id = (?) AND review_id = (?)', [userId, reviewId]);
       return 'deleted';
     }
@@ -201,8 +213,8 @@ const updateUserSavedReview = async (userId, reviewId) => {
 
 const getReviewInfo = async (reviewId) => {
   try {
-    const result = await pool.execute('SELECT * FROM review WHERE id = (?)', [reviewId]);
-    return result[0];
+    const [result] = await pool.execute('SELECT * FROM review WHERE id = (?)', [reviewId]);
+    return result;
   } catch (err) {
     console.log(err);
     return { err };
@@ -211,9 +223,9 @@ const getReviewInfo = async (reviewId) => {
 
 const checkUserSavedReview = async (userId, reviewId) => {
   try {
-    // TODO: return result
-    const result = await pool.execute('SELECT * FROM saved_review WHERE user_id = (?) AND review_id = (?)', [userId, reviewId]);
-    if (result[0].length) {
+    const [result] = await pool.execute('SELECT * FROM saved_review WHERE user_id = (?) AND review_id = (?)', [userId, reviewId]);
+    if (result.length) {
+      // TODO:
       return true;
     }
     return false;
@@ -225,28 +237,18 @@ const checkUserSavedReview = async (userId, reviewId) => {
 
 const getUserSavedReview = async (userId) => {
   try {
-    const result = await pool.execute('SELECT * FROM saved_review WHERE user_id = (?)', [userId]);
-    return result[0];
+    const [result] = await pool.execute('SELECT * FROM saved_review WHERE user_id = (?)', [userId]);
+    return result;
   } catch (err) {
     console.log(err);
     return { err };
   }
 };
 
-// const saveUserReview = async (userId, reviewId) => {
-//   try {
-//     await pool.execute('INSERT INTO saved_review (user_id, review_id) VALUES (?, ?)', [userId, reviewId]);
-//     return { userId, reviewId };
-//   } catch (err) {
-//     console.log(err);
-//     return { err };
-//   }
-// };
-
 const deleteUserSavedReview = async (userId, reviewId) => {
   try {
-    const result = await pool.execute('DELETE FROM saved_review WHERE user_id = (?) AND review_id = (?)', [userId, reviewId]);
-    return result[0];
+    const [result] = await pool.execute('DELETE FROM saved_review WHERE user_id = (?) AND review_id = (?)', [userId, reviewId]);
+    return result;
   } catch (err) {
     console.log(err);
     return { err };
@@ -256,8 +258,8 @@ const deleteUserSavedReview = async (userId, reviewId) => {
 // Saved Movies CRD
 const updateUserSavedMovie = async (userId, movieId) => {
   try {
-    const resultSavedMovie = await pool.execute('SELECT * FROM saved_movie AS ms WHERE user_id = (?) AND movie_id = (?)', [userId, movieId]);
-    if (resultSavedMovie[0].length) {
+    const [result] = await pool.execute('SELECT * FROM saved_movie AS ms WHERE user_id = (?) AND movie_id = (?)', [userId, movieId]);
+    if (result.length) {
       await pool.execute('DELETE FROM saved_movie WHERE user_id = (?) AND movie_id = (?)', [userId, movieId]);
       return 'deleted';
     }
@@ -272,8 +274,8 @@ const updateUserSavedMovie = async (userId, movieId) => {
 const getMovieInfo = async (movieId, locale) => {
   const queryDetails = `SELECT * FROM movie AS m LEFT JOIN movie_translation AS t ON m.id = t.movie_id WHERE t.locale = \'${locale}\' AND m.id = ${movieId}`;
   try {
-    const DetailResult = await pool.execute(queryDetails);
-    return DetailResult[0];
+    const [DetailResult] = await pool.execute(queryDetails);
+    return DetailResult;
   } catch (err) {
     console.log(err);
     return { err };
@@ -282,8 +284,9 @@ const getMovieInfo = async (movieId, locale) => {
 
 const checkUserSavedMovie = async (userId, movieId) => {
   try {
-    const result = await pool.execute('SELECT * FROM saved_movie WHERE user_id = (?) AND movie_id = (?)', [userId, movieId]);
-    if (result[0].length) {
+    // TODO:
+    const [result] = await pool.execute('SELECT * FROM saved_movie WHERE user_id = (?) AND movie_id = (?)', [userId, movieId]);
+    if (result.length) {
       return true;
     }
     return false;
@@ -295,28 +298,18 @@ const checkUserSavedMovie = async (userId, movieId) => {
 
 const getUserSavedMovie = async (userId) => {
   try {
-    const result = await pool.execute('SELECT * FROM saved_movie WHERE user_id = (?)', [userId]);
-    return result[0];
+    const [result] = await pool.execute('SELECT * FROM saved_movie WHERE user_id = (?)', [userId]);
+    return result;
   } catch (err) {
     console.log(err);
     return { err };
   }
 };
 
-// const saveUserMovie = async (userId, movieId) => {
-//   try {
-//     await pool.execute('INSERT INTO saved_movie (user_id, movie_id) VALUES (?, ?)', [userId, movieId]);
-//     return { userId, movieId };
-//   } catch (err) {
-//     console.log(err);
-//     return { err };
-//   }
-// };
-
 const deleteUserSavedMovie = async (userId, movieId) => {
   try {
-    const result = await pool.execute('DELETE FROM saved_movie WHERE user_id = (?) AND movie_id = (?)', [userId, movieId]);
-    return result[0];
+    const [result] = await pool.execute('DELETE FROM saved_movie WHERE user_id = (?) AND movie_id = (?)', [userId, movieId]);
+    return result;
   } catch (err) {
     console.log(err);
     return { err };
@@ -325,8 +318,8 @@ const deleteUserSavedMovie = async (userId, movieId) => {
 
 const createMovieRating = async (userId, movieId, score) => {
   try {
-    const result = await pool.execute('INSERT INTO movie_rating (user_id, movie_id, score) VALUES (?, ?, ?)', [userId, movieId, score]);
-    return result[0];
+    const [result] = await pool.execute('INSERT INTO movie_rating (user_id, movie_id, score) VALUES (?, ?, ?)', [userId, movieId, score]);
+    return result;
   } catch (err) {
     console.log(err);
     return { err };
@@ -335,8 +328,8 @@ const createMovieRating = async (userId, movieId, score) => {
 
 const getAllReviews = async () => {
   try {
-    const result = await pool.execute('SELECT * FROM review');
-    return result[0];
+    const [result] = await pool.execute('SELECT * FROM review');
+    return result;
   } catch (err) {
     console.log(err);
     return { err };
@@ -345,8 +338,8 @@ const getAllReviews = async () => {
 
 const getReviewById = async (reviewId) => {
   try {
-    const result = await pool.execute('SELECT * FROM review WHERE id = (?)', [reviewId]);
-    return result[0];
+    const [result] = await pool.execute('SELECT * FROM review WHERE id = (?)', [reviewId]);
+    return result;
   } catch (err) {
     console.log(err);
     return { err };
@@ -355,8 +348,8 @@ const getReviewById = async (reviewId) => {
 
 const getUserById = async (userId) => {
   try {
-    const result = await pool.execute('SELECT * FROM user WHERE id = (?)', [userId]);
-    return result[0][0];
+    const [result] = await pool.execute('SELECT * FROM user WHERE id = (?)', [userId]);
+    return result[0];
   } catch (err) {
     console.log(err);
     return { err };
@@ -365,9 +358,9 @@ const getUserById = async (userId) => {
 
 module.exports = {
   USER_ROLE,
-  CreateUser,
-  ValidateUsername,
-  GetUser,
+  createUser,
+  validateUsername,
+  validateEmail,
   getUserDetail,
   updateUserImage,
   createUserReview,
@@ -382,26 +375,14 @@ module.exports = {
   checkUserSavedReview,
   getUserSavedReview,
   getReviewInfo,
-  // saveUserReview,
   deleteUserSavedReview,
   updateUserSavedMovie,
   checkUserSavedMovie,
   getMovieInfo,
   getUserSavedMovie,
-  // saveUserMovie,
   deleteUserSavedMovie,
   createMovieRating,
   getAllReviews,
   getReviewById,
   getUserById,
 };
-
-async function validateUserReview(reviewId) {
-  const result = await pool.execute('SELECT * FROM review WHERE id = (?)', [reviewId]);
-  return result[0][0];
-}
-
-async function validateUserComment(commentId) {
-  const result = await pool.execute('SELECT * FROM comment WHERE id = (?)', [commentId]);
-  return result[0][0];
-}

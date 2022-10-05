@@ -127,7 +127,7 @@ block content
     //-   changed_slide: $.noop()
 
     //- });
-    const movie_id = $('#movie_id').data('id');
+    const movieId = $('#movie_id').data('id');
 
     $('.to_submit_page').on('click', async (e) => {
       e.preventDefault(); 
@@ -141,7 +141,7 @@ block content
           },
         });
         
-        window.location.href = `/review/submit?id=${movie_id}&locale=${locale}`
+        window.location.href = `/review/submit?id=${movieId}&locale=${locale}`
 
       } catch (err) {
         if (locale == 'en-US'){
@@ -175,10 +175,10 @@ block content
 
     $('.save_movie_button').on('click', async (e) => {
       e.preventDefault();
-      console.log(movie_id)
+      console.log(movieId)
       try {
         const data = JSON.stringify({
-          movie_id,
+          movieId,
         });
 
         const result = await axios({

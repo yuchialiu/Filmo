@@ -117,35 +117,14 @@ block content
           swal.fire(err.response.data.message);
         }
       });
-      //- async function logout() {
-      //-   //- e.preventDefault();        
-        
-      //-   await axios({
-      //-     method: 'get',
-      //-     url: '/api/1.0/user/logout',
-      //-   });
-        
-      //-   swal.fire({
-      //-     icon: 'success', 
-      //-     text: 'You\'ve successfully logged out',
-      //-     showConfirmButton: false,
-      //-     timer: 1000,
-      //-     }).then(result=>{
-      //-       window.location.href = `/home?locale=${locale}`;
-      //-   });
-      //- }
 
-      //- $('#logout_btn').on('click', logout);      
-
-      //- const locale = !{ locale };
       $('.delete_saved_review').on('click', async (e) => {
         e.preventDefault();
-        const review_id = e.target.value;
-        console.log(review_id)
+        const reviewId = e.target.value;
 
         try {
           const data = JSON.stringify({
-            review_id,
+            reviewId,
           });
 
           const result = await axios({

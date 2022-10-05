@@ -91,14 +91,13 @@ block content
 
 
       $('.delete_saved_movie').on('click', async (e) => {
-        console.log("e", e)
         e.preventDefault();
-        const movie_id = e.target.value;
-        console.log(movie_id)
+        const movieId = e.target.value;
+        console.log(movieId)
 
         try {
           const data = JSON.stringify({
-            movie_id,
+            movieId,
           });
 
           const result = await axios({

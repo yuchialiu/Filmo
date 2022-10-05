@@ -1,6 +1,6 @@
+/* eslint-disable no-await-in-loop */
 /* eslint-disable object-shorthand */
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable guard-for-in */
 const { AWS_CLOUDFRONT_DOMAIN } = process.env;
 const dayjs = require('dayjs');
 require('dayjs/locale/fr');
@@ -17,15 +17,15 @@ const showMovieListInfo = async (req, res) => {
   const movieList = await Movie.getMovieListInfo(locale);
 
   const result = [];
-  for (const i in movieList) {
+  for (const movie of movieList) {
     const info = {
-      movie_id: movieList[i].movie_id,
-      title: movieList[i].title,
-      banner: `${AWS_CLOUDFRONT_DOMAIN}/images/banners/${movieList[i].banner_image}`,
-      poster: `${AWS_CLOUDFRONT_DOMAIN}/images/posters/${movieList[i].poster_image}`,
-      trailer_embed: `https://www.youtube.com/embed/${movieList[i].trailer}?rel=0`,
-      trailer_watch: `https://www.youtube.com/watch?v=${movieList[i].trailer}?rel=0`,
-      trailer: movieList[i].trailer,
+      movie_id: movie.movie_id,
+      title: movie.title,
+      banner: `${AWS_CLOUDFRONT_DOMAIN}/images/banners/${movie.banner_image}`,
+      poster: `${AWS_CLOUDFRONT_DOMAIN}/images/posters/${movie.poster_image}`,
+      trailer_embed: `https://www.youtube.com/embed/${movie.trailer}?rel=0`,
+      trailer_watch: `https://www.youtube.com/watch?v=${movie.trailer}?rel=0`,
+      trailer: movie.trailer,
     };
 
     result.push(info);
@@ -62,28 +62,28 @@ const getMovieInfo = async (req) => {
   }
 
   const castInfo = [];
-  for (const i in resultCast) {
-    const resultPerson = await Movie.getPersonDetail(resultCast[i].person_id, locale);
+  for (const castDetail of resultCast) {
+    const resultPerson = await Movie.getPersonDetail(castDetail.person_id, locale);
 
     const cast = {
-      person_id: resultCast[i].person_id,
-      cast_id: resultCast[i].id,
-      character: resultCast[i].character,
-      name: resultCast[i].name,
+      person_id: castDetail.person_id,
+      cast_id: castDetail.id,
+      character: castDetail.character,
+      name: castDetail.name,
       image: `${AWS_CLOUDFRONT_DOMAIN}/images/people/${resultPerson[0].profile_image}`,
     };
     castInfo.push(cast);
   }
 
   const crewInfo = [];
-  for (const i in resultCrew) {
-    const resultPerson = await Movie.getPersonDetail(resultCrew[i].person_id, locale);
+  for (const crewDetail of resultCrew) {
+    const resultPerson = await Movie.getPersonDetail(crewDetail.person_id, locale);
 
     const crew = {
-      person_id: resultCrew[i].person_id,
-      crew_id: resultCrew[i].id,
-      job: resultCrew[i].job,
-      name: resultCrew[i].name,
+      person_id: crewDetail.person_id,
+      crew_id: crewDetail.id,
+      job: crewDetail.job,
+      name: crewDetail.name,
       image: `${AWS_CLOUDFRONT_DOMAIN}/images/people/${resultPerson[0].profile_image}`,
     };
     crewInfo.push(crew);
@@ -183,12 +183,12 @@ const getPersonDetail = async (req) => {
   const resultCrew = await Movie.getCrewMovieByPersonId(personId, locale);
 
   const castMovie = [];
-  for (const i in resultCast) {
-    const resultCharacter = await Movie.getCharacterByCastId(resultCast[i].cast_id, locale);
+  for (const castDetail of resultCast) {
+    const resultCharacter = await Movie.getCharacterByCastId(castDetail.cast_id, locale);
     const movie = {
-      movie_id: resultCast[i].movie_id,
-      title: resultCast[i].title,
-      poster: `${AWS_CLOUDFRONT_DOMAIN}/images/posters/${resultCast[i].poster_image}`,
+      movie_id: castDetail.movie_id,
+      title: castDetail.title,
+      poster: `${AWS_CLOUDFRONT_DOMAIN}/images/posters/${castDetail.poster_image}`,
       character: resultCharacter[0].character,
     };
 
@@ -196,12 +196,12 @@ const getPersonDetail = async (req) => {
   }
 
   const crewMovie = [];
-  for (const i in resultCrew) {
-    const resultJob = await Movie.getJobByCrewId(resultCrew[i].crew_id, locale);
+  for (const crewDetail of resultCrew) {
+    const resultJob = await Movie.getJobByCrewId(crewDetail.crew_id, locale);
     const movie = {
-      movie_id: resultCrew[i].movie_id,
-      title: resultCrew[i].title,
-      poster: `${AWS_CLOUDFRONT_DOMAIN}/images/posters/${resultCrew[i].poster_image}`,
+      movie_id: crewDetail.movie_id,
+      title: crewDetail.title,
+      poster: `${AWS_CLOUDFRONT_DOMAIN}/images/posters/${crewDetail.poster_image}`,
       job: resultJob[0].job,
     };
 
@@ -253,12 +253,12 @@ const showProfileReview = async (req, res) => {
   const { userId } = req.session;
   const { locale } = req.query;
 
-  const resultReview = await User.getUserReview(userId);
   const resultAccount = await User.getUserById(userId);
+  const resultReview = await User.getUserReview(userId);
 
   const info = [];
-  for (const i in resultReview) {
-    const resultMovie = await Movie.getMovieInfo(resultReview[i].movie_id, locale);
+  for (const review of resultReview) {
+    const resultMovie = await Movie.getMovieInfo(review.movie_id, locale);
 
     let formatDate;
     if (locale === 'en-US') {
@@ -273,18 +273,16 @@ const showProfileReview = async (req, res) => {
       user_id: resultAccount.id,
       username: resultAccount.username,
       profile_image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultAccount.profile_image}`,
-      review_id: resultReview[i].id,
-      review_title: resultReview[i].title,
-      content: resultReview[i].content,
-      image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultReview[i].image}`,
-      image_blurred: resultReview[i].image_blurred,
-      // user_id: resultReview[i].user_id,
-      created_dt: dayjs(resultReview[i].created_dt).locale(locale).format(formatDate),
-      updated_dt: dayjs(resultReview[i].updated_dt).locale(locale).format(formatDate),
+      review_id: review.id,
+      review_title: review.title,
+      content: review.content,
+      image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${review.image}`,
+      image_blurred: review.image_blurred,
+      created_dt: dayjs(review.created_dt).locale(locale).format(formatDate),
+      updated_dt: dayjs(review.updated_dt).locale(locale).format(formatDate),
       movie_id: resultMovie.movie_id,
       title: resultMovie.title,
       poster: `${AWS_CLOUDFRONT_DOMAIN}/images/posters/${resultMovie.poster_image}`,
-      // locale: locale,
     };
 
     info.push(result);
@@ -305,39 +303,35 @@ const showUserSavedReview = async (req, res) => {
   const resultSavedReview = await User.getUserSavedReview(userId);
 
   const info = [];
-  // TODO: the second for loop is weird and note that for in is for array not obj
-  for (const i in resultSavedReview) {
-    const resultReview = await User.getReviewInfo(resultSavedReview[i].review_id);
+  for (const review of resultSavedReview) {
+    const resultReview = await User.getReviewInfo(review.review_id);
     const resultAccount = await User.getUserById(resultReview[0].user_id);
+    const resultMovie = await Movie.getMovieInfo(resultReview[0].movie_id, locale);
 
-    for (const j in resultReview) {
-      const resultMovie = await Movie.getMovieInfo(resultReview[j].movie_id, locale);
-
-      let formatDate;
-      if (locale === 'en-US') {
-        formatDate = 'MMMM DD YYYY' + ' ' + 'hh:mm A';
-      } else if (locale === 'fr-FR') {
-        formatDate = 'DD MMMM YYYY' + ' ' + 'HH:mm';
-      } else if (locale === 'zh-TW') {
-        formatDate = 'YYYY MMM DD' + '日' + ' ' + 'HH:mm';
-      }
-
-      const result = {
-        user_id: resultAccount.id,
-        username: resultAccount.username,
-        profile_image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultAccount.profile_image}`,
-        review_id: resultReview[j].id,
-        review_title: resultReview[j].title,
-        content: resultReview[j].content,
-        image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultReview[j].image}`,
-        created_dt: dayjs(resultReview[j].created_dt).locale(locale).format(formatDate),
-        updated_dt: dayjs(resultReview[j].updated_dt).locale(locale).format(formatDate),
-        movie_id: resultMovie.movie_id,
-        movie_title: resultMovie.title,
-        movie_poster: `${AWS_CLOUDFRONT_DOMAIN}/images/posters/${resultMovie.poster_image}`,
-      };
-      info.push(result);
+    let formatDate;
+    if (locale === 'en-US') {
+      formatDate = 'MMMM DD YYYY' + ' ' + 'hh:mm A';
+    } else if (locale === 'fr-FR') {
+      formatDate = 'DD MMMM YYYY' + ' ' + 'HH:mm';
+    } else if (locale === 'zh-TW') {
+      formatDate = 'YYYY MMM DD' + '日' + ' ' + 'HH:mm';
     }
+
+    const result = {
+      user_id: resultAccount.id,
+      username: resultAccount.username,
+      profile_image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultAccount.profile_image}`,
+      review_id: resultReview[0].id,
+      review_title: resultReview[0].title,
+      content: resultReview[0].content,
+      image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultReview[0].image}`,
+      created_dt: dayjs(resultReview[0].created_dt).locale(locale).format(formatDate),
+      updated_dt: dayjs(resultReview[0].updated_dt).locale(locale).format(formatDate),
+      movie_id: resultMovie.movie_id,
+      movie_title: resultMovie.title,
+      movie_poster: `${AWS_CLOUDFRONT_DOMAIN}/images/posters/${resultMovie.poster_image}`,
+    };
+    info.push(result);
   }
 
   res.status(200).render('saved_review', {
@@ -354,17 +348,15 @@ const showUserSavedMovie = async (req, res) => {
   const resultSavedMovie = await User.getUserSavedMovie(userId);
   const info = [];
 
-  for (const i in resultSavedMovie) {
-    const resultMovie = await User.getMovieInfo(resultSavedMovie[i].movie_id, locale);
-    for (const j in resultMovie) {
-      const result = {
-        movie_id: resultMovie[j].movie_id,
-        title: resultMovie[j].title,
-        banner: `${AWS_CLOUDFRONT_DOMAIN}/images/banners/${resultMovie[j].banner_image}`,
-        poster: `${AWS_CLOUDFRONT_DOMAIN}/images/posters/${resultMovie[j].poster_image}`,
-      };
-      info.push(result);
-    }
+  for (const movie of resultSavedMovie) {
+    const resultMovie = await User.getMovieInfo(movie.movie_id, locale);
+    const result = {
+      movie_id: resultMovie[0].movie_id,
+      title: resultMovie[0].title,
+      banner: `${AWS_CLOUDFRONT_DOMAIN}/images/banners/${resultMovie[0].banner_image}`,
+      poster: `${AWS_CLOUDFRONT_DOMAIN}/images/posters/${resultMovie[0].poster_image}`,
+    };
+    info.push(result);
   }
 
   res.status(200).render('saved_movie', {
@@ -381,9 +373,9 @@ const showAllReviews = async (req, res) => {
   const resultReview = await User.getAllReviews();
 
   const info = [];
-  for (const i in resultReview) {
-    const resultMovie = await Movie.getMovieInfo(resultReview[i].movie_id, locale);
-    const resultAccount = await User.getUserById(resultReview[i].user_id);
+  for (const review of resultReview) {
+    const resultMovie = await Movie.getMovieInfo(review.movie_id, locale);
+    const resultAccount = await User.getUserById(review.user_id);
 
     let formatDate;
     if (locale === 'en-US') {
@@ -398,13 +390,13 @@ const showAllReviews = async (req, res) => {
       user_id: resultAccount.id,
       username: resultAccount.username,
       profile_image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultAccount.profile_image}`,
-      review_id: resultReview[i].id,
-      content: resultReview[i].content,
-      review_title: resultReview[i].title,
-      image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultReview[i].image}`,
-      image_blurred: resultReview[i].image_blurred,
-      created_dt: dayjs(resultReview[i].created_dt).locale(locale).format(formatDate),
-      updated_dt: dayjs(resultReview[i].updated_dt).locale(locale).format(formatDate),
+      review_id: review.id,
+      content: review.content,
+      review_title: review.title,
+      image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${review.image}`,
+      image_blurred: review.image_blurred,
+      created_dt: dayjs(review.created_dt).locale(locale).format(formatDate),
+      updated_dt: dayjs(review.updated_dt).locale(locale).format(formatDate),
       movie_id: resultMovie.movie_id,
       title: resultMovie.title,
       banner: `${AWS_CLOUDFRONT_DOMAIN}/images/banners/${resultMovie.banner_image}`,
@@ -428,9 +420,9 @@ const getReviewInfo = async (req) => {
   const resultReview = await User.getReviewById(id);
 
   const info = [];
-  for (const i in resultReview) {
-    const resultMovie = await Movie.getMovieInfo(resultReview[i].movie_id, locale);
-    const resultAccount = await User.getUserById(resultReview[i].user_id);
+  for (const review of resultReview) {
+    const resultMovie = await Movie.getMovieInfo(review.movie_id, locale);
+    const resultAccount = await User.getUserById(review.user_id);
 
     let formatDate;
     if (locale === 'en-US') {
@@ -445,13 +437,13 @@ const getReviewInfo = async (req) => {
       user_id: resultAccount.id,
       username: resultAccount.username,
       profile_image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultAccount.profile_image}`,
-      review_id: resultReview[i].id,
-      review_title: resultReview[i].title,
-      content: resultReview[i].content,
-      image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultReview[i].image}`,
-      image_blurred: resultReview[i].image_blurred,
-      created_dt: dayjs(resultReview[i].created_dt).locale(locale).format(formatDate),
-      updated_dt: dayjs(resultReview[i].updated_dt).locale(locale).format(formatDate),
+      review_id: review.id,
+      review_title: review.title,
+      content: review.content,
+      image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${review.image}`,
+      image_blurred: review.image_blurred,
+      created_dt: dayjs(review.created_dt).locale(locale).format(formatDate),
+      updated_dt: dayjs(review.updated_dt).locale(locale).format(formatDate),
       movie_id: resultMovie.movie_id,
       title: resultMovie.title,
       banner: `${AWS_CLOUDFRONT_DOMAIN}/images/banners/${resultMovie.banner_image}`,
@@ -513,8 +505,8 @@ const getReviewByMovieId = async (req) => {
   };
   movie.push(movieInfo);
 
-  for (const i in resultReview) {
-    const resultAccount = await User.getUserById(resultReview[i].user_id);
+  for (const review of resultReview) {
+    const resultAccount = await User.getUserById(review.user_id);
 
     // TODO: check space below
     let formatDate;
@@ -530,7 +522,7 @@ const getReviewByMovieId = async (req) => {
     // check if user sign in
     let savedReview = false;
     if (isAuth) {
-      const resultSaved = await User.checkUserSavedReview(userId, resultReview[i].id);
+      const resultSaved = await User.checkUserSavedReview(userId, review.id);
       if (resultSaved) {
         savedReview = true;
       }
@@ -541,13 +533,13 @@ const getReviewByMovieId = async (req) => {
       user_id: resultAccount.id,
       username: resultAccount.username,
       profile_image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultAccount.profile_image}`,
-      review_id: resultReview[i].id,
-      review_title: resultReview[i].title,
-      content: resultReview[i].content,
-      image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultReview[i].image}`,
-      image_blurred: resultReview[i].image_blurred,
-      created_dt: dayjs(resultReview[i].created_dt).locale(locale).format(formatDate),
-      updated_dt: dayjs(resultReview[i].updated_dt).locale(locale).format(formatDate),
+      review_id: review.id,
+      review_title: review.title,
+      content: review.content,
+      image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${review.image}`,
+      image_blurred: review.image_blurred,
+      created_dt: dayjs(review.created_dt).locale(locale).format(formatDate),
+      updated_dt: dayjs(review.updated_dt).locale(locale).format(formatDate),
       user_saved_review: savedReview,
       // movie_id: resultMovie.movie_id,
       // title: resultMovie.title,
@@ -585,12 +577,12 @@ const showSearchMovie = async (req, res) => {
     const resultSearch = await Movie.getMovieListByFilter(keyword, genreId, locale);
 
     const result = [];
-    for (const i in resultSearch) {
+    for (const movie of resultSearch) {
       const info = {
-        movie_id: resultSearch[i].movie_id,
-        title: resultSearch[i].title,
-        banner: `${AWS_CLOUDFRONT_DOMAIN}/images/banners/${resultSearch[i].banner_image}`,
-        poster: `${AWS_CLOUDFRONT_DOMAIN}/images/posters/${resultSearch[i].poster_image}`,
+        movie_id: movie.movie_id,
+        title: movie.title,
+        banner: `${AWS_CLOUDFRONT_DOMAIN}/images/banners/${movie.banner_image}`,
+        poster: `${AWS_CLOUDFRONT_DOMAIN}/images/posters/${movie.poster_image}`,
       };
 
       result.push(info);

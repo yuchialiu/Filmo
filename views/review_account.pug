@@ -124,7 +124,7 @@ block content
 
       $('.delete_review_button').on('click', async (e) => {
         e.preventDefault(); 
-        let review_id = e.target.value;
+        let reviewId = e.target.value;
 
           if (locale == 'en-US'){
             swal.fire({
@@ -136,7 +136,7 @@ block content
               cancelButtonColor: '#444444',
             }).then((result) => {
               if (result.isConfirmed) {
-                deleteReview(review_id);
+                deleteReview(reviewId);
               }
             })
           } else if (locale == 'zh-TW') {
@@ -149,7 +149,7 @@ block content
               cancelButtonColor: '#444444',
             }).then((result) => {
               if (result.isConfirmed) {
-                deleteReview(review_id);
+                deleteReview(reviewId);
               }
             })      
           } else if (locale == 'fr-FR') {
@@ -162,16 +162,16 @@ block content
               cancelButtonColor: '#444444',
             }).then((result) => {
               if (result.isConfirmed) {
-                deleteReview(review_id);
+                deleteReview(reviewId);
               }
             })        
           }
 
-        async function deleteReview(review_id){
+        async function deleteReview(reviewId){
 
           try {
             const data = JSON.stringify({
-              review_id,
+              reviewId,
             });
 
             const result = await axios({
@@ -214,109 +214,3 @@ block content
     });
 
 
-      //- $('.save_review_button').on('click', async (e) => {
-      //-   e.preventDefault(); 
-      //-   let review_id = e.target.value;
-      //-   console.log(review_id)
-
-      //-   try {
-      //-     const data = JSON.stringify({
-      //-       review_id,
-      //-     });
-
-      //-     const result = await axios({
-      //-       method: 'POST',
-      //-       url: '/api/1.0/user/store/review',
-      //-       data,
-      //-       headers: {
-      //-         'Content-Type': 'application/json',
-      //-       },
-      //-     });
-      //-     alert('test')
-      //-     //- window.location.href = `/store/review?locale=${locale}` ;
-
-      //-   } catch {
-      //-     alert(err);
-      //-     console.log('err: ', err);
-      //-   }
-
-      //- });
-
-    //- let token = localStorage.getItem('Authorization');
-    
-    //- window.addEventListener('load', async function (event) {
-    //-   try {        
-    //-   if (!token) {
-    //-     alert("please sign in or sign up first");
-    //-     console.log("no token, please sign in or sign up first");
-    //-     window.location.href = "login";
-    //-     return;
-    //-   }
-    //-   await auth_member();
-    //-   showReviewByAccount(auth_result);
-    //- } catch(err) {
-    //-   console.log(err);
-    //- }
-    //- });
-
-    //- //authorize member
-    //- let auth_result;
-    //- const locale = document.URL.split("=")[1];
-
-
-    //-   async function auth_member() {
-    //-   try {
-    //-     auth_result = await axios({
-    //-       method: 'GET',
-    //-       url: `/api/1.0/user/review?locale=${locale}`,
-    //-       responseType: 'json',
-    //-       headers: {
-    //-         Authorization: `${localStorage.getItem('Authorization')}`,
-    //-       },
-    //-       });
-
-    //-     return auth_result;
-    //-   } catch(err) { 
-    //-     console.log(err);
-    //-   }
-    //- }
-
-    //- function showReviewByAccount(auth_result){
-    //-   let info = auth_result.data.data;
-    //-   console.log(info)
-
-    //-   for (let i in info){
-        //- const d = $('<div></div>').addClass('review_div')
-        //- const a_review = $('<a></a>').attr('href', `/review_info?id=${info[i].id}&locale=en-US`)
-        //- const h3_review = $('<p></p>').addClass('review_num').html(`review# ${info[i].id}`)
-
-        //- const img_review = $('<img>').addClass('review_img').attr('src', info[i].image)
-        //- const p_content = $('<p></p>').addClass('review_content').html(info[i].content)
-        //- const p_created = $('<p></p>').addClass('review_created_dt').html(`created at ${(info[i].created_dt).slice(0,10)}`)
-        //- const p_updated = $('<p></p>').addClass('review_updated_dt').html(`updated at ${(info[i].updated_dt).slice(0,10)}`)
-
-        //- const a_movie = $('<a></a>').attr('href', `/movie?id=${info[i].movie_id}&locale=${locale}`)
-        //- const h3_movie = $('<p></p>').addClass('movie_title').html(info[i].title)
-        //- const img_movie = $('<img>').addClass('movie_poster').attr('src', info[i].poster)
-
-        //- let div_review = a_review
-        //- div_review = div_review.append(a_review)
-        //- div_review = div_review.append(h3_review)
-        //- div_review = div_review.append(img_review)
-        //- div_review = div_review.append(p_content)
-        //- div_review = div_review.append(p_created)
-        //- div_review = div_review.append(p_updated)
-
-
-    //-     let div_movie = a_movie 
-    //-     div_movie = div_movie.append(h3_movie)
-    //-     div_movie = div_movie.append(img_movie)
-
-    //-     $('#myReviews').append(d)
-    //-     $('#myReviews').append(div_review)
-
-
-    //-     $('#myReviews').append(div_movie)        
-
-    //-   }
-    //- }

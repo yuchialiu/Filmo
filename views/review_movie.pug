@@ -33,7 +33,6 @@ block content
         div.spoiler.d-flex.flex-row
           p.spoiler_text #{lang.review.spoiler}
           input#spoiler_alert(type='checkbox' checked data-toggle='toggle' data-size="sm" data-style="ios" ) 
-          //- button.spoiler_alert(type='button') #{lang.review.spoiler}
         div.outer_review_account
           - for (let i = 0; i < data.info.length ; i++)
             div.review_account(class='card text-white bg-dark mb-3' style="max-width: 600px;")
@@ -73,46 +72,10 @@ block content
                   //- p.review_updated_dt #{data.info[i].updated_dt}
               
 
-            //- div.review_account
-            //-   div.item_movie     
-            //-     div.d-flex
-            //-       div.user
-            //-         -if (data.info[i].profile_image =='https://d2idt211kyg8ql.cloudfront.net/images/uploads/null')
-            //-           div
-            //-         -else
-            //-           div#picture_outline
-            //-             img.profile_img(src= `${data.info[i].profile_image}`, alt='Profile Image')
-            //-           div.name_date                
-            //-             p.username #{data.info[i].username}                    
-            //-     div
-            //-       h4.review_text_spoiler #{lang.review.spoiler}
-            //-       h3.review_title #{data.info[i].review_title}
-            //-     div.save_review 
-            //-     - if (data.info[i].user_saved_review)
-            //-       button.save_review_button(type='submit' class="fas fa-bookmark" value=`${data.info[i].review_id}`) 
-            //-     - else 
-            //-       button.save_review_button(type='submit' class="far fa-bookmark" value=`${data.info[i].review_id}`) 
-            
-            //-   div.ms-80
-            //-     //- img.review_img(src= `${data.info[i].image}`, alt='')
-            //-     p.review_text #{data.info[i].content}
-
-            //-   div.bottom  
-            //-     p.review_created_dt #{data.info[i].created_dt}  
-            //-       //- p.review_updated_dt #{data.info[i].updated_dt}
-              
-
 
   script(type='text/javascript').
 
     let movie_id = !{movie_id}
-    //- let locale = !{locale}
-
-    //- function submitReview (e) {
-    //-   e.preventDefault();
-    //-   window.location.href = `/review/submit?id=${movie_id}&locale=${locale}`
-    //- }
-    //- $('.to_submit_page').on('click', submitReview);
 
     $('.to_submit_page').on('click', async (e) => {
       e.preventDefault(); 
@@ -161,11 +124,11 @@ block content
     $('.save_review_button').on('click', async (e) => {
       e.preventDefault(); 
 
-      let review_id = e.target.value;
-      console.log(review_id)
+      let reviewId = e.target.value;
+      console.log(reviewId)
       try {
         const data = JSON.stringify({
-          review_id,
+          reviewId,
         });
 
         const result = await axios({
@@ -265,22 +228,6 @@ block content
       $('.review_title_movie').slideToggle("fast");
       //- $('.review_img').slideToggle("slow");
       $('.review_text_movie').slideToggle("fast");
-      // Alternative animation for example
-      // slideToggle("fast");
     });
     
-    //- function showReview (e) {
-    //-   e.preventDefault();      
-    //-   ${.review_title}.show();
-    //-   ${.review_img}.show();
-    //-   ${.review_text}.show();
-    //- }
-    //- $('.spoiler_alert').on('click', showReview);
-
-    //- $('.spoiler_alert').click(function(e){
-    //-   e.preventDefault();      
-    //-   ${.review_title}.show();
-    //-   ${.review_img}.show();
-    //-   ${.review_text}.show();
-    //- });
 

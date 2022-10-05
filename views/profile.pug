@@ -142,7 +142,10 @@ block content
           }, '1000');
         } catch(err) {
           console.log(err);
-          swal.fire(err.response.data.message);
+          swal.fire({
+            text: err.response.data.message,
+            confirmButtonColor: '#ec7aa0',          
+          });
         }
       }
       $('#submit_image').on('click', submit);

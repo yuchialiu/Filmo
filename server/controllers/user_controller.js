@@ -1,5 +1,4 @@
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable guard-for-in */
 require('dotenv').config();
 const validator = require('validator');
 const bcrypt = require('bcrypt');
@@ -13,40 +12,36 @@ const signUp = async (req, res) => {
   let { username } = req.body;
   const { email, password } = req.body;
   if (!username || !email || !password) {
-    res.status(400).send('name, email and password are required');
+    res.status(400).json({ error: 'name, email and password are required' });
     return;
   }
 
   if (!validator.isEmail(email)) {
-    res.status(400).send('Invalid email format');
+    res.status(400).json({ error: 'Invalid email format' });
     return;
   }
 
   username = validator.escape(username);
 
-  const resultEmail = await User.GetUser(email);
-  if (resultEmail.user) {
-    if (resultEmail.user.email === email) {
-      return res.status(400).send('email existed');
-    }
+  const resultEmail = await User.validateEmail(email);
+  if (resultEmail.length) {
+    return res.status(400).json({ error: 'Email existed' });
   }
 
-  const resultUsername = await User.ValidateUsername();
-  for (const i in resultUsername) {
-    if (resultUsername[i].username === username) {
-      return res.status(400).send('username existed');
-    }
+  const resultUsername = await User.validateUsername(username);
+  if (resultUsername.length) {
+    return res.status(400).json({ error: 'Username existed' });
   }
 
-  const result = await User.CreateUser(username, User.USER_ROLE.USER, email, password);
+  const result = await User.createUser(username, User.USER_ROLE.USER, email, password);
   if (result.error) {
-    res.status(403).send({ error: result.error });
+    res.status(403).json({ error: result.error.message });
     return;
   }
 
   const { user } = result;
   if (!user) {
-    res.status(500).send({ error: 'Database Query Error' });
+    res.status(500).json({ error: 'Database Query Error' });
     return;
   }
 
@@ -58,8 +53,6 @@ const signUp = async (req, res) => {
 
   res.status(201).send({
     data: {
-      // access_token: user.access_token,
-      // access_expired: user.access_expired,
       user: {
         id: user.id,
         username: user.username,
@@ -74,30 +67,24 @@ const signUp = async (req, res) => {
 const signIn = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return res.status(400).send({ error: 'Request Error: email and password are required.' });
+    return res.status(400).json({ error: 'Request Error: email and password are required.' });
   }
-  const user = await User.GetUser(email);
+  const user = await User.validateEmail(email);
 
   if (user.error) {
-    return res.status(400).send("This email hasn't been registered");
+    return res.status(400).json({ error: "This email hasn't been registered" });
   }
 
-  const isAuth = await bcrypt.compare(password, user.password);
-  // console.log(user.user.password);
+  const isAuth = await bcrypt.compare(password, user[0].password);
   if (!isAuth) {
     console.log({ email, error: 'Password is wrong' });
-    return res.status(400).send('Email or password is wrong');
+    return res.status(400).json({ error: 'Email or password is wrong' });
   }
-  // const result = user;
-  // const result = {};
-  // const accessToken = await generateJWT(user.user);
-  // result.access_token = accessToken;
-  // result.user = user.user;
-  req.session.userId = user.id;
-  req.session.userName = user.username;
-  req.session.userEmail = user.email;
-  // TODO:need to check route
-  req.session.picture = `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${user.profile_image}`;
+
+  req.session.userId = user[0].id;
+  req.session.userName = user[0].username;
+  req.session.userEmail = user[0].email;
+  req.session.picture = `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${user[0].profile_image}`;
   req.session.isAuth = true;
 
   return res.status(201).send({
@@ -108,10 +95,10 @@ const signIn = async (req, res) => {
 
 const logout = async (req, res) => {
   req.session.isAuth = false;
-  res.status(200).send('logout');
+  res.status(200).json({ message: 'logout' });
 };
 
-// TODO:
+// TODO: api from frontend
 const getUserDetail = async (req, res) => {
   res.status(200).send({
     data: {
@@ -119,10 +106,6 @@ const getUserDetail = async (req, res) => {
       username: req.session.userName,
       user_email: req.session.userEmail,
       user_picture: req.session.picture,
-      // id: req.user.id,
-      // username: req.user.username,
-      // email: req.user.email,
-      // picture: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${req.user.picture}`,
     },
   });
 };
@@ -130,7 +113,7 @@ const getUserDetail = async (req, res) => {
 const updateUserImage = async (req, res) => {
   const { userId } = req.session;
   if (req.files.image === undefined) {
-    return res.status(400).send('did not choose file');
+    return res.status(400).json({ error: 'did not choose file' });
   }
   // const image = req.files.image[0].key;
   const image = req.filename;
@@ -140,9 +123,9 @@ const updateUserImage = async (req, res) => {
 
   if (result.err) {
     console.log(result.err);
-    res.status(500).send({ err: 'cannot update image ' });
+    res.status(500).json({ error: 'cannot update image ' });
   } else {
-    res.status(200).send({
+    res.status(200).json({
       data: 'update success',
     });
   }
@@ -163,9 +146,9 @@ const createUserReview = async (req, res) => {
   const result = await User.createUserReview(userId, movieId, title, content, image);
   if (result.err) {
     console.log(result.err);
-    res.status(500).send({ err: 'cannot add comment' });
+    res.status(500).json({ error: 'cannot add review' });
   } else {
-    res.status(200).send({
+    res.status(200).json({
       review_id: result,
     });
   }
@@ -178,18 +161,18 @@ const getUserReview = async (req, res) => {
   const resultReview = await User.getUserReview(userId);
 
   const info = [];
-  for (const i in resultReview) {
-    const resultMovie = await Movie.getMovieInfo(resultReview[i].movie_id, locale);
+  for (const review of resultReview) {
+    const resultMovie = await Movie.getMovieInfo(review.movie_id, locale);
 
     const result = {
-      id: resultReview[i].id,
-      review_title: resultReview[i].title,
-      content: resultReview[i].content,
-      image: `${SERVER_IP}/public/assets/images/uploads/${resultReview[i].image}`,
-      image_blurred: resultReview[i].image_blurred,
-      user_id: resultReview[i].user_id,
-      created_dt: resultReview[i].created_dt,
-      updated_dt: resultReview[i].updated_dt,
+      id: review.id,
+      review_title: review.title,
+      content: review.content,
+      image: `${SERVER_IP}/public/assets/images/uploads/${review.image}`,
+      image_blurred: review.image_blurred,
+      user_id: review.user_id,
+      created_dt: review.created_dt,
+      updated_dt: review.updated_dt,
       movie_id: resultMovie.movie_id,
       title: resultMovie.title,
       poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
@@ -217,11 +200,11 @@ const updateUserReview = async (req, res) => {
   const result = await User.updateUserReview(userId, reviewId, title, content, image);
   if (result.err) {
     console.log(result.err);
-    res.status(500).send({ err: 'review belongs to other user' });
+    res.status(500).json({ error: 'review belongs to other user' });
   } else {
-    res.status(200).send({
+    res.status(200).json({
       data: {
-        comment: 'updated',
+        message: 'updated',
       },
     });
   }
@@ -229,16 +212,16 @@ const updateUserReview = async (req, res) => {
 
 const deleteUserReview = async (req, res) => {
   const { userId } = req.session;
-  const { review_id } = req.body;
+  const { reviewId } = req.body;
 
-  const result = await User.deleteUserReview(userId, review_id);
+  const result = await User.deleteUserReview(userId, reviewId);
   if (result.err) {
     console.log(result.err);
-    res.status(500).send({ err: 'review belongs to other user' });
+    res.status(500).json({ error: 'review belongs to other user' });
   } else {
-    res.status(200).send({
+    res.status(200).json({
       data: {
-        comment: 'deleted',
+        message: 'deleted',
       },
     });
   }
@@ -248,14 +231,14 @@ const deleteUserReview = async (req, res) => {
 
 const createUserComment = async (req, res) => {
   const { userId } = req.session;
-  const { review_id, content } = req.body;
+  const { reviewId, content } = req.body;
 
-  const result = await User.createUserComment(userId, review_id, content);
+  const result = await User.createUserComment(userId, reviewId, content);
   if (result.err) {
     console.log(result.err);
-    res.status(500).send({ err: 'cannot add comment' });
+    res.status(500).json({ error: 'cannot add comment' });
   } else {
-    res.status(200).send({
+    res.status(200).json({
       data: {
         comment_id: result,
       },
@@ -269,9 +252,9 @@ const getUserComment = async (req, res) => {
   const result = await User.getUserComment(userId);
   if (result.err) {
     console.log(result.err);
-    res.status(500).send({ err: 'cannot get comment' });
+    res.status(500).json({ error: 'cannot get comment' });
   } else {
-    res.status(200).send({
+    res.status(200).json({
       data: result,
     });
   }
@@ -279,16 +262,16 @@ const getUserComment = async (req, res) => {
 
 const updateUserComment = async (req, res) => {
   const { userId } = req.session;
-  const { comment_id, content } = req.body;
+  const { commentId, content } = req.body;
 
-  const result = await User.updateUserComment(userId, comment_id, content);
+  const result = await User.updateUserComment(userId, commentId, content);
   if (result.err) {
     console.log(result.err);
-    res.status(500).send({ err: 'comment belongs to other user' });
+    res.status(500).json({ error: 'comment belongs to other user' });
   } else {
-    res.status(200).send({
+    res.status(200).json({
       data: {
-        comment: 'updated',
+        message: 'updated',
       },
     });
   }
@@ -296,16 +279,16 @@ const updateUserComment = async (req, res) => {
 
 const deleteUserComment = async (req, res) => {
   const { userId } = req.session;
-  const { comment_id } = req.body;
+  const { commentId } = req.body;
 
-  const result = await User.deleteUserComment(userId, comment_id);
+  const result = await User.deleteUserComment(userId, commentId);
   if (result.err) {
     console.log(result.err);
-    res.status(500).send({ err: 'comment belongs to other user' });
+    res.status(500).json({ error: 'comment belongs to other user' });
   } else {
-    res.status(200).send({
+    res.status(200).json({
       data: {
-        comment: 'deleted',
+        message: 'deleted',
       },
     });
   }
@@ -314,9 +297,9 @@ const deleteUserComment = async (req, res) => {
 // Saved Reviews CRD
 const updateUserSavedReview = async (req, res) => {
   const { userId } = req.session;
-  const { review_id } = req.body;
+  const { reviewId } = req.body;
 
-  const result = await User.updateUserSavedReview(userId, review_id);
+  const result = await User.updateUserSavedReview(userId, reviewId);
   if (result.err) {
     console.log(result.err);
     res.status(500).send(result.err);
@@ -326,23 +309,6 @@ const updateUserSavedReview = async (req, res) => {
     data: result,
   });
 };
-// const saveUserReview = async (req, res) => {
-//   const { userId } = req.session;
-//   const { review_id } = req.body;
-
-//   const result = await User.saveUserReview(userId, review_id);
-//   if (result.err) {
-//     console.log(result.err);
-//     res.status(500).send({ err: 'review saved or review not existed' });
-//   } else {
-//     res.status(200).send({
-//       data: {
-//         user_id: result.userId,
-//         review_id: result.reviewId,
-//       },
-//     });
-//   }
-// };
 
 const getUserSavedReview = async (req, res) => {
   const { userId } = req.session;
@@ -350,18 +316,18 @@ const getUserSavedReview = async (req, res) => {
   const resultSavedReview = await User.getUserSavedReview(userId);
   const result = [];
 
-  for (const i in resultSavedReview) {
-    const resultReview = await User.getReviewInfo(resultSavedReview[i].review_id);
-    for (const j in resultReview) {
-      const info = {
-        review_id: resultReview[j].id,
-        content: resultReview[j].content,
-        image: `${SERVER_IP}/public/assets/images/uploads/${resultReview[j].image}`,
-        created_dt: resultReview[j].created_dt,
-        updated_dt: resultReview[j].updated_dt,
-      };
-      result.push(info);
-    }
+  for (const reivew of resultSavedReview) {
+    const resultReview = await User.getReviewInfo(reivew.review_id);
+    // for (const j in resultReview) {
+    const info = {
+      review_id: resultReview.id,
+      content: resultReview.content,
+      image: `${SERVER_IP}/public/assets/images/uploads/${resultReview.image}`,
+      created_dt: resultReview.created_dt,
+      updated_dt: resultReview.updated_dt,
+    };
+    result.push(info);
+    // }
   }
 
   res.status(200).send({ data: result });
@@ -369,51 +335,33 @@ const getUserSavedReview = async (req, res) => {
 
 const deleteUserSavedReview = async (req, res) => {
   const { userId } = req.session;
-  const { review_id } = req.body;
+  const { reviewId } = req.body;
 
-  const result = await User.deleteUserSavedReview(userId, review_id);
+  const result = await User.deleteUserSavedReview(userId, reviewId);
 
   if (result.err) {
     console.log(result.err);
-    res.status(500).send({ err: 'cannot delete' });
+    res.status(500).json({ error: 'cannot delete' });
     return;
   }
-  res.status(200).send({ result: 'deleted' });
+  res.status(200).json({ message: 'deleted' });
 };
 
 // Saved Movies CRD
 const updateUserSavedMovie = async (req, res) => {
   const { userId } = req.session;
-  const { movie_id } = req.body;
+  const { movieId } = req.body;
 
-  const result = await User.updateUserSavedMovie(userId, movie_id);
+  const result = await User.updateUserSavedMovie(userId, movieId);
   if (result.err) {
     console.log(result.err);
-    res.status(500).send(result.err);
+    res.status(500).json({ error: result.err });
     return;
   }
-  res.status(200).send({
+  res.status(200).json({
     data: result,
   });
 };
-
-// const saveUserMovie = async (req, res) => {
-//   const { userId } = req.session;
-//   const { movie_id } = req.body;
-
-//   const result = await User.saveUserMovie(userId, movie_id);
-//   if (result.err) {
-//     console.log(result.err);
-//     res.status(500).send({ err: 'movie saved or not existed' });
-//     return;
-//   }
-//   res.status(200).send({
-//     data: {
-//       user_id: result.userId,
-//       movie_id: result.movieId,
-//     },
-//   });
-// };
 
 const getUserSavedMovie = async (req, res) => {
   const { userId } = req.session;
@@ -421,16 +369,16 @@ const getUserSavedMovie = async (req, res) => {
   const resultSavedMovie = await User.getUserSavedMovie(userId);
   const result = [];
 
-  for (i in resultSavedMovie) {
-    const resultMovie = await User.getMovieInfo(resultSavedMovie[i].movie_id, locale);
-    for (j in resultMovie) {
-      const info = {
-        movie_id: resultMovie[j].id,
-        title: resultMovie[j].title,
-        poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie[j].poster_image}`,
-      };
-      result.push(info);
-    }
+  for (const movie of resultSavedMovie) {
+    const resultMovie = await User.getMovieInfo(movie.movie_id, locale);
+    // for (j in resultMovie) {
+    const info = {
+      movie_id: resultMovie.id,
+      title: resultMovie.title,
+      poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
+    };
+    result.push(info);
+    // }
   }
 
   res.status(200).send({ data: result });
@@ -438,37 +386,37 @@ const getUserSavedMovie = async (req, res) => {
 
 const deleteUserSavedMovie = async (req, res) => {
   const { userId } = req.session;
-  const { movie_id } = req.body;
+  const { movieId } = req.body;
 
-  const result = await User.deleteUserSavedMovie(userId, movie_id);
+  const result = await User.deleteUserSavedMovie(userId, movieId);
 
   if (result.err) {
     console.log(result.err);
-    res.status(500).send({ err: 'cannot delete' });
+    res.status(500).json({ error: 'cannot delete' });
     return;
   }
-  res.status(200).send({ result: 'deleted' });
+  res.status(200).json({ message: 'deleted' });
 };
 
 // Movie rating
 const createMovieRating = async (req, res) => {
   const { userId } = req.session;
-  const { movie_id, score } = req.body;
+  const { movieId, score } = req.body;
 
-  const result = await User.createMovieRating(userId, movie_id, score);
+  const result = await User.createMovieRating(userId, movieId, score);
   if (result.err) {
     console.log(result.err);
-    res.status(500).send({ err: 'cannot submit' });
+    res.status(500).json({ error: 'cannot submit' });
     return;
   }
-  res.status(200).send({ result: 'submitted' });
+  res.status(200).json({ message: 'submitted' });
 };
 
 // Review ranking
 
 // Comment ranking
 
-// TODO: submit review
+// TODO: submit review api from frontend
 const getMovieInfoForReview = async (req, res) => {
   const { locale } = req.query;
 
@@ -496,49 +444,11 @@ module.exports = {
   updateUserComment,
   deleteUserComment,
   updateUserSavedReview,
-  // saveUserReview,
   getUserSavedReview,
   deleteUserSavedReview,
   updateUserSavedMovie,
-  // saveUserMovie,
   getUserSavedMovie,
   deleteUserSavedMovie,
   createMovieRating,
   getMovieInfoForReview,
 };
-
-// async function validateUser(email, password) {
-//   const user = await User.GetUser(email);
-
-//   if (user.length == 0) {
-//     res.status(400).send("This email hasn't been registered");
-//     return;
-//   }
-//   // console.log(user.user.password);
-//   if (!bcrypt.compareSync(password, user.user.password)) {
-//     console.log({ email, error: 'Password is wrong' });
-//     return { error: 'Email or password is wrong' };
-//   }
-
-//   const result = {};
-//   const accessToken = await generateJWT(user.user);
-//   result.access_token = accessToken;
-//   result.user = user.user;
-//   return result;
-// }
-
-// function generateJWT(user) {
-//   const accessToken = jwt.sign(
-//     {
-//       username: user.username,
-//       id: user.id,
-//       role: user.role,
-//       email: user.email,
-//       picture: user.profile_image,
-//     },
-//     TOKEN_SECRET,
-//     { expiresIn: TOKEN_EXPIRE }
-//   );
-
-//   return accessToken;
-// }

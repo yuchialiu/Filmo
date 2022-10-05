@@ -104,12 +104,6 @@ block content
                 password: $('#logpass').val()
             }
             })
-            //- .catch(function (error) {
-            //-     let err_alert = error.response.data;
-            //-     //TODO:
-            //-                 console.log(error);
-            //-     swal.fire({text: err_alert});
-            //- });
 
           console.log(signin_response);
 
@@ -137,10 +131,11 @@ block content
           }, '1000');           
         }
         catch(err){
-          console.log(err.response.data);
+          console.log(err.response.data.error);
           if (locale == 'en-US'){
             swal.fire({icon: 'warning', 
-            text: err.response.data,
+            //- text: err.response.data.error, // This email hasn't been registered
+            text: 'Email or password is wrong', 
             confirmButtonColor: '#ec7aa0',          
             });         
           } else if (locale == 'zh-TW') {
@@ -243,10 +238,10 @@ block content
           }).then(result=>{
             window.location.href = `profile?locale=${locale}`
           }); 
-        } catch(error) {
-            console.log(error);
-            let err_alert = error.response.data;
-            swal.fire({test: err_alert});
+        } catch(err) {
+            console.log(err);
+            let err_alert = err.response.data.error;
+            swal.fire({text: err_alert});
         }
       }
       $('#sign_up_button').on('click', signup);

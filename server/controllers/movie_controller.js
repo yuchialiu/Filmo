@@ -1,22 +1,10 @@
+/* eslint-disable no-await-in-loop */
 /* eslint-disable object-shorthand */
 /* eslint-disable no-restricted-syntax */
-/* eslint-disable guard-for-in */
 require('dotenv').config();
 
 const { SERVER_IP } = process.env;
 const Movie = require('../models/movie_model');
-
-// const showMain = async (req, res) => {
-//   const result = await Movie.getMovieData();
-//   res.render('index', { data: result[0] });
-// };
-
-// const showMovieInfo = async (req, res) => {
-//   const movieId = req.query.id;
-//   const { locale } = req.query;
-//   const result = await Movie.getMovieInfo(movieId, locale);
-//   res.render('movie', { data: result[0] });
-// };
 
 const getMovieListInfo = async (req, res) => {
   const { locale } = req.query;
@@ -24,12 +12,12 @@ const getMovieListInfo = async (req, res) => {
   const movieList = await Movie.getMovieListInfo(locale, limit);
 
   const result = [];
-  for (i in movieList) {
+  for (const movie of movieList) {
     const info = {
-      id: movieList[i].movie_id,
-      title: movieList[i].title,
-      poster: `${SERVER_IP}/public/assets/images/posters/${movieList[i].poster_image}`,
-      trailer: `https://www.youtube.com/embed/${movieList[i].trailer}?rel=0`,
+      id: movie.movie_id,
+      title: movie.title,
+      poster: `${SERVER_IP}/public/assets/images/posters/${movie.poster_image}`,
+      trailer: `https://www.youtube.com/embed/${movie.trailer}?rel=0`,
     };
 
     result.push(info);
@@ -50,33 +38,33 @@ const getMovieInfo = async (req, res) => {
   const resultCrew = await Movie.getCrewInfoByMovieId(movieId, locale);
   const resultGenre = await Movie.getGenre(result.genre_id, locale);
 
-  if (result.genre_id.legnth == 0) {
+  if (!result.genre_id.legnth) {
     resultGenre.title = null;
   }
 
   const castInfo = [];
-  for (i in resultCast) {
-    const resultPerson = await Movie.getPersonDetail(resultCast[i].person_id, locale);
+  for (const castDetail of resultCast) {
+    const resultPerson = await Movie.getPersonDetail(castDetail.person_id, locale);
 
     const cast = {
-      person_id: resultCast[i].person_id,
-      cast_id: resultCast[i].id,
-      character: resultCast[i].character,
-      name: resultCast[i].name,
+      person_id: castDetail.person_id,
+      cast_id: castDetail.id,
+      character: castDetail.character,
+      name: castDetail.name,
       image: `${SERVER_IP}/public/assets/images/people/${resultPerson[0].profile_image}`,
     };
     castInfo.push(cast);
   }
 
   const crewInfo = [];
-  for (const i in resultCrew) {
-    const resultPerson = await Movie.getPersonDetail(resultCrew[i].person_id, locale);
+  for (const crewDetail of resultCrew) {
+    const resultPerson = await Movie.getPersonDetail(crewDetail.person_id, locale);
 
     const crew = {
-      person_id: resultCrew[i].person_id,
-      crew_id: resultCrew[i].id,
-      job: resultCrew[i].job,
-      name: resultCrew[i].name,
+      person_id: crewDetail.person_id,
+      crew_id: crewDetail.id,
+      job: crewDetail.job,
+      name: crewDetail.name,
       image: `${SERVER_IP}/public/assets/images/people/${resultPerson[0].profile_image}`,
     };
     crewInfo.push(crew);
@@ -128,12 +116,12 @@ const getPersonDetail = async (req, res) => {
   const resultCrew = await Movie.getCrewMovieByPersonId(personId, locale);
 
   const castMovie = [];
-  for (i in resultCast) {
-    const resultCharacter = await Movie.getCharacterByCastId(resultCast[i].cast_id, locale);
+  for (const castDetail of resultCast) {
+    const resultCharacter = await Movie.getCharacterByCastId(castDetail.cast_id, locale);
     const movie = {
-      movie_id: resultCast[i].movie_id,
-      title: resultCast[i].title,
-      poster: `${SERVER_IP}/public/assets/images/posters/${resultCast[i].poster_image}`,
+      movie_id: castDetail.movie_id,
+      title: castDetail.title,
+      poster: `${SERVER_IP}/public/assets/images/posters/${castDetail.poster_image}`,
       character: resultCharacter[0].character,
     };
 
@@ -141,12 +129,12 @@ const getPersonDetail = async (req, res) => {
   }
 
   const crewMovie = [];
-  for (i in resultCrew) {
-    const resultJob = await Movie.getJobByCrewId(resultCrew[i].crew_id, locale);
+  for (const crewDetail of resultCrew) {
+    const resultJob = await Movie.getJobByCrewId(crewDetail.crew_id, locale);
     const movie = {
-      movie_id: resultCrew[i].movie_id,
-      title: resultCrew[i].title,
-      poster: `${SERVER_IP}/public/assets/images/posters/${resultCrew[i].poster_image}`,
+      movie_id: crewDetail.movie_id,
+      title: crewDetail.title,
+      poster: `${SERVER_IP}/public/assets/images/posters/${crewDetail.poster_image}`,
       job: resultJob[0].job,
     };
 
@@ -174,12 +162,12 @@ const searchMovie = async (req, res) => {
   const resultSearch = await Movie.getMovieListByFilter(keyword, genreId, locale);
 
   const result = [];
-  for (i in resultSearch) {
+  for (const movie of resultSearch) {
     const info = {
-      movid_id: resultSearch[i].id,
-      title: resultSearch[i].title,
-      banner: `${SERVER_IP}/public/assets/images/banners/${resultSearch[i].banner_image}`,
-      poster: `${SERVER_IP}/public/assets/images/posters/${resultSearch[i].poster_image}`,
+      movid_id: movie.id,
+      title: movie.title,
+      banner: `${SERVER_IP}/public/assets/images/banners/${movie.banner_image}`,
+      poster: `${SERVER_IP}/public/assets/images/posters/${movie.poster_image}`,
     };
 
     result.push(info);
