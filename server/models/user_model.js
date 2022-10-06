@@ -328,7 +328,7 @@ const createMovieRating = async (userId, movieId, score) => {
 
 const getAllReviews = async () => {
   try {
-    const [result] = await pool.execute('SELECT * FROM review');
+    const [result] = await pool.execute('SELECT * FROM review ORDER BY created_dt DESC');
     return result;
   } catch (err) {
     console.log(err);

@@ -372,7 +372,7 @@ const showUserSavedMovie = async (req, res) => {
 
 const showAllReviews = async (req, res) => {
   const { locale } = req.query;
-  const { isAuth } = req.session;
+  const { userId, isAuth } = req.session;
 
   const resultReview = await User.getAllReviews();
 
@@ -390,6 +390,15 @@ const showAllReviews = async (req, res) => {
       formatDate = 'YYYY MMM DD日 HH:mm';
     }
 
+    // check if user sign in and saved review
+    let savedReview = false;
+    if (isAuth) {
+      const resultSaved = await User.checkUserSavedReview(userId, review.id);
+      if (resultSaved) {
+        savedReview = true;
+      }
+    }
+
     const result = {
       user_id: resultAccount.id,
       username: resultAccount.username,
@@ -405,6 +414,7 @@ const showAllReviews = async (req, res) => {
       title: resultMovie.title,
       banner: `${AWS_CLOUDFRONT_DOMAIN}/images/banners/${resultMovie.banner_image}`,
       poster: `${AWS_CLOUDFRONT_DOMAIN}/images/posters/${resultMovie.poster_image}`,
+      user_saved_review: savedReview,
     };
 
     info.push(result);
@@ -526,7 +536,7 @@ const getReviewByMovieId = async (req) => {
       formatDate = 'YYYY MMM DD日 HH:mm';
     }
 
-    // check if user sign in
+    // check if user sign in and saved review
     let savedReview = false;
     if (isAuth) {
       const resultSaved = await User.checkUserSavedReview(userId, review.id);

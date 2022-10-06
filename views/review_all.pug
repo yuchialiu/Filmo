@@ -40,9 +40,12 @@ block content
                   h4.review_title #{data[i].review_title}                    
                   p.movie_title #{data[i].title}    
 
-                div.save_review          
-                  button.delete_saved_review(class="fas fa-bookmark" type='submit' value=`${data[i].review_id}`) 
-
+                div.save_review 
+                - if (data[i].user_saved_review)
+                  button.save_review_button(type='submit' class="fas fa-bookmark" value=`${data[i].review_id}`) 
+                - else 
+                  button.save_review_button(type='submit' class="far fa-bookmark" value=`${data[i].review_id}`) 
+            
               div.d-flex.flex-row(class='card-body')
                 a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
                   img.movie_poster_account(src=`${data[i].poster}`, alt='Poster') 
@@ -51,39 +54,18 @@ block content
               div.bottom
                 p.review_created_dt(class='card-footer') #{data[i].created_dt}  
 
-
-            //-   a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
-            //-     img.movie_poster(src=`${data[i].poster}`, alt='Poster')
-            //-     p.movie_title #{data[i].title}                  
-            //- div.review_saved.col-7
-              div.review_content_outer    
-                div.user.flex-row  
-                  img.profile_img(src= `${data[i].profile_image}`, alt='Profile Image')
-                  div.name_date.flex-column
-                    p.username #{data[i].username}
-                    p.review_created_dt #{data[i].created_dt}
-                  div.save_review
-                    button.save_review_button(type='submit' value=`${data[i].review_id}`) 
-                      i18n(vanilla-i18n='save') Save
-                div.ms-15
-                  a(href=`/review/info?id=${data[i].review_id}&locale=${locale}`)
-                    //- p.review_num Review# #{data[i].review_id}
-                    h3.review_title #{data[i].review_title}
-                    img.review_img(src=`${data[i].image}`, alt='')
-                  p.review_text #{data[i].content}
-                  //- p.review_updated_dt Updated at #{data[i].updated_dt}
-
   script(type='text/javascript').
-    //- const locale = !{ locale };
+
     const review_id = $('.review_id').data('id');
 
     $('.save_review_button').on('click', async (e) => {
       e.preventDefault(); 
-      let review_id = e.target.value;
 
+      let reviewId = e.target.value;
+      console.log(reviewId)
       try {
         const data = JSON.stringify({
-          review_id,
+          reviewId,
         });
 
         const result = await axios({
@@ -94,13 +76,84 @@ block content
             'Content-Type': 'application/json',
           },
         });
-        alert('review saved successfully')
-        window.location.href = `/store/review?locale=${locale}` ;
 
-      } catch {
-        alert('review saved or not existed');
+        let resultUser = result.data.data 
+        console.log(resultUser)
+
+        if (resultUser == 'deleted') {
+          $(e.target).removeClass('fas').addClass('far')
+
+          if (locale == 'en-US'){
+            swal.fire({
+              icon: 'success', 
+              text: 'Review Removed',
+              showConfirmButton: false,
+              timer: 800,
+            });       
+          } else if (locale == 'zh-TW') {
+            swal.fire({
+              icon: 'success', 
+              text: '已移除',
+              showConfirmButton: false,
+              timer: 800,
+            });        
+          } else if (locale == 'fr-FR') {
+            swal.fire({
+              icon: 'success', 
+              text: 'Supprimé',
+              showConfirmButton: false,
+              timer: 800,
+            });   
+          } 
+        } else if (resultUser == 'saved'){
+          $(e.target).removeClass('far').addClass('fas')
+
+          if (locale == 'en-US'){
+              swal.fire({
+                icon: 'success', 
+                text: 'Review Saved',
+                showConfirmButton: false,
+                timer: 800,
+              });
+            } else if (locale == 'zh-TW') {
+              swal.fire({
+                icon: 'success', 
+                text: '已儲存',
+                showConfirmButton: false,
+                timer: 800,
+              });     
+            } else if (locale == 'fr-FR') {
+              swal.fire({
+                icon: 'success', 
+                text: 'Enregistrée',
+                showConfirmButton: false,
+                timer: 800,
+              });     
+            }  
+        }
+      } catch(err) {
+        if (locale == 'en-US'){
+          swal.fire({
+            icon: 'warning', 
+            text: 'Please sign in first',
+            confirmButtonColor: '#ec7aa0',          
+          });         
+        } else if (locale == 'zh-TW') {
+          swal.fire({
+            icon: 'warning', 
+            text: '請先登入',
+            confirmButtonColor: '#ec7aa0',          
+          });          
+        } else if (locale == 'fr-FR') {
+          swal.fire({
+            icon: 'warning', 
+            text: 'Veuillez vous connecter',
+            confirmButtonColor: '#ec7aa0',          
+          });          
+        }
+        setTimeout(() => {
+          window.location.href = `/login?locale=${locale}`
+        }, '1000');
         console.log('err: ', err);
       }
-
     });
-  
