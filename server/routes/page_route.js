@@ -22,11 +22,13 @@ router.get('/home', showMovieListInfo);
 
 router.get('/login', (req, res) => {
   const { locale } = req.query;
+  const { isAuth } = req.session;
 
   res.render('login', {
     locale,
     locale_string: JSON.stringify(locale),
     lang: lang[locale],
+    isAuth,
   });
 });
 

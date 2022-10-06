@@ -1845,7 +1845,8 @@ Dropdown Style
   background-color: rgba(236, 96, 144, 0.9);
 } */
 
-.account:hover {
+.account:hover,
+.login:hover {
   cursor: pointer;
 }
 

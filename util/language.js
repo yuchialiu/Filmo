@@ -40,6 +40,9 @@ const lang = {
       no_submitted_review: "You haven't submitted any reviews yet",
       no_saved_review: "You haven't saved any reviews yet",
       no_saved_movie: "You haven't saved any movies yet",
+      your_email: 'Your Email',
+      your_password: 'Your Password',
+      your_username: 'Your Username',
     },
     review: {
       submit_reivew: 'Submit Review',
@@ -99,6 +102,9 @@ const lang = {
       no_submitted_review: '目前沒有上傳的評論',
       no_saved_review: '目前沒有收藏的評論',
       no_saved_movie: '目前沒有收藏的電影',
+      your_email: '您的信箱',
+      your_password: '您的密碼',
+      your_username: '使用者名稱',
     },
     review: {
       submit_reivew: '上傳評論',
@@ -158,6 +164,9 @@ const lang = {
       no_submitted_review: "Vous n'avez pas encore soumis d'un commentaire",
       no_saved_review: "Vous n'avez pas encore enregistré d'un commentaire",
       no_saved_movie: "Vous n'avez pas encore enregistré de films",
+      your_email: 'Votre E-mail',
+      your_password: 'Votre Mot de Passe',
+      your_username: 'Votre Nom',
     },
     review: {
       submit_reivew: 'Soumettre',

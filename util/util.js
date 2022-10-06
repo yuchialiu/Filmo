@@ -23,10 +23,11 @@ const authenticationAPI = (req, res, next) => {
   return next();
 };
 
-const lang = require('./language');
+const Lang = require('./language');
 
 const authentication = (req, res, next) => {
   const { locale } = req.query;
+  const { isAuth } = req.session;
   // console.log(req.session.isAuth);
 
   if (!req.session.isAuth) {
@@ -34,8 +35,9 @@ const authentication = (req, res, next) => {
     return res.status(403).render('login', {
       locale,
       locale_string: JSON.stringify(locale),
-      lang: lang[locale],
-      isRedirect: true,
+      lang: Lang[locale],
+      isAuth,
+      // isRedirect: true,
     });
   }
   return next();

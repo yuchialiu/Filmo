@@ -1,8 +1,7 @@
 .main {
-  margin-left: 15px;
-}
-.tab {
-  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  margin-top: 70px;
 }
 
 .outer_review_account {

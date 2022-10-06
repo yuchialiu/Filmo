@@ -60,7 +60,10 @@ header.header-area.header-sticky
             //- li
             //-   a(href=`/review?locale=${locale}`) Review
             li
-              a.account #{lang.nav.account}
+              - if (isAuth == false)
+                a.login #{lang.account.login}
+              - else
+                a.account #{lang.nav.account}
               //- a.account(href=`/profile?locale=${locale}`) #{lang.nav.account}
                 //- img(src='assets/images/profile-header.jpg' alt='')
             div.dropdown
@@ -175,3 +178,9 @@ script(type="text/javascript").
       console.log('err: ', err);
     }
   });
+
+    $('.login').on('click', async (e) => {
+      e.preventDefault();
+      window.location.href = `/login?locale=${locale}`;
+    });
+

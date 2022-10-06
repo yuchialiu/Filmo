@@ -24,13 +24,13 @@ block content
           div#review_movie_id(name='movieId' data-id=`${data.movie_id}`) 
             h5.title #{lang.review.title}
               br
-              input#review_title(type='text' name='title' placeholder='Title' maxlength='30' length='30')
+              input#review_title(type='text' name='title' placeholder=`${lang.review.title}` maxlength='30' length='30')
               div#input_count
                 span#input_current 0
                 span#input_maximum / 30
             h5.content #{lang.review.content}
               br
-              textarea#review_content(type='text' name='content' placeholder='Review' length='1000')
+              textarea#review_content(type='text' name='content' placeholder=`${lang.review.content}` length='1000')
               div#textarea_count
                 span#textarea_current 0
                 span#textarea_maximum / 1000
