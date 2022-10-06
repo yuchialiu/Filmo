@@ -190,9 +190,6 @@ block content
           },
         });
         let resultUser = result.data.data 
-        console.log(resultUser)
-        console.log('aaaaa')
-
 
         if (resultUser == 'deleted') {
           $('.fas').removeClass('fas').addClass('far')
@@ -245,7 +242,6 @@ block content
         }
 
       } catch(err) {
-        console.log('bbbbb')
         if (locale == 'en-US'){
           swal.fire({
             icon: 'warning', 

@@ -44,6 +44,13 @@
   flex-direction: row;
 }
 
+#biography {
+  margin: 30px 0 30px 0;
+  width: 800px;
+  font-weight: 400;
+  line-height: 25px; /* 設定文字行距 */
+}
+
 .readmore {
   width: 800px;
 }

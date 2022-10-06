@@ -1,7 +1,8 @@
 /* hidden */
 .review_title_movie,
 .review_img,
-.review_text_movie {
+.review_text_movie,
+.review_text_all {
   display: none;
 }
 
@@ -103,3 +104,9 @@
   background-color: #fff;
   color: #e75e8d;
 } */
+
+/* review all page */
+.spoiler_review_all {
+  justify-content: flex-end;
+  margin-top: 50px;
+}

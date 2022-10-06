@@ -150,7 +150,6 @@ block content
         });
 
         let resultUser = result.data.data 
-        console.log(resultUser)
 
         if (resultUser == 'deleted') {
           $(e.target).removeClass('fas').addClass('far')
@@ -232,7 +231,6 @@ block content
   
     $('#spoiler_alert').change(function(e) {
       e.preventDefault();   
-      console.log('qswqweqwa')
       $('.review_title_spoiler').slideToggle("fast");   
       $('.review_title_movie').slideToggle("fast");
       //- $('.review_img').slideToggle("slow");

@@ -5,6 +5,12 @@
   letter-shttps://cdnjs.com/libraries/font-awesome/5.15.4acing: 1px;
 } */
 
+/* nav selected */
+.login {
+  color: #e75e8d !important;
+}
+/* nav selected */
+
 #main {
   margin-top: 60px;
   /* margin-left: 100px; */

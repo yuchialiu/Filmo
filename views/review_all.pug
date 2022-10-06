@@ -3,11 +3,18 @@ extends layout.pug
 block head
   link(rel='stylesheet', href='/public/assets/css/review.css', type='text/css')
   link(rel='stylesheet', href='/public/assets/css/save_button.css', type='text/css')
+  link(rel='stylesheet', href='/public/assets/css/spoiler.css', type='text/css')
+  
+  link(href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet")
+  script(src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js")
 
 block content 
   div.main
-    div.main_outer
-      div.outer_review
+    div.d-flex.flex-column 
+      div.spoiler_review_all.d-flex.flex-row
+        p.spoiler_text #{lang.review.spoiler}
+        input#spoiler_alert(type='checkbox' checked data-toggle='toggle' data-size="sm" data-style="ios" ) 
+      div.outer_review_all
           - for (let i = 0; i < data.length ; i++)
             div.review_account(class='card text-white bg-dark mb-300' style="max-width: 650px; min-width: 650px")
               div.item_movie.d-flex.flex-row(class='card-header')
@@ -36,9 +43,9 @@ block content
                         p.username_small #{data[i].username}                          
                       - else               
                         p.username #{data[i].username}
-                div.ms15
-                  h4.review_title #{data[i].review_title}                    
-                  p.movie_title #{data[i].title}    
+                div.review_title_outer
+                  h4.review_title_spoiler #{lang.review.spoiler}
+                  h3.review_title_movie #{data[i].review_title}
 
                 div.save_review 
                 - if (data[i].user_saved_review)
@@ -49,111 +56,123 @@ block content
               div.d-flex.flex-row(class='card-body')
                 a(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
                   img.movie_poster_account(src=`${data[i].poster}`, alt='Poster') 
-                p.review_text(class="card-text") #{data[i].content}
+                p.review_text_all(class="card-text") #{data[i].content}
                     
               div.bottom
                 p.review_created_dt(class='card-footer') #{data[i].created_dt}  
 
   script(type='text/javascript').
+    //- $(async () => {
+      const review_id = $('.review_id').data('id');
 
-    const review_id = $('.review_id').data('id');
+      $('.save_review_button').on('click', async (e) => {
+        e.preventDefault(); 
 
-    $('.save_review_button').on('click', async (e) => {
-      e.preventDefault(); 
+        let reviewId = e.target.value;
 
-      let reviewId = e.target.value;
-      console.log(reviewId)
-      try {
-        const data = JSON.stringify({
-          reviewId,
-        });
+        try {
+          const data = JSON.stringify({
+            reviewId,
+          });
 
-        const result = await axios({
-          method: 'POST',
-          url: '/api/1.0/user/store/review',
-          data,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+          const result = await axios({
+            method: 'POST',
+            url: '/api/1.0/user/store/review',
+            data,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
 
-        let resultUser = result.data.data 
-        console.log(resultUser)
+          let resultUser = result.data.data 
 
-        if (resultUser == 'deleted') {
-          $(e.target).removeClass('fas').addClass('far')
+          if (resultUser == 'deleted') {
+            $(e.target).removeClass('fas').addClass('far')
 
-          if (locale == 'en-US'){
-            swal.fire({
-              icon: 'success', 
-              text: 'Review Removed',
-              showConfirmButton: false,
-              timer: 800,
-            });       
-          } else if (locale == 'zh-TW') {
-            swal.fire({
-              icon: 'success', 
-              text: '已移除',
-              showConfirmButton: false,
-              timer: 800,
-            });        
-          } else if (locale == 'fr-FR') {
-            swal.fire({
-              icon: 'success', 
-              text: 'Supprimé',
-              showConfirmButton: false,
-              timer: 800,
-            });   
-          } 
-        } else if (resultUser == 'saved'){
-          $(e.target).removeClass('far').addClass('fas')
-
-          if (locale == 'en-US'){
+            if (locale == 'en-US'){
               swal.fire({
                 icon: 'success', 
-                text: 'Review Saved',
+                text: 'Review Removed',
                 showConfirmButton: false,
                 timer: 800,
-              });
+              });       
             } else if (locale == 'zh-TW') {
               swal.fire({
                 icon: 'success', 
-                text: '已儲存',
+                text: '已移除',
                 showConfirmButton: false,
                 timer: 800,
-              });     
+              });        
             } else if (locale == 'fr-FR') {
               swal.fire({
                 icon: 'success', 
-                text: 'Enregistrée',
+                text: 'Supprimé',
                 showConfirmButton: false,
                 timer: 800,
-              });     
-            }  
+              });   
+            } 
+          } else if (resultUser == 'saved'){
+            $(e.target).removeClass('far').addClass('fas')
+
+            if (locale == 'en-US'){
+                swal.fire({
+                  icon: 'success', 
+                  text: 'Review Saved',
+                  showConfirmButton: false,
+                  timer: 800,
+                });
+              } else if (locale == 'zh-TW') {
+                swal.fire({
+                  icon: 'success', 
+                  text: '已儲存',
+                  showConfirmButton: false,
+                  timer: 800,
+                });     
+              } else if (locale == 'fr-FR') {
+                swal.fire({
+                  icon: 'success', 
+                  text: 'Enregistrée',
+                  showConfirmButton: false,
+                  timer: 800,
+                });     
+              }  
+          }
+        } catch(err) {
+          if (locale == 'en-US'){
+            swal.fire({
+              icon: 'warning', 
+              text: 'Please sign in first',
+              confirmButtonColor: '#ec7aa0',          
+            });         
+          } else if (locale == 'zh-TW') {
+            swal.fire({
+              icon: 'warning', 
+              text: '請先登入',
+              confirmButtonColor: '#ec7aa0',          
+            });          
+          } else if (locale == 'fr-FR') {
+            swal.fire({
+              icon: 'warning', 
+              text: 'Veuillez vous connecter',
+              confirmButtonColor: '#ec7aa0',          
+            });          
+          }
+          setTimeout(() => {
+            window.location.href = `/login?locale=${locale}`
+          }, '1000');
+          console.log('err: ', err);
         }
-      } catch(err) {
-        if (locale == 'en-US'){
-          swal.fire({
-            icon: 'warning', 
-            text: 'Please sign in first',
-            confirmButtonColor: '#ec7aa0',          
-          });         
-        } else if (locale == 'zh-TW') {
-          swal.fire({
-            icon: 'warning', 
-            text: '請先登入',
-            confirmButtonColor: '#ec7aa0',          
-          });          
-        } else if (locale == 'fr-FR') {
-          swal.fire({
-            icon: 'warning', 
-            text: 'Veuillez vous connecter',
-            confirmButtonColor: '#ec7aa0',          
-          });          
-        }
-        setTimeout(() => {
-          window.location.href = `/login?locale=${locale}`
-        }, '1000');
-        console.log('err: ', err);
-      }
-    });
+      });
+
+      $('#spoiler_alert').change(function(e) {
+        e.preventDefault();   
+        $('.review_title_spoiler').slideToggle("fast");   
+        $('.review_title_movie').slideToggle("fast");
+        //- $('.review_img').slideToggle("slow");
+        $('.review_text_all').slideToggle("fast");
+      });
+      
+    //- })
+
+
+

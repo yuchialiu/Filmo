@@ -241,3 +241,15 @@
 .review_account {
   margin-bottom: 40px;
 }
+
+/* review all page */
+
+.outer_review_all {
+  margin-top: -10px;
+}
+
+.review_text_all {
+  margin-left: 18px;
+  line-height: 24px !important;
+  font-size: 16.5px !important;
+}

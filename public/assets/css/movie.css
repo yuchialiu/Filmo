@@ -80,8 +80,8 @@
   margin: 30px 0 30px 0;
   width: 800px;
   font-weight: 400;
-  font-size: medium;
-  line-height: 22px; /* 設定文字行距 */
+  font-size: 15.5px;
+  line-height: 24px; /* 設定文字行距 */
 }
 
 #trailer {
