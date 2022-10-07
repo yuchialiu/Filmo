@@ -2,7 +2,6 @@ extends layout.pug
 
 block head
   link(rel='stylesheet', href='/public/assets/css/index.css')
-  //- link(rel='stylesheet', type="text/css", href='/public/assets/css/jquery.vm-carousel.css' )
 
 block content 
   div.content
@@ -39,7 +38,6 @@ block content
           h1.second_title_line_1 #{lang.index.new}
           h1.second_title_line_2 #{lang.index.releases}
         div.list_box
-          //- ul.movie_list.vmcarousel-normal
           ul.movie_list(class="owl-features owl-carousel owl-loaded owl-drag")
             - for (let i = 40; i < 50; i++)
               li.list_div
@@ -47,17 +45,6 @@ block content
                   img.list_img(src=`${data[i].poster}`)
                   p.list_title #{data[i].title}
 
-
-        //- div.second_title
-        //-   h1.second_title_line_1#new Test     
-        //-   h1.second_title_line_2 Carousel 
-        //- div.list_box
-        //-   ul.movie_list(class="owl-features owl-carousel owl-loaded owl-drag")
-        //-     - for (let i = 50; i < 80; i++)
-        //-       li.list_div
-        //-         a.list_link(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
-        //-           img.list_img(src=`${data[i].poster}`)
-        //-           p.list_title #{data[i].title}
             
   script(src='/public/assets/js/owl.carousel.js')
   script(src='/public/assets/js/owl.autoplay.js')
@@ -70,43 +57,8 @@ block content
     //-   });
     //- });
     
-
-    //- $('.vmcarousel-normal').vmcarousel({
-
-    //-   // delay in ms
-    //-   delay: 4000,
-
-    //-   // transition speed
-    //-   speed: 500,
-
-    //-   // enabe autoplay
-    //-   autoplay: false,
-
-    //-   // 0 for auto calc
-    //-   items_to_show: 3, 
-
-    //-   // min number of items
-    //-   min_items_to_show: 3,
-
-    //-   // items to slide at a time
-    //-   items_to_slide: 0,
-    //-   dont_cut: true,
-
-    //-   // center the current image
-    //-   centered: false,
-
-    //-   // start item
-    //-   start_item: 0,
-    //-   start_item_centered: false,
-
-    //-   // infinite loop
-    //-   infinite: true,
-
-    //-   // callback
-    //-   changed_slide: $.noop()
-
-    //- });
     //- $(document).ready(function(){
+    
     $(".owl-carousel").owlCarousel({
       items: 3,
       loop: true, // 循環播放
@@ -116,10 +68,10 @@ block content
 
       responsive: {
         0: {
-          items: 3 // 螢幕大小為 0~600 顯示 1 個項目
+          items: 1 // 螢幕大小為 0~600 顯示 1 個項目
         },
         600: {
-          items: 3 // 螢幕大小為 600~1000 顯示 3 個項目
+          items: 2 // 螢幕大小為 600~1000 顯示 3 個項目
         },
         1000: {
           items: 3 // 螢幕大小為 1000 以上 顯示 5 個項目

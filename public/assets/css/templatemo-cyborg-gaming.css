@@ -739,7 +739,7 @@ TODO:
     width: 100%;
   }
   .header-area {
-    background-color: #f7f7f7;
+    /* background-color: #f7f7f7; */
     padding: 0px 15px;
     height: 80px;
     box-shadow: none;

@@ -2,7 +2,6 @@ extends layout.pug
 
 block head
   link(rel='stylesheet', href='/public/assets/css/movie.css', type='text/css')
-  link(rel='stylesheet', type="text/css", href='/public/assets/css/jquery.vm-carousel.css' )
   link(rel='stylesheet', href='/public/assets/css/save_button.css', type='text/css')
 
   //- link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
@@ -86,47 +85,10 @@ block content
                   p.crew_job #{data.crew[i].job}
               
 
-  //- script(src='/public/assets/js/jquery.vm-carousel.js')
   script(src='/public/assets/js/owl.carousel.js')
-  //- script(src='/public/assets/js/owl.autoplay.js')
   script(src='/public/assets/js/owl.navigation.js')
   script(type='text/javascript').
   
-    //- $('.vmcarousel-normal').vmcarousel({
-
-    //-   // delay in ms
-    //-   delay: 4000,
-
-    //-   // transition speed
-    //-   speed: 500,
-
-    //-   // enabe autoplay
-    //-   autoplay: false,
-
-    //-   // 0 for auto calc
-    //-   items_to_show: 6, 
-
-    //-   // min number of items
-    //-   min_items_to_show: 1,
-
-    //-   // items to slide at a time
-    //-   items_to_slide: 0,
-    //-   dont_cut: true,
-
-    //-   // center the current image
-    //-   centered: false,
-
-    //-   // start item
-    //-   start_item: 0,
-    //-   start_item_centered: false,
-
-    //-   // infinite loop
-    //-   infinite: false,
-
-    //-   // callback
-    //-   changed_slide: $.noop()
-
-    //- });
     const movieId = $('#movie_id').data('id');
 
     $('.to_submit_page').on('click', async (e) => {
@@ -170,9 +132,6 @@ block content
       }
     });
     
-
-    //- const locale = !{ locale };
-
     $('.save_movie_button').on('click', async (e) => {
       e.preventDefault();
       console.log(movieId)
@@ -288,7 +247,7 @@ block content
 
       responsive: {
         0: {
-          items: 3 // 螢幕大小為 0~600 顯示 1 個項目
+          items: 1 // 螢幕大小為 0~600 顯示 1 個項目
         },
         600: {
           items: 3 // 螢幕大小為 600~1000 顯示 3 個項目
@@ -300,24 +259,3 @@ block content
       
     });
     
-    //- function stopCarousel() {
-    //-   var owl = $('.owl-carousel');
-    //-   owl.trigger('destroy.owl.carousel');
-    //-   owl.addClass('off');
-    //- }
-
-    // - function toRate (e) {
-    // -   e.preventDefault();
-    // -   $('').style.display = 'block'
-    // - }
-
-    // - $('.rating').on('click', toRate);
-
-  
-  //-   function toSubmitPage (e) {
-  //-     e.preventDefault();
-  //-     window.location.href='/review/submit'
-  //-   }
-    
-  //-   $('.to_submit_page').on('click', toSubmitPage);
-

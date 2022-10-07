@@ -93,6 +93,7 @@
   color: #e75e8d;
   margin-top: 20px;
   margin-bottom: 20px;
+  margin-left: 10px;
 }
 
 .img_alt,
@@ -149,18 +150,22 @@
   right: 10px !important;
 }
 
-/* carousel */
+/* carousel ------------------------------*/
 .owl-item,
 .owl-item.cloned {
   margin: 0 auto !important;
   width: 200px !important;
 }
 
-.owl-stage-outer {
+.owl-stage-outer,
+.owl-nav,
+.owl-carousel {
   width: 1000px !important;
+  max-width: 1000px !important;
 }
 
-.cast_list {
+.cast_list,
+.crew-list {
   position: relative;
 }
 
@@ -177,8 +182,10 @@
   font-size: 100px !important;
   position: absolute !important;
   top: 50px !important;
-  right: 147px !important;
+  right: -7px !important;
 }
+
+/* carousel ------------------------------*/
 
 .to_submit_page,
 .see_review {

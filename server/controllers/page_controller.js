@@ -161,6 +161,7 @@ const showMovieInfoForReview = async (req, res) => {
       locale,
       locale_string: JSON.stringify(locale),
       lang: Lang[locale],
+      isAuth,
     });
   } catch (err) {
     res.status(404).render('404', { locale, lang: Lang[locale], isAuth });
@@ -237,6 +238,7 @@ const getPersonDetail = async (req) => {
 
 const showPersonDetail = async (req, res) => {
   const { locale } = req.query;
+  const { isAuth } = req.session;
 
   try {
     const response = await getPersonDetail(req);
@@ -245,14 +247,15 @@ const showPersonDetail = async (req, res) => {
       locale,
       locale_string: JSON.stringify(locale),
       lang: Lang[locale],
+      isAuth,
     });
   } catch (err) {
-    res.status(404).render('404', { locale, lang: Lang[locale] });
+    res.status(404).render('404', { locale, lang: Lang[locale], isAuth });
   }
 };
 
 const showProfileReview = async (req, res) => {
-  const { userId } = req.session;
+  const { userId, isAuth } = req.session;
   const { locale } = req.query;
 
   const resultAccount = await User.getUserById(userId);
@@ -295,11 +298,12 @@ const showProfileReview = async (req, res) => {
     locale,
     locale_string: JSON.stringify(locale),
     lang: Lang[locale],
+    isAuth,
   });
 };
 
 const showUserSavedReview = async (req, res) => {
-  const { userId } = req.session;
+  const { userId, isAuth } = req.session;
   const { locale } = req.query;
 
   const resultSavedReview = await User.getUserSavedReview(userId);
@@ -341,6 +345,7 @@ const showUserSavedReview = async (req, res) => {
     locale,
     locale_string: JSON.stringify(locale),
     lang: Lang[locale],
+    isAuth,
   });
 };
 

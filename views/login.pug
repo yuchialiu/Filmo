@@ -51,188 +51,188 @@ block content
                           input#regispass.form-style(type='password', name='regispass', placeholder=`${lang.account.your_password}`, autocomplete='off', maxlength='20')
                           i.input-icon.uil.uil-lock-alt
                         button#sign_up_button.button.mt-4(type="button") #{lang.submit}
-    script(type='text/javascript').
 
-      //Sign in
+  script(type='text/javascript').
 
-      async function signin(event){
-        event.preventDefault()
+    //Sign in
 
-        if ( $('#logemail').val() == "" || $('#logpass').val() == "" ) {
-          swal.fire({
-            icon: 'warning', 
-            text: "Please fill in all blank before login",
-            confirmButtonColor: '#ec7aa0',
-          });
-          return
-        } 
-        if (!validator.isEmail($('#logemail').val())) {
-          swal.fire({icon: 'warning', 
-          text:'Please input valid email format',
-          confirmButtonColor: '#ec7aa0',          
-          });
-          return
-        }
+    async function signin(event){
+      event.preventDefault()
 
-        try{
-          const signin_response = await axios({
-            method: 'POST',
-            url: '/api/1.0/user/signin',
-            responseType: 'json',
-            data: {
-                email: $('#logemail').val(),
-                password: $('#logpass').val()
-            }
-            })
-
-          console.log(signin_response);
-
-          if (locale == 'en-US'){
-            swal.fire({
-              icon: 'success', 
-              text: 'Log in successfully! ',
-              showConfirmButton: false,
-            })      
-          } else if (locale == 'zh-TW') {
-            swal.fire({
-              icon: 'success', 
-              text: '登入成功! ',
-              showConfirmButton: false,
-            })              
-          } else if (locale == 'fr-FR') {
-            swal.fire({
-              icon: 'success', 
-              text: 'Connectez-vous avec succès! ',
-              showConfirmButton: false,
-            })             
-          }  
-          setTimeout(() => {
-            window.location.href = `/profile?locale=${locale}`
-          }, '1000');           
-        }
-        catch(err){
-          console.log(err.response.data.error);
-          if (locale == 'en-US'){
-            swal.fire({icon: 'warning', 
-            //- text: err.response.data.error, // This email hasn't been registered
-            text: 'Email or password is wrong', 
-            confirmButtonColor: '#ec7aa0',          
-            });         
-          } else if (locale == 'zh-TW') {
-            swal.fire({icon: 'warning', 
-            text: '帳號或密碼有誤',
-            confirmButtonColor: '#ec7aa0',          
-            });          
-          } else if (locale == 'fr-FR') {
-            swal.fire({icon: 'warning', 
-            text: 'e-mail ou le mot de passe est erroné',
-            confirmButtonColor: '#ec7aa0',          
-            });          
-          }
-          setTimeout(() => {
-            location.reload();
-          }, '800');            
-        }
+      if ( $('#logemail').val() == "" || $('#logpass').val() == "" ) {
+        swal.fire({
+          icon: 'warning', 
+          text: "Please fill in all blank before login",
+          confirmButtonColor: '#ec7aa0',
+        });
+        return
+      } 
+      if (!validator.isEmail($('#logemail').val())) {
+        swal.fire({icon: 'warning', 
+        text:'Please input valid email format',
+        confirmButtonColor: '#ec7aa0',          
+        });
+        return
       }
 
-      $('#sign_in_button').on('click', signin);
-      $("#logemail").keypress(function(e){
-        code = (e.keyCode ? e.keyCode : e.which);
-        if (code == 13)
-        {
-          signin(event)
-        }
-      });     
-      $("#logpass").keypress(function(e){
-        code = (e.keyCode ? e.keyCode : e.which);
-        if (code == 13)
-        {
-          signin(event)
-        }
-      });
-
-      //Sign up
-
-      async function signup(event){
-        event.preventDefault()
-        // Empty Validation
-        if ($('#regisname').val() == "" || $('#regisemail').val() == "" ||  $('#regispass').val() == "") {
-            swal.fire({icon: 'warning',text: "Please fill in all blank before register", confirmButtonColor: '#ec7aa0'});
-            return
-        }
-        // Email Validation
-        if (!validator.isEmail($('#regisemail').val())) {
-          swal.fire({icon: 'warning', text: 'Please input valid email format', confirmButtonColor: '#ec7aa0'});
-          return
-        }
-        if (!validator.isLength($('#regisemail').val(), {min:6, max:30})) {
-          swal.fire({icon: 'warning', text: 'Email must be between 6 and 30 characters', confirmButtonColor: '#ec7aa0'});
-          return
-        }
-        // Username Validation
-        if(!validator.isAlphanumeric($('#regisname').val())) {
-          console.log()
-          swal.fire({icon: 'warning', text: 'Username must be alphanumeric', confirmButtonColor: '#ec7aa0'});
-          return
-        }
-        if(!validator.isLength($('#regisname').val(), {min:3}) ) {
-          swal.fire({icon: 'warning', text: 'Username must be at least 3 characters', confirmButtonColor: '#ec7aa0'});
-          return
-        }
-        if(!validator.isLength($('#regisname').val(), {max:8}) ) {
-          swal.fire({icon: 'warning', text: 'Username must be no more than 8 characters', confirmButtonColor: '#ec7aa0'});
-          return
-        }
-        // Password Validation
-        if(!validator.isAlphanumeric($('#regispass').val())) {
-          swal.fire({icon: 'warning', text: 'Password must be alphanumeric', confirmButtonColor: '#ec7aa0'});
-          return
-        }    
-        if(!validator.isLength($('#regispass').val(), {min:6}) ) {
-          swal.fire({icon: 'warning', text: 'Password must be at least 6 characters', confirmButtonColor: '#ec7aa0'});
-          return
-        }
-        if(!validator.isLength($('#regispass').val(), {max:20}) ) {
-          swal.fire({icon: 'warning', text: 'Password must be no more than 20 characters', confirmButtonColor: '#ec7aa0'});
-          return
-        }            
-
-        try{
-          const signup_response = await axios({
-              method: 'POST',
-              url: '/api/1.0/user/signup',
-              responseType: 'json',
-              data: {
-                username: $('#regisname').val(),
-                email: $('#regisemail').val(),
-                password: $('#regispass').val()
-              }
+      try{
+        const signin_response = await axios({
+          method: 'POST',
+          url: '/api/1.0/user/signin',
+          responseType: 'json',
+          data: {
+              email: $('#logemail').val(),
+              password: $('#logpass').val()
+          }
           })
-          console.log(signup_response);
 
+        //- console.log(signin_response);
+
+        if (locale == 'en-US'){
           swal.fire({
             icon: 'success', 
-            text: 'Sign up successfully! ',
+            text: 'Log in successfully! ',
             showConfirmButton: false,
-            timer: 1000,
-          }).then(result=>{
-            window.location.href = `profile?locale=${locale}`
-          }); 
-        } catch(err) {
-            console.log(err);
-            let err_alert = err.response.data.error;
-            swal.fire({
-              text: err_alert,
-              confirmButtonColor: '#ec7aa0',          
-            });
+          })      
+        } else if (locale == 'zh-TW') {
+          swal.fire({
+            icon: 'success', 
+            text: '登入成功! ',
+            showConfirmButton: false,
+          })              
+        } else if (locale == 'fr-FR') {
+          swal.fire({
+            icon: 'success', 
+            text: 'Connectez-vous avec succès! ',
+            showConfirmButton: false,
+          })             
+        }  
+        setTimeout(() => {
+          window.location.href = `/profile?locale=${locale}`
+        }, '1000');           
+      } catch(error) {
+        //- console.log(error);
+        if (locale == 'en-US'){
+          swal.fire({icon: 'warning', 
+          //- text: err.response.data.error, // This email hasn't been registered
+          text: 'Email or password is wrong', 
+          confirmButtonColor: '#ec7aa0',          
+          });         
+        } else if (locale == 'zh-TW') {
+          swal.fire({icon: 'warning', 
+          text: '帳號或密碼有誤',
+          confirmButtonColor: '#ec7aa0',          
+          });          
+        } else if (locale == 'fr-FR') {
+          swal.fire({icon: 'warning', 
+          text: 'e-mail ou le mot de passe est erroné',
+          confirmButtonColor: '#ec7aa0',          
+          });          
         }
+        setTimeout(() => {
+          location.reload();
+        }, '800');            
       }
-      $('#sign_up_button').on('click', signup);
+    }
 
-      $("#regispass").keypress(function(e){
-        code = (e.keyCode ? e.keyCode : e.which);
-        if (code == 13)
-        {
-          signup(event)
-        }
-      });
+    $('#sign_in_button').on('click', signin);
+    $("#logemail").keypress(function(e){
+      code = (e.keyCode ? e.keyCode : e.which);
+      if (code == 13)
+      {
+        signin(event)
+      }
+    });     
+    $("#logpass").keypress(function(e){
+      code = (e.keyCode ? e.keyCode : e.which);
+      if (code == 13)
+      {
+        signin(event)
+      }
+    });
+
+    //Sign up
+
+    async function signup(event){
+      event.preventDefault()
+      // Empty Validation
+      if ($('#regisname').val() == "" || $('#regisemail').val() == "" ||  $('#regispass').val() == "") {
+          swal.fire({icon: 'warning',text: "Please fill in all blank before register", confirmButtonColor: '#ec7aa0'});
+          return
+      }
+      // Email Validation
+      if (!validator.isEmail($('#regisemail').val())) {
+        swal.fire({icon: 'warning', text: 'Please input valid email format', confirmButtonColor: '#ec7aa0'});
+        return
+      }
+      if (!validator.isLength($('#regisemail').val(), {min:6, max:30})) {
+        swal.fire({icon: 'warning', text: 'Email must be between 6 and 30 characters', confirmButtonColor: '#ec7aa0'});
+        return
+      }
+      // Username Validation
+      if(!validator.isAlphanumeric($('#regisname').val())) {
+        console.log()
+        swal.fire({icon: 'warning', text: 'Username must be alphanumeric', confirmButtonColor: '#ec7aa0'});
+        return
+      }
+      if(!validator.isLength($('#regisname').val(), {min:3}) ) {
+        swal.fire({icon: 'warning', text: 'Username must be at least 3 characters', confirmButtonColor: '#ec7aa0'});
+        return
+      }
+      if(!validator.isLength($('#regisname').val(), {max:8}) ) {
+        swal.fire({icon: 'warning', text: 'Username must be no more than 8 characters', confirmButtonColor: '#ec7aa0'});
+        return
+      }
+      // Password Validation
+      if(!validator.isAlphanumeric($('#regispass').val())) {
+        swal.fire({icon: 'warning', text: 'Password must be alphanumeric', confirmButtonColor: '#ec7aa0'});
+        return
+      }    
+      if(!validator.isLength($('#regispass').val(), {min:6}) ) {
+        swal.fire({icon: 'warning', text: 'Password must be at least 6 characters', confirmButtonColor: '#ec7aa0'});
+        return
+      }
+      if(!validator.isLength($('#regispass').val(), {max:20}) ) {
+        swal.fire({icon: 'warning', text: 'Password must be no more than 20 characters', confirmButtonColor: '#ec7aa0'});
+        return
+      }            
+
+      try{
+        const signup_response = await axios({
+            method: 'POST',
+            url: '/api/1.0/user/signup',
+            responseType: 'json',
+            data: {
+              username: $('#regisname').val(),
+              email: $('#regisemail').val(),
+              password: $('#regispass').val()
+            }
+        })
+
+        swal.fire({
+          icon: 'success', 
+          text: 'Sign up successfully! ',
+          showConfirmButton: false,
+          timer: 1000,
+        })
+        setTimeout(() => {
+          window.location.href = `/profile?locale=${locale}`
+        }, '1000');         
+      } catch(error) {
+        console.log(error);
+        let err_alert = error.response.data.error;
+        swal.fire({
+          text: err_alert,
+          confirmButtonColor: '#ec7aa0',          
+        });
+      }
+    }
+    $('#sign_up_button').on('click', signup);
+
+    $("#regispass").keypress(function(e){
+      code = (e.keyCode ? e.keyCode : e.which);
+      if (code == 13)
+      {
+        signup(event)
+      }
+    });
