@@ -27,12 +27,10 @@ block content
                       .section.text-center
                         h4.mb-4.pb-3 #{lang.account.login}
                         .form-group
-                          input#logemail.form-style(type='email', name='logemail', placeholder=`${lang.account.your_email}`, autocomplete='off', maxlength='30') 
-                          //- input#logemail.form-style(type='email', name='logemail', placeholder='Your Email', autocomplete='off', maxlength='30', value='ellie@gmail.com') 
+                          input#logemail.form-style(type='email', name='logemail', placeholder=`${lang.account.your_email}`, autocomplete='off', maxlength='30', value='ellie@gmail.com') 
                           i.input-icon.uil.uil-at
                         .form-group.mt-2
-                          input#logpass.form-style(type='password', name='logpass', placeholder=`${lang.account.your_password}`, autocomplete='off', maxlength='20')
-                          //- input#logpass.form-style(type='password', name='logpass', placeholder='Your Password', autocomplete='off', maxlength='20', value='12345678')
+                          input#logpass.form-style(type='password', name='logpass', placeholder=`${lang.account.your_password}`, autocomplete='off', maxlength='20', value='12345678')
                           i.input-icon.uil.uil-lock-alt
                         button#sign_in_button.button.mt-4(type="button") #{lang.submit}
                         //- p.mb-0.mt-4.text-center
