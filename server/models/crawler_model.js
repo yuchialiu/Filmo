@@ -13,7 +13,6 @@ const axios = require('axios');
 const fs = require('fs');
 const request = require('request');
 
-// let myFileName;
 let posterFileName;
 let bannerFileName;
 let castFileName;
@@ -122,9 +121,6 @@ const insertMovieCrawler = async (movies) => {
       }
 
       await saveMovieTranslation(movie.id, movieId);
-      // } else {
-      //   'UPDATE'
-      // }
     }
 
     return;
@@ -157,8 +153,6 @@ const insertPersonCrawler = async () => {
         castIndex = castLen;
       }
       for (let j = 0; j < castIndex; j++) {
-        // const personDb = await pool.execute('SELECT * FROM person WHERE ref_id = ?', [cast[i].id]);
-        // if (personDb[0].length == 0) {
         if (cast[i].profile_path === null) {
           castFileName = null;
         } else {
@@ -182,9 +176,6 @@ const insertPersonCrawler = async () => {
         }
 
         await savePersonDetail(cast[i].id, personId);
-        // } else {
-        // personId = personDb[0][0].id;
-        // }
 
         const sqlCast = `INSERT INTO \`cast\` (movie_id, person_id) 
         VALUES (?, ?)
@@ -213,9 +204,6 @@ const insertPersonCrawler = async () => {
         crewIndex = crewLen;
       }
       for (let i = 0; i < crewIndex; i++) {
-        // const personDb = await pool.execute('SELECT * FROM person WHERE ref_id = ?', [crew[i].id]);
-
-        // if (personDb[0].length == 0) {
         if (crew[i].profile_path === null) {
           crewFileName = null;
         } else {
@@ -238,9 +226,6 @@ const insertPersonCrawler = async () => {
           personId = resultId[0][0].id;
         }
         await savePersonDetail(crew[i].id, personId);
-        // } else {
-        // personId = personDb[0][0].id;
-        // }
 
         const sqlCrew = `INSERT INTO crew (movie_id, person_id) 
         VALUES (?, ?)

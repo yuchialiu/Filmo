@@ -562,10 +562,6 @@ const getReviewByMovieId = async (req) => {
       created_dt: dayjs(review.created_dt).locale(locale).format(formatDate),
       updated_dt: dayjs(review.updated_dt).locale(locale).format(formatDate),
       user_saved_review: savedReview,
-      // movie_id: resultMovie.movie_id,
-      // title: resultMovie.title,
-      // banner: `${SERVER_IP}/public/assets/images/banners/${resultMovie.banner_image}`,
-      // poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
     };
     info.push(result);
   }

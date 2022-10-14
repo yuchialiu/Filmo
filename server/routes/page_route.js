@@ -34,25 +34,6 @@ router.get('/login', (req, res) => {
 
 router.get('/profile', authentication, showProfile);
 
-// TODO:
-// router.route('/profile', authentication, showProfile);
-
-// router.get('/profile', authentication, (req, res) => {
-//   const { locale } = req.query;
-//   console.log('aaa');
-//   res.render('profile', {
-//     data: {
-//       user_id: req.session.userId,
-//       username: req.session.userName,
-//       user_email: req.session.userEmail,
-//       user_picture: req.session.picture,
-//     },
-//     locale,
-//     locale_string: JSON.stringify(locale),
-//     lang: lang[locale],
-//   });
-// });
-
 router.get('/movie', showMovieInfo);
 
 router.get('/person', showPersonDetail);

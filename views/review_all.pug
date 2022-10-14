@@ -62,7 +62,6 @@ block content
                 p.review_created_dt(class='card-footer') #{data[i].created_dt}  
 
   script(type='text/javascript').
-    //- $(async () => {
       const review_id = $('.review_id').data('id');
 
       $('.save_review_button').on('click', async (e) => {
@@ -160,7 +159,7 @@ block content
           setTimeout(() => {
             window.location.href = `/login?locale=${locale}`
           }, '1000');
-          console.log('err: ', err);
+          //- console.log('err: ', err);
         }
       });
 
@@ -168,11 +167,9 @@ block content
         e.preventDefault();   
         $('.review_title_spoiler').slideToggle("fast");   
         $('.review_title_movie').slideToggle("fast");
-        //- $('.review_img').slideToggle("slow");
         $('.review_text_all').slideToggle("fast");
       });
       
-    //- })
 
 
 

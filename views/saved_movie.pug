@@ -40,7 +40,6 @@ block content
                 a.list_link(href=`/movie?id=${data[i].movie_id}&locale=${locale}`)
                   img.list_img(src=`${data[i].poster}`, alt='Poster')
                   p.list_title #{data[i].title}
-                //- div.movie_id(data-id=`${data[i].movie_id}`)
                 div.delete_button
                   button.delete_saved_movie(class="fas fa-bookmark" type='submit' value=`${data[i].movie_id}`)          
 
@@ -50,7 +49,6 @@ block content
   script(type='text/javascript').
     $(async () => {
       const locale = !{ locale_string };
-      //- const locale = !{ locale };
 
       // logout
       $('#logout_btn').on('click', async (e) => {
@@ -84,7 +82,7 @@ block content
               window.location.href = `/home?locale=${locale}`;
           }, '1000');
         } catch (err) {
-          console.log(err);
+          //- console.log(err);
           swal.fire(err.response.data.message);
         }
       });
@@ -93,7 +91,7 @@ block content
       $('.delete_saved_movie').on('click', async (e) => {
         e.preventDefault();
         const movieId = e.target.value;
-        console.log(movieId)
+        //- console.log(movieId)
 
         try {
           const data = JSON.stringify({
@@ -108,7 +106,7 @@ block content
               'Content-Type': 'application/json',
             },
           });
-          console.log("result", result)
+          //- console.log("result", result)
 
           if (locale == 'en-US'){
             swal.fire({
@@ -134,53 +132,9 @@ block content
           }, '800');
         } catch {
           swal.fire(err);
-          console.log('err: ', err);
+          //- console.log('err: ', err);
         }
 
       });
     });
-    //- let token = localStorage.getItem('Authorization');
     
-    //- window.addEventListener('load', async function (event) {
-    //-   try {        
-    //-   if (!token) {
-    //-     alert("please sign in or sign up first");
-    //-     console.log("no token, please sign in or sign up first");
-    //-     window.location.href = "login";
-    //-     return;
-    //-   }
-    //-   await auth_member();
-    //-   //- showReviewByAccount(auth_result);
-    //- } catch(err) {
-    //-   console.log(err);
-    //- }
-    //- });
-
-    //- //authorize member
-    //- let auth_result;
-    //- const locale = document.URL.split("=")[1];
-
-
-    //-   async function auth_member() {
-    //-   try {
-    //-     auth_result = await axios({
-    //-       method: 'GET',
-    //-       url: `/api/1.0/user/review?locale=${locale}`,
-    //-       responseType: 'json',
-    //-       headers: {
-    //-         Authorization: `${localStorage.getItem('Authorization')}`,
-    //-       },
-    //-       });
-
-    //-     return auth_result;
-    //-   } catch(err) { 
-    //-     console.log(err);
-    //-   }
-    //- }
-
-    //- //- function showReviewByAccount(auth_result){
-    //- //-   let info = auth_result.data.data;
-    //- //-   console.log(info)
-
-    //- //-   for (let i in info){      }
-    //- //- }

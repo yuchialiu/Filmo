@@ -73,12 +73,10 @@ block content
                   button.save_review_button(type='submit' class="far fa-bookmark" value=`${data.info[i].review_id}`) 
             
               div(class='card-body')
-                //- img.review_img(src= `${data.info[i].image}`, alt='')
                 p.review_text_movie(class="card-text") #{data.info[i].content}
 
               div.bottom  
                 p.review_created_dt(class='card-footer') #{data.info[i].created_dt}  
-                  //- p.review_updated_dt #{data.info[i].updated_dt}
               
 
 
@@ -123,7 +121,7 @@ block content
         setTimeout(() => {
           window.location.href = `/login?locale=${locale}`
         }, '1000');
-        console.log('err: ', err);
+        //- console.log('err: ', err);
       }
     });
 
@@ -134,7 +132,7 @@ block content
       e.preventDefault(); 
 
       let reviewId = e.target.value;
-      console.log(reviewId)
+      //- console.log(reviewId)
       try {
         const data = JSON.stringify({
           reviewId,
@@ -225,7 +223,7 @@ block content
         setTimeout(() => {
           window.location.href = `/login?locale=${locale}`
         }, '1000');
-        console.log('err: ', err);
+        //- console.log('err: ', err);
       }
     });
   
@@ -233,7 +231,6 @@ block content
       e.preventDefault();   
       $('.review_title_spoiler').slideToggle("fast");   
       $('.review_title_movie').slideToggle("fast");
-      //- $('.review_img').slideToggle("slow");
       $('.review_text_movie').slideToggle("fast");
     });
     

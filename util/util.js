@@ -31,13 +31,11 @@ const authentication = (req, res, next) => {
   // console.log(req.session.isAuth);
 
   if (!req.session.isAuth) {
-    // return res.status(403).json({ success: false, message: 'unauthenticate' });
     return res.status(403).render('login', {
       locale,
       locale_string: JSON.stringify(locale),
       lang: Lang[locale],
       isAuth,
-      // isRedirect: true,
     });
   }
   return next();

@@ -108,7 +108,6 @@ const signIn = async (req, res) => {
   return res.status(201).send({
     response: user,
   });
-  // const result = await validateUser(email, password);
 };
 
 const logout = async (req, res) => {
@@ -116,7 +115,7 @@ const logout = async (req, res) => {
   res.status(200).json({ message: 'logout' });
 };
 
-// TODO: api from frontend
+// api from frontend
 const getUserDetail = async (req, res) => {
   res.status(200).send({
     data: {
@@ -133,7 +132,6 @@ const updateUserImage = async (req, res) => {
   if (req.files.image === undefined) {
     return res.status(400).json({ error: 'did not choose file' });
   }
-  // const image = req.files.image[0].key;
   const image = req.filename;
 
   const result = await User.updateUserImage(userId, image);
@@ -336,7 +334,6 @@ const getUserSavedReview = async (req, res) => {
 
   for (const reivew of resultSavedReview) {
     const resultReview = await User.getReviewInfo(reivew.review_id);
-    // for (const j in resultReview) {
     const info = {
       review_id: resultReview.id,
       content: resultReview.content,
@@ -345,7 +342,6 @@ const getUserSavedReview = async (req, res) => {
       updated_dt: resultReview.updated_dt,
     };
     result.push(info);
-    // }
   }
 
   res.status(200).send({ data: result });
@@ -389,14 +385,12 @@ const getUserSavedMovie = async (req, res) => {
 
   for (const movie of resultSavedMovie) {
     const resultMovie = await User.getMovieInfo(movie.movie_id, locale);
-    // for (j in resultMovie) {
     const info = {
       movie_id: resultMovie.id,
       title: resultMovie.title,
       poster: `${SERVER_IP}/public/assets/images/posters/${resultMovie.poster_image}`,
     };
     result.push(info);
-    // }
   }
 
   res.status(200).send({ data: result });
@@ -430,11 +424,7 @@ const createMovieRating = async (req, res) => {
   res.status(200).json({ message: 'submitted' });
 };
 
-// Review ranking
-
-// Comment ranking
-
-// TODO: submit review api from frontend
+// submit review api from frontend
 const getMovieInfoForReview = async (req, res) => {
   const { locale } = req.query;
 

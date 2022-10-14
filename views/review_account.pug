@@ -3,7 +3,6 @@ extends layout.pug
 block head
   link(rel='stylesheet', href='/public/assets/css/review.css', type='text/css')
   link(rel='stylesheet', href='/public/assets/css/profile.css', type='text/css')
-  //- link(rel='stylesheet', href='/public/assets/css/save_button.css', type='text/css')
 
 block content 
   body 
@@ -81,17 +80,11 @@ block content
               div.bottom
                 p.review_created_dt(class='card-footer') #{data[i].created_dt}  
 
-                //- p.review_num Review# #{data[i].id}
-                //- p.review_updated_dt Updated at #{data[i].updated_dt}
-                  //- div                 
-                //-   img.review_img(src=`${data[i].image}`, alt='')
-
   script(src='/public/assets/js/profile_sidebar.js')
 
   script(type='text/javascript').
     $(async () => {
       const locale = !{ locale_string };
-      //- let locale = !{locale}
 
       // logout
       $('#logout_btn').on('click', async (e) => {
@@ -125,7 +118,7 @@ block content
               window.location.href = `/home?locale=${locale}`;
           }, '1000');
         } catch (err) {
-          console.log(err);
+          //- console.log(err);
           swal.fire(err.response.data.message);
         }
       });
@@ -216,7 +209,7 @@ block content
             }, '1000');
           } catch {
             swal.fire(err);
-            console.log('err: ', err);
+            //- console.log('err: ', err);
           }
         }
       });    

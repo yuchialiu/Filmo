@@ -104,7 +104,7 @@ const getCrewMovieByPersonId = async (personId, locale) => {
 const getCharacterByCastId = async (castId, locale) => {
   const queryDetails = 'SELECT * FROM cast_translation WHERE cast_id = (?) AND locale = (?)';
   try {
-    // TODO: locale
+    // fallback locale english
     if (locale == 'zh-TW' || locale == 'fr-FR') {
       locale = 'en-US';
     }
@@ -119,7 +119,7 @@ const getCharacterByCastId = async (castId, locale) => {
 const getJobByCrewId = async (crewId, locale) => {
   const queryDetails = 'SELECT * FROM crew_translation WHERE crew_id = (?) AND locale = (?)';
   try {
-    // TODO: locale
+    // fallback locale english
     if (locale == 'zh-TW' || locale == 'fr-FR') {
       locale = 'en-US';
     }

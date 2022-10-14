@@ -4,8 +4,6 @@ block head
   link(rel='stylesheet', href='/public/assets/css/movie.css', type='text/css')
   link(rel='stylesheet', href='/public/assets/css/save_button.css', type='text/css')
 
-  //- link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
-
 block content 
   body
 
@@ -13,7 +11,6 @@ block content
   div.main.width
     ul.top_buttons
       li.movie_to_review
-        //- a(href=`/review/submit?id=${data.movie_id}&locale=${locale}`)
         button.to_submit_page(type='button') #{lang.review.submit_reivew}
 
       //- li.movie_to_rating
@@ -128,13 +125,13 @@ block content
         setTimeout(() => {
           window.location.href = `/login?locale=${locale}`
         }, '1000');
-        console.log('err: ', err);
+        //- console.log('err: ', err);
       }
     });
     
     $('.save_movie_button').on('click', async (e) => {
       e.preventDefault();
-      console.log(movieId)
+      //- console.log(movieId)
       try {
         const data = JSON.stringify({
           movieId,
@@ -223,20 +220,9 @@ block content
         setTimeout(() => {
           window.location.href = `/login?locale=${locale}`
         }, '1000');
-        console.log('err: ', err);
+        //- console.log('err: ', err);
       }
     });
-
-    //- $(document).ready(function(){
-    //-   $('.save_movie_button').click(function(){
-    //-         if ($('.far.fa-bookmark').css('color', 'white')) {
-    //-       $('.far.fa-bookmark').css('color', 'green')
-    //-   } else if ($('.far.fa-bookmark').css('color', 'green')) {
-    //-       $('.far.fa-bookmark').css('color', 'white')
-    //-   }
-    //- })
-    //- })
-    
 
     $(".owl-carousel").owlCarousel({
       items: 5,

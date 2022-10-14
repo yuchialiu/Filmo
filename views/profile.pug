@@ -7,7 +7,6 @@ block head
 block content 
   body 
     div.main_outer
-      //- div.col-2
       div
         div(id="sidebar-container" class="sidebar-expanded d-none d-md-block")
           ul(class="list-group")
@@ -31,7 +30,6 @@ block content
               i(class="fas fa-sign-out-alt")
               button(type='button')#logout_btn #{lang.account.logout}
 
-        //- div.col-10
       div.profile_outer
         div.profile_info
           div#picture_outline
@@ -62,7 +60,6 @@ block content
       const locale = !{ locale_string };
 
       // logout
-      //- $('#logout_btn').on('click', logout);
       $('#logout_btn').on('click', async (e) => {
         e.preventDefault();        
         try {
@@ -95,7 +92,7 @@ block content
           }, '1000');
           
         } catch (err) {
-          console.log(err);
+          //- console.log(err);
           swal.fire(err.response.data.message);
         }
       });
@@ -141,7 +138,7 @@ block content
               window.location.href = `profile?locale=${locale}`;
           }, '1000');
         } catch(err) {
-          console.log(err);
+          //- console.log(err);
           swal.fire({
             text: err.response.data.message,
             confirmButtonColor: '#ec7aa0',          

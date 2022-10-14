@@ -13,32 +13,6 @@ block content
       a(href=`/movie?id=${data[0].movie_id}&locale=${locale}`)
         img.movie_poster(src= `${data[0].poster}`, alt='Poster')
         p #{data[0].title}
-
-    //- div.review_info_update
-    //-   div.review_content 
-    //-     div.item_movie     
-    //-       div.d-flex
-    //-         div.user
-    //-           img.profile_img(src= `${data[0].profile_image}`, alt='Profile Image')
-    //-           p.username #{data[0].username}
-    //-         div 
-    //-           h3.review_title #{data[0].review_title}
-
-    //- div.ms-80
-    //-   img.review_img(src= `${data[0].image}`, alt='')
-    //-   p.review_text #{data[0].content}
-
-    //- div.bottom 
-    //-   p.review_created_dt #{data[0].created_dt}  
-
-    //- div.review_submit
-    //-   form.review_form_update
-    //-     
-
-    //- div
-      //- input#review_movie_id(type='text' name='movieId' value=`${data.movie_id}`)
-
-    
     div.input_area
       form.review_form_update
         div#review_id(name='movieId' data-id=`${data[0].review_id}`) 
@@ -54,16 +28,11 @@ block content
           div#textarea_count
             span#textarea_current 0
             span#textarea_maximum  / 1000
-    //- div
-    //-   h5.image_update 
-    //-     i18n(vanilla-i18n='image') Image
-    //-     br
-    //-     input.image_choose(name='image' type='file')        
+       
   div.submit
     button#update_review #{lang.update}
 
   script(type='text/javascript').
-    //- let locale = !{locale}
 
     // text count validate
     $('input').keyup(function() {
@@ -147,11 +116,11 @@ block content
 
         const form = $('.review_form_update')[0];
         const formData = new FormData(form);
-        console.log(form)
+        //- console.log(form)
 
         let reviewId = $('#review_id').data('id')
         formData.append('reviewId', reviewId);
-        console.log(formData)
+        //- console.log(formData)
         
         await axios({
           method: 'PATCH',
@@ -186,7 +155,8 @@ block content
         }, '1000');
       }
       catch(err){
-          console.log(err);
+        swal.fire(err);
+        //- console.log(err);
       }    
     };
     

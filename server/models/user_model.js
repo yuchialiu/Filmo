@@ -41,7 +41,6 @@ const validateEmail = async (email) => {
     if (!result.length) {
       return { error: 'email has not registered' };
     }
-    // const user = users[0]
     return result;
   } catch (err) {
     console.log(err);
@@ -225,7 +224,6 @@ const checkUserSavedReview = async (userId, reviewId) => {
   try {
     const [result] = await pool.execute('SELECT * FROM saved_review WHERE user_id = (?) AND review_id = (?)', [userId, reviewId]);
     if (result.length) {
-      // TODO:
       return true;
     }
     return false;
@@ -284,7 +282,6 @@ const getMovieInfo = async (movieId, locale) => {
 
 const checkUserSavedMovie = async (userId, movieId) => {
   try {
-    // TODO:
     const [result] = await pool.execute('SELECT * FROM saved_movie WHERE user_id = (?) AND movie_id = (?)', [userId, movieId]);
     if (result.length) {
       return true;
