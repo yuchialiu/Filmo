@@ -8,10 +8,18 @@ const User = require('../models/user_model');
 const Movie = require('../models/movie_model');
 const lang = require('../../util/language');
 
+function validateSignUpInfo(username, email, password) {
+  if (!username || !email || !password) {
+    return false;
+  }
+  return true;
+}
+
 const signUp = async (req, res) => {
   let { username } = req.body;
   const { email, password } = req.body;
-  if (!username || !email || !password) {
+
+  if (!validateSignUpInfo(username, email, password)) {
     res.status(400).json({ error: 'name, email and password are required' });
     return;
   }
@@ -64,11 +72,21 @@ const signUp = async (req, res) => {
   });
 };
 
+function validateSignInInfo(email, password) {
+  if (!email || !password) {
+    return false;
+  }
+  return true;
+}
+
 const signIn = async (req, res) => {
   const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(400).json({ error: 'Request Error: email and password are required.' });
+
+  if (!validateSignInInfo(email, password)) {
+    res.status(400).json({ error: 'Request Error: email and password are required.' });
+    return;
   }
+
   const user = await User.validateEmail(email);
 
   if (user.error) {
@@ -451,4 +469,6 @@ module.exports = {
   deleteUserSavedMovie,
   createMovieRating,
   getMovieInfoForReview,
+  validateSignUpInfo,
+  validateSignInInfo,
 };
