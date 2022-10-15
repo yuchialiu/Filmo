@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { authentication } = require('../../util/util');
-const lang = require('../../util/language');
+const Lang = require('../../util/language');
 
 const {
   showMovieListInfo,
@@ -27,7 +27,7 @@ router.get('/login', (req, res) => {
   res.render('login', {
     locale,
     locale_string: JSON.stringify(locale),
-    lang: lang[locale],
+    lang: Lang[locale],
     isAuth,
   });
 });

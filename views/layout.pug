@@ -55,7 +55,7 @@ header.header-area.header-sticky
             li
               a.home(href=`/home?locale=${locale}`) #{lang.nav.home} 
             li
-              - if (isAuth == false)
+              - if (!isAuth)
                 a.login #{lang.account.login}
               - else
                 a.account #{lang.nav.account}
