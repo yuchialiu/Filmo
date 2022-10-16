@@ -11,3 +11,7 @@ node_modules/
 /public/assets/images/uploads/*
 /public/assets/images/filmo_logo.png
 /public/assets/images/filmo_logo_2.png
+
+# devDependencies
+.eslintrc.json
+.prettierrc
