@@ -40,9 +40,11 @@ Deployed to Amazon EC2, the data was managed by Amazon RDS MySQL, and the images
   ![filmo_login](https://user-images.githubusercontent.com/105041441/196049939-95462bd8-7a70-4849-8e85-55ecf3125aa1.gif)
 
 - Login with Default Test Account
-   
-  - Email: ellie@gmail.com
-  - Password: 12345678
+ 
+    ```  
+    Email: ellie@gmail.com
+    Password: 12345678
+    ```
 
 - Turn off Spoiler Alert
 
