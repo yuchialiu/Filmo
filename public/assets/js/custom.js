@@ -1,22 +1,18 @@
 $(() => {
   // Page loading animation
-  $(window).on('load', () => {
-    $('#js-preloader').addClass('loaded');
-  });
+  $('#js-preloader').addClass('loaded');
 
   // WOW JS
-  $(window).on('load', () => {
-    if ($('.wow').length) {
-      const wow = new WOW({
-        boxClass: 'wow', // Animated element css class (default is wow)
-        animateClass: 'animated', // Animation css class (default is animated)
-        offset: 20, // Distance to the element when triggering the animation (default is 0)
-        mobile: true, // Trigger animations on mobile devices (default is true)
-        live: true, // Act on asynchronously loaded content (default is true)
-      });
-      wow.init();
-    }
-  });
+  if ($('.wow').length) {
+    const wow = new WOW({
+      boxClass: 'wow', // Animated element css class (default is wow)
+      animateClass: 'animated', // Animation css class (default is animated)
+      offset: 20, // Distance to the element when triggering the animation (default is 0)
+      mobile: true, // Trigger animations on mobile devices (default is true)
+      live: true, // Act on asynchronously loaded content (default is true)
+    });
+    wow.init();
+  }
 
   // $(window).scroll(function () {
   //   var scroll = $(window).scrollTop();
@@ -67,7 +63,9 @@ $(() => {
       $(this).addClass('active');
       $('.naccs ul').find(`li:eq(${numberIndex})`).addClass('active');
 
-      const listItemHeight = $('.naccs ul').find(`li:eq(${numberIndex})`).innerHeight();
+      const listItemHeight = $('.naccs ul')
+        .find(`li:eq(${numberIndex})`)
+        .innerHeight();
       $('.naccs ul').height(`${listItemHeight}px`);
     }
   });
@@ -212,26 +210,24 @@ $(() => {
   // }
 
   // Page loading animation
-  $(window).on('load', () => {
-    if ($('.cover').length) {
-      $('.cover').parallax({
-        imageSrc: $('.cover').data('image'),
-        zIndex: '1',
-      });
-    }
+  if ($('.cover').length) {
+    $('.cover').parallax({
+      imageSrc: $('.cover').data('image'),
+      zIndex: '1',
+    });
+  }
 
-    $('#preloader').animate(
-      {
-        opacity: '0',
-      },
-      600,
-      () => {
-        setTimeout(() => {
-          $('#preloader').css('visibility', 'hidden').fadeOut();
-        }, 300);
-      }
-    );
-  });
+  $('#preloader').animate(
+    {
+      opacity: '0',
+    },
+    600,
+    () => {
+      setTimeout(() => {
+        $('#preloader').css('visibility', 'hidden').fadeOut();
+      }, 300);
+    }
+  );
 
   const dropdownOpener = $('.main-nav ul.nav .has-sub > a');
 
@@ -242,7 +238,8 @@ $(() => {
 
       _this.on('tap click', (e) => {
         const thisItemParent = _this.parent('li');
-        const thisItemParentSiblingsWithDrop = thisItemParent.siblings('.has-sub');
+        const thisItemParentSiblingsWithDrop =
+          thisItemParent.siblings('.has-sub');
 
         if (thisItemParent.hasClass('has-sub')) {
           const submenu = thisItemParent.find('> ul.sub-menu');
@@ -254,9 +251,11 @@ $(() => {
             thisItemParent.addClass('is-open-sub');
 
             if (thisItemParentSiblingsWithDrop.length === 0) {
-              thisItemParent.find('.sub-menu').slideUp(400, 'easeInOutQuad', () => {
-                submenu.slideDown(250, 'easeInOutQuad');
-              });
+              thisItemParent
+                .find('.sub-menu')
+                .slideUp(400, 'easeInOutQuad', () => {
+                  submenu.slideDown(250, 'easeInOutQuad');
+                });
             } else {
               thisItemParent
                 .siblings()
