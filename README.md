@@ -1,4 +1,4 @@
-# ![filmo_logo (3)](https://user-images.githubusercontent.com/105041441/196049846-8c99e3aa-f841-411c-812d-dad48e68f2e9.png)
+# ![filmo_logo_color](https://user-images.githubusercontent.com/105041441/196240359-31447a63-11f4-4e59-b6fe-17271bdf7408.png)
 
 
 [Filmo](https://filmo.site/) is a multi-language movie information website for everyone to share reviews.
