@@ -9,8 +9,13 @@ node_modules/
 /public/assets/images/posters/*
 /public/assets/images/banners/*
 /public/assets/images/uploads/*
-/public/assets/images/filmo_logo.png
-/public/assets/images/filmo_logo_2.png
+!/public/assets/images/people/.gitkeep 
+!/public/assets/images/posters/.gitkeep 
+!/public/assets/images/banners/.gitkeep 
+!/public/assets/images/uploads/.gitkeep 
+/public/assets/images/clownfish.png
+/public/assets/images/favicon.png
+/public/assets/images/filmo0926.png
 
 # devDependencies
 .eslintrc.json
