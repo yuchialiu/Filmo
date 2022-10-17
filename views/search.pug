@@ -6,9 +6,8 @@ block head
 block content 
   body
     div.main_outer_search(class='d-flex justify-content-center')
-      - if (data === 'empty')
-        h1.no_review 
-          i18n(vanilla-i18n='cannot_find') Cannot Find the Movie You're Searching For
+      - if (data === 'not_found')
+        h1.no_review #{lang.cannot_find}
       - else 
         div.movie_search.justify-content-flex-start           
           - for (let i =  0 ; i < data.length; i++)

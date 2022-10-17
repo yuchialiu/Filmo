@@ -65,7 +65,10 @@ const getMovieInfo = async (req) => {
 
   const castInfo = [];
   for (const castDetail of resultCast) {
-    const resultPerson = await Movie.getPersonDetail(castDetail.person_id, locale);
+    const resultPerson = await Movie.getPersonDetail(
+      castDetail.person_id,
+      locale
+    );
 
     const cast = {
       person_id: castDetail.person_id,
@@ -79,7 +82,10 @@ const getMovieInfo = async (req) => {
 
   const crewInfo = [];
   for (const crewDetail of resultCrew) {
-    const resultPerson = await Movie.getPersonDetail(crewDetail.person_id, locale);
+    const resultPerson = await Movie.getPersonDetail(
+      crewDetail.person_id,
+      locale
+    );
 
     const crew = {
       person_id: crewDetail.person_id,
@@ -187,7 +193,10 @@ const getPersonDetail = async (req) => {
 
   const castMovie = [];
   for (const castDetail of resultCast) {
-    const resultCharacter = await Movie.getCharacterByCastId(castDetail.cast_id, locale);
+    const resultCharacter = await Movie.getCharacterByCastId(
+      castDetail.cast_id,
+      locale
+    );
     const movie = {
       movie_id: castDetail.movie_id,
       title: castDetail.title,
@@ -312,7 +321,10 @@ const showUserSavedReview = async (req, res) => {
   for (const review of resultSavedReview) {
     const resultReview = await User.getReviewInfo(review.review_id);
     const resultAccount = await User.getUserById(resultReview[0].user_id);
-    const resultMovie = await Movie.getMovieInfo(resultReview[0].movie_id, locale);
+    const resultMovie = await Movie.getMovieInfo(
+      resultReview[0].movie_id,
+      locale
+    );
 
     let formatDate;
     if (locale === 'en-US') {
@@ -331,8 +343,12 @@ const showUserSavedReview = async (req, res) => {
       review_title: resultReview[0].title,
       content: resultReview[0].content,
       image: `${AWS_CLOUDFRONT_DOMAIN}/images/uploads/${resultReview[0].image}`,
-      created_dt: dayjs(resultReview[0].created_dt).locale(locale).format(formatDate),
-      updated_dt: dayjs(resultReview[0].updated_dt).locale(locale).format(formatDate),
+      created_dt: dayjs(resultReview[0].created_dt)
+        .locale(locale)
+        .format(formatDate),
+      updated_dt: dayjs(resultReview[0].updated_dt)
+        .locale(locale)
+        .format(formatDate),
       movie_id: resultMovie.movie_id,
       movie_title: resultMovie.title,
       movie_poster: `${AWS_CLOUDFRONT_DOMAIN}/images/posters/${resultMovie.poster_image}`,
@@ -594,7 +610,11 @@ const showSearchMovie = async (req, res) => {
   const { isAuth } = req.session;
 
   try {
-    const resultSearch = await Movie.getMovieListByFilter(keyword, genreId, locale);
+    const resultSearch = await Movie.getMovieListByFilter(
+      keyword,
+      genreId,
+      locale
+    );
 
     const result = [];
     for (const movie of resultSearch) {
@@ -609,7 +629,13 @@ const showSearchMovie = async (req, res) => {
     }
 
     if (!result.length || !resultSearch.length) {
-      res.status(200).render('search', { data: 'empty', locale, locale_string: JSON.stringify(locale) });
+      res.status(200).render('search', {
+        data: 'not_found',
+        locale,
+        locale_string: JSON.stringify(locale),
+        lang: Lang[locale],
+        isAuth,
+      });
       return;
     }
 
@@ -621,7 +647,12 @@ const showSearchMovie = async (req, res) => {
       isAuth,
     });
   } catch (err) {
-    res.status(404).render('404', { locale, lang: Lang[locale], isAuth });
+    res.status(404).render('404', {
+      locale,
+      locale_string: JSON.stringify(locale),
+      lang: Lang[locale],
+      isAuth,
+    });
   }
 };
 

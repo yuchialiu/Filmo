@@ -109,7 +109,7 @@ block content
           window.location.href = `/profile?locale=${locale}`
         }, '1000');           
       } catch(error) {
-        //- console.log(error);
+        console.log(error);
         if (locale == 'en-US'){
           swal.fire({icon: 'warning', 
           text: 'Email or password is wrong', 
@@ -126,9 +126,9 @@ block content
           confirmButtonColor: '#ec7aa0',          
           });          
         }
-        setTimeout(() => {
-          location.reload();
-        }, '800');            
+        //- setTimeout(() => {
+        //-   location.reload();
+        //- }, '800');            
       }
     }
 

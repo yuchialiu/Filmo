@@ -3,6 +3,7 @@ const lang = {
     nav: {
       home: 'Home',
       account: 'Account',
+      search: 'Search',
     },
     index: {
       trending: 'Trending',
@@ -59,12 +60,13 @@ const lang = {
     delete: 'Delete',
     update: 'Update',
     cannot_find: "Cannot Find the Movie You're Searching For",
-    404: 'Looks like the page you were looking for is no longer here',
+    error_404: 'Looks like the page you were looking for is no longer here',
   },
   'zh-TW': {
     nav: {
       home: '首頁',
       account: '帳號',
+      search: '搜尋',
     },
     index: {
       trending: '熱門',
@@ -121,12 +123,13 @@ const lang = {
     delete: '刪除',
     update: '更新',
     cannot_find: '找不到此電影',
-    404: '頁面不存在',
+    error_404: '頁面不存在',
   },
   'fr-FR': {
     nav: {
       home: 'Accueil',
       account: 'Mon compte',
+      search: 'Rechercher',
     },
     index: {
       trending: 'En',
@@ -183,7 +186,7 @@ const lang = {
     delete: 'Effacer',
     update: 'Réviser',
     cannot_find: 'Impossible de trouver le film que vous recherchez',
-    404: "La page que vous recherchez n'existe plus",
+    error_404: "La page que vous recherchez n'existe plus",
   },
 };
 

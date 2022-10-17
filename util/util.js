@@ -14,7 +14,10 @@ const { defaultProvider } = require('@aws-sdk/credential-provider-node');
 const provider = defaultProvider({
   roleAssumerWithWebIdentity: getDefaultRoleAssumerWithWebIdentity,
 });
-const s3 = new S3Client({ credentialDefaultProvider: provider, region: 'us-west-2' });
+const s3 = new S3Client({
+  credentialDefaultProvider: provider,
+  region: 'us-west-2',
+});
 
 const authenticationAPI = (req, res, next) => {
   if (!req.session.isAuth) {
@@ -41,6 +44,25 @@ const authentication = (req, res, next) => {
   return next();
 };
 
+const language = (req, res, next) => {
+  const { locale } = req.query;
+  const { isAuth } = req.session;
+
+  //set fallback language as 'en-US'
+  if (
+    !locale ||
+    (locale !== 'en-US' && locale !== 'zh-TW' && locale !== 'fr-FR')
+  ) {
+    return res.status(404).render('404', {
+      locale: 'en-US',
+      locale_string: JSON.stringify('en-US'),
+      lang: Lang['en-US'],
+      isAuth,
+    });
+  }
+  return next();
+};
+
 const upload = multer({
   storage: multerS3({
     s3,
@@ -50,7 +72,10 @@ const upload = multer({
     },
     key(req, file, cb) {
       const ext = path.extname(file.originalname);
-      const newFileName = `${crypto.randomBytes(18).toString('hex').substr(0, 8)}${ext}`;
+      const newFileName = `${crypto
+        .randomBytes(18)
+        .toString('hex')
+        .substr(0, 8)}${ext}`;
       const filePath = `images/uploads/${newFileName}`;
       cb(null, filePath.toString());
       req.filename = newFileName;
@@ -61,7 +86,9 @@ const upload = multer({
   // FILTER OPTIONS LIKE VALIDATING FILE EXTENSION
   fileFilter(req, file, cb) {
     const filetypes = /jpeg|jpg|png/;
-    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    const extname = filetypes.test(
+      path.extname(file.originalname).toLowerCase()
+    );
     const mimetype = filetypes.test(file.mimetype);
     if (mimetype && extname) {
       return cb(null, true);
@@ -113,6 +140,7 @@ const checkImageExist = (req, res, next) => {
 
 module.exports = {
   upload,
+  language,
   authentication,
   authenticationAPI,
   checkImageExist,
