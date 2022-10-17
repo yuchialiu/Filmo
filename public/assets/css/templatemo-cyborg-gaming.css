@@ -454,6 +454,9 @@ Header Style
   color: #fff;
   font-size: 14px;
   padding: 0px 15px 0px 45px;
+  /* logo with fish */
+  margin-top: 2.5px;
+  /* logo with fish */
 }
 
 .header-area .main-nav #search i {
@@ -478,7 +481,11 @@ Header Style
 }
 
 .header-area .main-nav .logo img {
-  width: 191px;
+  /* width: 191px; */
+  /* logo with fish */
+  width: 230px;
+  margin-top: 5px;
+  /* logo with fish */
 }
 
 .background-header .main-nav .logo {
