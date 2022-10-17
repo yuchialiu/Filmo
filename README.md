@@ -75,7 +75,7 @@ Deployed to Amazon EC2, the data was managed by Amazon RDS MySQL, and the images
 
 - Website
 
-![filmo_website](https://user-images.githubusercontent.com/105041441/196049964-aa711669-69db-4f67-9e23-aa8b9b755be0.jpg)
+![filmo_website](https://user-images.githubusercontent.com/105041441/196109939-c2c404ac-8e2e-4b1d-aa42-61771f481dc5.jpg)
 
 - Server
 
@@ -96,6 +96,7 @@ To improve the website, here are the future features below:
  - [ ]  Comment Ranking 
 
 ## Contact
+Feel free to contact me if you have any questions or feedback. Thank you!
 
 Ellie - ellieliu128@gmail.com
 
