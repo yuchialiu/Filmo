@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { authentication } = require('../../util/util');
+const { authentication, language } = require('../../util/util');
 const Lang = require('../../util/language');
 
 const {
@@ -18,9 +18,9 @@ const {
   showProfile,
 } = require('../controllers/page_controller');
 
-router.get('/home', showMovieListInfo);
+router.get('/home', language, showMovieListInfo);
 
-router.get('/login', (req, res) => {
+router.get('/login', language, (req, res) => {
   const { locale } = req.query;
   const { isAuth } = req.session;
 
@@ -32,28 +32,28 @@ router.get('/login', (req, res) => {
   });
 });
 
-router.get('/profile', authentication, showProfile);
+router.get('/profile', language, authentication, showProfile);
 
-router.get('/movie', showMovieInfo);
+router.get('/movie', language, showMovieInfo);
 
-router.get('/person', showPersonDetail);
+router.get('/person', language, showPersonDetail);
 
-router.get('/profile/review', authentication, showProfileReview);
+router.get('/profile/review', language, authentication, showProfileReview);
 
-router.get('/store/review', authentication, showUserSavedReview);
+router.get('/store/review', language, authentication, showUserSavedReview);
 
-router.get('/store/movie', authentication, showUserSavedMovie);
+router.get('/store/movie', language, authentication, showUserSavedMovie);
 
-router.get('/review', showAllReviews);
+router.get('/review', language, showAllReviews);
 
-router.get('/review/movie', showReviewByMovieId);
+router.get('/review/movie', language, showReviewByMovieId);
 
-router.get('/review/info', showReviewById);
+router.get('/review/info', language, showReviewById);
 
-router.get('/review/update', authentication, showReviewWhenUpdate);
+router.get('/review/update', language, authentication, showReviewWhenUpdate);
 
-router.get('/review/submit', authentication, showMovieInfoForReview);
+router.get('/review/submit', language, authentication, showMovieInfoForReview);
 
-router.get('/search', showSearchMovie);
+router.get('/search', language, showSearchMovie);
 
 module.exports = router;

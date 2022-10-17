@@ -35,21 +35,40 @@ app.use('/', [require('./server/routes/page_route')]);
 
 // API Routes
 app.use(`/api/${API_VERSION}/user`, [require('./server/routes/user_route')]);
-app.use(`/api/${API_VERSION}`, [require('./server/routes/crawler_route'), require('./server/routes/movie_route')]);
+app.use(`/api/${API_VERSION}`, [
+  require('./server/routes/crawler_route'),
+  require('./server/routes/movie_route'),
+]);
 
 // Handle 404
+const Lang = require('./util/language');
+
 app.use((req, res, next) => {
+  const { locale } = req.query;
+  const { isAuth } = req.session;
   console.log('404', req.url);
-  return res.render('404');
+  return res.render('404', {
+    locale,
+    locale_string: JSON.stringify(locale),
+    lang: Lang[locale],
+    isAuth,
+  });
 });
 
 // Handle 500
 app.use((err, req, res, next) => {
+  const { locale } = req.query;
+  const { isAuth } = req.session;
   if (err.status !== 500) {
     return res.status(400).send({ message: err.message });
   }
   console.log('error handler: ', err);
-  return res.status(500).render('500');
+  return res.status(500).render('500', {
+    locale,
+    locale_string: JSON.stringify(locale),
+    lang: Lang[locale],
+    isAuth,
+  });
 });
 
 // Server Port
