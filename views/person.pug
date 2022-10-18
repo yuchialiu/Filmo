@@ -10,7 +10,7 @@ block content
     div.detail
       h1#name #{data.name}
       div#main_info
-        - if (data.birthday)
+        - if (data.birthday != 'Invalid Date')
           p#born #{lang.movie.born}
           p#birthday #{data.birthday}
         - if (data.deathday != 'Invalid Date')
