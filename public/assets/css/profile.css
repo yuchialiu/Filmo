@@ -11,6 +11,15 @@
 }
 /* nav selected */
 
+@media screen and (min-width: 1301px) {
+  .profile_outer,
+  .outer_review_account,
+  .movie,
+  .outer_review_account {
+    margin: 0 auto;
+  }
+}
+
 .main_outer {
   margin-top: 120px !important;
   min-height: 650px;

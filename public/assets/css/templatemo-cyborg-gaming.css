@@ -462,11 +462,11 @@ Header Style
 .header-area .main-nav #search i {
   position: absolute;
   color: #fff;
-  left: 20px;
+  left: 12px;
   top: 16px;
   width: 18px;
   height: 18px;
-  font-size: 16px;
+  font-size: 19px;
 }
 
 .header-area .main-nav .logo {
@@ -478,6 +478,9 @@ Header Style
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
   margin-top: -4px;
+  /* logo with fish */
+  margin-left: -1%;
+  /* logo with fish */
 }
 
 .header-area .main-nav .logo img {

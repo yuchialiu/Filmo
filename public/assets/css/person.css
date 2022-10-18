@@ -2,6 +2,13 @@
   margin-left: 15px;
 }
 
+@media screen and (min-width: 1301px) {
+  .main {
+    margin: 0 auto;
+    width: 1200px;
+  }
+}
+
 .detail {
   margin-left: 50px;
   margin-top: 150px;
