@@ -116,9 +116,11 @@ script(type="text/javascript").
 
     $( '.dropdown-toggle' ).on( 'change', function( e ){
       e.preventDefault();
-      const newUrl = origin + pathname + (document.location.search).slice(0, -5)
+      //- const newUrl = origin + pathname + (document.location.search).slice(0, -5)
+      let Url = new URLSearchParams(window.location.search)
+      let query_locale = Url.get('locale')
       //- console.log(newUrl + $( this ).val())
-      window.location.href = newUrl + $( this ).val();
+      window.location.href = origin + pathname + '?locale=' + $( this ).val();
     });
     
   $('.account').on('click', async (e) => {

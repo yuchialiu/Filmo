@@ -42,8 +42,9 @@ app.use(`/api/${API_VERSION}`, [
 
 // Handle 404
 const Lang = require('./util/language');
+const { language } = require('./util/util');
 
-app.use((req, res, next) => {
+app.use(language, (req, res, next) => {
   const { locale } = req.query;
   const { isAuth } = req.session;
   console.log('404', req.url);
