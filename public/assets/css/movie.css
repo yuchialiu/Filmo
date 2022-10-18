@@ -33,6 +33,7 @@
   justify-content: space-between;
   align-items: flex-start;
 }
+
 /* #release_date {
   width: 50px;
 }
@@ -50,7 +51,8 @@
   margin-bottom: 10px;
   line-height: 0.8;
   margin-top: 30px;
-  width: 1113px;
+  max-width: 1113px;
+  min-width: 800px;
 }
 
 #title {
