@@ -119,7 +119,12 @@ script(type="text/javascript").
       //- const newUrl = origin + pathname + (document.location.search).slice(0, -5)
       let Url = new URLSearchParams(window.location.search)
       let query_locale = Url.get('locale')
+      let query_id = Url.get('id')
       //- console.log(newUrl + $( this ).val())
+      if (query_id !== null) {
+        window.location.href = origin + pathname + '?id=' + query_id +'&locale=' + $( this ).val();
+        return
+      }
       window.location.href = origin + pathname + '?locale=' + $( this ).val();
     });
     
