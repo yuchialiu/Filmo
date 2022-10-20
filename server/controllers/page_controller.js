@@ -151,14 +151,12 @@ const showMovieInfo = async (req, res) => {
       isAuth,
     });
   } catch (err) {
-    res
-      .status(404)
-      .render('404', {
-        locale,
-        locale_string: JSON.stringify(locale),
-        lang: Lang[locale],
-        isAuth,
-      });
+    res.status(404).render('404', {
+      locale,
+      locale_string: JSON.stringify(locale),
+      lang: Lang[locale],
+      isAuth,
+    });
   }
 };
 
@@ -534,7 +532,7 @@ const showReviewWhenUpdate = async (req, res) => {
     const response = await getReviewInfo(req);
 
     if (response[0].user_id !== userId) {
-      return res.status(403).json({ authorized: 'no' });
+      return res.status(403).json({ authorized: 'forbidden' });
     }
 
     res.render('review_update', {
