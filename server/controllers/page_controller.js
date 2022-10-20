@@ -7,7 +7,6 @@ require('dayjs/locale/fr');
 require('dayjs/locale/zh-tw');
 const User = require('../models/user_model');
 const Movie = require('../models/movie_model');
-const Page = require('../models/page_model');
 const Lang = require('../../util/language');
 
 const showMovieListInfo = async (req, res) => {
@@ -152,7 +151,14 @@ const showMovieInfo = async (req, res) => {
       isAuth,
     });
   } catch (err) {
-    res.status(404).render('404', { locale, lang: Lang[locale], isAuth });
+    res
+      .status(404)
+      .render('404', {
+        locale,
+        locale_string: JSON.stringify(locale),
+        lang: Lang[locale],
+        isAuth,
+      });
   }
 };
 
@@ -170,7 +176,12 @@ const showMovieInfoForReview = async (req, res) => {
       isAuth,
     });
   } catch (err) {
-    res.status(404).render('404', { locale, lang: Lang[locale], isAuth });
+    res.status(404).render('404', {
+      locale,
+      locale_string: JSON.stringify(locale),
+      lang: Lang[locale],
+      isAuth,
+    });
   }
 };
 
@@ -506,16 +517,26 @@ const showReviewById = async (req, res) => {
       isAuth,
     });
   } catch (err) {
-    res.status(404).render('404', { locale, lang: Lang[locale], isAuth });
+    res.status(404).render('404', {
+      locale,
+      locale_string: JSON.stringify(locale),
+      lang: Lang[locale],
+      isAuth,
+    });
   }
 };
 
 const showReviewWhenUpdate = async (req, res) => {
   const { locale } = req.query;
-  const { isAuth } = req.session;
+  const { userId, isAuth } = req.session;
 
   try {
     const response = await getReviewInfo(req);
+
+    if (response[0].user_id !== userId) {
+      return res.status(403).json({ authorized: 'no' });
+    }
+
     res.render('review_update', {
       data: response,
       locale,
@@ -524,7 +545,12 @@ const showReviewWhenUpdate = async (req, res) => {
       isAuth,
     });
   } catch (err) {
-    res.status(404).render('404', { locale, lang: Lang[locale], isAuth });
+    res.status(404).render('404', {
+      locale,
+      locale_string: JSON.stringify(locale),
+      lang: Lang[locale],
+      isAuth,
+    });
   }
 };
 
@@ -534,7 +560,7 @@ const getReviewByMovieId = async (req) => {
 
   const info = [];
   const movie = [];
-  const resultReview = await Page.getReviewByMovieId(id);
+  const resultReview = await User.getReviewByMovieId(id);
   const resultMovie = await Movie.getMovieInfo(id, locale);
 
   const movieInfo = {
@@ -601,7 +627,12 @@ const showReviewByMovieId = async (req, res) => {
       isAuth,
     });
   } catch (err) {
-    res.status(404).render('404', { locale, lang: Lang[locale], isAuth });
+    res.status(404).render('404', {
+      locale,
+      locale_string: JSON.stringify(locale),
+      lang: Lang[locale],
+      isAuth,
+    });
   }
 };
 
